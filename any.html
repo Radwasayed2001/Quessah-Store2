@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/png"
+        href="https://cdn.salla.sa/nWlYv/v7mHegP1Gp7vdRamAhSWRP19p65Qf6un0xXIoTxk.png"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet"/>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <title>Quesah Store</title>
+</head>
+<body dir="rtl" lang="ar">
+
+  <div class="min-h-screen bg-white py-12 md:py-16 px-4 sm:px-6 lg:px-10">
+
+    <!-- Landing Screen -->
+    <section id="screen-landing" class="screen">
+      <div data-aos="fade-down"
+           class="relative max-w-7xl mx-auto flex justify-center flex-col items-center text-center">
+        <img src="./images/sparkles.png" alt="" aria-hidden="true"
+             class="pointer-events-none absolute inset-x-0 top-0 -translate-y-1/4 mx-auto  w-full md:max-w-3xl mt-8 opacity-60"/>
+        <div class="mb-6 md:mb-0 md:my-6"></div>
+        <h2 class="relative text-2xl  md:text-3xl lg:text-5xl mt-4 font-semibold text-gray-900 mb-2">
+          عالم القصة <span class="text-[#303590]">التفاعلية</span>
+        </h2>
+        <p class="relative text-[#666666] text-base md:text-lg lg:text-xl">
+          ابتكر بطلك وانطلق في أروع المغامرات!
+        </p>
+      </div>
+      <div class="w-full flex justify-center mt-8">
+        <button id="btn-to-char"
+                class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+          كيف أبدأ؟
+        </button>
+      </div>
+    </section>
+
+    <!-- Character Input Screen -->
+    <section id="screen-char" class="hidden screen">
+      <div class="flex flex-col items-center justify-center gap-2 mt-4 p-4 max-w-full">
+        <label for="heroName"
+               class="text-sm text-gray-700 font-semibold text-start max-w-lg">
+          ما اسم بطل قصتك؟
+        </label>
+        <div class="relative w-full max-w-md">
+          <span
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-purple-500 text-xl">…</span>
+          <input
+            type="text"
+            id="heroName"
+            placeholder="مثال: سارة، فيصل..."
+            class="w-full pl-10 pr-4 py-2 border border-[#898EE9] rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 text-right placeholder-gray-400 text-sm"
+          />
+        </div>
+        <div class="w-full flex justify-center mt-4">
+          <button id="btn-to-story"
+                  class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                  disabled>
+            التالي
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Type (Start Game Button) -->
+    <h2
+      class="flex w-full text-center text-[#041710] justify-center mt-8 text-2xl font-semibold">
+      اختر نوع قصتك المفضلة
+    </h2>
+    <div
+      class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:px-8 max-w-2xl mx-auto">
+      <!-- Card 1 -->
+      <div data-aos='zoom-in'
+           class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+        <div class="flex flex-col justify-center w-full items-center">
+          <div class="flex justify-center items-center">
+            <svg width="64" height="64"></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#041710] my-2">مغامرة</h3>
+          <p class="text-[#666666] text-sm text-center">
+            رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
+          </p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div data-aos='zoom-in'
+           class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+        <div class="flex flex-col justify-center w-full items-center">
+          <div class="flex justify-center items-center">
+            <svg width="64" height="64"></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#041710] my-2">خيال</h3>
+          <p class="text-[#666666] text-sm text-center">
+            عالم سحري مليء بالعجائب والمخلوقات الأسطورية
+          </p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div data-aos='zoom-in'
+           class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+        <div class="flex flex-col justify-center w-full items-center">
+          <div class="flex justify-center items-center">
+            <svg width="64" height="64"></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#041710] my-2">كوميدي</h3>
+          <p class="text-[#666666] text-sm text-center">
+            قصة مرحة تملأ قلبك بالضحك والفرح
+          </p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div data-aos='zoom-in'
+           class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+        <div class="flex flex-col justify-center w-full items-center">
+          <div class="flex justify-center items-center">
+            <svg width="64" height="64"></svg>
+          </div>
+          <h3 class="text-lg font-semibold text-[#041710] my-2">غموض</h3>
+          <p class="text-[#666666] text-sm text-center">
+            اكتشف أسرارًا غامضة في انتظارك!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full flex justify-center mt-8">
+      <button id="startButton"
+              class="btn btn-start"
+              disabled>ابدأ اللعب
+      </button>
+    </div>
+
+    <!-- Story Screen -->
+    <section id="screen-story" class="hidden screen bg-white py-12 md:py-16 px-4 sm:px-6 lg:px-10 flex flex-col items-center justify-center">
+      <div id="story-container"
+           class="w-full max-w-2xl p-6 bg-white rounded-xl shadow-lg animate-fade-in">
+        <!-- dynamic step -->
+      </div>
+    </section>
+
+    <!-- Completion Screen -->
+    <section id="screen-complete" class="hidden screen bg-white py-12 md:py-16 px-4 sm:px-6 lg:px-10 flex flex-col items-center justify-center">
+      <h2 class="text-2xl font-semibold mb-4">انتهت قصتك!</h2>
+      <div id="full-story" class="w-full max-w-2xl p-6 bg-white rounded-xl shadow-lg text-right space-y-4"></div>
+      <div class="mt-6 flex gap-4">
+        <button id="share-fb"
+                class="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 transition">
+          مشاركة عبر فيسبوك
+        </button>
+        <button id="share-wa"
+                class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+          مشاركة عبر واتساب
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- External Scripts -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+
+  <!-- Interactive Logic -->
+  <script>
+    // 1) Your 10‐step story
+    const story = [
+      { text: "في صباحٍ هادئ، استيقظ بطلنا {hero} على صوت الطيور.", type: null },
+      { text: "ما الذي شعر به {hero} فور فتح عينيه؟", type: "text", placeholder: "اكتب شعور البطل..." },
+      { text: "{hero} قرر الخروج لاستكشاف الغابة القريبة.", type: null },
+      { text: "أمام {hero} مفترق: هل سيتجه نحو الشلال أم الكهف؟", type: "choice", choices: ["الشلال","الكهف","البحث عن أثر آخر"] },
+      { text: "{hero} سار متجهاً نحو {choice}.", type: null },
+      { text: "ما الذي وجده {hero} عند {choice}؟", type: "text", placeholder: "صِف ما وجده..." },
+      { text: "وفجأة، ظهر أمامه مخلوق غريب.", type: null },
+      { text: "كيف يتصرف {hero}؟", type: "choice", choices: ["المواجهة","الفرار","التحديق بفضول"] },
+      { text: "{hero} قام بـ{choice}، وكانت النتيجة مذهلة!", type: null },
+      { text: "وعاش {hero} مغامرة لا تُنسى.", type: null }
+    ];
+    let current = 0, hero = "", last = "";
+
+    // grab screens & controls
+    const landing = document.getElementById("screen-landing"),
+          charSec  = document.getElementById("screen-char"),
+          storySec = document.getElementById("screen-story"),
+          doneSec  = document.getElementById("screen-complete"),
+          btnToChar= document.getElementById("btn-to-char"),
+          inpName  = document.getElementById("heroName"),
+          btnNext  = document.getElementById("btn-to-story"),
+          startBtn = document.getElementById("startButton"),
+          container= document.getElementById("story-container"),
+          fullStory= document.getElementById("full-story");
+
+    function show(el){ el.classList.remove("hidden"); }
+    function hide(el){ el.classList.add("hidden"); }
+
+    // init
+    hide(charSec); hide(storySec); hide(doneSec);
+
+    // 1) Landing → Char
+    btnToChar.onclick = ()=> {
+      hide(landing);
+      show(charSec);
+    };
+
+    // 2) Enable next
+    inpName.oninput = ()=> btnNext.disabled = inpName.value.trim()==="";
+
+    // 3) Char → enable start
+    btnNext.onclick = ()=> {
+      hero = inpName.value.trim();
+      hide(charSec);
+      show(startBtn.parentElement);
+      startBtn.disabled = false;
+    };
+
+    // 4) Start game
+    startBtn.onclick = ()=> {
+      hide(landing); hide(startBtn.parentElement);
+      current = 0; showStep(); show(storySec);
+    };
+
+    // render step
+    function showStep(){
+      const s = story[current];
+      container.innerHTML = "";
+      let txt = s.text.replaceAll("{hero}",hero).replaceAll("{choice}",last);
+      const p = document.createElement("p"); p.className="mb-4 text-lg";
+      p.textContent = txt; container.appendChild(p);
+
+      if(s.type==="text"){
+        const t = document.createElement("input");
+        t.type="text"; t.placeholder=s.placeholder;
+        t.className="w-full px-3 py-2 border rounded-md text-right";
+        container.appendChild(t);
+        const b = document.createElement("button");
+        b.textContent="التالي"; b.className="mt-4 px-5 py-2 bg-indigo-600 text-white rounded-lg";
+        b.onclick = ()=>{ last=t.value.trim()||"..."; next(); };
+        container.appendChild(b);
+
+      } else if(s.type==="choice"){
+        const wrap = document.createElement("div"); wrap.className="flex flex-col gap-3";
+        s.choices.forEach(ch=>{
+          const b = document.createElement("button");
+          b.textContent=ch; b.className="px-4 py-2 border rounded-md hover:bg-indigo-100 transition text-right";
+          b.onclick = ()=>{ last=ch; next(); };
+          wrap.appendChild(b);
+        });
+        container.appendChild(wrap);
+
+      } else {
+        setTimeout(next,1200);
+      }
+    }
+
+    function next(){
+      container.classList.add("animate-fade-out");
+      setTimeout(()=>{
+        container.classList.remove("animate-fade-out");
+        current++;
+        if(current<story.length) showStep();
+        else finish();
+      },400);
+    }
+
+    function finish(){
+      fullStory.innerHTML="";
+      story.forEach(s=>{
+        let t = s.text.replaceAll("{hero}",hero).replaceAll("{choice}",last);
+        const p = document.createElement("p"); p.textContent=t;
+        fullStory.appendChild(p);
+      });
+      show(doneSec);
+    }
+
+    // sharing
+    document.getElementById("share-fb").onclick = ()=> {
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,"_blank");
+    };
+    document.getElementById("share-wa").onclick = ()=> {
+      const msg = story.map(s=>s.text.replaceAll("{hero}",hero).replaceAll("{choice}",last)).join("\n");
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,"_blank");
+    };
+  </script>
+
+</body>
+</html>

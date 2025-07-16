@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API</title>
+</head>
+<body>
+    <h1>اختبار API</h1>
+    <button onclick="testAPI()">اختبار API</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            try {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer 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',
+                        'Content-Type': 'application/json',
+                        // Optionally, add Referer and X-Title for ranking
+                        // 'HTTP-Referer': 'https://qusahstore.com/',
+                        // 'X-Title': 'Quessah Store Interactive Stories'
+                    },
+                    body: JSON.stringify({
+                        model: 'openai/gpt-4.1',
+                        messages: [
+                            { role: "system", content: "You are a helpful assistant." },
+                            { role: "user", content: "ما عاصمة فرنسا؟" }
+                        ],
+                        temperature: 0.7,
+                        top_p: 1.0
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html> 

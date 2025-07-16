@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="output.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="https://cdn.salla.sa/nWlYv/v7mHegP1Gp7vdRamAhSWRP19p65Qf6un0xXIoTxk.png"/>
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link
+  href="https://unpkg.com/aos@next/dist/aos.css"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  
+    <title>Quesah Store</title>
+    <style>
+        body{
+            font-family: "Tajawal", sans-serif;
+        }
+   </style>
+   <style>
+    body { perspective: 1000px; background: #1f2937; }
+
+    /* Wheel styles */
+    .wheel {
+      background: conic-gradient(
+        #4040a3 0deg 30deg,
+        #5c5fc9 30deg 90deg,
+        #4040a3 90deg 150deg,
+        #5c5fc9 150deg 210deg,
+        #4040a3 210deg 270deg,
+        #5c5fc9 270deg 330deg,
+        #4040a3 330deg 360deg
+        /* #4040a3 0deg 30deg */
+      );
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      position: relative;
+      box-shadow:
+        inset 0 0 30px rgba(0,0,0,0.7),
+        0 15px 30px rgba(0,0,0,0.5);
+      transform-style: preserve-3d;
+      transition: transform 5s cubic-bezier(.33,1,.68,1);
+    }
+    .wheel::before {
+      content: '';
+      position: absolute; inset: 8%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, transparent 60%, rgba(0,0,0,0.6));
+      pointer-events: none;
+    }
+
+    /* Rim border */
+    .rim {
+      position: absolute; inset: 0;
+      border: 8px solid #3730a3;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    /* Center cap */
+    .cap {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cap > div {
+      width: 48px; height: 48px;
+      background: #312e81;
+      border-radius: 50%;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.7);
+      z-index: 20;
+    }
+
+    /* Rim lights */
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 4px #fff; } 50% { box-shadow: 0 0 12px #fff; } }
+    .rim-light {
+      width: 10px; height: 10px;
+      background: #fff; border-radius: 50%;
+      position: absolute; animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* Pointer */
+    .pointer {
+      position: absolute; top: -24px; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-bottom: 32px solid #f87171;
+      filter: drop-shadow(0 0 6px rgba(248,113,113,0.7));
+      z-index: 30;
+    }
+    @keyframes bounce { 0%,100% { transform: translate(-50%,0); } 50% { transform: translate(-50%,-6px); } }
+    .bounce { animation: bounce 0.6s ease-out; }
+
+    /* Sparkles overlay */
+    /* .sparkle {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 25% 20%,rgba(255,255,255,0.15) 2px,transparent 30%),
+        radial-gradient(circle at 75% 80%,rgba(255,255,255,0.1) 3px,transparent 50%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: spin 40s linear infinite reverse;
+    } */
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Label style */
+    .slice-label {
+      position: absolute;
+      width: 80px;
+      text-align: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body dir="rtl" lang="ar" >
+    <div class="min-h-screen bg-white py-16 md:py-20 px-4 sm:px-6 lg:px-10">
+        <!-- Header with sparkles behind -->
+        <div data-aos="fade-down" class="relative max-w-7xl mx-auto flex justify-center flex-col items-center text-center">
+          <!-- Decorative sparkles -->
+          <img
+            src="./images/sparkles.png"
+            alt=""
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-x-0 top-0 -translate-y-1/4 mx-auto  w-full md:max-w-3xl mt-8 opacity-60"
+          />
+  
+          <!-- Actual text on top -->
+          <div class="mb-6 md:mb-0 md:my-6">
+            
+          </div>
+            <img
+              src="./images/logo.png"
+              alt="" class="md:w-52 w-40"
+              />
+          <h2 class="relative text-2xl  md:text-3xl lg:text-5xl mt-4 font-semibold text-gray-900 mb-2">
+            مرحباً بك في <span class="text-[#303590]">عالم قصة</span>
+          </h2>
+          <p class="relative text-[#666666] text-base md:text-lg lg:text-xl">
+            استمتع بتجربة ترفيهية فريدة مع الألعاب والقصص التفاعلية والجوائز الرائعة
+          </p>
+        </div>
+  
+        <!-- Services Grid -->
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:px-8 max-w-6xl mx-auto">
+          <!-- Card 1 -->
+           <div  data-aos='zoom-in' class="bg-white  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957]">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M30.3334 6.5776C30.3334 4.62652 28.7797 2.95327 26.7412 3.02428C25.2235 3.07714 23.2395 3.23503 21.7133 3.69194C20.3866 4.08912 18.8943 4.86491 17.731 5.53817C16.6402 6.16946 15.2823 6.20094 14.1772 5.6166C12.8499 4.91475 11.1036 4.08283 9.58856 3.68303C8.30748 3.34498 6.68697 3.1826 5.3713 3.10174C3.29364 2.97405 1.66675 4.66487 1.66675 6.66374V21.5248C1.66675 23.5731 3.32513 25.1722 5.2908 25.2951C6.56915 25.3751 8.00763 25.5289 9.07827 25.8114C10.4017 26.1606 12.0382 26.9371 13.3596 27.6415C15.004 28.518 16.9962 28.518 18.6406 27.6415C19.9619 26.9371 21.5985 26.1606 22.9219 25.8114C23.9925 25.5289 25.431 25.3751 26.7094 25.2951C28.675 25.1722 30.3334 23.5731 30.3334 21.5248V6.5776ZM26.8109 5.02306C27.6306 4.99451 28.3334 5.66881 28.3334 6.5776V21.5248C28.3334 22.4391 27.5757 23.2371 26.5845 23.299C25.2777 23.3808 23.6789 23.5432 22.4116 23.8776C20.8511 24.2894 19.0437 25.1602 17.6998 25.8765C17.4755 25.9961 17.2408 26.0903 17.0001 26.1591V7.92272C17.6032 7.802 18.1895 7.58358 18.7328 7.26918C19.8667 6.61292 21.1933 5.93532 22.2869 5.60792C23.5524 5.22905 25.3191 5.07503 26.8109 5.02306ZM15.0001 7.96664C14.3934 7.8723 13.7987 7.67887 13.2423 7.38464C11.9399 6.69595 10.3611 5.95535 9.07827 5.61683C7.99532 5.33106 6.53659 5.17713 5.24861 5.09797C4.40332 5.04602 3.66675 5.73416 3.66675 6.66374V21.5248C3.66675 22.4391 4.42449 23.2371 5.41565 23.299C6.72243 23.3808 8.32131 23.5432 9.58856 23.8776C11.149 24.2894 12.9564 25.1602 14.3004 25.8765C14.5247 25.9961 14.7594 26.0903 15.0001 26.1591V7.96664Z" fill="#303590"/>
+  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-[#041710] my-2">قصة اليوم</h3>
+              <p class="text-[#666666] text-sm">
+              اكتشف قصة جديدة كل يوم مليئة بالإثارة والمغامرة، واستمتع بتجربة قراءة فريدة ومميزة
+              </p>
+            </div>
+            <button id="open-modal" class="mt-2 bg-[#303590] text-white py-2 rounded-full text-lg hover:bg-indigo-900 transition">
+                اقرأ القصة
+            </button>
+          </div>
+          <!-- Card 2 -->
+  
+          <div  data-aos='zoom-in' class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957]">
+              <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M16.4236 1.66666C13.3457 1.66664 10.9337 1.66663 9.05169 1.91965C7.12537 2.17864 5.60534 2.71909 4.41226 3.91217C3.21918 5.10525 2.67873 6.62528 2.41974 8.5516C2.16672 10.4336 2.16673 12.8456 2.16675 15.9235V16.0765C2.16673 19.1543 2.16672 21.5664 2.41974 23.4484C2.67873 25.3747 3.21918 26.8947 4.41226 28.0878C5.60534 29.2809 7.12537 29.8213 9.05169 30.0803C10.9337 30.3334 13.3457 30.3333 16.4236 30.3333H16.5766C19.6544 30.3333 22.0665 30.3334 23.9485 30.0803C25.8748 29.8213 27.3948 29.2809 28.5879 28.0878C29.781 26.8947 30.3214 25.3747 30.5804 23.4484C30.8334 21.5664 30.8334 19.1543 30.8334 16.0765V15.9235C30.8334 12.8456 30.8334 10.4336 30.5804 8.5516C30.3214 6.62528 29.781 5.10525 28.5879 3.91217C27.3948 2.71909 25.8748 2.17864 23.9485 1.91965C22.0665 1.66663 19.6545 1.66664 16.5766 1.66666H16.4236ZM15.5001 3.66702C12.8418 3.66983 10.8636 3.69404 9.31818 3.90182C7.61365 4.13099 6.58602 4.56684 5.82648 5.32639C5.06694 6.08593 4.63108 7.11355 4.40191 8.81809C4.19413 10.3635 4.16992 12.3417 4.16712 15H9.71842C9.25047 14.4155 8.90082 13.726 8.71016 12.9634C7.99249 10.0927 10.5928 7.49239 13.4634 8.21007C14.2261 8.40073 14.9156 8.75038 15.5001 9.21833V3.66702ZM4.16712 17C4.16992 19.6583 4.19413 21.6364 4.40191 23.1819C4.63108 24.8864 5.06694 25.9141 5.82648 26.6736C6.58602 27.4331 7.61365 27.869 9.31818 28.0982C10.8636 28.3059 12.8418 28.3302 15.5001 28.333V18.8315C14.4606 20.9078 12.3135 22.3333 9.83342 22.3333C9.28113 22.3333 8.83342 21.8856 8.83342 21.3333C8.83342 20.781 9.28113 20.3333 9.83342 20.3333C11.8825 20.3333 13.5993 18.9111 14.0508 17H13.8802L13.8679 17H4.16712ZM17.5001 28.333C20.1584 28.3302 22.1365 28.3059 23.682 28.0982C25.3865 27.869 26.4141 27.4331 27.1737 26.6736C27.9332 25.9141 28.3691 24.8864 28.5983 23.1819C28.806 21.6364 28.8302 19.6583 28.833 17H19.1323L19.12 17H18.9494C19.4008 18.9111 21.1177 20.3333 23.1667 20.3333C23.719 20.3333 24.1667 20.781 24.1667 21.3333C24.1667 21.8856 23.719 22.3333 23.1667 22.3333C20.6867 22.3333 18.5396 20.9078 17.5001 18.8315V28.333ZM28.833 15H23.2818C23.7497 14.4155 24.0994 13.726 24.29 12.9634C25.0077 10.0927 22.4074 7.49239 19.5367 8.21007C18.7741 8.40073 18.0846 8.75038 17.5001 9.21834V3.66702C20.1584 3.66983 22.1365 3.69404 23.682 3.90182C25.3865 4.13099 26.4141 4.56684 27.1737 5.32639C27.9332 6.08593 28.3691 7.11355 28.5983 8.81809C28.806 10.3635 28.8302 12.3417 28.833 15ZM17.5001 15L17.5001 13.3722C17.5037 11.8478 18.5423 10.5202 20.0218 10.1504C21.4277 9.79887 22.7012 11.0724 22.3497 12.4783C21.98 13.9572 20.6533 14.9956 19.1297 15H17.5001ZM15.5001 13.37C15.4955 11.8466 14.4571 10.52 12.9784 10.1504C11.5725 9.79887 10.299 11.0724 10.6504 12.4783C11.0202 13.9572 12.3469 14.9956 13.8705 15H15.5001V13.37Z" fill="#303590"/>
+  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-[#041710] my-2">جرب حظك</h3>
+              <p class="text-[#666666] text-sm">
+              استمتع بألعاب الحظ والمفاجآت الممتعة، واكتشف ما يخفيه لك القدر من جوائز رائعة
+              </p>
+            </div>
+            <button id="open-wheel" class="mt-2  bg-[#303590] text-white py-2 rounded-full text-lg hover:bg-indigo-900 transition">
+            جرب حظك الآن
+            </button>
+          </div>
+  
+          <!-- Card 3 -->
+          <div  data-aos='zoom-in' class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957]">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9.66659 9.33333C9.66659 8.78104 10.1143 8.33333 10.6666 8.33333H21.3333C21.8855 8.33333 22.3333 8.78104 22.3333 9.33333C22.3333 9.88561 21.8855 10.3333 21.3333 10.3333H10.6666C10.1143 10.3333 9.66659 9.88561 9.66659 9.33333Z" fill="#303590"/>
+  <path d="M10.6666 13C10.1143 13 9.66659 13.4477 9.66659 14C9.66659 14.5523 10.1143 15 10.6666 15H17.3333C17.8855 15 18.3333 14.5523 18.3333 14C18.3333 13.4477 17.8855 13 17.3333 13H10.6666Z" fill="#303590"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2601 1.66666C11.4366 1.66663 9.96687 1.66661 8.81092 1.82202C7.61077 1.98338 6.60028 2.32857 5.79772 3.13112C4.99516 3.93368 4.64997 4.94418 4.48862 6.14432C4.3332 7.30028 4.33323 8.77003 4.33325 10.5935V21.4065C4.33323 23.2299 4.3332 24.6997 4.48862 25.8557C4.64997 27.0558 4.99516 28.0663 5.79772 28.8689C6.60028 29.6714 7.61077 30.0166 8.81092 30.178C9.96688 30.3334 11.4366 30.3334 13.2601 30.3333H18.7397C20.5632 30.3334 22.033 30.3334 23.1889 30.178C24.3891 30.0166 25.3996 29.6714 26.2021 28.8689C27.0047 28.0663 27.3499 27.0558 27.5112 25.8557C27.6666 24.6997 27.6666 23.2299 27.6666 21.4065V10.5935C27.6666 8.77004 27.6666 7.30028 27.5112 6.14432C27.3499 4.94418 27.0047 3.93368 26.2021 3.13112C25.3996 2.32857 24.3891 1.98338 23.1889 1.82202C22.033 1.66661 20.5632 1.66663 18.7398 1.66666H13.2601ZM7.21193 4.54534C7.58095 4.17632 8.09905 3.93573 9.07741 3.80419C10.0845 3.66878 11.4194 3.66666 13.3333 3.66666H18.6666C20.5805 3.66666 21.9153 3.66878 22.9224 3.80419C23.9008 3.93573 24.4189 4.17632 24.7879 4.54534C25.1569 4.91436 25.3975 5.43245 25.5291 6.41082C25.6645 7.41795 25.6666 8.75277 25.6666 10.6667V20.3333L10.3759 20.3333C9.28528 20.3329 8.54108 20.3327 7.90286 20.5037C7.33223 20.6566 6.8029 20.9063 6.33325 21.2346V10.6667C6.33325 8.75277 6.33538 7.41795 6.47078 6.41082C6.60232 5.43245 6.84292 4.91436 7.21193 4.54534ZM6.36893 24.3321C6.3892 24.8038 6.42097 25.2187 6.47078 25.5892C6.60232 26.5675 6.84292 27.0856 7.21193 27.4546C7.58095 27.8237 8.09905 28.0643 9.07741 28.1958C10.0845 28.3312 11.4194 28.3333 13.3333 28.3333H18.6666C20.5805 28.3333 21.9153 28.3312 22.9224 28.1958C23.9008 28.0643 24.4189 27.8237 24.7879 27.4546C25.1569 27.0856 25.3975 26.5675 25.5291 25.5892C25.6395 24.7675 25.6613 23.7277 25.6656 22.3333H10.5303C9.22595 22.3333 8.76994 22.3419 8.4205 22.4355C7.46141 22.6925 6.69682 23.4055 6.36893 24.3321Z" fill="#303590"/>
+  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-[#041710] my-2">القصص التفاعلية</h3>
+              <p class="text-[#666666] text-sm">
+              كن بطل قصتك الخاصة! اختر اسم الشخصية الرئيسية واتخذ القرارات التي تشكل مجرى الأحداث
+              </p>
+            </div>
+            <button onclick="showInteractiveStories()" class="mt-2 bg-[#303590] text-white py-2 rounded-full text-lg hover:bg-indigo-900 transition">
+            أنشئ قصتك
+            </button>
+          </div>
+  
+          <!-- Card 4 -->
+          <div  data-aos='zoom-in' class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-center items-center rounded-full p-3 w-14 h-14 bg-[#898EE957]">
+              <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.04468 4.60499C8.71862 4.36597 9.4032 4.33334 9.97018 4.33334H10.7868C12.1639 4.33334 13.507 4.76054 14.6311 5.55604L15.3003 6.02965C15.6511 6.27793 16.0703 6.41127 16.5001 6.41127C16.9299 6.41127 17.3491 6.27793 17.7 6.02963L18.3691 5.55605C19.4932 4.76055 20.8363 4.33334 22.2133 4.33334H23.03C23.597 4.33334 24.2815 4.36597 24.9555 4.60499C26.8798 5.28748 28.4017 6.85589 29.404 9.39353C30.396 11.905 30.9053 15.419 30.8252 20.1538C30.8083 21.1531 30.6837 22.2731 30.2994 23.2819C29.9101 24.3039 29.2301 25.2673 28.0859 25.8145C27.4349 26.1258 26.6677 26.3333 25.7978 26.3333C24.7486 26.3333 23.8856 26.0311 23.2084 25.5873C22.5785 25.1744 22.0277 24.6407 21.5571 24.1847C21.4998 24.1291 21.4437 24.0748 21.3887 24.0219C20.8489 23.5023 20.3951 23.0968 19.8914 22.8356C19.255 22.5056 18.5487 22.3333 17.8319 22.3333H15.1683C14.4515 22.3333 13.7451 22.5056 13.1088 22.8356C12.6051 23.0968 12.1512 23.5023 11.6114 24.0219C11.5565 24.0747 11.5004 24.1291 11.4431 24.1847C10.9725 24.6407 10.4217 25.1744 9.79177 25.5873C9.11457 26.0311 8.25159 26.3333 7.20237 26.3333C6.33249 26.3333 5.56524 26.1258 4.9143 25.8145C3.77005 25.2673 3.09002 24.3039 2.70073 23.2819C2.31651 22.2731 2.19185 21.1531 2.17495 20.1538C2.09485 15.419 2.6042 11.905 3.59617 9.39354C4.59848 6.8559 6.12035 5.28749 8.04468 4.60499ZM9.97018 6.33334C9.45932 6.33334 9.05512 6.36868 8.71322 6.48995C7.46062 6.93421 6.30138 7.98876 5.45633 10.1283C4.60095 12.2939 4.09669 15.5112 4.17466 20.1199C4.1896 21.0032 4.30112 21.8647 4.56975 22.57C4.83331 23.262 5.22282 23.7451 5.77715 24.0102C6.18483 24.2051 6.6588 24.3333 7.20237 24.3333C7.84919 24.3333 8.33307 24.1521 8.69543 23.9146C9.15644 23.6124 9.56617 23.2166 10.0584 22.7412C10.1127 22.6887 10.168 22.6353 10.2245 22.5809C10.7591 22.0663 11.3983 21.4697 12.1881 21.0601C13.1089 20.5826 14.131 20.3333 15.1683 20.3333H17.8319C18.8692 20.3333 19.8913 20.5826 20.8121 21.0601C21.6018 21.4697 22.2411 22.0663 22.7757 22.5809C22.8322 22.6353 22.8875 22.6887 22.9418 22.7412C23.434 23.2166 23.8437 23.6124 24.3047 23.9146C24.6671 24.1521 25.151 24.3333 25.7978 24.3333C26.3414 24.3333 26.8153 24.2051 27.223 24.0102C27.7773 23.7451 28.1669 23.262 28.4304 22.57C28.699 21.8647 28.8106 21.0032 28.8255 20.1199C28.9035 15.5112 28.3992 12.2939 27.5438 10.1282C26.6988 7.98875 25.5395 6.9342 24.2869 6.48995C23.945 6.36868 23.5409 6.33334 23.03 6.33334H22.2133C21.2502 6.33334 20.3107 6.63215 19.5245 7.18856L18.8553 7.66215C18.1667 8.14953 17.3438 8.41127 16.5001 8.41127C15.6564 8.41127 14.8336 8.14954 14.1449 7.66217L13.4757 7.18857C12.6895 6.63215 11.75 6.33334 10.7868 6.33334H9.97018ZM10.5001 11C11.0524 11 11.5001 11.4477 11.5001 12V13H12.5001C13.0524 13 13.5001 13.4477 13.5001 14C13.5001 14.5523 13.0524 15 12.5001 15H11.5001V16C11.5001 16.5523 11.0524 17 10.5001 17C9.9478 17 9.50009 16.5523 9.50009 16V15H8.50009C7.9478 15 7.50009 14.5523 7.50009 14C7.50009 13.4477 7.9478 13 8.50009 13H9.50009V12C9.50009 11.4477 9.9478 11 10.5001 11Z" fill="#303590"/>
+  <path d="M25.8334 13.6667C25.8334 14.219 25.3857 14.6667 24.8334 14.6667C24.2811 14.6667 23.8334 14.219 23.8334 13.6667C23.8334 13.1144 24.2811 12.6667 24.8334 12.6667C25.3857 12.6667 25.8334 13.1144 25.8334 13.6667Z" fill="#303590"/>
+  <path d="M21.8334 13.6667C21.8334 14.219 21.3857 14.6667 20.8334 14.6667C20.2811 14.6667 19.8334 14.219 19.8334 13.6667C19.8334 13.1144 20.2811 12.6667 20.8334 12.6667C21.3857 12.6667 21.8334 13.1144 21.8334 13.6667Z" fill="#303590"/>
+  <path d="M22.8334 10.6667C23.3857 10.6667 23.8334 11.1144 23.8334 11.6667C23.8334 12.219 23.3857 12.6667 22.8334 12.6667C22.2811 12.6667 21.8334 12.219 21.8334 11.6667C21.8334 11.1144 22.2811 10.6667 22.8334 10.6667Z" fill="#303590"/>
+  <path d="M22.8334 14.6667C23.3857 14.6667 23.8334 15.1144 23.8334 15.6667C23.8334 16.219 23.3857 16.6667 22.8334 16.6667C22.2811 16.6667 21.8334 16.219 21.8334 15.6667C21.8334 15.1144 22.2811 14.6667 22.8334 14.6667Z" fill="#303590"/>
+  </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-[#041710] my-2">الألعاب الجماعية</h3>
+              <p class="text-[#666666] text-sm">
+              استمتع بألعاب ممتعة ومثيرة مع الأصدقاء والعائلة، أو تحدَّ نفسك في الألعاب الفردية!
+              </p>
+            </div>
+            <button onclick="window.location.href = './games/index.html'" class="mt-2 bg-[#303590] text-white py-2 rounded-full text-lg hover:bg-indigo-900 transition">
+            انضم إلى اللعب
+            </button>
+          </div>
+  
+         
+        </div>
+  
+        <!-- Footer CTA -->
+        <div  data-aos='zoom-in' class="mt-12 max-w-full md:mx-8  bg-[#898EE90F] border border-[#F3F0FA] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between">
+          <div class="flex items-center mb-4 sm:mb-0">
+          <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957] me-4">
+          <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.74275 0.666657C6.67479 0.666299 5.94198 0.666054 5.29067 0.844602C3.92319 1.21948 2.77918 2.15734 2.14339 3.42475C1.84058 4.0284 1.6971 4.74703 1.48801 5.79431L0.661877 9.92515C0.353069 11.4692 0.7762 12.9624 1.66668 14.082L1.66668 17.7419C1.66666 20.1923 1.66664 22.1331 1.87086 23.6521C2.08103 25.2153 2.52385 26.4806 3.52167 27.4784C4.51949 28.4762 5.78475 28.919 7.34798 29.1292C8.86694 29.3334 10.8078 29.3334 13.2581 29.3334H14.7419C17.1922 29.3334 19.1331 29.3334 20.652 29.1292C22.2153 28.919 23.4805 28.4762 24.4784 27.4784C25.4762 26.4806 25.919 25.2153 26.1292 23.6521C26.3334 22.1331 26.3334 20.1923 26.3333 17.742V14.082C27.2238 12.9624 27.647 11.4692 27.3382 9.92515L26.512 5.79431C26.303 4.74702 26.1595 4.0284 25.8567 3.42475C25.2209 2.15734 24.0769 1.21948 22.7094 0.844602C22.0581 0.666054 21.3253 0.666299 20.2573 0.666657H7.74275ZM22.358 16C23.0631 16 23.7295 15.8581 24.3333 15.6032V17.6667C24.3333 20.2091 24.3312 22.0153 24.147 23.3856C23.9667 24.727 23.6284 25.4999 23.0641 26.0642C22.4999 26.6284 21.727 26.9667 20.3856 27.147C19.7916 27.2269 19.1157 27.2725 18.3333 27.2986V23.6237C18.3334 23.0373 18.3334 22.5315 18.2958 22.1165C18.256 21.6776 18.1679 21.243 17.9314 20.8334C17.6681 20.3773 17.2894 19.9986 16.8333 19.7353C16.4237 19.4988 15.9891 19.4107 15.5502 19.3709C15.1352 19.3333 14.6294 19.3333 14.043 19.3334H13.957C13.3707 19.3333 12.8649 19.3333 12.4498 19.3709C12.0109 19.4107 11.5763 19.4988 11.1667 19.7353C10.7106 19.9986 10.3319 20.3773 10.0686 20.8334C9.83211 21.243 9.74404 21.6776 9.70426 22.1165C9.66664 22.5316 9.66666 23.0373 9.66668 23.6237L9.66668 27.2986C8.88438 27.2725 8.20846 27.2269 7.61448 27.147C6.27303 26.9667 5.50016 26.6284 4.93589 26.0642C4.37161 25.4999 4.03338 24.727 3.85303 23.3856C3.6688 22.0153 3.66668 20.2091 3.66668 17.6667V15.6032C4.27052 15.8581 4.93691 16 5.64208 16C7.34063 16 8.85929 15.1622 9.7841 13.8611C10.7301 15.152 12.2576 16 13.9997 16C15.7421 16 17.2697 15.1518 18.2157 13.8607C19.1405 15.162 20.6592 16 22.358 16ZM11.6667 27.3307C12.1845 27.3332 12.7388 27.3334 13.3333 27.3334H14.6667C15.2612 27.3334 15.8155 27.3332 16.3333 27.3307V23.6667C16.3333 23.0252 16.3324 22.611 16.3039 22.297C16.2767 21.9968 16.2308 21.8878 16.1994 21.8334C16.1116 21.6813 15.9854 21.5551 15.8333 21.4673C15.7789 21.4359 15.6699 21.39 15.3697 21.3628C15.0557 21.3343 14.6415 21.3334 14 21.3334C13.3585 21.3334 12.9443 21.3343 12.6303 21.3628C12.3301 21.39 12.2212 21.4359 12.1667 21.4673C12.0147 21.5551 11.8884 21.6813 11.8007 21.8334C11.7692 21.8878 11.7233 21.9968 11.6961 22.297C11.6676 22.611 11.6667 23.0252 11.6667 23.6667V27.3307ZM9.56142 2.66669H7.8903C6.61769 2.66669 6.17694 2.67543 5.81944 2.77344C4.99895 2.99837 4.31254 3.56108 3.93107 4.32153C3.76486 4.65287 3.66985 5.08335 3.42027 6.33124L2.62304 10.3174C2.24201 12.2225 3.6992 14 5.64208 14C7.22383 14 8.54824 12.8014 8.70563 11.2275L8.79708 10.313L8.80239 10.257L9.56142 2.66669ZM10.7884 10.5L11.5717 2.66669H16.4281L17.207 10.456C17.3968 12.3535 15.9067 14 13.9997 14C12.1075 14 10.6258 12.3789 10.7884 10.5ZM22.1806 2.77344C21.8231 2.67543 21.3824 2.66669 20.1098 2.66669H18.4383L19.2944 11.2275C19.4518 12.8014 20.7762 14 22.358 14C24.3009 14 25.758 12.2225 25.377 10.3174L24.5798 6.33124C24.3302 5.08335 24.2352 4.65287 24.069 4.32153C23.6875 3.56108 23.0011 2.99837 22.1806 2.77344Z" fill="#303590"/>
+  </svg>
+              </div>
+            <div>
+              <p class="text-gray-900 font-semibold">المتجر الإلكتروني</p>
+              <p class="text-[#666666] text-sm">
+                اكتشف تجربة تسوق تجمع بين الجمال، العناية، والابتكار... فقط في متجر
+                قصة.
+              </p>
+            </div>
+          </div>
+          <button onclick="moveToCommerce()" class="bg-[#303590] text-white py-2 px-12 rounded-full text-sm hover:bg-indigo-900 transition text-xl">
+            تسوق الآن
+          </button>
+        </div>
+      </div>
+      <!-- Modal Overlay -->
+  <div id="story-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <!-- Modal Container -->
+    <div class="bg-white max-h-[99vh] rounded-2xl max-w-3xl w-full mx-4 my-8 md:my-0 md:mx-2 p-6 relative overflow-y-auto">
+      <!-- Close Button -->
+      <button id="close-modal" class="absolute top-4 left-4 text-gray-500 hover:text-gray-700 border border-gray-300 rounded-full p-2 transition">
+        <!-- simple X icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Modal Header -->
+      <h2 class="text-2xl font-bold text-gray-800 text-right mb-4">الصداقة</h2>
+
+      <!-- Modal Image -->
+      <img src="./images/friend.png" alt="الصداقة" class="w-full lg:h-64 md:h-52 sm:h-40 object-cover object-center rounded-lg mb-4" />
+
+      <!-- Modal Content (scrollable if طويل) -->
+      <div class="text-gray-700 text-right space-y-3 max-h-80 overflow-y-auto pr-2">
+        <p>قال الجندي لرئيسه: "صديقي في المستشفى وأريد أن أذهب لأراه."</p>
+        <p>فقال له الرئيس: "اذهب إليه، وإذا مات فاتصل بي حتى أرسل لك بديلاً."</p>
+        <p>ذهب الجندي إلى المستشفى وبقي هناك طوال اليوم، وفي المساء اتصل بالرئيس وقال له: "لقد مات صديقي."</p>
+        <p>فقال الرئيس: "آسف لسماع هذا الخبر. سأرسل لك بديلاً غدًا."</p>
+        <p>فقال الجندي: "لا حاجة لإرسال بديل، لقد وجدت بديلاً."</p>
+        <p>فقال الرئيس متعجبًا: "من هو؟"</p>
+        <p>أجاب الجندي: "أنا لقد أخذت مكانه في المستشفى، فقد كان يقاتل بدلاً مني وأنا لم أعرف!".</p>
+        <p class="font-semibold">العبرة: الصداقة الحقيقية تعني التضحية والوفاء، وأحياناً لا نكتشف قيمة الأصدقاء إلا بعد فوات الأوان. الصديق الحقيقي هو من يقف معك في الصعاب ويضحّي من أجلك دون انتظار مقابل.</p>
+      </div>
+
+      <!-- Modal Footer / Share Button -->
+      <div class="mt-0 flex justify-end w-full">
+        <button id="share-story" class="flex items-center bg-indigo-800 text-white py-2 px-6 rounded-full hover:bg-indigo-900 transition gap-4">
+          <!-- share icon -->
+          
+          <span>مشاركة</span>
+          <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5 0.25C11.7051 0.25 10.25 1.70507 10.25 3.5C10.25 3.69591 10.2673 3.88776 10.3006 4.07412L5.56991 7.38558C5.54587 7.4024 5.52312 7.42038 5.50168 7.43939C4.94993 7.00747 4.25503 6.75 3.5 6.75C1.70507 6.75 0.25 8.20507 0.25 10C0.25 11.7949 1.70507 13.25 3.5 13.25C4.25503 13.25 4.94993 12.9925 5.50168 12.5606C5.52312 12.5796 5.54587 12.5976 5.56991 12.6144L10.3006 15.9259C10.2673 16.1122 10.25 16.3041 10.25 16.5C10.25 18.2949 11.7051 19.75 13.5 19.75C15.2949 19.75 16.75 18.2949 16.75 16.5C16.75 14.7051 15.2949 13.25 13.5 13.25C12.4472 13.25 11.5113 13.7506 10.9174 14.5267L6.43806 11.3911C6.63809 10.9694 6.75 10.4978 6.75 10C6.75 9.50222 6.63809 9.03057 6.43806 8.60886L10.9174 5.4733C11.5113 6.24942 12.4472 6.75 13.5 6.75C15.2949 6.75 16.75 5.29493 16.75 3.5C16.75 1.70507 15.2949 0.25 13.5 0.25ZM11.75 3.5C11.75 2.5335 12.5335 1.75 13.5 1.75C14.4665 1.75 15.25 2.5335 15.25 3.5C15.25 4.4665 14.4665 5.25 13.5 5.25C12.5335 5.25 11.75 4.4665 11.75 3.5ZM3.5 8.25C2.5335 8.25 1.75 9.0335 1.75 10C1.75 10.9665 2.5335 11.75 3.5 11.75C4.4665 11.75 5.25 10.9665 5.25 10C5.25 9.0335 4.4665 8.25 3.5 8.25ZM13.5 14.75C12.5335 14.75 11.75 15.5335 11.75 16.5C11.75 17.4665 12.5335 18.25 13.5 18.25C14.4665 18.25 15.25 17.4665 15.25 16.5C15.25 15.5335 14.4665 14.75 13.5 14.75Z" fill="white"/>
+            </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Wheel‑of‑Fortune Modal Overlay -->
+<div
+id="wheel-modal"
+class="fixed inset-0 bg-black bg-opacity-50 flex md:items-center items-start justify-center z-50 hidden"
+>
+<div class="bg-white max-h-[70vh] rounded-2xl max-w-3xl w-full mx-4 my-8 md:my-0 md:mx-2 md:p-6 px-2 py-4 relative overflow-y-auto">
+  <!-- Close -->
+  <button
+    id="close-wheel"
+    class="absolute z-50 top-4 left-4 text-gray-500 hover:text-gray-700 p-2 rounded-full border border-gray-300 cursor-pointer"
+  >
+    <!-- X icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" id="close-wheel" class="cursor-pointer"
+         viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <!-- Your wheel HTML goes here -->
+  <div class="overflow-hidden">
+
+    <div class="relative top-0 flex flex-col items-center">
+      <!-- Pointer -->
+      <div id="pointer" class="pointer"></div>
+  
+      <!-- Wheel -->
+      <div id="wheel" class="wheel">
+        <div class="sparkle"></div>
+        <div class="rim"></div>
+        <div class="cap"><div></div></div>
+  
+        <script>
+          const wheel = document.currentScript.parentNode;
+  
+          // Rim lights
+          for (let i = 0; i < 12; i++) {
+            const light = document.createElement('div');
+            light.className = 'rim-light';
+            const angle = (i / 12) * 2 * Math.PI;
+            const R = 148;
+            light.style.left = `${160 + R * Math.cos(angle) - 5}px`;
+            light.style.top = `${160 + R * Math.sin(angle) - 5}px`;
+            wheel.appendChild(light);
+          }
+  
+          // Labels (ضبط موقعها فقط)
+          const labels = ['🎁 هدية','١٠٪ خصم','❓ مفاجأة','عطر مجاني','١٠٠ نقطة','🚚 توصيل مجاني'];
+          const radius = 90;
+          labels.forEach((txt, i) => {
+            const lbl = document.createElement('div');
+            lbl.className = 'slice-label';
+            lbl.textContent = txt;
+  
+            // تحديد البداية من مركز العجلة
+            lbl.style.left = '38%';
+            lbl.style.top  = '45%';
+  
+            // زاوية الشريحة
+            const angle = -90 + 60 * i + 30;
+            // دفع للنصف الخارجي وتدوير الخلف
+            lbl.style.transform = `
+              rotate(${angle}deg)
+              translateY(-${radius}px)
+              rotate(${-angle}deg)
+            `;
+  
+            wheel.appendChild(lbl);
+          });
+        </script>
+      </div>
+  
+      <!-- Spin Button -->
+      <button id="spin" class="mt-6 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-lg shadow-lg transition">
+        أدر العجلة
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+  
+  <script>
+    // جلب العناصر
+    const openBtn = document.getElementById('open-modal');
+    const closeBtn = document.getElementById('close-modal');
+    const modal   = document.getElementById('story-modal');
+  
+    // فتح المودال
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+  
+    // غلق المودال
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+  
+    // إذا ضغطت برع المودال، يغلقه
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  
+    // (اختياري) زر المشاركة
+    document.getElementById('share-story')
+      .addEventListener('click', () => {
+        // هنا تحط كود المشاركة اللي تحبه، أو alert
+        alert('رابط المشاركة تم نسخه!');
+      });
+  </script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true /* only-once reveal */ });
+  </script>
+  <script>
+    // Simple typewriter for the tagline
+    const txt = "استمتع بتجربة ترفيهية فريدة مع الألعاب والقصص التفاعلية والجوائز الرائعة";
+    const el  = document.querySelector("p.relative");
+    let i = 0;
+    function type() {
+      if (i <= txt.length) {
+        el.textContent = txt.slice(0, i++);
+        setTimeout(type, 40);
+      }
+    }
+    type();
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+<script>
+  // apply tilt to all cards
+  VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+    max:        15,
+    speed:      400,
+    glare:      true,
+    "max-glare": 0.2,
+  });
+  document.querySelector('.ui-wheel-of-fortune button').addEventListener('click', function() {
+      // التحقق من وجود البيانات في localStorage
+      const storedUsername = localStorage.getItem('username');
+      const storedEmail = localStorage.getItem('email');
+      const storedPhone = localStorage.getItem('phone');
+      
+      if (!storedUsername || !storedEmail || !storedPhone || storedEmail!=document.getElementById('email').value.trim()) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Verification Required',
+          text: 'You have to verify your information first!'
+        });
+        return;
+      }
+      if (localStorage.getItem(storedEmail)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'You Have Spin The Wheel Today',
+          text: 'Come Back Tomorrow!'
+        });
+        return;
+      }
+      const today = new Date();
+
+      const day = today.getDate();
+      const month = today.getMonth() + 1;
+      const year = today.getFullYear();
+
+      const formattedDate = `${day}-${month}-${year}`;
+
+      localStorage.setItem(storedEmail, formattedDate)
+
+      // استكمال دوران العجلة
+      rechargeBtn.disabled = false;
+      const wheel = document.querySelector('.ui-wheel-of-fortune ul');
+      const segments = 29;
+      const values = [0, 1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100, 200];
+      let randomIndex = Math.floor(Math.random() * segments);
+      let arr = [];
+      let bt60200 = [60, 70, 80, 90, 100 , 200];
+      for(let i = 1; i <= 100; i++){
+          arr.push(i);
+      }
+      let choosenR = arr[Math.floor(Math.random() * arr.length)];
+      console.log(choosenR);
+      if(choosenR >= 1 && choosenR <= 70) {
+          randomIndex = 0;
+      }
+      else if(choosenR >= 71 && choosenR <= 78){
+          randomIndex = Math.floor(Math.random() * 10) + 1;
+      }
+      else if(choosenR >= 79 && choosenR <= 80){
+          randomIndex = ((Math.floor(Math.random() * 5) + 1) * 10);
+      }
+      else if(choosenR >= 81 && choosenR <= 100){
+          randomIndex = bt60200[Math.floor(Math.random() * bt60200.length)];
+      }
+      const degrees = 360 * 5 + (360 / segments) * values.indexOf(randomIndex); // 5 full rotations + segment rotation
+      console.log(randomIndex);
+    
+      wheel.style.transition = 'transform 4s ease-out';
+      wheel.style.transform = `rotate(${degrees}deg)`;
+      const value = randomIndex;
+      console.log(value);
+      rechargeBtn.value = randomIndex;
+
+      setTimeout(() => {
+        if (rechargeBtn.value == 0) {
+    Swal.fire({
+      title: 'Hard Luck',
+      text: 'Try again Tomorrow!',
+      showCloseButton: true,
+      showConfirmButton: true,
+      confirmButtonColor: 'rgb(254, 44, 85)'
+    });
+    return;
+  }
+          Swal.fire({
+              title: 'Congratulations!',
+              text: `You won $${value}!`,
+              icon: 'success',
+              confirmButtonText: 'Awesome!',
+              confirmButtonColor: 'rgb(254, 44, 85)'
+          });
+          rechargeBtn.disabled = false;
+          rechargeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }, 4000); // 4 seconds
+    });
+    
+</script>
+<script>
+    // Elements
+    const openWheelBtn  = document.getElementById('open-wheel');
+    const wheelModal    = document.getElementById('wheel-modal');
+    const closeWheelBtn = document.getElementById('close-wheel');
+  
+    // open
+    openWheelBtn.addEventListener('click', () => {
+      wheelModal.classList.remove('hidden');
+    });
+  
+    // close on X
+    closeWheelBtn.addEventListener('click', () => {
+      wheelModal.classList.add('hidden');
+    });
+  
+    // close on overlay click
+    wheelModal.addEventListener('click', (e) => {
+      if (e.target === wheelModal) {
+        wheelModal.classList.add('hidden');
+      }
+    });
+  
+    // (optional) spin action
+    document.getElementById('spin-wheel')
+      .addEventListener('click', () => {
+        // هنا كود تدوير العجلة
+        console.log('Spinning…');
+      });
+  </script>
+   <script>
+    const wheelEl = document.getElementById('wheel');
+    const ptr     = document.getElementById('pointer');
+    const spinBtn = document.getElementById('spin');
+    let busy = false;
+
+    spinBtn.addEventListener('click', async () => {
+      if (busy) return;
+      busy = true;
+      ptr.classList.remove('bounce');
+
+      const rotations = 360 * (4 + Math.random() * 2) + Math.random() * 360;
+      wheelEl.style.transform = `rotate(${rotations}deg)`;
+
+      // الانتظار لنهاية التحريك
+      await new Promise(r => setTimeout(r, 5000));
+
+      // تفاعل السهم
+      ptr.classList.add('bounce');
+      // حساب الفائز
+      const deg = ((rotations % 360) + 360) % 360;
+      const index = Math.floor(((deg + 30) % 360) / 60);
+      const prizes = ['١٠٪ خصم','🎁 هدية','🚚 توصيل مجاني','١٠٠ نقطة','عطر مجاني','❓ مفاجأة'];
+      setTimeout(() => alert(`🎉 مبروك، ربحت: ${prizes[index]}!`), 300);
+
+      busy = false;
+    });
+    function showInteractiveStories (){
+      location.href = "./interactive-stories.html"
+    }
+    function moveToCommerce(){
+      location.href = "https://qusahstore.com/"
+
+    }
+  </script>
+</body>
+</html>
