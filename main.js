@@ -162,7 +162,7 @@ async generateStoryStep() {
         messages: this.messages,
         temperature: 0.8,
         top_p: 1.0,
-        max_tokens: 1024
+        max_tokens: 2048
     };
 
     let response;
@@ -558,8 +558,8 @@ async generateStoryStep() {
             this.storySteps.push(step.text);
         }
 
-        // إذا وصلنا للمشهد الخامس، نكمل القصة تلقائياً
-        if (this.storySteps.length >= 5) {
+        // إذا وصلنا للمشهد الرابع، نكمل القصة تلقائياً (تعديل: كان 5 → 4)
+        if (this.storySteps.length >= 4) {
             this.completeStory();
             return;
         }
@@ -638,8 +638,8 @@ async generateStoryStep() {
 
     // Handle option selection
     async selectOption(nextStep) {
-        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية
-        if (nextStep === 'complete' || this.storySteps.length >= 5) {
+        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية (تعديل: كان 5 → 4)
+        if (nextStep === 'complete' || this.storySteps.length >= 3) {
             // أضف رسالة خاصة للنهاية
             this.messages.push({
                 role: "system",
