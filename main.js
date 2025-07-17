@@ -39,26 +39,26 @@ class InteractiveStories {
         }
 
         // Share buttons
-        const shareFb = document.getElementById('share-fb');
-        const shareWa = document.getElementById('share-wa');
-        const shareTwitter = document.getElementById('share-twitter');
-        const shareCopy = document.getElementById('share-copy');
+        // const shareFb = document.getElementById('share-fb');
+        // const shareWa = document.getElementById('share-wa');
+        // const shareTwitter = document.getElementById('share-twitter');
+        // const shareCopy = document.getElementById('share-copy');
 
-        if (shareFb) {
-            shareFb.addEventListener('click', () => this.shareStory('facebook'));
-        }
+        // if (shareFb) {
+        //     shareFb.addEventListener('click', () => this.shareStory('facebook'));
+        // }
 
-        if (shareWa) {
-            shareWa.addEventListener('click', () => this.shareStory('whatsapp'));
-        }
+        // if (shareWa) {
+        //     shareWa.addEventListener('click', () => this.shareStory('whatsapp'));
+        // }
 
-        if (shareTwitter) {
-            shareTwitter.addEventListener('click', () => this.shareStory('twitter'));
-        }
+        // if (shareTwitter) {
+        //     shareTwitter.addEventListener('click', () => this.shareStory('twitter'));
+        // }
 
-        if (shareCopy) {
-            shareCopy.addEventListener('click', () => this.shareStory('copy'));
-        }
+        // if (shareCopy) {
+        //     shareCopy.addEventListener('click', () => this.shareStory('copy'));
+        // }
     }
 
     // Setup story type selection with visual feedback
@@ -157,45 +157,45 @@ class InteractiveStories {
     }
 
     // Generate story step via API with OpenRouter
-async generateStoryStep() {
-    const requestBody = {
-        messages: this.messages,
-        temperature: 0.8,
+    async generateStoryStep() {
+        const requestBody = {
+            messages: this.messages,
+            temperature: 0.8,
         top_p: 1.0,
         max_tokens: 2048
-    };
+        };
 
-    let response;
-    try {
+        let response;
+        try {
         response = await fetch('https://chat-api-zeta-indol.vercel.app/api/chat', {
-            method: 'POST',
+                method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(requestBody)
-        });
+                body: JSON.stringify(requestBody)
+            });
 
-        if (!response.ok) {
+            if (!response.ok) {
             const errorText = await response.text().catch(() => '');
             throw new Error(`API fetch failed: ${response.status} ${errorText}`);
-        }
-    } catch (err) {
+            }
+        } catch (err) {
         throw new Error('API call failed: ' + err.message);
     }
 
-    const data = await response.json();
-    const content =
-        data.choices?.[0]?.message?.content ||
-        data.content ||
-        data.message ||
-        data.text;
+        const data = await response.json();
+        const content =
+            data.choices?.[0]?.message?.content ||
+            data.content ||
+            data.message ||
+            data.text;
 
-    this.messages.push({ role: 'assistant', content });
+        this.messages.push({ role: 'assistant', content });
 
-    const step = this.parseStoryStep(content, this.currentStepKey);
-    if (!step) throw new Error('Failed to parse story step');
-    return step;
-}
+        const step = this.parseStoryStep(content, this.currentStepKey);
+        if (!step) throw new Error('Failed to parse story step');
+        return step;
+    }
 
 
     // Generate local story step as fallback
@@ -564,44 +564,87 @@ async generateStoryStep() {
             return;
         }
 
-        // Calculate scene index (مشهد)
+        // --- UI جديد fully responsive ---
         const sceneIndex = this.storySteps.length;
-
-        // Create the story content
+        const backBtn = `<button onclick="location.reload()" class="px-3 py-2 rounded-lg bg-white shadow text-gray-600 hover:bg-gray-100 text-sm sm:text-base">العودة ↗</button>`;
         let html = `
-            <div class="story-step">
-                <div class="flex items-center mb-3">
-                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">مشهد ${sceneIndex}</span>
+          <div class="w-full max-w-lg mx-auto">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-4 sm:mb-6">
+              <span class="text-base sm:text-lg font-semibold text-gray-700">المشهد ${sceneIndex} من 3</span>
+              ${backBtn}
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div class="relative w-full h-48 sm:h-64 md:h-80">
+                <div id="story-image-wrapper" class="w-full h-full object-cover">
+                  <!-- سيتم إدراج الصورة هنا لاحقًا -->
                 </div>
-                <div class="story-text text-lg text-gray-800 leading-relaxed mb-6">
-                    ${step.text}
+                <!-- Overlay نص القصة -->
+                <div class="absolute bottom-0 left-0 w-full bg-black/40 text-white text-base sm:text-lg md:text-xl p-2 sm:p-4">
+                  ${step.text}
                 </div>
+              </div>
+              <div class="p-2 sm:p-4 md:p-6">
+                <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">ماذا يفعل بطل القصة؟</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 sm:mb-6">
         `;
-        // Add options if they exist
         if (step.options && step.options.length > 0) {
-            html += '<div class="story-options space-y-3">';
             step.options.forEach((option, index) => {
                 html += `
-                    <button 
-                        class="option-btn w-full p-4 text-right bg-white border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all duration-200 text-gray-700 font-medium"
-                        data-next-step="${option.nextStep}"
-                        onclick="interactiveStories.selectOption(${option.nextStep})"
-                    >
-                        ${option.label}
-                    </button>
+                  <button 
+                    class="option-btn w-full bg-white border border-gray-200 rounded-lg py-3 px-4 text-gray-700 hover:bg-gray-50 transition text-right text-sm sm:text-base"
+                    data-next-step="${option.nextStep}"
+                    type="button"
+                  >
+                    ${option.label}
+                  </button>
                 `;
             });
-            html += '</div>';
         }
-
-        // Check if story is complete
-        if (!step.options || step.options.length === 0 || step.complete) {
-            this.completeStory();
-            return;
-        }
-
-        html += '</div>';
+        html += `
+                </div>
+                <button id="next-btn" class="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 rounded-lg py-3 font-semibold cursor-not-allowed mt-4" disabled>
+                  التالي
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
         storyContainer.innerHTML = html;
+        // إضافة الصورة (أو اللودينج) في مكانها الصحيح
+        const imageWrapper = document.getElementById('story-image-wrapper');
+        if (imageWrapper) {
+          // يمكنك هنا استدعاء دالة توليد الصورة وإدراجها
+          // imageWrapper.innerHTML = '<img src="..." ...>'; أو عنصر loading
+        }
+
+        // --- تفعيل منطق اختيار الخيار وزر التالي ---
+        const optionBtns = storyContainer.querySelectorAll('button.option-btn');
+        const nextBtn = storyContainer.querySelector('#next-btn');
+        let selectedNextStep = null;
+        this.lastChosenOptionLabel = '';
+        optionBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            optionBtns.forEach(b => b.classList.remove('ring', 'ring-purple-400', 'bg-purple-50', 'aria-pressed'));
+            this.classList.add('ring', 'ring-purple-400', 'bg-purple-50');
+            this.setAttribute('aria-pressed', 'true');
+            selectedNextStep = this.getAttribute('data-next-step');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('text-gray-400', 'bg-gray-100', 'cursor-not-allowed');
+            nextBtn.classList.add('text-white', 'bg-purple-600', 'hover:bg-purple-700', 'cursor-pointer');
+            // خزّن نص الخيار المختار في الكلاس
+            if (typeof window.interactiveStories !== 'undefined') {
+              window.interactiveStories.lastChosenOptionLabel = this.textContent.trim();
+            } else if (typeof this.lastChosenOptionLabel !== 'undefined') {
+              this.lastChosenOptionLabel = this.textContent.trim();
+            }
+          });
+        });
+        nextBtn.addEventListener('click', () => {
+          if (selectedNextStep) {
+            this.selectOption(selectedNextStep);
+          }
+        });
 
         // --- Generate DALL·E image for this step ---
         const storyText = step.text;
@@ -640,6 +683,10 @@ async generateStoryStep() {
     async selectOption(nextStep) {
         // إذا كان هذا هو المشهد الأخير أو اختيار النهاية (تعديل: كان 5 → 4)
         if (nextStep === 'complete' || this.storySteps.length >= 3) {
+            // أضف الخيار الأخير المختار إلى الأحداث إذا لم يكن مضافًا
+            if (this.lastChosenOptionLabel && (!this.storySteps.length || !this.storySteps[this.storySteps.length-1].includes(this.lastChosenOptionLabel))) {
+                this.storySteps.push(`(اختيار المستخدم: ${this.lastChosenOptionLabel})`);
+            }
             // أضف رسالة خاصة للنهاية
             this.messages.push({
                 role: "system",
@@ -647,7 +694,11 @@ async generateStoryStep() {
             });
             this.messages.push({
                 role: "user",
-                content: `هذه كانت أحداث القصة حتى الآن:\n${this.storySteps.join('\n')}\n\nاكتب خاتمة مناسبة لهذه القصة.`
+                content: `هذه كانت أحداث القصة حتى الآن:
+${this.storySteps.join('\n')}
+
+الخيار الأخير الذي اختاره المستخدم: ${this.lastChosenOptionLabel || 'غير محدد'}
+اكتب خاتمة مناسبة لهذه القصة بناءً على هذا الخيار.`
             });
             this.showLoadingState();
             try {
@@ -679,16 +730,16 @@ async generateStoryStep() {
 
         // استخراج نص المشهد السابق والخيار المختار
         const previousStepText = this.storySteps[this.storySteps.length - 1] || '';
-        // الحصول على نص الخيار المختار من الزر الذي ضغط عليه المستخدم
-        // ابحث عن الزر النشط في الصفحة
-        let chosenOptionLabel = '';
-        const storyContainer = document.getElementById('story-container');
-        if (storyContainer) {
+        // استخدم المتغير المخزن مباشرة
+        let chosenOptionLabel = this.lastChosenOptionLabel || '';
+        // احتياطي: إذا لم يوجد، ابحث في الـ DOM (للتوافق)
+        if (!chosenOptionLabel) {
+          const storyContainer = document.getElementById('story-container');
+          if (storyContainer) {
             const activeBtn = storyContainer.querySelector('button.option-btn:focus, button.option-btn[aria-pressed="true"]');
             if (activeBtn) {
                 chosenOptionLabel = activeBtn.textContent.trim();
             } else {
-                // إذا لم نجد زر نشط، جرب إيجاد الزر الذي يحتوي على nextStep الحالي
                 const btns = storyContainer.querySelectorAll('button.option-btn');
                 btns.forEach(btn => {
                     if (btn.getAttribute('data-next-step') == nextStep) {
@@ -696,6 +747,7 @@ async generateStoryStep() {
                     }
                 });
             }
+          }
         }
 
         // بناء برومبت ديناميكي حسب رقم المشهد المطلوب
@@ -703,27 +755,27 @@ async generateStoryStep() {
         this.messages.push({
             role: "system",
             content: `\nأنت مساعد ذكاء اصطناعي مهمتك إنتاج مشهد واحد فقط (المشهد رقم "${stepNum}") من القصة التفاعلية باللغة العربية بصيغة JSON خالصة، بدون أي مقدمات أو شروحات. الهيكل المطلوب:\n{\n  "${stepNum}": {\n    "text": "... نص المشهد ...",\n    "options": [\n      { "label": "... نص الخيار الأول ...", "nextStep": "X" },\n      { "label": "... نص الخيار الثاني ...", "nextStep": "Y" }\n    ]\n  }\n}\n- لا تُخرِج أي مفتاح آخر غير "${stepNum}".\n- لا تضف أي نص خارج كائن JSON هذا.\n`
-        });
-        this.messages.push({
-            role: "user",
+    });
+    this.messages.push({
+        role: "user",
             content:
                 `هذا كان نص المشهد السابق:\n${previousStepText}\n\nالخيار الذي اختاره المستخدم: ${chosenOptionLabel}\n\nأرسل فقط المشهد رقم ${stepNum} بصيغة JSON كما وضّحت، وتابع القصة بناءً على هذا الخيار.`
-        });
+    });
 
-        this.showLoadingState();
+    this.showLoadingState();
 
-        try {
-            let storyStep = await this.generateStoryStep();
-            this.displayStoryStep(storyStep);
-            this.hideLoadingState();
-        } catch (error) {
-            console.error('Error selecting option:', error);
-            // Fallback to local stories
-            const storyStep = this.generateLocalStoryStep();
-            this.displayStoryStep(storyStep);
-            this.hideLoadingState();
-        }
+    try {
+        let storyStep = await this.generateStoryStep();
+        this.displayStoryStep(storyStep);
+        this.hideLoadingState();
+    } catch (error) {
+        console.error('Error selecting option:', error);
+        // Fallback to local stories
+        const storyStep = this.generateLocalStoryStep();
+        this.displayStoryStep(storyStep);
+        this.hideLoadingState();
     }
+}
 
     // Complete the story and show final screen
     completeStory() {
@@ -734,41 +786,87 @@ async generateStoryStep() {
 
         if (fullStoryContainer && storyScreen && completeScreen) {
             // Create the complete story HTML with better formatting
-            let storyHTML = '<div class="complete-story">';
-            storyHTML += '<h3 class="text-2xl font-bold mb-6 text-purple-800 text-center">🎉 قصتك الكاملة 🎉</h3>';
-            storyHTML += '<div class="story-meta mb-6 p-4 bg-purple-50 rounded-lg text-center">';
-            storyHTML += `<p class="text-lg"><strong>البطل:</strong> ${this.heroName}</p>`;
-            storyHTML += `<p class="text-lg"><strong>نوع القصة:</strong> ${this.storyType}</p>`;
-            storyHTML += '</div>';
-            
-            this.storySteps.forEach((step, index) => {
-                storyHTML += `
-                    <div class="story-part mb-6 p-6 bg-white border border-purple-200 rounded-lg shadow-sm">
-                        <div class="flex items-center mb-3">
-                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">مشهد ${index + 1}</span>
-                        </div>
-                        <p class="text-gray-700 leading-relaxed text-lg">${step}</p>
+            let storyHTML = `
+            <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
+              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl text-center animate-bounce-in">
+                <div class="flex flex-col items-center mb-6">
+                  <span class="text-5xl animate-bounce mb-2">🎉</span>
+                  <h2 class="text-3xl font-extrabold mb-2 text-indigo-800 tracking-tight animate-fade-in">قصتك الكاملة</h2>
+                  <p class="text-gray-500 text-base animate-fade-in">استمتع بقراءة مغامرتك الرائعة!</p>
+                </div>
+                <div class="mb-8 space-y-6">
+                  ${this.storySteps
+                    .filter(step => !/^\(اختيار المستخدم:/.test(step.trim()))
+                    .map((step, i, arr) => `
+                    <div class="relative group animate-fade-in-up">
+                      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform">
+                        <span class="block">${step}</span>
+                      </div>
+                      ${i < arr.length-1 ? '<div class=\"my-2 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse\"></div>' : ''}
                     </div>
-                `;
-            });
-            
-            storyHTML += '<div class="text-center mt-8">';
-            storyHTML += '<p class="text-gray-600 mb-4">🎊 مبروك! لقد أكملت قصتك التفاعلية 🎊</p>';
-            storyHTML += '</div>';
-            storyHTML += '</div>';
-            
+                  `).join('')}
+                </div>
+                <button id="finish-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">انتهى</button>
+              </div>
+            </div>
+            <div id="story-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 hidden">
+              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md text-center relative animate-fade-in-up">
+                <div class="text-5xl mb-2 animate-bounce">✨</div>
+                <h3 class="text-2xl font-extrabold mb-2 text-indigo-800 animate-fade-in">رائع! كانت رحلة ممتعة.</h3>
+                <p class="text-gray-600 mb-4 animate-fade-in">لقد وصلت إلى نهاية المغامرة!</p>
+                <div class="flex flex-col gap-3 mb-4 animate-fade-in-up">
+                  <button id="share-fb" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.127 22 17 22 12z'/></svg>شارك عبر فيسبوك</button>
+                  <button id="share-wa" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white rounded-lg py-2 font-semibold hover:bg-green-600 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.69.97.99-3.59-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z'/></svg>شارك عبر واتساب</button>
+                  <button id="share-x" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
+                  <button id="copy-story" class="w-full flex items-center justify-center gap-2 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 transition"><svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>نسخ نص القصة</button>
+                </div>
+                <button id="new-story-btn" class="w-full mt-2 py-2 bg-indigo-100 text-indigo-700 rounded-lg font-semibold hover:bg-indigo-200 transition animate-fade-in">ابدأ قصة جديدة ↺</button>
+                <button id="close-modal" class="absolute top-2 left-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+              </div>
+            </div>`;
             fullStoryContainer.innerHTML = storyHTML;
-            
             // Switch screens
             storyScreen.classList.add('hidden');
             completeScreen.classList.remove('hidden');
-            
             // Hide the story type heading
             if (storyTypeHeading) storyTypeHeading.classList.add('hidden');
-            // Scroll to top of complete screen
-            completeScreen.scrollIntoView({ behavior: 'smooth' });
-            // Attach PDF download button
-            if (window.attachPDFDownload) window.attachPDFDownload(this);
+
+            // --- منطق البوب أب وأزرار المشاركة ---
+            setTimeout(() => {
+              const finishBtn = document.getElementById('finish-story-btn');
+              const modal = document.getElementById('story-modal');
+              const closeModal = document.getElementById('close-modal');
+              const newStoryBtn = document.getElementById('new-story-btn');
+              const copyBtn = document.getElementById('copy-story');
+              const shareFb = document.getElementById('share-fb');
+              const shareWa = document.getElementById('share-wa');
+              const shareX = document.getElementById('share-x');
+              finishBtn && finishBtn.addEventListener('click', () => { 
+                modal.classList.remove('hidden'); 
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              });
+              closeModal && closeModal.addEventListener('click', () => { modal.classList.add('hidden'); });
+              newStoryBtn && newStoryBtn.addEventListener('click', () => { location.reload(); });
+              copyBtn && copyBtn.addEventListener('click', () => {
+                const text = Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n');
+                navigator.clipboard.writeText(text);
+                copyBtn.textContent = 'تم النسخ!';
+                setTimeout(()=>{copyBtn.textContent='نسخ نص القصة';}, 1500);
+              });
+              shareFb && shareFb.addEventListener('click', () => {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`,'_blank');
+              });
+              shareWa && shareWa.addEventListener('click', () => {
+                const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
+                window.open(`https://wa.me/?text=${text}`,'_blank');
+              });
+              shareX && shareX.addEventListener('click', () => {
+                const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
+                window.open(`https://twitter.com/intent/tweet?text=${text}`,'_blank');
+              });
+            }, 100);
         }
     }
 
