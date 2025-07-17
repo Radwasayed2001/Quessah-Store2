@@ -620,32 +620,49 @@ async generateStoryStep() {
         imageContainer.appendChild(loadingDiv);
 
         // أضف الـ imageContainer أسفل نص المشهد
-        storyContainer.appendChild(imageContainer);
+        // storyContainer.appendChild(imageContainer);
 
         // استدعي دالة توليد الصورة
-        generateDalleImage(`
-رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
-- شخصية ${this.heroName} تظهر بوضوح في الصورة بملامح مرحة (عيون كبيرة، ابتسامة، ألوان زاهية).
-- الخلفية تعكس المشهد: ${storyText}.
-- لا تضف أي نص أو شعارات.
-`, document.getElementById('story-container'), storyText, storyType, heroName, this.storyPages).then((img) => {
-            // عند وصول الصورة، أزل الـ loading وأضف الصورة
-            imageContainer.innerHTML = '';
-            if (img) imageContainer.appendChild(img);
-            else imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
-        });
+//         generateDalleImage(`
+// رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
+// - شخصية ${this.heroName} تظهر بوضوح في الصورة بملامح مرحة (عيون كبيرة، ابتسامة، ألوان زاهية).
+// - الخلفية تعكس المشهد: ${storyText}.
+// - لا تضف أي نص أو شعارات.
+// `, document.getElementById('story-container'), storyText, storyType, heroName, this.storyPages).then((img) => {
+//             // عند وصول الصورة، أزل الـ loading وأضف الصورة
+//             imageContainer.innerHTML = '';
+//             if (img) imageContainer.appendChild(img);
+//             else imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
+//         });
     }
 
     // Handle option selection
     async selectOption(nextStep) {
-        if (nextStep === 'complete') {
-            this.completeStory();
-            return;
-        }
-
-        // إذا وصلنا للمشهد الخامس، نكمل القصة تلقائياً
-        if (this.storySteps.length >= 5) {
-            this.completeStory();
+        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية
+        if (nextStep === 'complete' || this.storySteps.length >= 5) {
+            // أضف رسالة خاصة للنهاية
+            this.messages.push({
+                role: "system",
+                content: `أنت مساعد ذكاء اصطناعي مهمتك كتابة خاتمة منطقية وجميلة للقصة التفاعلية بناءً على الأحداث السابقة، باللغة العربية، في جملة أو فقرتين فقط.`
+            });
+            this.messages.push({
+                role: "user",
+                content: `هذه كانت أحداث القصة حتى الآن:\n${this.storySteps.join('\n')}\n\nاكتب خاتمة مناسبة لهذه القصة.`
+            });
+            this.showLoadingState();
+            try {
+                let storyStep = await this.generateStoryStep();
+                // أضف الخاتمة فقط بدون خيارات
+                storyStep.options = [];
+                this.displayStoryStep(storyStep);
+                this.hideLoadingState();
+            } catch (error) {
+                // ... fallback ...
+                const storyStep = this.generateLocalStoryStep();
+                storyStep.options = [];
+                this.displayStoryStep(storyStep);
+                this.hideLoadingState();
+            }
             return;
         }
 
@@ -852,68 +869,68 @@ async generateStoryStep() {
 // (This will be loaded from dalle-key.js, which is gitignored and not committed)
 window.DALLE_API_KEY = window.DALLE_API_KEY || '';
 
-async function generateDalleImage(prompt) {
-    try {
-      const res = await fetch("https://chat-api-zeta-indol.vercel.app/api/chat", {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          mode: 'image',
-          prompt,
-          n: 1,
-          size: "1024x1024"
-        })
-      });
+// async function generateDalleImage(prompt) {
+//     try {
+//       const res = await fetch("https://chat-api-zeta-indol.vercel.app/api/chat", {
+//         method: "POST",
+//         mode: "cors",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           mode: 'image',
+//           prompt,
+//           n: 1,
+//           size: "1024x1024"
+//         })
+//       });
   
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || `Server responded ${res.status}`);
-      }
+//       if (!res.ok) {
+//         const err = await res.json().catch(() => ({}));
+//         throw new Error(err.error || `Server responded ${res.status}`);
+//       }
   
-      const json = await res.json();
+//       const json = await res.json();
   
-      // 1) إذا عاد الباكـاند حقل data مباشرة
-      // new check for backend's `urls`
-if (Array.isArray(json.urls) && json.urls[0]) {
-    return makeImg(json.urls[0]);
-  }
+//       // 1) إذا عاد الباكـاند حقل data مباشرة
+//       // new check for backend's `urls`
+// if (Array.isArray(json.urls) && json.urls[0]) {
+//     return makeImg(json.urls[0]);
+//   }
   
   
-      // 2) إذا عاد الباكـاند رابط مباشر
-      if (json.url) {
-        return makeImg(json.url);
-      }
+//       // 2) إذا عاد الباكـاند رابط مباشر
+//       if (json.url) {
+//         return makeImg(json.url);
+//       }
   
-      // 3) إذا عاد الباكـاند string في content يحتوي على data
-      if (typeof json.content === 'string') {
-        try {
-          const parsed = JSON.parse(json.content);
-          if (Array.isArray(parsed.data) && parsed.data[0]?.url) {
-            return makeImg(parsed.data[0].url);
-          }
-        } catch (e) {
-          // fallthrough
-        }
-      }
+//       // 3) إذا عاد الباكـاند string في content يحتوي على data
+//       if (typeof json.content === 'string') {
+//         try {
+//           const parsed = JSON.parse(json.content);
+//           if (Array.isArray(parsed.data) && parsed.data[0]?.url) {
+//             return makeImg(parsed.data[0].url);
+//           }
+//         } catch (e) {
+//           // fallthrough
+//         }
+//       }
   
-      throw new Error("لم نعثر على رابط الصورة في الاستجابة");
+//       throw new Error("لم نعثر على رابط الصورة في الاستجابة");
   
-    } catch (e) {
-      console.error("DALL·E via backend error:", e);
-      alert("تعذّر تحميل الصورة: " + e.message);
-      return null;
-    }
+//     } catch (e) {
+//       console.error("DALL·E via backend error:", e);
+//       alert("تعذّر تحميل الصورة: " + e.message);
+//       return null;
+//     }
   
-    // helper to build and return an <img> node
-    function makeImg(url) {
-      const img = document.createElement("img");
-      img.src = url;
-      img.alt = "Generated scene";
-      img.className = "dalle-image my-4 rounded shadow-md mx-auto";
-      return img;
-    }
-  }
+//     // helper to build and return an <img> node
+//     function makeImg(url) {
+//       const img = document.createElement("img");
+//       img.src = url;
+//       img.alt = "Generated scene";
+//       img.className = "dalle-image my-4 rounded shadow-md mx-auto";
+//       return img;
+//     }
+//   }
   
 
 // --- PDF Download ---
