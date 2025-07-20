@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار استراتيجية المشاهد</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .character-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .prompt-display {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .scene-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .first-scene {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+        .other-scene {
+            background: #d4edda;
+            border: 2px solid #28a745;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .strategy-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ffc107;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 اختبار استراتيجية المشاهد الجديدة</h1>
+        
+        <div class="strategy-info">
+            <h3>🎯 الاستراتيجية الجديدة:</h3>
+            <ul>
+                <li><strong>المشهد الأول:</strong> يظهر البطل بوضوح</li>
+                <li><strong>باقي المشاهد:</strong> مشاهد معبرة بدون البطل</li>
+                <li><strong>الهدف:</strong> تجنب مشكلة تغيير الشخصية</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>إعدادات القصة</h2>
+            <div class="character-info">
+                <label for="heroName">اسم البطل:</label>
+                <input type="text" id="heroName" value="أحمد" placeholder="أدخل اسم البطل">
+                
+                <label for="storyType">نوع القصة:</label>
+                <select id="storyType">
+                    <option value="مغامرة">مغامرة</option>
+                    <option value="خيال">خيال</option>
+                    <option value="كوميديا">كوميديا</option>
+                    <option value="غموض">غموض</option>
+                    <option value="رومانسية">رومانسية</option>
+                </select>
+                
+                <label for="sceneNumber">رقم المشهد:</label>
+                <select id="sceneNumber">
+                    <option value="1">المشهد الأول (مع البطل)</option>
+                    <option value="2">المشهد الثاني (بدون البطل)</option>
+                    <option value="3">المشهد الثالث (بدون البطل)</option>
+                </select>
+            </div>
+            
+            <button onclick="testFirstScene()">اختبار المشهد الأول</button>
+            <button onclick="testOtherScene()">اختبار مشهد آخر</button>
+            <button onclick="testSceneComparison()">مقارنة المشاهد</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        // محاكاة الكلاس InteractiveStories
+        class TestInteractiveStories {
+            constructor() {
+                this.heroName = 'أحمد';
+                this.storyType = 'مغامرة';
+                this.storySteps = [];
+            }
+            
+            // دالة لإنشاء وصف ثابت للشخصية
+            getCharacterDescription() {
+                const characterTraits = {
+                    'مغامرة': 'ملابس مغامرة زرقاء وحمراء، قبعة بنية، حقيبة ظهر خضراء، عيون بنية متحمسة، ابتسامة شجاعة، شعر أسود قصير، بشرة فاتحة',
+                    'خيال': 'ملابس سحرية أرجوانية لامعة، قبعة ساحر أزرق، عصا سحرية ذهبية، عيون خضراء متوهجة، ابتسامة سحرية، شعر بني طويل، بشرة فاتحة',
+                    'كوميديا': 'ملابس مضحكة ملونة (أحمر وأصفر)، قبعات غريبة ملونة، عيون كبيرة زرقاء مضحكة، ابتسامة عريضة، شعر برتقالي مضحك، بشرة فاتحة',
+                    'غموض': 'ملابس أنيقة داكنة (أسود ورمادي)، نظارة سوداء، مكبر زجاجي، عيون بنية فضولية، ابتسامة ذكية، شعر أسود أنيق، بشرة فاتحة',
+                    'رومانسية': 'ملابس جميلة وردية وبيضاء، إكليل زهور وردي، عيون بنية رومانسية، ابتسامة حلوة، شعر بني طويل جميل، بشرة فاتحة'
+                };
+                
+                return characterTraits[this.storyType] || 'ملابس ملونة (أزرق وأحمر)، عيون بنية كبيرة، ابتسامة مرحة، شعر أسود قصير، بشرة فاتحة، ألوان زاهية';
+            }
+
+            // دالة لإنشاء seed ثابت للشخصية
+            getCharacterSeed() {
+                const seed = `${this.heroName}_${this.storyType}_character_design_consistent`;
+                return seed;
+            }
+            
+            // دالة لتوليد الـ prompt حسب نوع المشهد
+            generateScenePrompt(storyText, sceneNumber) {
+                const characterDescription = this.getCharacterDescription();
+                const characterSeed = this.getCharacterSeed();
+                
+                const isFirstScene = sceneNumber === 1;
+                
+                let scenePrompt;
+                if (isFirstScene) {
+                    // المشهد الأول: إظهار البطل
+                    scenePrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
+الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة مع ${characterDescription}
+الخلفية تعكس المشهد: ${storyText}
+
+أسلوب رسم متناسق وملون بألوان زاهية
+لا تضف أي نص أو شعارات
+seed للشخصية: ${characterSeed}
+`;
+                } else {
+                    // باقي المشاهد: مشهد معبر بدون البطل
+                    scenePrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
+مشهد معبر ومثير للخيال يعكس: ${storyText}
+
+لا تظهر أي شخصية بشرية في الصورة
+ركز على الخلفية والعناصر المحيطة
+استخدم ألوان زاهية ومتناسقة
+أسلوب رسم كرتوني جميل ومثير للاهتمام
+لا تضف أي نص أو شعارات
+`;
+                }
+                
+                return scenePrompt;
+            }
+        }
+
+        let testInstance = new TestInteractiveStories();
+
+        function updateTestInstance() {
+            testInstance.heroName = document.getElementById('heroName').value;
+            testInstance.storyType = document.getElementById('storyType').value;
+        }
+
+        function testFirstScene() {
+            updateTestInstance();
+            const storyText = "في صباحٍ هادئ، استيقظ أحمد على صوت الطيور. نظر من النافذة ورأى الشمس تشرق في الأفق.";
+            const prompt = testInstance.generateScenePrompt(storyText, 1);
+            
+            document.getElementById('results').innerHTML = `
+                <div class="first-scene prompt-display">
+                    <strong>المشهد الأول - مع البطل:</strong>
+                    ${prompt}
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #d1ecf1; border-radius: 8px; border: 2px solid #17a2b8;">
+                    <strong>ملاحظة:</strong> هذا المشهد سيظهر البطل بوضوح مع تفاصيله الكاملة.
+                </div>
+            `;
+        }
+
+        function testOtherScene() {
+            updateTestInstance();
+            const storyText = "في الغابة، وجد أحمد شجرة عجيبة بأوراق ملونة تتلألأ في ضوء الشمس.";
+            const prompt = testInstance.generateScenePrompt(storyText, 2);
+            
+            document.getElementById('results').innerHTML = `
+                <div class="other-scene prompt-display">
+                    <strong>مشهد آخر - بدون البطل:</strong>
+                    ${prompt}
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 8px; border: 2px solid #28a745;">
+                    <strong>ملاحظة:</strong> هذا المشهد سيركز على الخلفية والعناصر المحيطة بدون إظهار البطل.
+                </div>
+            `;
+        }
+
+        function testSceneComparison() {
+            updateTestInstance();
+            const storyText1 = "في صباحٍ هادئ، استيقظ أحمد على صوت الطيور.";
+            const storyText2 = "في الغابة، وجد شجرة عجيبة بأوراق ملونة تتلألأ في ضوء الشمس.";
+            
+            const prompt1 = testInstance.generateScenePrompt(storyText1, 1);
+            const prompt2 = testInstance.generateScenePrompt(storyText2, 2);
+            
+            document.getElementById('results').innerHTML = `
+                <div class="scene-comparison">
+                    <div class="first-scene prompt-display">
+                        <strong>المشهد الأول - مع البطل:</strong>
+                        ${prompt1}
+                    </div>
+                    <div class="other-scene prompt-display">
+                        <strong>مشهد آخر - بدون البطل:</strong>
+                        ${prompt2}
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border: 2px solid #ffc107;">
+                    <strong>الاستراتيجية:</strong> المشهد الأول يظهر البطل، وباقي المشاهد تركز على الخلفية والعناصر المحيطة لتجنب مشكلة تغيير الشخصية.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 

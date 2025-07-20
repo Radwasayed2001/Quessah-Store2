@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الصور الموحدة في القصة الكاملة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .feature-info {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .prompt-display {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .old-approach {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+        }
+        .new-approach {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 اختبار الصور الموحدة في القصة الكاملة</h1>
+        
+        <div class="feature-info">
+            <h3>🎯 المميزات الجديدة:</h3>
+            <ul>
+                <li><strong>الصور في النهاية فقط:</strong> لا تظهر الصور في المشاهد الفردية</li>
+                <li><strong>الصور المتناسقة:</strong> جميع الصور تستخدم نفس التصميم والألوان</li>
+                <li><strong>Prompt موحد:</strong> استخدام prompt شامل للقصة الكاملة</li>
+                <li><strong>تحسين الأداء:</strong> تقليل عدد استدعاءات API</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار المشاهد الفردية</h2>
+            <div class="code-block">
+                // الكود الجديد في المشاهد الفردية:
+                // لا نولد الصور في المشاهد الفردية، فقط نعرض loading مؤقت
+                setTimeout(() => {
+                    imageContainer.innerHTML = '<span class="text-gray-500">سيتم عرض الصور في القصة الكاملة</span>';
+                }, 2000);
+            </div>
+            
+            <button onclick="testIndividualScenes()">اختبار المشاهد الفردية</button>
+            <button onclick="testLoadingMessage()">اختبار رسالة التحميل</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار الصور الموحدة</h2>
+            <div class="code-block">
+                // الكود الجديد في القصة الكاملة:
+                // إنشاء prompt شامل للقصة الكاملة
+                const fullStoryText = storySteps.join('\n\n');
+                const unifiedPrompt = `
+                رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لسلسلة من المشاهد من قصة ${this.storyType}:
+                القصة الكاملة: ${fullStoryText}
+                
+                الشخصية الرئيسية ${this.heroName} مع ${characterDescription}
+                استخدم نفس التصميم والألوان في جميع الصور لضمان التناسق
+                seed للشخصية: ${characterSeed}
+                `;
+            </div>
+            
+            <button onclick="testUnifiedPrompt()">اختبار الـ Prompt الموحد</button>
+            <button onclick="testImageGeneration()">اختبار توليد الصور</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>مقارنة الطريقة القديمة والجديدة</h2>
+            <div class="comparison">
+                <div class="old-approach">
+                    <h4>الطريقة القديمة:</h4>
+                    <ul>
+                        <li>صور في كل مشهد</li>
+                        <li>صور غير متناسقة</li>
+                        <li>استدعاءات API كثيرة</li>
+                        <li>بطء في التحميل</li>
+                        <li>تكلفة عالية</li>
+                    </ul>
+                </div>
+                <div class="new-approach">
+                    <h4>الطريقة الجديدة:</h4>
+                    <ul>
+                        <li>صور في النهاية فقط</li>
+                        <li>صور متناسقة</li>
+                        <li>استدعاءات API أقل</li>
+                        <li>تحميل أسرع</li>
+                        <li>تكلفة أقل</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button onclick="testComparison()">اختبار المقارنة</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        // محاكاة الكلاس InteractiveStories
+        class TestInteractiveStories {
+            constructor() {
+                this.heroName = 'أحمد';
+                this.storyType = 'مغامرة';
+                this.storySteps = [
+                    'في صباحٍ هادئ، استيقظ أحمد على صوت الطيور',
+                    'في الغابة، وجد أحمد شجرة عجيبة بأوراق ملونة',
+                    'داخل الكهف، سمع أحمد أصوات غريبة',
+                    'وجد أحمد كنزاً لامعاً في نهاية المغامرة!'
+                ];
+            }
+            
+            // دالة لإنشاء وصف ثابت للشخصية
+            getCharacterDescription() {
+                const characterTraits = {
+                    'مغامرة': 'ملابس مغامرة زرقاء وحمراء، قبعة بنية، حقيبة ظهر خضراء، عيون بنية متحمسة، ابتسامة شجاعة، شعر أسود قصير، بشرة فاتحة',
+                    'خيال': 'ملابس سحرية أرجوانية لامعة، قبعة ساحر أزرق، عصا سحرية ذهبية، عيون خضراء متوهجة، ابتسامة سحرية، شعر بني طويل، بشرة فاتحة',
+                    'كوميديا': 'ملابس مضحكة ملونة (أحمر وأصفر)، قبعات غريبة ملونة، عيون كبيرة زرقاء مضحكة، ابتسامة عريضة، شعر برتقالي مضحك، بشرة فاتحة',
+                    'غموض': 'ملابس أنيقة داكنة (أسود ورمادي)، نظارة سوداء، مكبر زجاجي، عيون بنية فضولية، ابتسامة ذكية، شعر أسود أنيق، بشرة فاتحة',
+                    'رومانسية': 'ملابس جميلة وردية وبيضاء، إكليل زهور وردي، عيون بنية رومانسية، ابتسامة حلوة، شعر بني طويل جميل، بشرة فاتحة'
+                };
+                
+                return characterTraits[this.storyType] || 'ملابس ملونة (أزرق وأحمر)، عيون بنية كبيرة، ابتسامة مرحة، شعر أسود قصير، بشرة فاتحة، ألوان زاهية';
+            }
+
+            // دالة لإنشاء seed ثابت للشخصية
+            getCharacterSeed() {
+                const seed = `${this.heroName}_${this.storyType}_character_design_consistent`;
+                return seed;
+            }
+            
+            // محاكاة دالة توليد الصور الموحدة
+            generateUnifiedPrompt() {
+                const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
+                const fullStoryText = storySteps.join('\n\n');
+                const characterDescription = this.getCharacterDescription();
+                const characterSeed = this.getCharacterSeed();
+                
+                const unifiedPrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لسلسلة من المشاهد من قصة ${this.storyType}:
+القصة الكاملة: ${fullStoryText}
+
+الشخصية الرئيسية ${this.heroName} مع ${characterDescription}
+استخدم نفس التصميم والألوان في جميع الصور لضمان التناسق
+أسلوب رسم متناسق وملون بألوان زاهية
+seed للشخصية: ${characterSeed}
+`;
+                
+                return unifiedPrompt;
+            }
+            
+            // محاكاة دالة توليد الصور
+            generateScenePrompt(sceneIndex, storyText) {
+                const unifiedPrompt = this.generateUnifiedPrompt();
+                const isFirstScene = sceneIndex === 0;
+                
+                let scenePrompt;
+                if (isFirstScene) {
+                    scenePrompt = `
+${unifiedPrompt}
+
+المشهد الأول: ${storyText}
+الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة
+`;
+                } else {
+                    scenePrompt = `
+${unifiedPrompt}
+
+المشهد ${sceneIndex + 1}: ${storyText}
+مشهد معبر ومثير للخيال بدون إظهار الشخصية
+ركز على الخلفية والعناصر المحيطة
+`;
+                }
+                
+                return scenePrompt;
+            }
+        }
+
+        let testInstance = new TestInteractiveStories();
+
+        function testIndividualScenes() {
+            const scenarios = [
+                { scene: 1, message: 'سيتم عرض الصور في القصة الكاملة' },
+                { scene: 2, message: 'سيتم عرض الصور في القصة الكاملة' },
+                { scene: 3, message: 'سيتم عرض الصور في القصة الكاملة' }
+            ];
+            
+            let results = '';
+            scenarios.forEach(scenario => {
+                results += `<div>المشهد ${scenario.scene}: ${scenario.message}</div>`;
+            });
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>اختبار المشاهد الفردية:</strong>
+                    ${results}
+                </div>
+            `;
+        }
+
+        function testLoadingMessage() {
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>رسالة التحميل في المشاهد الفردية:</strong>
+                    <div class="text-gray-500">سيتم عرض الصور في القصة الكاملة</div>
+                    <div class="text-sm text-gray-400 mt-2">(بدلاً من توليد الصور في كل مشهد)</div>
+                </div>
+            `;
+        }
+
+        function testUnifiedPrompt() {
+            const unifiedPrompt = testInstance.generateUnifiedPrompt();
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>الـ Prompt الموحد:</strong>
+                    ${unifiedPrompt}
+                </div>
+            `;
+        }
+
+        function testImageGeneration() {
+            const storySteps = testInstance.storySteps;
+            let prompts = '';
+            
+            storySteps.forEach((step, i) => {
+                const prompt = testInstance.generateScenePrompt(i, step);
+                prompts += `<div class="mb-4"><strong>المشهد ${i + 1}:</strong><br>${prompt}</div>`;
+            });
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>توليد الصور المتناسقة:</strong>
+                    ${prompts}
+                </div>
+            `;
+        }
+
+        function testComparison() {
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>مقارنة الطريقة القديمة والجديدة:</strong>
+                    <div class="comparison">
+                        <div class="old-approach">
+                            <h4>الطريقة القديمة:</h4>
+                            <ul>
+                                <li>❌ صور في كل مشهد</li>
+                                <li>❌ صور غير متناسقة</li>
+                                <li>❌ استدعاءات API كثيرة</li>
+                                <li>❌ بطء في التحميل</li>
+                                <li>❌ تكلفة عالية</li>
+                            </ul>
+                        </div>
+                        <div class="new-approach">
+                            <h4>الطريقة الجديدة:</h4>
+                            <ul>
+                                <li>✅ صور في النهاية فقط</li>
+                                <li>✅ صور متناسقة</li>
+                                <li>✅ استدعاءات API أقل</li>
+                                <li>✅ تحميل أسرع</li>
+                                <li>✅ تكلفة أقل</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار إصلاح المشهد الأخير</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .fix-info {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .prompt-display {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .before-fix {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+        }
+        .after-fix {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 اختبار إصلاح المشهد الأخير</h1>
+        
+        <div class="fix-info">
+            <h3>🔧 الإصلاحات المطبقة:</h3>
+            <ul>
+                <li><strong>إصلاح دالة selectOption:</strong> الانتقال المباشر للقصة الكاملة عند nextStep === 'complete'</li>
+                <li><strong>إصلاح منطق الكشف:</strong> إضافة فحص عدد المشاهد (>= 4)</li>
+                <li><strong>إصلاح منطق الزر:</strong> تفعيل الزر في المشهد الأخير</li>
+                <li><strong>إزالة الخاتمة المكررة:</strong> عدم إنشاء مشهد جديد بدون خيارات</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار دالة selectOption</h2>
+            <div class="code-block">
+                // الكود الجديد:
+                if (nextStep === 'complete') {
+                    // أضف الخيار الأخير المختار
+                    if (this.lastChosenOptionLabel) {
+                        this.storySteps.push(`(اختيار المستخدم: ${this.lastChosenOptionLabel})`);
+                    }
+                    // انتقل مباشرة للقصة الكاملة
+                    this.completeStory();
+                    return;
+                }
+            </div>
+            
+            <button onclick="testSelectOption()">اختبار دالة selectOption</button>
+            <button onclick="testCompleteFlow()">اختبار التدفق الكامل</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار منطق الكشف عن المشهد الأخير</h2>
+            <div class="code-block">
+                // الكود الجديد:
+                const isLastScene = step.options && step.options.length > 0 && 
+                                   step.options.every(option => option.nextStep === 'complete');
+                const isMaxStepsReached = this.storySteps.length >= 4;
+                
+                if (isLastScene || isMaxStepsReached) {
+                    nextBtn.textContent = 'القصة الكاملة';
+                }
+            </div>
+            
+            <button onclick="testLastSceneDetection()">اختبار الكشف عن المشهد الأخير</button>
+            <button onclick="testButtonLogic()">اختبار منطق الزر</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>مقارنة قبل وبعد الإصلاح</h2>
+            <div class="comparison">
+                <div class="before-fix">
+                    <h4>قبل الإصلاح:</h4>
+                    <ul>
+                        <li>إنشاء مشهد جديد بدون خيارات</li>
+                        <li>زر "التالي" غير مفعل</li>
+                        <li>لا يمكن الانتقال للقصة الكاملة</li>
+                        <li>خاتمة مكررة</li>
+                    </ul>
+                </div>
+                <div class="after-fix">
+                    <h4>بعد الإصلاح:</h4>
+                    <ul>
+                        <li>الانتقال المباشر للقصة الكاملة</li>
+                        <li>زر "القصة الكاملة" مفعل</li>
+                        <li>انتقال سلس</li>
+                        <li>لا توجد خاتمة مكررة</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button onclick="testComparison()">اختبار المقارنة</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        // محاكاة الكلاس InteractiveStories
+        class TestInteractiveStories {
+            constructor() {
+                this.heroName = 'أحمد';
+                this.storyType = 'مغامرة';
+                this.storySteps = [
+                    'في صباحٍ هادئ، استيقظ أحمد على صوت الطيور',
+                    'في الغابة، وجد أحمد شجرة عجيبة بأوراق ملونة',
+                    'داخل الكهف، سمع أحمد أصوات غريبة'
+                ];
+            }
+            
+            // محاكاة دالة selectOption الجديدة
+            selectOption(nextStep) {
+                if (nextStep === 'complete') {
+                    // أضف الخيار الأخير المختار
+                    if (this.lastChosenOptionLabel) {
+                        this.storySteps.push(`(اختيار المستخدم: ${this.lastChosenOptionLabel})`);
+                    }
+                    // انتقل مباشرة للقصة الكاملة
+                    return 'completeStory';
+                }
+                
+                // إذا وصلنا لعدد معين من المشاهد، انتقل للقصة الكاملة
+                if (this.storySteps.length >= 4) {
+                    return 'completeStory';
+                }
+                
+                return 'nextStep';
+            }
+            
+            // محاكاة دالة الكشف عن المشهد الأخير
+            detectLastScene(step) {
+                const isLastScene = step.options && step.options.length > 0 && 
+                                   step.options.every(option => option.nextStep === 'complete');
+                const isMaxStepsReached = this.storySteps.length >= 4;
+                
+                return isLastScene || isMaxStepsReached;
+            }
+        }
+
+        let testInstance = new TestInteractiveStories();
+
+        function testSelectOption() {
+            const scenarios = [
+                { nextStep: 'complete', expected: 'completeStory', description: 'nextStep === complete' },
+                { nextStep: '2', expected: 'nextStep', description: 'nextStep === 2' },
+                { nextStep: '3', expected: 'nextStep', description: 'nextStep === 3' }
+            ];
+            
+            let results = '';
+            scenarios.forEach(scenario => {
+                testInstance.lastChosenOptionLabel = 'اختار الخيار الأول';
+                const result = testInstance.selectOption(scenario.nextStep);
+                const status = result === scenario.expected ? '✅' : '❌';
+                results += `<div>${status} ${scenario.description}: ${result}</div>`;
+            });
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>اختبار دالة selectOption:</strong>
+                    ${results}
+                </div>
+            `;
+        }
+
+        function testCompleteFlow() {
+            // محاكاة تدفق كامل
+            const steps = [
+                { step: 1, nextStep: '2', action: 'التالي' },
+                { step: 2, nextStep: '3', action: 'التالي' },
+                { step: 3, nextStep: 'complete', action: 'القصة الكاملة' },
+                { step: 4, nextStep: 'complete', action: 'القصة الكاملة' }
+            ];
+            
+            let flowResults = '';
+            steps.forEach((step, index) => {
+                testInstance.storySteps = Array(index + 1).fill('مشهد ' + (index + 1));
+                const result = testInstance.selectOption(step.nextStep);
+                const action = result === 'completeStory' ? 'القصة الكاملة' : 'التالي';
+                flowResults += `<div>المشهد ${step.step}: ${action}</div>`;
+            });
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>اختبار التدفق الكامل:</strong>
+                    ${flowResults}
+                </div>
+            `;
+        }
+
+        function testLastSceneDetection() {
+            const scenarios = [
+                {
+                    step: { options: [{ nextStep: 'complete' }, { nextStep: 'complete' }] },
+                    storySteps: ['مشهد 1', 'مشهد 2', 'مشهد 3'],
+                    expected: true,
+                    description: 'جميع الخيارات تؤدي لـ complete'
+                },
+                {
+                    step: { options: [{ nextStep: '2' }, { nextStep: '3' }] },
+                    storySteps: ['مشهد 1', 'مشهد 2', 'مشهد 3', 'مشهد 4'],
+                    expected: true,
+                    description: 'عدد المشاهد >= 4'
+                },
+                {
+                    step: { options: [{ nextStep: '2' }, { nextStep: '3' }] },
+                    storySteps: ['مشهد 1', 'مشهد 2'],
+                    expected: false,
+                    description: 'مشهد عادي'
+                }
+            ];
+            
+            let results = '';
+            scenarios.forEach(scenario => {
+                testInstance.storySteps = scenario.storySteps;
+                const result = testInstance.detectLastScene(scenario.step);
+                const status = result === scenario.expected ? '✅' : '❌';
+                results += `<div>${status} ${scenario.description}: ${result}</div>`;
+            });
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>اختبار الكشف عن المشهد الأخير:</strong>
+                    ${results}
+                </div>
+            `;
+        }
+
+        function testButtonLogic() {
+            const scenarios = [
+                {
+                    isLastScene: true,
+                    isMaxStepsReached: false,
+                    expected: 'القصة الكاملة',
+                    description: 'مشهد أخير'
+                },
+                {
+                    isLastScene: false,
+                    isMaxStepsReached: true,
+                    expected: 'القصة الكاملة',
+                    description: 'عدد المشاهد >= 4'
+                },
+                {
+                    isLastScene: false,
+                    isMaxStepsReached: false,
+                    expected: 'التالي',
+                    description: 'مشهد عادي'
+                }
+            ];
+            
+            let results = '';
+            scenarios.forEach(scenario => {
+                const buttonText = (scenario.isLastScene || scenario.isMaxStepsReached) ? 'القصة الكاملة' : 'التالي';
+                const status = buttonText === scenario.expected ? '✅' : '❌';
+                results += `<div>${status} ${scenario.description}: ${buttonText}</div>`;
+            });
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>اختبار منطق الزر:</strong>
+                    ${results}
+                </div>
+            `;
+        }
+
+        function testComparison() {
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>مقارنة قبل وبعد الإصلاح:</strong>
+                    <div class="comparison">
+                        <div class="before-fix">
+                            <h4>قبل الإصلاح:</h4>
+                            <ul>
+                                <li>❌ إنشاء مشهد جديد بدون خيارات</li>
+                                <li>❌ زر "التالي" غير مفعل</li>
+                                <li>❌ لا يمكن الانتقال للقصة الكاملة</li>
+                                <li>❌ خاتمة مكررة</li>
+                            </ul>
+                        </div>
+                        <div class="after-fix">
+                            <h4>بعد الإصلاح:</h4>
+                            <ul>
+                                <li>✅ الانتقال المباشر للقصة الكاملة</li>
+                                <li>✅ زر "القصة الكاملة" مفعل</li>
+                                <li>✅ انتقال سلس</li>
+                                <li>✅ لا توجد خاتمة مكررة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار استمرارية الشخصية - الإصدار 2</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .character-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .prompt-display {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .prompt-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .old-prompt {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+        }
+        .new-prompt {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 اختبار استمرارية الشخصية - الإصدار 2</h1>
+        
+        <div class="test-section">
+            <h2>إعدادات الشخصية</h2>
+            <div class="character-info">
+                <label for="heroName">اسم البطل:</label>
+                <input type="text" id="heroName" value="أحمد" placeholder="أدخل اسم البطل">
+                
+                <label for="storyType">نوع القصة:</label>
+                <select id="storyType">
+                    <option value="مغامرة">مغامرة</option>
+                    <option value="خيال">خيال</option>
+                    <option value="كوميديا">كوميديا</option>
+                    <option value="غموض">غموض</option>
+                    <option value="رومانسية">رومانسية</option>
+                </select>
+            </div>
+            
+            <button onclick="testCharacterDescription()">عرض وصف الشخصية</button>
+            <button onclick="testCharacterSeed()">عرض Seed الشخصية</button>
+            <button onclick="testPromptComparison()">مقارنة الـ Prompts</button>
+            <button onclick="testFullPrompt()">عرض الـ Prompt الجديد</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        // محاكاة الكلاس InteractiveStories
+        class TestInteractiveStories {
+            constructor() {
+                this.heroName = 'أحمد';
+                this.storyType = 'مغامرة';
+            }
+            
+            // دالة لإنشاء وصف ثابت للشخصية لضمان استمراريتها
+            getCharacterDescription() {
+                const characterTraits = {
+                    'مغامرة': 'ملابس مغامرة زرقاء وحمراء، قبعة بنية، حقيبة ظهر خضراء، عيون بنية متحمسة، ابتسامة شجاعة، شعر أسود قصير، بشرة فاتحة',
+                    'خيال': 'ملابس سحرية أرجوانية لامعة، قبعة ساحر أزرق، عصا سحرية ذهبية، عيون خضراء متوهجة، ابتسامة سحرية، شعر بني طويل، بشرة فاتحة',
+                    'كوميديا': 'ملابس مضحكة ملونة (أحمر وأصفر)، قبعات غريبة ملونة، عيون كبيرة زرقاء مضحكة، ابتسامة عريضة، شعر برتقالي مضحك، بشرة فاتحة',
+                    'غموض': 'ملابس أنيقة داكنة (أسود ورمادي)، نظارة سوداء، مكبر زجاجي، عيون بنية فضولية، ابتسامة ذكية، شعر أسود أنيق، بشرة فاتحة',
+                    'رومانسية': 'ملابس جميلة وردية وبيضاء، إكليل زهور وردي، عيون بنية رومانسية، ابتسامة حلوة، شعر بني طويل جميل، بشرة فاتحة'
+                };
+                
+                return characterTraits[this.storyType] || 'ملابس ملونة (أزرق وأحمر)، عيون بنية كبيرة، ابتسامة مرحة، شعر أسود قصير، بشرة فاتحة، ألوان زاهية';
+            }
+
+            // دالة لإنشاء seed ثابت للشخصية لضمان استمراريتها
+            getCharacterSeed() {
+                const seed = `${this.heroName}_${this.storyType}_character_design_consistent`;
+                return seed;
+            }
+        }
+
+        let testInstance = new TestInteractiveStories();
+
+        function updateTestInstance() {
+            testInstance.heroName = document.getElementById('heroName').value;
+            testInstance.storyType = document.getElementById('storyType').value;
+        }
+
+        function testCharacterDescription() {
+            updateTestInstance();
+            const description = testInstance.getCharacterDescription();
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>وصف الشخصية الجديد:</strong>
+                    ${description}
+                </div>
+            `;
+        }
+
+        function testCharacterSeed() {
+            updateTestInstance();
+            const seed = testInstance.getCharacterSeed();
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>Seed الشخصية الجديد:</strong>
+                    ${seed}
+                </div>
+            `;
+        }
+
+        function testPromptComparison() {
+            updateTestInstance();
+            const characterDescription = testInstance.getCharacterDescription();
+            const characterSeed = testInstance.getCharacterSeed();
+            const storyText = "في صباحٍ هادئ، استيقظ بطلنا على صوت الطيور.";
+            
+            const oldPrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${testInstance.storyType}:
+- شخصية ${testInstance.heroName} تظهر بوضوح في الصورة بملامح مرحة (عيون كبيرة، ابتسامة، ألوان زاهية).
+- الخلفية تعكس المشهد: ${storyText}.
+- لا تضف أي نص أو شعارات.
+`;
+
+            const newPrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${testInstance.storyType}:
+الشخصية الرئيسية ${testInstance.heroName} يجب أن تظهر في كل صورة بنفس التصميم تماماً:
+- ${characterDescription}
+- نفس الوجه والملامح في كل صورة
+- نفس الألوان والملابس بالضبط
+- نفس نوع الشعر والشكل
+
+الخلفية تعكس المشهد: ${storyText}
+
+مهم جداً: استخدم نفس تصميم الشخصية بالضبط في جميع الصور. لا تغير شكل أو ألوان الشخصية.
+
+seed للشخصية: ${characterSeed}
+أسلوب رسم متناسق وملون بألوان زاهية
+لا تضف أي نص أو شعارات
+`;
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-comparison">
+                    <div class="old-prompt prompt-display">
+                        <strong>الـ Prompt القديم:</strong>
+                        ${oldPrompt}
+                    </div>
+                    <div class="new-prompt prompt-display">
+                        <strong>الـ Prompt الجديد:</strong>
+                        ${newPrompt}
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 8px; border: 2px solid #28a745;">
+                    <strong>التحسينات الرئيسية:</strong>
+                    <ul>
+                        <li>وصف مفصل ومحدد للشخصية</li>
+                        <li>تعليمات واضحة لاستخدام نفس التصميم</li>
+                        <li>تفاصيل دقيقة للألوان والملابس</li>
+                        <li>تأكيد على عدم تغيير شكل الشخصية</li>
+                        <li>Seed أكثر تحديداً</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function testFullPrompt() {
+            updateTestInstance();
+            const characterDescription = testInstance.getCharacterDescription();
+            const characterSeed = testInstance.getCharacterSeed();
+            const storyText = "في صباحٍ هادئ، استيقظ بطلنا على صوت الطيور.";
+            
+            const scenePrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${testInstance.storyType}:
+الشخصية الرئيسية ${testInstance.heroName} يجب أن تظهر في كل صورة بنفس التصميم تماماً:
+- ${characterDescription}
+- نفس الوجه والملامح في كل صورة
+- نفس الألوان والملابس بالضبط
+- نفس نوع الشعر والشكل
+
+الخلفية تعكس المشهد: ${storyText}
+
+مهم جداً: استخدم نفس تصميم الشخصية بالضبط في جميع الصور. لا تغير شكل أو ألوان الشخصية.
+
+seed للشخصية: ${characterSeed}
+أسلوب رسم متناسق وملون بألوان زاهية
+لا تضف أي نص أو شعارات
+`;
+            
+            document.getElementById('results').innerHTML = `
+                <div class="prompt-display">
+                    <strong>الـ Prompt الجديد الكامل:</strong>
+                    ${scenePrompt}
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border: 2px solid #ffc107;">
+                    <strong>ملاحظة:</strong> هذا الـ prompt الجديد يجب أن يضمن استمرارية أفضل للشخصية في جميع الصور.
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 

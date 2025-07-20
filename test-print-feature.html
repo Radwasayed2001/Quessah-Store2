@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار ميزة الطباعة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .feature-info {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .story-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+        }
+        .story-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .story-hero {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .story-scene {
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+        .story-scene-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .story-text {
+            text-align: right;
+            direction: rtl;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .story-image-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .story-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .story-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #667eea;
+            color: #666;
+        }
+        .print-preview {
+            background: white;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .print-styles {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #2196f3;
+            margin: 15px 0;
+        }
+        .print-styles h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        .print-styles code {
+            background: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖨️ اختبار ميزة الطباعة</h1>
+        
+        <div class="feature-info">
+            <h3>✅ ميزة الطباعة الجديدة:</h3>
+            <ul>
+                <li><strong>طباعة مباشرة:</strong> استخدام window.print() للطباعة</li>
+                <li><strong>أنماط طباعة مخصصة:</strong> CSS مخصص للطباعة</li>
+                <li><strong>إخفاء العناصر غير المرغوبة:</strong> إظهار القصة فقط</li>
+                <li><strong>تنسيق محسن:</strong> نصوص وصور واضحة</li>
+                <li><strong>دعم اللغة العربية:</strong> اتجاه RTL للنصوص</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>محتوى القصة للاختبار</h2>
+            <div id="full-story" class="story-content">
+                <div class="story-title">قصة تفاعلية</div>
+                <div class="story-hero">البطل: أحمد</div>
+                
+                <div class="story-scene">
+                    <div class="story-scene-title">المشهد الأول</div>
+                    <div class="story-text">
+                        في صباحٍ هادئ، استيقظ أحمد على صوت الطيور المغردة خارج نافذته. 
+                        الشمس كانت تشرق ببطء، ملقية أشعتها الذهبية على غرفته الصغيرة. 
+                        شعر بالحماس لبدء يوم جديد مليء بالمغامرات.
+                    </div>
+                    <div class="story-image-container">
+                        <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=المشهد+الأول" alt="المشهد الأول" class="story-image">
+                    </div>
+                </div>
+                
+                <div class="story-scene">
+                    <div class="story-scene-title">المشهد الثاني</div>
+                    <div class="story-text">
+                        بعد أن ارتدى ملابسه، خرج أحمد من منزله متجهاً نحو الغابة القريبة. 
+                        كان يعرف أن هناك مغامرة تنتظره في أعماق الغابة الخضراء. 
+                        خطواته كانت ثابتة وقلبه مليء بالشجاعة.
+                    </div>
+                    <div class="story-image-container">
+                        <img src="https://via.placeholder.com/400x300/28a745/ffffff?text=المشهد+الثاني" alt="المشهد الثاني" class="story-image">
+                    </div>
+                </div>
+                
+                <div class="story-scene">
+                    <div class="story-scene-title">المشهد الثالث</div>
+                    <div class="story-text">
+                        في وسط الغابة، وجد أحمد شجرة قديمة ضخمة. 
+                        كانت الشجرة تبدو وكأنها تحمل أسراراً قديمة. 
+                        قرر أحمد تسلق الشجرة ليكتشف ما يخبئه أعلاها.
+                    </div>
+                    <div class="story-image-container">
+                        <img src="https://via.placeholder.com/400x300/ffc107/ffffff?text=المشهد+الثالث" alt="المشهد الثالث" class="story-image">
+                    </div>
+                </div>
+                
+                <div class="story-footer">
+                    <p>تم إنشاؤها بواسطة تطبيق القصص التفاعلية</p>
+                    <p>تاريخ الإنشاء: 19 يوليو 2025</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار الطباعة</h2>
+            <div class="code-block">
+                // زر الطباعة:
+                &lt;button id="print-story"&gt;طباعة القصة&lt;/button&gt;
+                
+                // معالج الحدث:
+                printStoryBtn.addEventListener('click', () => {
+                    // إضافة أنماط الطباعة
+                    // طباعة القصة
+                    window.print();
+                });
+            </div>
+            
+            <button onclick="testPrint()">اختبار الطباعة</button>
+            <button onclick="showPrintStyles()">عرض أنماط الطباعة</button>
+            <button onclick="testPrintPreview()">معاينة الطباعة</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>أنماط الطباعة المطبقة</h2>
+            <div class="print-styles">
+                <h4>CSS للطباعة:</h4>
+                <div class="code-block">
+                    @media print {
+                        body * {
+                            visibility: hidden;
+                        }
+                        #full-story, #full-story * {
+                            visibility: visible;
+                        }
+                        #full-story {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: white;
+                            padding: 20px;
+                            font-size: 14px;
+                            line-height: 1.6;
+                        }
+                        .story-step {
+                            margin-bottom: 20px;
+                            page-break-inside: avoid;
+                        }
+                        .story-image {
+                            max-width: 100%;
+                            height: auto;
+                            margin: 10px 0;
+                        }
+                        .story-title {
+                            text-align: center;
+                            font-size: 24px;
+                            font-weight: bold;
+                            margin-bottom: 30px;
+                            color: #333;
+                        }
+                        .story-hero {
+                            text-align: center;
+                            font-size: 18px;
+                            margin-bottom: 20px;
+                            color: #666;
+                        }
+                        .story-scene {
+                            border-left: 4px solid #667eea;
+                            padding-left: 15px;
+                            margin-bottom: 15px;
+                        }
+                        .story-scene-title {
+                            font-weight: bold;
+                            color: #667eea;
+                            margin-bottom: 10px;
+                        }
+                        .story-text {
+                            text-align: right;
+                            direction: rtl;
+                            margin-bottom: 10px;
+                        }
+                        .story-image-container {
+                            text-align: center;
+                            margin: 15px 0;
+                        }
+                        .story-footer {
+                            text-align: center;
+                            margin-top: 30px;
+                            padding-top: 20px;
+                            border-top: 2px solid #667eea;
+                            color: #666;
+                        }
+                        @page {
+                            margin: 1cm;
+                            size: A4;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>المميزات الرئيسية</h2>
+            <div class="feature-info">
+                <h4>✅ إخفاء العناصر غير المرغوبة:</h4>
+                <p><code>body * { visibility: hidden; }</code> - يخفي جميع العناصر</p>
+                <p><code>#full-story, #full-story * { visibility: visible; }</code> - يظهر القصة فقط</p>
+                
+                <h4>✅ تنسيق محسن للطباعة:</h4>
+                <p><code>position: absolute;</code> - تموضع القصة في أعلى الصفحة</p>
+                <p><code>width: 100%; height: 100%;</code> - استخدام كامل الصفحة</p>
+                <p><code>background: white;</code> - خلفية بيضاء للطباعة</p>
+                
+                <h4>✅ دعم اللغة العربية:</h4>
+                <p><code>text-align: right;</code> - محاذاة النصوص لليمين</p>
+                <p><code>direction: rtl;</code> - اتجاه النص من اليمين لليسار</p>
+                
+                <h4>✅ تنسيق الصور:</h4>
+                <p><code>max-width: 100%;</code> - عرض الصور بالكامل</p>
+                <p><code>height: auto;</code> - الحفاظ على النسب</p>
+                
+                <h4>✅ إعدادات الصفحة:</h4>
+                <p><code>@page { margin: 1cm; size: A4; }</code> - هوامش وحجم الصفحة</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>معاينة الطباعة</h2>
+            <div class="print-preview" id="print-preview">
+                <div class="story-title">قصة تفاعلية</div>
+                <div class="story-hero">البطل: أحمد</div>
+                
+                <div class="story-scene">
+                    <div class="story-scene-title">المشهد الأول</div>
+                    <div class="story-text">
+                        في صباحٍ هادئ، استيقظ أحمد على صوت الطيور المغردة خارج نافذته. 
+                        الشمس كانت تشرق ببطء، ملقية أشعتها الذهبية على غرفته الصغيرة. 
+                        شعر بالحماس لبدء يوم جديد مليء بالمغامرات.
+                    </div>
+                </div>
+                
+                <div class="story-scene">
+                    <div class="story-scene-title">المشهد الثاني</div>
+                    <div class="story-text">
+                        بعد أن ارتدى ملابسه، خرج أحمد من منزله متجهاً نحو الغابة القريبة. 
+                        كان يعرف أن هناك مغامرة تنتظره في أعماق الغابة الخضراء. 
+                        خطواته كانت ثابتة وقلبه مليء بالشجاعة.
+                    </div>
+                </div>
+                
+                <div class="story-footer">
+                    <p>تم إنشاؤها بواسطة تطبيق القصص التفاعلية</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج المتوقعة</h2>
+            <div class="feature-info">
+                <h4>✅ عند الضغط على زر الطباعة:</h4>
+                <ul>
+                    <li>يظهر مربع حوار الطباعة في المتصفح</li>
+                    <li>تظهر القصة فقط بدون باقي عناصر الصفحة</li>
+                    <li>النصوص العربية واضحة ومقروءة</li>
+                    <li>الصور تظهر بشكل صحيح</li>
+                    <li>التنسيق محسن للطباعة</li>
+                    <li>يمكن حفظ كـ PDF أو طباعة على الورق</li>
+                </ul>
+                
+                <h4>✅ مميزات إضافية:</h4>
+                <ul>
+                    <li>إخفاء تلقائي للعناصر غير المرغوبة</li>
+                    <li>تنسيق محسن للصفحة</li>
+                    <li>دعم كامل للغة العربية</li>
+                    <li>معالجة الأخطاء</li>
+                    <li>تحديث حالة الزر</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testPrint() {
+            try {
+                // إضافة أنماط الطباعة
+                const printStyles = document.createElement('style');
+                printStyles.id = 'print-styles';
+                printStyles.textContent = `
+                    @media print {
+                        body * {
+                            visibility: hidden;
+                        }
+                        #full-story, #full-story * {
+                            visibility: visible;
+                        }
+                        #full-story {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: white;
+                            padding: 20px;
+                            font-size: 14px;
+                            line-height: 1.6;
+                        }
+                        .story-step {
+                            margin-bottom: 20px;
+                            page-break-inside: avoid;
+                        }
+                        .story-image {
+                            max-width: 100%;
+                            height: auto;
+                            margin: 10px 0;
+                        }
+                        .story-title {
+                            text-align: center;
+                            font-size: 24px;
+                            font-weight: bold;
+                            margin-bottom: 30px;
+                            color: #333;
+                        }
+                        .story-hero {
+                            text-align: center;
+                            font-size: 18px;
+                            margin-bottom: 20px;
+                            color: #666;
+                        }
+                        .story-scene {
+                            border-left: 4px solid #667eea;
+                            padding-left: 15px;
+                            margin-bottom: 15px;
+                        }
+                        .story-scene-title {
+                            font-weight: bold;
+                            color: #667eea;
+                            margin-bottom: 10px;
+                        }
+                        .story-text {
+                            text-align: right;
+                            direction: rtl;
+                            margin-bottom: 10px;
+                        }
+                        .story-image-container {
+                            text-align: center;
+                            margin: 15px 0;
+                        }
+                        .story-footer {
+                            text-align: center;
+                            margin-top: 30px;
+                            padding-top: 20px;
+                            border-top: 2px solid #667eea;
+                            color: #666;
+                        }
+                        @page {
+                            margin: 1cm;
+                            size: A4;
+                        }
+                    }
+                `;
+                document.head.appendChild(printStyles);
+                
+                // طباعة القصة
+                window.print();
+                
+                // إزالة أنماط الطباعة بعد الطباعة
+                setTimeout(() => {
+                    const existingStyles = document.getElementById('print-styles');
+                    if (existingStyles) {
+                        existingStyles.remove();
+                    }
+                }, 1000);
+                
+                alert('تم فتح مربع حوار الطباعة! تحقق من النتائج.');
+                
+            } catch (error) {
+                console.error('Error printing:', error);
+                alert('حدث خطأ في الطباعة: ' + error.message);
+            }
+        }
+        
+        function showPrintStyles() {
+            const styles = `
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #full-story, #full-story * {
+                        visibility: visible;
+                    }
+                    #full-story {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: white;
+                        padding: 20px;
+                        font-size: 14px;
+                        line-height: 1.6;
+                    }
+                    .story-step {
+                        margin-bottom: 20px;
+                        page-break-inside: avoid;
+                    }
+                    .story-image {
+                        max-width: 100%;
+                        height: auto;
+                        margin: 10px 0;
+                    }
+                    .story-title {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 30px;
+                        color: #333;
+                    }
+                    .story-hero {
+                        text-align: center;
+                        font-size: 18px;
+                        margin-bottom: 20px;
+                        color: #666;
+                    }
+                    .story-scene {
+                        border-left: 4px solid #667eea;
+                        padding-left: 15px;
+                        margin-bottom: 15px;
+                    }
+                    .story-scene-title {
+                        font-weight: bold;
+                        color: #667eea;
+                        margin-bottom: 10px;
+                    }
+                    .story-text {
+                        text-align: right;
+                        direction: rtl;
+                        margin-bottom: 10px;
+                    }
+                    .story-image-container {
+                        text-align: center;
+                        margin: 15px 0;
+                    }
+                    .story-footer {
+                        text-align: center;
+                        margin-top: 30px;
+                        padding-top: 20px;
+                        border-top: 2px solid #667eea;
+                        color: #666;
+                    }
+                    @page {
+                        margin: 1cm;
+                        size: A4;
+                    }
+                }
+            `;
+            
+            alert('أنماط الطباعة:\n\n' + styles);
+        }
+        
+        function testPrintPreview() {
+            const preview = document.getElementById('print-preview');
+            preview.style.display = 'block';
+            preview.scrollIntoView({ behavior: 'smooth' });
+            
+            alert('تم عرض معاينة الطباعة! تحقق من التنسيق أدناه.');
+        }
+    </script>
+</body>
+</html> 

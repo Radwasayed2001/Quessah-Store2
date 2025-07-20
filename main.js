@@ -542,51 +542,30 @@ class InteractiveStories {
         return 'step1';
     }
 
-    // Display the current story step
+    // Display story step with image generation
     displayStoryStep(step) {
         const storyContainer = document.getElementById('story-container');
-        const storyTypeHeading = document.querySelector('h2.text-2xl.font-semibold'); // Hide the heading
-        if (storyTypeHeading) storyTypeHeading.classList.add('hidden');
-        
-        if (!storyContainer) {
-            console.error('Story container not found!');
-            return;
-        }
+        if (!storyContainer) return;
 
-        // Store the step text for final story
-        if (step.text) {
-            this.storySteps.push(step.text);
-        }
+        // Add the current step text to the story steps array
+        this.storySteps.push(step.text);
 
-        // إذا وصلنا للمشهد الرابع، نكمل القصة تلقائياً (تعديل: كان 5 → 4)
-        if (this.storySteps.length >= 4) {
-            this.completeStory();
-            return;
-        }
+        // Store the chosen option label for the next step
+        this.lastChosenOptionLabel = '';
 
-        // --- UI جديد fully responsive ---
-        const sceneIndex = this.storySteps.length;
-        const backBtn = `<button onclick="location.reload()" class="px-3 py-2 rounded-lg bg-white shadow text-gray-600 hover:bg-gray-100 text-sm sm:text-base">العودة ↗</button>`;
+        // إنشاء HTML للقصة والخيارات
         let html = `
-          <div class="w-full max-w-lg mx-auto">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-2 mb-4 sm:mb-6">
-              <span class="text-base sm:text-lg font-semibold text-gray-700">المشهد ${sceneIndex} من 3</span>
-              ${backBtn}
-            </div>
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <div class="relative w-full h-48 sm:h-64 md:h-80">
-                <div id="story-image-wrapper" class="w-full h-full object-cover">
-                  <!-- سيتم إدراج الصورة هنا لاحقًا -->
-                </div>
-                <!-- Overlay نص القصة -->
-                <div class="absolute bottom-0 left-0 w-full bg-black/40 text-white text-base sm:text-lg md:text-xl p-2 sm:p-4">
-                  ${step.text}
-                </div>
+          <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl text-center animate-bounce-in">
+              <div class="mb-6">
+                <div class="text-4xl mb-4">📖</div>
+                <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">${step.text}</div>
               </div>
               <div class="p-2 sm:p-4 md:p-6">
                 <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">ماذا يفعل بطل القصة؟</div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 sm:mb-6">
         `;
+        
         if (step.options && step.options.length > 0) {
             step.options.forEach((option, index) => {
                 html += `
@@ -600,6 +579,7 @@ class InteractiveStories {
                 `;
             });
         }
+        
         html += `
                 </div>
                 <button id="next-btn" class="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 rounded-lg py-3 font-semibold cursor-not-allowed mt-4" disabled>
@@ -610,19 +590,87 @@ class InteractiveStories {
             </div>
           </div>
         `;
+        
         storyContainer.innerHTML = html;
-        // إضافة الصورة (أو اللودينج) في مكانها الصحيح
-        const imageWrapper = document.getElementById('story-image-wrapper');
-        if (imageWrapper) {
-          // يمكنك هنا استدعاء دالة توليد الصورة وإدراجها
-          // imageWrapper.innerHTML = '<img src="..." ...>'; أو عنصر loading
+
+        const storyText = step.text;
+        const storyType = this.storyType;
+        const heroName = this.heroName;
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'dalle-image-container my-4 flex justify-center';
+
+        // أضف عنصر loading مؤقت
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading-image text-center';
+        loadingDiv.innerHTML = `
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
+          <span class="text-gray-500">جاري تحميل الصورة...</span>
+        `;
+        imageContainer.appendChild(loadingDiv);
+
+        // أضف الـ imageContainer أسفل نص المشهد
+        storyContainer.appendChild(imageContainer);
+
+        // تحسين الـ prompt حسب نوع المشهد
+        const characterDescription = this.getCharacterDescription();
+        const characterSeed = this.getCharacterSeed();
+        
+        // تحديد ما إذا كان هذا المشهد الأول أم لا
+        const isFirstScene = this.storySteps.length === 1;
+        
+        let scenePrompt;
+        if (isFirstScene) {
+            // المشهد الأول: إظهار البطل
+            scenePrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
+الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة مع ${characterDescription}
+الخلفية تعكس المشهد: ${storyText}
+
+أسلوب رسم متناسق وملون بألوان زاهية
+لا تضف أي نص أو شعارات
+seed للشخصية: ${characterSeed}
+`;
+        } else {
+            // باقي المشاهد: مشهد معبر بدون البطل
+            scenePrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
+مشهد معبر ومثير للخيال يعكس: ${storyText}
+
+لا تظهر أي شخصية بشرية في الصورة
+ركز على الخلفية والعناصر المحيطة
+استخدم ألوان زاهية ومتناسقة
+أسلوب رسم كرتوني جميل ومثير للاهتمام
+لا تضف أي نص أو شعارات
+`;
         }
+
+        // لا نولد الصور في المشاهد الفردية، فقط نعرض loading مؤقت
+        setTimeout(() => {
+            imageContainer.innerHTML = '<span class="text-gray-500">سيتم عرض الصور في القصة الكاملة</span>';
+        }, 2000);
 
         // --- تفعيل منطق اختيار الخيار وزر التالي ---
         const optionBtns = storyContainer.querySelectorAll('button.option-btn');
         const nextBtn = storyContainer.querySelector('#next-btn');
         let selectedNextStep = null;
         this.lastChosenOptionLabel = '';
+        
+        // تحقق ما إذا كان هذا المشهد الأخير
+        const isLastScene = step.options && step.options.length > 0 && 
+                           step.options.every(option => option.nextStep === 'complete');
+        
+        // تحقق أيضاً إذا كان عدد المشاهد وصل للحد الأقصى
+        const isMaxStepsReached = this.storySteps.length >= 4;
+        
+        if (isLastScene || isMaxStepsReached) {
+            // في المشهد الأخير، غير زر "التالي" إلى "القصة الكاملة"
+            nextBtn.textContent = 'القصة الكاملة';
+            nextBtn.innerHTML = `
+              القصة الكاملة
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            `;
+        }
+        
         optionBtns.forEach(btn => {
           btn.addEventListener('click', function() {
             optionBtns.forEach(b => b.classList.remove('ring', 'ring-purple-400', 'bg-purple-50', 'aria-pressed'));
@@ -640,80 +688,56 @@ class InteractiveStories {
             }
           });
         });
+        
         nextBtn.addEventListener('click', () => {
-          if (selectedNextStep) {
+          if (isLastScene || isMaxStepsReached) {
+            // في المشهد الأخير، انتقل إلى القصة الكاملة
+            this.completeStory();
+          } else if (selectedNextStep) {
+            // في المشاهد العادية، انتقل للمشهد التالي
             this.selectOption(selectedNextStep);
           }
         });
+    }
 
-        // --- Generate DALL·E image for this step ---
-        const storyText = step.text;
-        const storyType = this.storyType;
-        const heroName = this.heroName;
-        const imageContainer = document.createElement('div');
-        imageContainer.className = 'dalle-image-container my-4 flex justify-center';
+    // دالة لإنشاء وصف ثابت للشخصية لضمان استمراريتها
+    getCharacterDescription() {
+        // إنشاء وصف ثابت للشخصية بناءً على نوع القصة
+        const characterTraits = {
+            'مغامرة': 'ملابس مغامرة زرقاء وحمراء، قبعة بنية، حقيبة ظهر خضراء، عيون بنية متحمسة، ابتسامة شجاعة، شعر أسود قصير، بشرة فاتحة',
+            'خيال': 'ملابس سحرية أرجوانية لامعة، قبعة ساحر أزرق، عصا سحرية ذهبية، عيون خضراء متوهجة، ابتسامة سحرية، شعر بني طويل، بشرة فاتحة',
+            'كوميديا': 'ملابس مضحكة ملونة (أحمر وأصفر)، قبعات غريبة ملونة، عيون كبيرة زرقاء مضحكة، ابتسامة عريضة، شعر برتقالي مضحك، بشرة فاتحة',
+            'غموض': 'ملابس أنيقة داكنة (أسود ورمادي)، نظارة سوداء، مكبر زجاجي، عيون بنية فضولية، ابتسامة ذكية، شعر أسود أنيق، بشرة فاتحة',
+            'رومانسية': 'ملابس جميلة وردية وبيضاء، إكليل زهور وردي، عيون بنية رومانسية، ابتسامة حلوة، شعر بني طويل جميل، بشرة فاتحة'
+        };
+        
+        return characterTraits[this.storyType] || 'ملابس ملونة (أزرق وأحمر)، عيون بنية كبيرة، ابتسامة مرحة، شعر أسود قصير، بشرة فاتحة، ألوان زاهية';
+    }
 
-        // أضف عنصر loading مؤقت
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'loading-image text-center';
-        loadingDiv.innerHTML = `
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
-          <span class="text-gray-500">جاري تحميل الصورة...</span>
-        `;
-        imageContainer.appendChild(loadingDiv);
-
-        // أضف الـ imageContainer أسفل نص المشهد
-        // storyContainer.appendChild(imageContainer);
-
-        // استدعي دالة توليد الصورة
-//         generateDalleImage(`
-// رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
-// - شخصية ${this.heroName} تظهر بوضوح في الصورة بملامح مرحة (عيون كبيرة، ابتسامة، ألوان زاهية).
-// - الخلفية تعكس المشهد: ${storyText}.
-// - لا تضف أي نص أو شعارات.
-// `, document.getElementById('story-container'), storyText, storyType, heroName, this.storyPages).then((img) => {
-//             // عند وصول الصورة، أزل الـ loading وأضف الصورة
-//             imageContainer.innerHTML = '';
-//             if (img) imageContainer.appendChild(img);
-//             else imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
-//         });
+    // دالة لإنشاء seed ثابت للشخصية لضمان استمراريتها
+    getCharacterSeed() {
+        // إنشاء seed ثابت بناءً على اسم البطل ونوع القصة
+        const seed = `${this.heroName}_${this.storyType}_character_design_consistent`;
+        return seed;
     }
 
     // Handle option selection
     async selectOption(nextStep) {
-        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية (تعديل: كان 5 → 4)
-        if (nextStep === 'complete' || this.storySteps.length >= 3) {
+        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية
+        if (nextStep === 'complete') {
             // أضف الخيار الأخير المختار إلى الأحداث إذا لم يكن مضافًا
             if (this.lastChosenOptionLabel && (!this.storySteps.length || !this.storySteps[this.storySteps.length-1].includes(this.lastChosenOptionLabel))) {
                 this.storySteps.push(`(اختيار المستخدم: ${this.lastChosenOptionLabel})`);
             }
-            // أضف رسالة خاصة للنهاية
-            this.messages.push({
-                role: "system",
-                content: `أنت مساعد ذكاء اصطناعي مهمتك كتابة خاتمة منطقية وجميلة للقصة التفاعلية بناءً على الأحداث السابقة، باللغة العربية، في جملة أو فقرتين فقط.`
-            });
-            this.messages.push({
-                role: "user",
-                content: `هذه كانت أحداث القصة حتى الآن:
-${this.storySteps.join('\n')}
-
-الخيار الأخير الذي اختاره المستخدم: ${this.lastChosenOptionLabel || 'غير محدد'}
-اكتب خاتمة مناسبة لهذه القصة بناءً على هذا الخيار.`
-            });
-            this.showLoadingState();
-            try {
-                let storyStep = await this.generateStoryStep();
-                // أضف الخاتمة فقط بدون خيارات
-                storyStep.options = [];
-                this.displayStoryStep(storyStep);
-                this.hideLoadingState();
-            } catch (error) {
-                // ... fallback ...
-                const storyStep = this.generateLocalStoryStep();
-                storyStep.options = [];
-                this.displayStoryStep(storyStep);
-                this.hideLoadingState();
-            }
+            
+            // انتقل مباشرة للقصة الكاملة
+            this.completeStory();
+            return;
+        }
+        
+        // إذا وصلنا لعدد معين من المشاهد، انتقل للقصة الكاملة
+        if (this.storySteps.length >= 4) {
+            this.completeStory();
             return;
         }
 
@@ -785,36 +809,44 @@ ${this.storySteps.join('\n')}
         const storyTypeHeading = document.querySelector('h2.text-2xl.font-semibold'); // Hide the heading
 
         if (fullStoryContainer && storyScreen && completeScreen) {
-            // Create the complete story HTML with better formatting
+            // Create the complete story HTML with better formatting and images
             let storyHTML = `
             <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
-              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl text-center animate-bounce-in">
+              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-4xl text-center animate-bounce-in">
                 <div class="flex flex-col items-center mb-6">
                   <span class="text-5xl animate-bounce mb-2">🎉</span>
                   <h2 class="text-3xl font-extrabold mb-2 text-indigo-800 tracking-tight animate-fade-in">قصتك الكاملة</h2>
-                  <p class="text-gray-500 text-base animate-fade-in">استمتع بقراءة مغامرتك الرائعة!</p>
+                  <p class="text-gray-500 text-base animate-fade-in">استمتع بقراءة مغامرتك الرائعة مع الصور!</p>
                 </div>
-                <div class="mb-8 space-y-6">
+                <div class="mb-8 space-y-8">
                   ${this.storySteps
                     .filter(step => !/^\(اختيار المستخدم:/.test(step.trim()))
                     .map((step, i, arr) => `
                     <div class="relative group animate-fade-in-up">
-                      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform">
+                      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4">
                         <span class="block">${step}</span>
                       </div>
-                      ${i < arr.length-1 ? '<div class=\"my-2 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse\"></div>' : ''}
+                      <div class="story-image-container-${i} flex justify-center mb-4">
+                        <div class="loading-image text-center">
+                          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
+                          <span class="text-gray-500">جاري إنشاء الصورة المتناسقة...</span>
+                        </div>
+                      </div>
+                      ${i < arr.length-1 ? '<div class=\"my-4 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse\"></div>' : ''}
                     </div>
                   `).join('')}
                 </div>
                 <button id="finish-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">انتهى</button>
               </div>
             </div>
-            <div id="story-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 hidden">
-              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md text-center relative animate-fade-in-up">
+            <div id="story-modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 hidden pt-8">
+              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md text-center relative animate-fade-in-up mt-8">
                 <div class="text-5xl mb-2 animate-bounce">✨</div>
                 <h3 class="text-2xl font-extrabold mb-2 text-indigo-800 animate-fade-in">رائع! كانت رحلة ممتعة.</h3>
                 <p class="text-gray-600 mb-4 animate-fade-in">لقد وصلت إلى نهاية المغامرة!</p>
                 <div class="flex flex-col gap-3 mb-4 animate-fade-in-up">
+                  <button style="display: none !important;" id="download-pdf" class="hidden w-full flex items-center justify-center gap-2 bg-red-600 text-white rounded-lg py-2 font-semibold hover:bg-red-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z'/></svg>تحميل القصة كـ PDF</button>
+                  <button id="print-story" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z'/></svg>طباعة القصة</button>
                   <button id="share-fb" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.127 22 17 22 12z'/></svg>شارك عبر فيسبوك</button>
                   <button id="share-wa" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white rounded-lg py-2 font-semibold hover:bg-green-600 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.69.97.99-3.59-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z'/></svg>شارك عبر واتساب</button>
                   <button id="share-x" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
@@ -825,6 +857,10 @@ ${this.storySteps.join('\n')}
               </div>
             </div>`;
             fullStoryContainer.innerHTML = storyHTML;
+            
+            // توليد 4 صور متناسقة دفعة واحدة للقصة الكاملة
+            this.generateUnifiedStoryImages();
+            
             // Switch screens
             storyScreen.classList.add('hidden');
             completeScreen.classList.remove('hidden');
@@ -838,15 +874,187 @@ ${this.storySteps.join('\n')}
               const closeModal = document.getElementById('close-modal');
               const newStoryBtn = document.getElementById('new-story-btn');
               const copyBtn = document.getElementById('copy-story');
+              const downloadPdfBtn = document.getElementById('download-pdf');
+              const printStoryBtn = document.getElementById('print-story');
               const shareFb = document.getElementById('share-fb');
               const shareWa = document.getElementById('share-wa');
               const shareX = document.getElementById('share-x');
               finishBtn && finishBtn.addEventListener('click', () => { 
-                modal.classList.remove('hidden'); 
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                  modal.classList.remove('hidden'); 
+                }, 500);
               });
               closeModal && closeModal.addEventListener('click', () => { modal.classList.add('hidden'); });
               newStoryBtn && newStoryBtn.addEventListener('click', () => { location.reload(); });
+              
+                  // معالجة زر تحميل PDF
+    downloadPdfBtn && downloadPdfBtn.addEventListener('click', async () => {
+        try {
+            downloadPdfBtn.innerHTML = '<svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> جاري التحميل...';
+            downloadPdfBtn.disabled = true;
+            
+            // جمع بيانات القصة للـ PDF
+            const storyPages = [];
+            const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
+            
+            console.log('Story steps for PDF:', storySteps);
+            
+            for (let i = 0; i < storySteps.length; i++) {
+                const storyText = storySteps[i];
+                const imageContainer = document.querySelector(`.story-image-container-${i}`);
+                let imageUrl = '';
+                
+                if (imageContainer) {
+                    const img = imageContainer.querySelector('img');
+                    if (img) {
+                        imageUrl = img.src;
+                        console.log(`Image ${i + 1} URL:`, imageUrl);
+                    }
+                }
+                
+                storyPages.push({
+                    text: storyText,
+                    imageUrl: imageUrl
+                });
+            }
+            
+            console.log('Story pages for PDF:', storyPages);
+            
+            // تحميل PDF
+            await downloadStoryAsPDF(storyPages, this.heroName);
+            
+            downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z"/></svg> تم التحميل!';
+            setTimeout(() => {
+                downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z"/></svg> تحميل القصة كـ PDF';
+                downloadPdfBtn.disabled = false;
+            }, 2000);
+            
+        } catch (error) {
+            console.error('Error downloading PDF:', error);
+            downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> خطأ في التحميل';
+            setTimeout(() => {
+                downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z"/></svg> تحميل القصة كـ PDF';
+                downloadPdfBtn.disabled = false;
+            }, 3000);
+        }
+    });
+
+    // إضافة معالج حدث لزر الطباعة
+    printStoryBtn && printStoryBtn.addEventListener('click', () => {
+        try {
+            printStoryBtn.innerHTML = '<svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> جاري الطباعة...';
+            printStoryBtn.disabled = true;
+            
+            // إضافة أنماط الطباعة
+            const printStyles = document.createElement('style');
+            printStyles.id = 'print-styles';
+            printStyles.textContent = `
+                @media print {
+                    body * {
+                        visibility: hidden;
+                    }
+                    #full-story, #full-story * {
+                        visibility: visible;
+                    }
+                    #story-modal, #story-modal * {
+                        visibility: hidden !important;
+                        display: none !important;
+                    }
+                    #full-story {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: white;
+                        padding: 20px;
+                        font-size: 14px;
+                        line-height: 1.6;
+                    }
+                    .story-step {
+                        margin-bottom: 20px;
+                        page-break-inside: avoid;
+                    }
+                    .story-image {
+                        max-width: 100%;
+                        height: auto;
+                        margin: 10px 0;
+                    }
+                    .story-title {
+                        text-align: center;
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 30px;
+                        color: #333;
+                    }
+                    .story-hero {
+                        text-align: center;
+                        font-size: 18px;
+                        margin-bottom: 20px;
+                        color: #666;
+                    }
+                    .story-scene {
+                        border-left: 4px solid #667eea;
+                        padding-left: 15px;
+                        margin-bottom: 15px;
+                    }
+                    .story-scene-title {
+                        font-weight: bold;
+                        color: #667eea;
+                        margin-bottom: 10px;
+                    }
+                    .story-text {
+                        text-align: right;
+                        direction: rtl;
+                        margin-bottom: 10px;
+                    }
+                    .story-image-container {
+                        text-align: center;
+                        margin: 15px 0;
+                    }
+                    .story-footer {
+                        text-align: center;
+                        margin-top: 30px;
+                        padding-top: 20px;
+                        border-top: 2px solid #667eea;
+                        color: #666;
+                    }
+                    @page {
+                        margin: 1cm;
+                        size: A4;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyles);
+            
+            // طباعة القصة
+            window.print();
+            
+            // إزالة أنماط الطباعة بعد الطباعة
+            setTimeout(() => {
+                const existingStyles = document.getElementById('print-styles');
+                if (existingStyles) {
+                    existingStyles.remove();
+                }
+                
+                printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> تم الطباعة!';
+                setTimeout(() => {
+                    printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z"/></svg> طباعة القصة';
+                    printStoryBtn.disabled = false;
+                }, 2000);
+            }, 1000);
+            
+        } catch (error) {
+            console.error('Error printing story:', error);
+            printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> خطأ في الطباعة';
+            setTimeout(() => {
+                printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z"/></svg> طباعة القصة';
+                printStoryBtn.disabled = false;
+            }, 3000);
+        }
+    });
+              
               copyBtn && copyBtn.addEventListener('click', () => {
                 const text = Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n');
                 navigator.clipboard.writeText(text);
@@ -867,6 +1075,162 @@ ${this.storySteps.join('\n')}
                 window.open(`https://twitter.com/intent/tweet?text=${text}`,'_blank');
               });
             }, 100);
+        }
+    }
+
+    // توليد الصور لكل مشهد في القصة الكاملة - نسخة محسنة
+    async generateCompleteStoryImages() {
+        const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
+        
+        // إنشاء prompt شامل للقصة الكاملة
+        const fullStoryText = storySteps.join('\n\n');
+        const characterDescription = this.getCharacterDescription();
+        const characterSeed = this.getCharacterSeed();
+        
+        // إنشاء prompt موحد لضمان التناسق
+        const unifiedPrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لسلسلة من المشاهد من قصة ${this.storyType}:
+القصة الكاملة: ${fullStoryText}
+
+الشخصية الرئيسية ${this.heroName} مع ${characterDescription}
+استخدم نفس التصميم والألوان في جميع الصور لضمان التناسق
+أسلوب رسم متناسق وملون بألوان زاهية
+seed للشخصية: ${characterSeed}
+`;
+        
+        // توليد الصور تباعاً مع ضمان التناسق
+        for (let i = 0; i < storySteps.length; i++) {
+            const storyText = storySteps[i];
+            const isFirstScene = i === 0;
+            
+            let scenePrompt;
+            if (isFirstScene) {
+                // المشهد الأول: إظهار البطل
+                scenePrompt = `
+${unifiedPrompt}
+
+المشهد الأول: ${storyText}
+الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة
+`;
+            } else {
+                // باقي المشاهد: مشهد معبر بدون البطل
+                scenePrompt = `
+${unifiedPrompt}
+
+المشهد ${i + 1}: ${storyText}
+مشهد معبر ومثير للخيال بدون إظهار الشخصية
+ركز على الخلفية والعناصر المحيطة
+`;
+            }
+            
+            try {
+                const img = await generateDalleImage(scenePrompt);
+                const imageContainer = document.querySelector(`.story-image-container-${i}`);
+                if (imageContainer && img) {
+                    imageContainer.innerHTML = '';
+                    imageContainer.appendChild(img);
+                }
+            } catch (error) {
+                console.error(`Error generating image for step ${i}:`, error);
+                const imageContainer = document.querySelector(`.story-image-container-${i}`);
+                if (imageContainer) {
+                    imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
+                }
+            }
+            
+            // انتظار قليلاً بين كل صورة لتجنب تجاوز حدود API
+            await new Promise(resolve => setTimeout(resolve, 1500));
+        }
+    }
+
+    // توليد 4 صور متناسقة دفعة واحدة للقصة الكاملة
+    async generateUnifiedStoryImages() {
+        const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
+        
+        // إنشاء prompt شامل للقصة الكاملة مع تعليمات واضحة للتناسق
+        const fullStoryText = storySteps.join('\n\n');
+        const characterDescription = this.getCharacterDescription();
+        const characterSeed = this.getCharacterSeed();
+        
+        // إنشاء prompt موحد مع تعليمات صارمة للتناسق
+        const unifiedPrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لسلسلة من المشاهد من قصة ${this.storyType}:
+القصة الكاملة: ${fullStoryText}
+
+الشخصية الرئيسية ${this.heroName} مع ${characterDescription}
+مهم جداً: استخدم نفس الشخصية بالضبط في جميع الصور - نفس الوجه، نفس الملابس، نفس الألوان
+مهم جداً: لا تغير ملامح الشخصية أو ألوانها أو تصميمها
+مهم جداً: حافظ على نفس التصميم والألوان في جميع الصور
+أسلوب رسم متناسق وملون بألوان زاهية
+seed للشخصية: ${characterSeed}
+`;
+        
+        // إنشاء prompts للـ 4 مشاهد مع تعليمات إضافية للتناسق
+        const scenePrompts = [];
+        
+        for (let i = 0; i < storySteps.length; i++) {
+            const storyText = storySteps[i];
+            const isFirstScene = i === 0;
+            
+            let scenePrompt;
+            if (isFirstScene) {
+                // المشهد الأول: إظهار البطل
+                scenePrompt = `
+${unifiedPrompt}
+
+المشهد الأول: ${storyText}
+الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة
+مهم: استخدم نفس الشخصية بالضبط كما في باقي الصور
+`;
+            } else {
+                // باقي المشاهد: مشهد معبر بدون البطل
+                scenePrompt = `
+${unifiedPrompt}
+
+المشهد ${i + 1}: ${storyText}
+مشهد معبر ومثير للخيال بدون إظهار الشخصية
+ركز على الخلفية والعناصر المحيطة
+مهم: لا تظهر أي شخصية بشرية في هذه الصورة
+`;
+            }
+            
+            scenePrompts.push(scenePrompt);
+        }
+        
+        // توليد جميع الصور دفعة واحدة مع seed ثابت
+        try {
+            const images = await Promise.all(scenePrompts.map(async (prompt, index) => {
+                try {
+                    const img = await generateDalleImage(prompt, characterSeed);
+                    return { img, index };
+                } catch (error) {
+                    console.error(`Error generating image for step ${index}:`, error);
+                    return { img: null, index };
+                }
+            }));
+            
+            // عرض الصور في الحاويات المناسبة
+            images.forEach(({ img, index }) => {
+                const imageContainer = document.querySelector(`.story-image-container-${index}`);
+                if (imageContainer) {
+                    imageContainer.innerHTML = '';
+                    if (img) {
+                        imageContainer.appendChild(img);
+                    } else {
+                        imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
+                    }
+                }
+            });
+            
+        } catch (error) {
+            console.error('Error generating unified images:', error);
+            // في حالة الخطأ، عرض رسالة خطأ في جميع الحاويات
+            for (let i = 0; i < storySteps.length; i++) {
+                const imageContainer = document.querySelector(`.story-image-container-${i}`);
+                if (imageContainer) {
+                    imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
+                }
+            }
         }
     }
 
@@ -922,7 +1286,7 @@ ${this.storySteps.join('\n')}
             storyText += `مشهد ${index + 1}:\n${step}\n\n`;
         });
         
-        storyText += `🎊 انتهت القصة! 🎊\n\n`;
+        storyText += `�� انتهت القصة! 🎊\n\n`;
         storyText += `شارك قصتك التفاعلية مع أصدقائك!`;
         
         const shareUrl = encodeURIComponent(window.location.href);
@@ -967,68 +1331,69 @@ ${this.storySteps.join('\n')}
 // (This will be loaded from dalle-key.js, which is gitignored and not committed)
 window.DALLE_API_KEY = window.DALLE_API_KEY || '';
 
-// async function generateDalleImage(prompt) {
-//     try {
-//       const res = await fetch("https://chat-api-zeta-indol.vercel.app/api/chat", {
-//         method: "POST",
-//         mode: "cors",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           mode: 'image',
-//           prompt,
-//           n: 1,
-//           size: "1024x1024"
-//         })
-//       });
+async function generateDalleImage(prompt, seed = null) {
+    try {
+      const res = await fetch("https://chat-api-zeta-indol.vercel.app/api/chat", {
+        method: "POST",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          mode: 'image',
+          prompt,
+          n: 1,
+          size: "1024x1024",
+          seed: seed || "consistent_character_design"
+        })
+      });
   
-//       if (!res.ok) {
-//         const err = await res.json().catch(() => ({}));
-//         throw new Error(err.error || `Server responded ${res.status}`);
-//       }
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Server responded ${res.status}`);
+      }
   
-//       const json = await res.json();
+      const json = await res.json();
   
-//       // 1) إذا عاد الباكـاند حقل data مباشرة
-//       // new check for backend's `urls`
-// if (Array.isArray(json.urls) && json.urls[0]) {
-//     return makeImg(json.urls[0]);
-//   }
+      // 1) إذا عاد الباكـاند حقل data مباشرة
+      // new check for backend's `urls`
+if (Array.isArray(json.urls) && json.urls[0]) {
+    return makeImg(json.urls[0]);
+  }
   
   
-//       // 2) إذا عاد الباكـاند رابط مباشر
-//       if (json.url) {
-//         return makeImg(json.url);
-//       }
+      // 2) إذا عاد الباكـاند رابط مباشر
+      if (json.url) {
+        return makeImg(json.url);
+      }
   
-//       // 3) إذا عاد الباكـاند string في content يحتوي على data
-//       if (typeof json.content === 'string') {
-//         try {
-//           const parsed = JSON.parse(json.content);
-//           if (Array.isArray(parsed.data) && parsed.data[0]?.url) {
-//             return makeImg(parsed.data[0].url);
-//           }
-//         } catch (e) {
-//           // fallthrough
-//         }
-//       }
+      // 3) إذا عاد الباكـاند string في content يحتوي على data
+      if (typeof json.content === 'string') {
+        try {
+          const parsed = JSON.parse(json.content);
+          if (Array.isArray(parsed.data) && parsed.data[0]?.url) {
+            return makeImg(parsed.data[0].url);
+          }
+        } catch (e) {
+          // fallthrough
+        }
+      }
   
-//       throw new Error("لم نعثر على رابط الصورة في الاستجابة");
+      throw new Error("لم نعثر على رابط الصورة في الاستجابة");
   
-//     } catch (e) {
-//       console.error("DALL·E via backend error:", e);
-//       alert("تعذّر تحميل الصورة: " + e.message);
-//       return null;
-//     }
+    } catch (e) {
+      console.error("DALL·E via backend error:", e);
+      alert("تعذّر تحميل الصورة: " + e.message);
+      return null;
+    }
   
-//     // helper to build and return an <img> node
-//     function makeImg(url) {
-//       const img = document.createElement("img");
-//       img.src = url;
-//       img.alt = "Generated scene";
-//       img.className = "dalle-image my-4 rounded shadow-md mx-auto";
-//       return img;
-//     }
-//   }
+    // helper to build and return an <img> node
+    function makeImg(url) {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "Generated scene";
+      img.className = "dalle-image my-4 rounded shadow-md mx-auto";
+      return img;
+    }
+  }
   
 
 // --- PDF Download ---
@@ -1036,37 +1401,116 @@ async function downloadStoryAsPDF(storyPages, heroName) {
     if (!window.jspdf || !window.jspdf.jsPDF) {
         alert("مكتبة jsPDF لم تُحمّل بشكل صحيح. أعد تحميل الصفحة أو تحقق من الاتصال بالإنترنت.");
         return;
-      }
-      const { jsPDF } = window.jspdf;
+    }
+    
+    const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    
+    console.log('Creating PDF for hero:', heroName);
+    console.log('Story pages:', storyPages);
+    
+    // إضافة صفحة العنوان
+    pdf.setFillColor(102, 126, 234); // لون البنفسجي
+    pdf.rect(0, 0, 210, 297, 'F');
+    
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(24);
+    pdf.text('قصة تفاعلية', 105, 80, { align: 'center' });
+    
+    pdf.setFontSize(18);
+    pdf.text(`البطل: ${heroName}`, 105, 100, { align: 'center' });
+    
+    pdf.setFontSize(14);
+    pdf.text('تم إنشاؤها بواسطة تطبيق القصص التفاعلية', 105, 120, { align: 'center' });
+    
+    pdf.addPage();
+    
+    // إضافة محتوى القصة (بدون صور مؤقتاً)
     for (let i = 0; i < storyPages.length; i++) {
         const { text, imageUrl } = storyPages[i];
-        // تحميل الصورة وتحويلها إلى DataURL
-        let imgData = '';
-        try {
-            imgData = await toDataURL(imageUrl);
-        } catch (e) { imgData = ''; }
-        if (imgData) {
-            pdf.addImage(imgData, 'JPEG', 10, 20, 190, 100);
-        }
-        pdf.setFont('helvetica', 'bold');
+        
+        console.log(`Adding scene ${i + 1}:`, text);
+        
+        // إضافة عنوان المشهد
+        pdf.setFillColor(147, 51, 234); // لون البنفسجي الفاتح
+        pdf.rect(0, 0, 210, 20, 'F');
+        
+        pdf.setTextColor(255, 255, 255);
         pdf.setFontSize(16);
-        pdf.text(text, 15, 130, { maxWidth: 180, align: 'right' });
-        if (i < storyPages.length - 1) pdf.addPage();
+        pdf.text(`المشهد ${i + 1}`, 105, 12, { align: 'center' });
+        
+        // إضافة النص فقط (بدون صور مؤقتاً)
+        pdf.setTextColor(0, 0, 0);
+        pdf.setFontSize(14);
+        pdf.text(text, 15, 50, { maxWidth: 180, align: 'right' });
+        
+        // إضافة رقم الصفحة
+        pdf.setFontSize(10);
+        pdf.setTextColor(128, 128, 128);
+        pdf.text(`${i + 1}`, 105, 280, { align: 'center' });
+        
+        // إضافة صفحة جديدة إلا في آخر صفحة
+        if (i < storyPages.length - 1) {
+            pdf.addPage();
+        }
     }
-    pdf.save(`${heroName || 'story'}.pdf`);
+    
+    // إضافة صفحة الختام
+    pdf.addPage();
+    pdf.setFillColor(102, 126, 234);
+    pdf.rect(0, 0, 210, 297, 'F');
+    
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(20);
+    pdf.text('انتهت القصة!', 105, 120, { align: 'center' });
+    
+    pdf.setFontSize(14);
+    pdf.text('شكراً لك على مشاركة هذه المغامرة الرائعة', 105, 140, { align: 'center' });
+    
+    pdf.setFontSize(12);
+    pdf.text('تم إنشاؤها بواسطة تطبيق القصص التفاعلية', 105, 160, { align: 'center' });
+    
+    // حفظ الملف
+    const fileName = `${heroName || 'قصة'}_${new Date().toLocaleDateString('ar-EG')}.pdf`;
+    console.log('Saving PDF as:', fileName);
+    pdf.save(fileName);
 }
 
 // --- Helper: Convert image URL to DataURL ---
-function toDataURL(url) {
-    return fetch(url)
-        .then(response => response.blob())
-        .then(blob => new Promise((resolve, reject) => {
+async function toDataURL(url) {
+    try {
+        console.log('Fetching image from URL:', url);
+        
+        const response = await fetch(url, {
+            mode: 'cors',
+            headers: {
+                'Accept': 'image/*'
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const blob = await response.blob();
+        console.log('Blob size:', blob.size, 'bytes');
+        
+        return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = reject;
+            reader.onloadend = () => {
+                console.log('Image converted to DataURL successfully');
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                console.error('Error reading blob:', error);
+                reject(error);
+            };
             reader.readAsDataURL(blob);
-        }));
+        });
+    } catch (error) {
+        console.error('Error converting image to DataURL:', error);
+        throw error;
+    }
 }
 
 // --- Attach PDF Download Button ---

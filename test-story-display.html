@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار عرض القصة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">🧪 اختبار عرض القصة والخيارات</h1>
+        
+        <div class="max-w-2xl mx-auto">
+            <button onclick="testStoryDisplay()" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg mb-6">
+                اختبار عرض القصة
+            </button>
+            
+            <div id="story-container" class="bg-white rounded-lg p-6 shadow-lg">
+                <!-- هنا سيتم عرض القصة -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testStoryDisplay() {
+            const storyContainer = document.getElementById('story-container');
+            
+            // محاكاة مشهد قصة
+            const step = {
+                text: "في صباحٍ هادئ، استيقظ أحمد على صوت الطيور. نظر من النافذة ورأى الشمس تشرق في الأفق.",
+                options: [
+                    { label: "يقرر الخروج للتنزه", nextStep: "2" },
+                    { label: "يعود للنوم", nextStep: "3" },
+                    { label: "يبدأ في تحضير الإفطار", nextStep: "4" }
+                ]
+            };
+            
+            // إنشاء HTML للقصة والخيارات
+            let html = `
+              <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl text-center animate-bounce-in">
+                  <div class="mb-6">
+                    <div class="text-4xl mb-4">📖</div>
+                    <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">${step.text}</div>
+                  </div>
+                  <div class="p-2 sm:p-4 md:p-6">
+                    <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">ماذا يفعل بطل القصة؟</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 sm:mb-6">
+            `;
+            
+            if (step.options && step.options.length > 0) {
+                step.options.forEach((option, index) => {
+                    html += `
+                      <button 
+                        class="option-btn w-full bg-white border border-gray-200 rounded-lg py-3 px-4 text-gray-700 hover:bg-gray-50 transition text-right text-sm sm:text-base"
+                        data-next-step="${option.nextStep}"
+                        type="button"
+                        onclick="selectOption('${option.nextStep}', '${option.label}')"
+                      >
+                        ${option.label}
+                      </button>
+                    `;
+                });
+            }
+            
+            html += `
+                    </div>
+                    <button id="next-btn" class="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 rounded-lg py-3 font-semibold cursor-not-allowed mt-4" disabled>
+                      التالي
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+            
+            storyContainer.innerHTML = html;
+            
+            // تفعيل منطق اختيار الخيار
+            const optionBtns = storyContainer.querySelectorAll('button.option-btn');
+            const nextBtn = storyContainer.querySelector('#next-btn');
+            let selectedNextStep = null;
+            
+            optionBtns.forEach(btn => {
+              btn.addEventListener('click', function() {
+                optionBtns.forEach(b => b.classList.remove('ring', 'ring-purple-400', 'bg-purple-50', 'aria-pressed'));
+                this.classList.add('ring', 'ring-purple-400', 'bg-purple-50');
+                this.setAttribute('aria-pressed', 'true');
+                selectedNextStep = this.getAttribute('data-next-step');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('text-gray-400', 'bg-gray-100', 'cursor-not-allowed');
+                nextBtn.classList.add('text-white', 'bg-purple-600', 'hover:bg-purple-700', 'cursor-pointer');
+              });
+            });
+            
+            nextBtn.addEventListener('click', () => {
+              if (selectedNextStep) {
+                alert(`تم اختيار: ${selectedNextStep}`);
+              }
+            });
+        }
+        
+        function selectOption(nextStep, label) {
+            console.log(`تم اختيار: ${label} -> ${nextStep}`);
+        }
+    </script>
+</body>
+</html> 

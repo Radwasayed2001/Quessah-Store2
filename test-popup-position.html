@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تموضع البوب أب</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 200vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .problem-info {
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #dc3545;
+            margin-bottom: 20px;
+        }
+        .solution-info {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .before-fix {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+        }
+        .after-fix {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+        .scroll-content {
+            height: 1000px;
+            background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            margin: 20px 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #666;
+        }
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            padding: 32px;
+            width: 100%;
+            max-width: 448px;
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        .modal-top {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: none;
+            align-items: start;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 32px;
+        }
+        .modal-top.show {
+            display: flex;
+        }
+        .modal-content-top {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            padding: 32px;
+            width: 100%;
+            max-width: 448px;
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 0.5s ease-out;
+            margin-top: 32px;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 اختبار تموضع البوب أب</h1>
+        
+        <div class="problem-info">
+            <h3>🚨 المشكلة:</h3>
+            <ul>
+                <li><strong>البوب أب يظهر في المنتصف:</strong> حتى بعد scroll to top</li>
+                <li><strong>توقيت غير مناسب:</strong> البوب أب يظهر قبل الوصول لأعلى الصفحة</li>
+                <li><strong>تجربة مستخدم سيئة:</strong> البوب أب يظهر في مكان غير متوقع</li>
+            </ul>
+        </div>
+        
+        <div class="solution-info">
+            <h3>✅ الحلول المطبقة:</h3>
+            <ul>
+                <li><strong>تأخير ظهور البوب أب:</strong> انتظار 500ms بعد scroll</li>
+                <li><strong>تغيير تموضع البوب أب:</strong> من center إلى top</li>
+                <li><strong>إضافة padding top:</strong> لضمان المسافة من أعلى</li>
+                <li><strong>تحسين تجربة المستخدم:</strong> البوب أب يظهر في أعلى الصفحة</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>محتوى للتمرير</h2>
+            <div class="scroll-content">
+                هذا محتوى طويل للتمرير للأسفل واختبار البوب أب
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار البوب أب القديم (في المنتصف)</h2>
+            <div class="code-block">
+                // البوب أب القديم:
+                &lt;div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"&gt;
+                    &lt;div class="bg-white rounded-3xl shadow-2xl p-8"&gt;
+                        // محتوى البوب أب
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                // معالج الحدث القديم:
+                finishBtn.addEventListener('click', () => { 
+                    modal.classList.remove('hidden'); 
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            </div>
+            
+            <div class="test-buttons">
+                <button onclick="showOldModal()">اختبار البوب أب القديم</button>
+                <button onclick="testOldScroll()">اختبار Scroll + البوب أب القديم</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار البوب أب الجديد (في الأعلى)</h2>
+            <div class="code-block">
+                // البوب أب الجديد:
+                &lt;div class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8"&gt;
+                    &lt;div class="bg-white rounded-3xl shadow-2xl p-8 mt-8"&gt;
+                        // محتوى البوب أب
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                // معالج الحدث الجديد:
+                finishBtn.addEventListener('click', () => { 
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(() => {
+                        modal.classList.remove('hidden'); 
+                    }, 500);
+                });
+            </div>
+            
+            <div class="test-buttons">
+                <button onclick="showNewModal()">اختبار البوب أب الجديد</button>
+                <button onclick="testNewScroll()">اختبار Scroll + البوب أب الجديد</button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>مقارنة قبل وبعد الإصلاح</h2>
+            <div class="comparison">
+                <div class="before-fix">
+                    <h4>قبل الإصلاح:</h4>
+                    <ul>
+                        <li>❌ البوب أب يظهر في المنتصف</li>
+                        <li>❌ يظهر قبل الوصول لأعلى الصفحة</li>
+                        <li>❌ تجربة مستخدم سيئة</li>
+                        <li>❌ توقيت غير مناسب</li>
+                        <li>❌ تموضع غير متوقع</li>
+                    </ul>
+                </div>
+                <div class="after-fix">
+                    <h4>بعد الإصلاح:</h4>
+                    <ul>
+                        <li>✅ البوب أب يظهر في الأعلى</li>
+                        <li>✅ يظهر بعد الوصول لأعلى الصفحة</li>
+                        <li>✅ تجربة مستخدم محسنة</li>
+                        <li>✅ توقيت مناسب</li>
+                        <li>✅ تموضع متوقع</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>التغييرات المطبقة</h2>
+            <div class="solution-info">
+                <h4>✅ 1. تأخير ظهور البوب أب:</h4>
+                <div class="code-block">
+                    // قبل الإصلاح:
+                    finishBtn.addEventListener('click', () => { 
+                        modal.classList.remove('hidden'); 
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                    
+                    // بعد الإصلاح:
+                    finishBtn.addEventListener('click', () => { 
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setTimeout(() => {
+                            modal.classList.remove('hidden'); 
+                        }, 500);
+                    });
+                </div>
+                
+                <h4>✅ 2. تغيير تموضع البوب أب:</h4>
+                <div class="code-block">
+                    // قبل الإصلاح:
+                    &lt;div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"&gt;
+                    
+                    // بعد الإصلاح:
+                    &lt;div class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8"&gt;
+                </div>
+                
+                <h4>✅ 3. إضافة margin للبوب أب:</h4>
+                <div class="code-block">
+                    // قبل الإصلاح:
+                    &lt;div class="bg-white rounded-3xl shadow-2xl p-8"&gt;
+                    
+                    // بعد الإصلاح:
+                    &lt;div class="bg-white rounded-3xl shadow-2xl p-8 mt-8"&gt;
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج المتوقعة</h2>
+            <div class="solution-info">
+                <h4>✅ عند الضغط على "انتهى":</h4>
+                <ol>
+                    <li>التمرير السلس لأعلى الصفحة</li>
+                    <li>انتظار 500ms للوصول لأعلى الصفحة</li>
+                    <li>ظهور البوب أب في أعلى الصفحة</li>
+                    <li>تجربة مستخدم محسنة ومتوقعة</li>
+                </ol>
+                
+                <h4>✅ مميزات إضافية:</h4>
+                <ul>
+                    <li>توقيت مناسب لظهور البوب أب</li>
+                    <li>تموضع واضح ومتوقع</li>
+                    <li>تجربة مستخدم محسنة</li>
+                    <li>حركة سلسة ومريحة</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- البوب أب القديم -->
+    <div id="old-modal" class="modal">
+        <div class="modal-content">
+            <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
+            <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 8px; color: #3730a3;">رائع! كانت رحلة ممتعة.</h3>
+            <p style="color: #6b7280; margin-bottom: 16px;">لقد وصلت إلى نهاية المغامرة!</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                <button style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; background: #dc2626; color: white; border-radius: 8px; padding: 8px; font-weight: 600; border: none; cursor: pointer;">تحميل القصة كـ PDF</button>
+                <button style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; background: #2563eb; color: white; border-radius: 8px; padding: 8px; font-weight: 600; border: none; cursor: pointer;">طباعة القصة</button>
+            </div>
+            <button style="width: 100%; margin-top: 8px; padding: 8px; background: #e0e7ff; color: #3730a3; border-radius: 8px; font-weight: 600; border: none; cursor: pointer;">ابدأ قصة جديدة ↺</button>
+            <button onclick="closeOldModal()" style="position: absolute; top: 8px; left: 8px; color: #9ca3af; font-size: 24px; background: none; border: none; cursor: pointer;">&times;</button>
+        </div>
+    </div>
+
+    <!-- البوب أب الجديد -->
+    <div id="new-modal" class="modal-top">
+        <div class="modal-content-top">
+            <div style="font-size: 48px; margin-bottom: 16px;">✨</div>
+            <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 8px; color: #3730a3;">رائع! كانت رحلة ممتعة.</h3>
+            <p style="color: #6b7280; margin-bottom: 16px;">لقد وصلت إلى نهاية المغامرة!</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;">
+                <button style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; background: #dc2626; color: white; border-radius: 8px; padding: 8px; font-weight: 600; border: none; cursor: pointer;">تحميل القصة كـ PDF</button>
+                <button style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; background: #2563eb; color: white; border-radius: 8px; padding: 8px; font-weight: 600; border: none; cursor: pointer;">طباعة القصة</button>
+            </div>
+            <button style="width: 100%; margin-top: 8px; padding: 8px; background: #e0e7ff; color: #3730a3; border-radius: 8px; font-weight: 600; border: none; cursor: pointer;">ابدأ قصة جديدة ↺</button>
+            <button onclick="closeNewModal()" style="position: absolute; top: 8px; left: 8px; color: #9ca3af; font-size: 24px; background: none; border: none; cursor: pointer;">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        function showOldModal() {
+            document.getElementById('old-modal').classList.add('show');
+        }
+        
+        function closeOldModal() {
+            document.getElementById('old-modal').classList.remove('show');
+        }
+        
+        function showNewModal() {
+            document.getElementById('new-modal').classList.add('show');
+        }
+        
+        function closeNewModal() {
+            document.getElementById('new-modal').classList.remove('show');
+        }
+        
+        function testOldScroll() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                showOldModal();
+            }, 1000);
+        }
+        
+        function testNewScroll() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                showNewModal();
+            }, 1000);
+        }
+        
+        // إغلاق البوب أب عند النقر خارجه
+        document.getElementById('old-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeOldModal();
+            }
+        });
+        
+        document.getElementById('new-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNewModal();
+            }
+        });
+    </script>
+</body>
+</html> 

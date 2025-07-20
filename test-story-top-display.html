@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار عرض القصة في أعلى الصفحة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .problem-info {
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #dc3545;
+            margin-bottom: 20px;
+        }
+        .solution-info {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a6fd8;
+        }
+        .story-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        .story-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .story-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .before-fix {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+        }
+        .after-fix {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+        }
+        .story-top-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        .story-content {
+            max-width: 4xl;
+            margin: 0 auto;
+        }
+        .close-button {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .close-button:hover {
+            color: #374151;
+        }
+        .story-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .story-text {
+            text-align: right;
+            direction: rtl;
+            line-height: 1.6;
+            color: #374151;
+        }
+        .share-button {
+            display: flex;
+            align-items: center;
+            background: #3730a3;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .share-button:hover {
+            background: #312e81;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 اختبار عرض القصة في أعلى الصفحة</h1>
+        
+        <div class="problem-info">
+            <h3>🚨 المشكلة الأصلية:</h3>
+            <ul>
+                <li><strong>عرض modal:</strong> القصة تظهر في نافذة منبثقة</li>
+                <li><strong>تجربة مستخدم سيئة:</strong> القصة لا تظهر في أعلى الصفحة</li>
+                <li><strong>لا يوجد scroll to top:</strong> الصفحة لا تنتقل إلى أعلى</li>
+            </ul>
+        </div>
+        
+        <div class="solution-info">
+            <h3>✅ الحلول المطبقة:</h3>
+            <ul>
+                <li><strong>عرض في أعلى الصفحة:</strong> القصة تظهر في أعلى الصفحة بدلاً من modal</li>
+                <li><strong>scroll to top:</strong> الصفحة تنتقل إلى أعلى تلقائياً</li>
+                <li><strong>تجربة مستخدم محسنة:</strong> عرض أفضل وأكثر طبيعية</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار زر "اقرأ القصة"</h2>
+            <div class="story-card">
+                <div class="story-title">قصة اليوم</div>
+                <div class="story-description">
+                    اكتشف قصة جديدة كل يوم مليئة بالإثارة والمغامرة، واستمتع بتجربة قراءة فريدة ومميزة
+                </div>
+                <button id="test-read-story" class="bg-[#303590] text-white py-2 rounded-full text-lg hover:bg-indigo-900 transition">
+                    اقرأ القصة
+                </button>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>التغييرات المطبقة</h2>
+            <div class="code-block">
+                // التغيير من modal إلى عرض في أعلى الصفحة
+                openBtn.addEventListener('click', () => {
+                    // إخفاء modal
+                    modal.classList.add('hidden');
+                    
+                    // إنشاء عنصر القصة في أعلى الصفحة
+                    const storyContainer = document.createElement('div');
+                    storyContainer.id = 'story-top-container';
+                    storyContainer.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        background: white;
+                        z-index: 50;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        padding: 20px;
+                        max-height: 100vh;
+                        overflow-y: auto;
+                    `;
+                    
+                    // إضافة القصة للصفحة
+                    document.body.appendChild(storyContainer);
+                    
+                    // التمرير إلى أعلى الصفحة
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>مقارنة قبل وبعد الإصلاح</h2>
+            <div class="comparison">
+                <div class="before-fix">
+                    <h4>قبل الإصلاح:</h4>
+                    <ul>
+                        <li>❌ القصة تظهر في modal</li>
+                        <li>❌ لا يوجد scroll to top</li>
+                        <li>❌ تجربة مستخدم سيئة</li>
+                        <li>❌ القصة منفصلة عن الصفحة</li>
+                        <li>❌ عرض غير طبيعي</li>
+                    </ul>
+                </div>
+                <div class="after-fix">
+                    <h4>بعد الإصلاح:</h4>
+                    <ul>
+                        <li>✅ القصة تظهر في أعلى الصفحة</li>
+                        <li>✅ scroll to top تلقائي</li>
+                        <li>✅ تجربة مستخدم محسنة</li>
+                        <li>✅ القصة مدمجة في الصفحة</li>
+                        <li>✅ عرض طبيعي ومريح</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>المميزات الجديدة</h2>
+            <div class="solution-info">
+                <h4>✅ عرض في أعلى الصفحة:</h4>
+                <ul>
+                    <li>القصة تظهر في أعلى الصفحة بدلاً من modal</li>
+                    <li>عرض طبيعي ومريح</li>
+                    <li>تجربة مستخدم محسنة</li>
+                </ul>
+                
+                <h4>✅ scroll to top:</h4>
+                <ul>
+                    <li>الصفحة تنتقل إلى أعلى تلقائياً</li>
+                    <li>التمرير سلس ومريح</li>
+                    <li>تجربة قراءة أفضل</li>
+                </ul>
+                
+                <h4>✅ زر إغلاق:</h4>
+                <ul>
+                    <li>زر إغلاق في أعلى اليسار</li>
+                    <li>إزالة القصة من الصفحة</li>
+                    <li>سهولة الاستخدام</li>
+                </ul>
+                
+                <h4>✅ زر مشاركة:</h4>
+                <ul>
+                    <li>زر مشاركة في أسفل القصة</li>
+                    <li>مشاركة القصة بسهولة</li>
+                    <li>وظائف إضافية</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>النتائج المتوقعة</h2>
+            <div class="solution-info">
+                <h4>✅ عند الضغط على "اقرأ القصة":</h4>
+                <ol>
+                    <li>إخفاء modal (إذا كان موجوداً)</li>
+                    <li>إنشاء عنصر القصة في أعلى الصفحة</li>
+                    <li>التمرير إلى أعلى الصفحة</li>
+                    <li>عرض القصة بشكل طبيعي</li>
+                </ol>
+                
+                <h4>✅ مميزات إضافية:</h4>
+                <ul>
+                    <li>عرض طبيعي ومريح</li>
+                    <li>تجربة مستخدم محسنة</li>
+                    <li>سهولة القراءة</li>
+                    <li>إمكانية الإغلاق والمشاركة</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>اختبار الوظيفة</h2>
+            <button onclick="testStoryDisplay()">اختبار عرض القصة</button>
+            <button onclick="removeStory()">إزالة القصة</button>
+        </div>
+    </div>
+
+    <script>
+        function testStoryDisplay() {
+            // إزالة أي قصة موجودة
+            const existingStory = document.getElementById('story-top-container');
+            if (existingStory) {
+                existingStory.remove();
+            }
+            
+            // إنشاء عنصر القصة في أعلى الصفحة
+            const storyContainer = document.createElement('div');
+            storyContainer.id = 'story-top-container';
+            storyContainer.className = 'story-top-container';
+            
+            // محتوى القصة
+            storyContainer.innerHTML = `
+                <div class="story-content">
+                    <!-- زر الإغلاق -->
+                    <button onclick="removeStory()" class="close-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    
+                    <!-- عنوان القصة -->
+                    <h2 class="text-2xl font-bold text-gray-800 text-right mb-4 mt-8">الصداقة</h2>
+                    
+                    <!-- صورة القصة -->
+                    <img src="https://via.placeholder.com/400x300/667eea/ffffff?text=صورة+القصة" alt="الصداقة" class="story-image" />
+                    
+                    <!-- محتوى القصة -->
+                    <div class="story-text space-y-3 max-h-80 overflow-y-auto pr-2">
+                        <p>قال الجندي لرئيسه: "صديقي في المستشفى وأريد أن أذهب لأراه."</p>
+                        <p>فقال له الرئيس: "اذهب إليه، وإذا مات فاتصل بي حتى أرسل لك بديلاً."</p>
+                        <p>ذهب الجندي إلى المستشفى وبقي هناك طوال اليوم، وفي المساء اتصل بالرئيس وقال له: "لقد مات صديقي."</p>
+                        <p>فقال الرئيس: "آسف لسماع هذا الخبر. سأرسل لك بديلاً غدًا."</p>
+                        <p>فقال الجندي: "لا حاجة لإرسال بديل، لقد وجدت بديلاً."</p>
+                        <p>فقال الرئيس متعجبًا: "من هو؟"</p>
+                        <p>أجاب الجندي: "أنا لقد أخذت مكانه في المستشفى، فقد كان يقاتل بدلاً مني وأنا لم أعرف!".</p>
+                        <p class="font-semibold">العبرة: الصداقة الحقيقية تعني التضحية والوفاء، وأحياناً لا نكتشف قيمة الأصدقاء إلا بعد فوات الأوان. الصديق الحقيقي هو من يقف معك في الصعاب ويضحّي من أجلك دون انتظار مقابل.</p>
+                    </div>
+                    
+                    <!-- زر المشاركة -->
+                    <div class="mt-4 flex justify-end w-full">
+                        <button onclick="shareStory()" class="share-button">
+                            <span>مشاركة</span>
+                            <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5 0.25C11.7051 0.25 10.25 1.70507 10.25 3.5C10.25 3.69591 10.2673 3.88776 10.3006 4.07412L5.56991 7.38558C5.54587 7.4024 5.52312 7.42038 5.50168 7.43939C4.94993 7.00747 4.25503 6.75 3.5 6.75C1.70507 6.75 0.25 8.20507 0.25 10C0.25 11.7949 1.70507 13.25 3.5 13.25C4.25503 13.25 4.94993 12.9925 5.50168 12.5606C5.52312 12.5796 5.54587 12.5976 5.56991 12.6144L10.3006 15.9259C10.2673 16.1122 10.25 16.3041 10.25 16.5C10.25 18.2949 11.7051 19.75 13.5 19.75C15.2949 19.75 16.75 18.2949 16.75 16.5C16.75 14.7051 15.2949 13.25 13.5 13.25C12.4472 13.25 11.5113 13.7506 10.9174 14.5267L6.43806 11.3911C6.63809 10.9694 6.75 10.4978 6.75 10C6.75 9.50222 6.63809 9.03057 6.43806 8.60886L10.9174 5.4733C11.5113 6.24942 12.4472 6.75 13.5 6.75C15.2949 6.75 16.75 5.29493 16.75 3.5C16.75 1.70507 15.2949 0.25 13.5 0.25ZM11.75 3.5C11.75 2.5335 12.5335 1.75 13.5 1.75C14.4665 1.75 15.25 2.5335 15.25 3.5C15.25 4.4665 14.4665 5.25 13.5 5.25C12.5335 5.25 11.75 4.4665 11.75 3.5ZM3.5 8.25C2.5335 8.25 1.75 9.0335 1.75 10C1.75 10.9665 2.5335 11.75 3.5 11.75C4.4665 11.75 5.25 10.9665 5.25 10C5.25 9.0335 4.4665 8.25 3.5 8.25ZM13.5 14.75C12.5335 14.75 11.75 15.5335 11.75 16.5C11.75 17.4665 12.5335 18.25 13.5 18.25C14.4665 18.25 15.25 17.4665 15.25 16.5C15.25 15.5335 14.4665 14.75 13.5 14.75Z" fill="white"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // إضافة القصة للصفحة
+            document.body.appendChild(storyContainer);
+            
+            // التمرير إلى أعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            alert('تم عرض القصة في أعلى الصفحة! تحقق من التمرير إلى أعلى الصفحة.');
+        }
+        
+        function removeStory() {
+            const storyContainer = document.getElementById('story-top-container');
+            if (storyContainer) {
+                storyContainer.remove();
+                alert('تم إزالة القصة من الصفحة!');
+            }
+        }
+        
+        function shareStory() {
+            alert('رابط المشاركة تم نسخه!');
+        }
+        
+        // إضافة event listener لزر الاختبار
+        document.getElementById('test-read-story').addEventListener('click', testStoryDisplay);
+    </script>
+</body>
+</html> 

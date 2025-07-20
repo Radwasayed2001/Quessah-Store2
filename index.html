@@ -254,7 +254,7 @@
         </div>
       </div>
       <!-- Modal Overlay -->
-  <div id="story-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div id="story-modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center z-50 hidden">
     <!-- Modal Container -->
     <div class="bg-white max-h-[99vh] rounded-2xl max-w-3xl w-full mx-4 my-8 md:my-0 md:mx-2 p-6 relative overflow-y-auto">
       <!-- Close Button -->
@@ -385,9 +385,15 @@ class="fixed inset-0 bg-black bg-opacity-50 flex md:items-center items-start jus
     const closeBtn = document.getElementById('close-modal');
     const modal   = document.getElementById('story-modal');
   
-    // فتح المودال
+    // فتح المودال مع scroll to top
     openBtn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
+      // التمرير إلى أعلى الصفحة
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // فتح المودال بعد التمرير
+      setTimeout(() => {
+        modal.classList.remove('hidden');
+      }, 500);
     });
   
     // غلق المودال
@@ -410,6 +416,7 @@ class="fixed inset-0 bg-black bg-opacity-50 flex md:items-center items-start jus
       });
   </script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     AOS.init({ duration: 800, once: true /* only-once reveal */ });
   </script>
@@ -531,9 +538,15 @@ class="fixed inset-0 bg-black bg-opacity-50 flex md:items-center items-start jus
     const wheelModal    = document.getElementById('wheel-modal');
     const closeWheelBtn = document.getElementById('close-wheel');
   
-    // open
+    // open with scroll to top
     openWheelBtn.addEventListener('click', () => {
-      wheelModal.classList.remove('hidden');
+      // التمرير إلى أعلى الصفحة
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // فتح المودال بعد التمرير
+      setTimeout(() => {
+        wheelModal.classList.remove('hidden');
+      }, 500);
     });
   
     // close on X
