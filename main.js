@@ -68,10 +68,10 @@ class InteractiveStories {
         storyCards.forEach((card, index) => {
             card.addEventListener('click', () => {
                 // Remove active class from all cards
-                storyCards.forEach(c => c.classList.remove('ring-2', 'ring-purple-400', 'bg-purple-50'));
+                storyCards.forEach(c => c.classList.remove('ring-2', 'ring-[#565BB6]', 'bg-[#898EE9]'));
                 
                 // Add active class to selected card
-                card.classList.add('ring-2', 'ring-purple-400', 'bg-purple-50');
+                card.classList.add('ring-2', 'ring-[#565BB6]', 'bg-[#898EE9]');
                 
                 // Set story type based on card index
                 const storyTypes = ['Adventure', 'Fantasy', 'Comedy', 'Mystery'];
@@ -92,10 +92,10 @@ class InteractiveStories {
             
             if (isValid) {
                 startButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                startButton.classList.add('hover:bg-purple-600', 'cursor-pointer');
+                startButton.classList.add('hover:bg-[#303590]', 'cursor-pointer');
             } else {
                 startButton.classList.add('opacity-50', 'cursor-not-allowed');
-                startButton.classList.remove('hover:bg-purple-600', 'cursor-pointer');
+                startButton.classList.remove('hover:bg-[#303590]', 'cursor-pointer');
             }
         }
     }
@@ -137,7 +137,7 @@ class InteractiveStories {
             },
             {
               role: "user",
-              content: `ابدأ قصة تفاعلية بالعربية، بطلها اسمه ${this.heroName}، ونوعها ${this.storyType}. أرسل فقط المشهد الأول بصيغة JSON كما وضّحت.`
+              content: `act like an expert story writer and ابدأ قصة تفاعلية بالعربية اكتب القصة بشكل احترافي يجعل المستخدم مستمتع بالقصة، بطلها اسمه ${this.heroName}، ونوعها ${this.storyType}. أرسل فقط المشهد الأول بصيغة JSON كما وضّحت.`
             }
           ];
           
@@ -552,7 +552,10 @@ class InteractiveStories {
 
         // Store the chosen option label for the next step
         this.lastChosenOptionLabel = '';
-
+if (this.storySteps.length >= 4) {
+            this.completeStory();
+            return;
+        }
         // إنشاء HTML للقصة والخيارات
         let html = `
           <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
@@ -722,22 +725,40 @@ seed للشخصية: ${characterSeed}
     }
 
     // Handle option selection
-    async selectOption(nextStep) {
-        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية
-        if (nextStep === 'complete') {
+     async selectOption(nextStep) {
+        // إذا كان هذا هو المشهد الأخير أو اختيار النهاية (تعديل: كان 5 → 4)
+        if (nextStep === 'complete' || this.storySteps.length >= 3) {
             // أضف الخيار الأخير المختار إلى الأحداث إذا لم يكن مضافًا
             if (this.lastChosenOptionLabel && (!this.storySteps.length || !this.storySteps[this.storySteps.length-1].includes(this.lastChosenOptionLabel))) {
                 this.storySteps.push(`(اختيار المستخدم: ${this.lastChosenOptionLabel})`);
             }
-            
-            // انتقل مباشرة للقصة الكاملة
-            this.completeStory();
-            return;
-        }
-        
-        // إذا وصلنا لعدد معين من المشاهد، انتقل للقصة الكاملة
-        if (this.storySteps.length >= 4) {
-            this.completeStory();
+            // أضف رسالة خاصة للنهاية
+            this.messages.push({
+                role: "system",
+                content: `أنت مساعد ذكاء اصطناعي مهمتك كتابة خاتمة منطقية وجميلة للقصة التفاعلية بناءً على الأحداث السابقة، باللغة العربية، في جملة أو فقرتين فقط.`
+            });
+            this.messages.push({
+                role: "user",
+                content: `هذه كانت أحداث القصة حتى الآن:
+${this.storySteps.join('\n')}
+
+الخيار الأخير الذي اختاره المستخدم: ${this.lastChosenOptionLabel || 'غير محدد'}
+اكتب خاتمة مناسبة لهذه القصة بناءً على هذا الخيار.`
+            });
+            this.showLoadingState();
+            try {
+                let storyStep = await this.generateStoryStep();
+                // أضف الخاتمة فقط بدون خيارات
+                storyStep.options = [];
+                this.displayStoryStep(storyStep);
+                this.hideLoadingState();
+            } catch (error) {
+                // ... fallback ...
+                const storyStep = this.generateLocalStoryStep();
+                storyStep.options = [];
+                this.displayStoryStep(storyStep);
+                this.hideLoadingState();
+            }
             return;
         }
 
