@@ -603,7 +603,17 @@ if (this.storySteps.length >= 4) {
         imageContainer.className = 'dalle-image-container my-4 flex justify-center';
 
         // أضف عنصر loading مؤقت
-        const loadingDiv = document.createElement('div');
+        
+        // تحسين الـ prompt حسب نوع المشهد
+        const characterDescription = this.getCharacterDescription();
+        const characterSeed = this.getCharacterSeed();
+        
+        // تحديد ما إذا كان هذا المشهد الأول أم لا
+        const isFirstScene = this.storySteps.length === 1;
+        
+        let scenePrompt;
+        if (isFirstScene) {
+            const loadingDiv = document.createElement('div');
         loadingDiv.className = 'loading-image text-center';
         loadingDiv.innerHTML = `
           <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
@@ -614,15 +624,6 @@ if (this.storySteps.length >= 4) {
         // أضف الـ imageContainer أسفل نص المشهد
         storyContainer.appendChild(imageContainer);
 
-        // تحسين الـ prompt حسب نوع المشهد
-        const characterDescription = this.getCharacterDescription();
-        const characterSeed = this.getCharacterSeed();
-        
-        // تحديد ما إذا كان هذا المشهد الأول أم لا
-        const isFirstScene = this.storySteps.length === 1;
-        
-        let scenePrompt;
-        if (isFirstScene) {
             // المشهد الأول: إظهار البطل
             scenePrompt = `
 رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد من قصة ${this.storyType}:
@@ -844,14 +845,20 @@ ${this.storySteps.join('\n')}
                     .filter(step => !/^\(اختيار المستخدم:/.test(step.trim()))
                     .map((step, i, arr) => `
                     <div class="relative group animate-fade-in-up">
-                      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4">
-                        <span class="block">${step}</span>
-                      </div>
-                      <div class="story-image-container-${i} flex justify-center mb-4">
+                      
+                      
+                  ${i ==0?`
+                    <div class="story-image-container-${i} flex justify-center mb-4">
                         <div class="loading-image text-center">
-                          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
                           <span class="text-gray-500">جاري إنشاء الصورة المتناسقة...</span>
-                        </div>
+                          </div>
+                      </div>
+                      `
+                  :""
+                        }
+                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4">
+                        <span class="block">${step}</span>
                       </div>
                       ${i < arr.length-1 ? '<div class=\"my-4 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse\"></div>' : ''}
                     </div>
@@ -1110,150 +1117,90 @@ ${this.storySteps.join('\n')}
         
         // إنشاء prompt موحد لضمان التناسق
         const unifiedPrompt = `
-رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لسلسلة من المشاهد من قصة ${this.storyType}:
-القصة الكاملة: ${fullStoryText}
+أنشئ صورة واحدة كبيرة مقسمة إلى أربع مربعات أو أجزاء متجاورة (Panels)، كل جزء يمثل مشهد من القصة.
+كل مربع يحتوي على رسم كرتوني ملون يعبر بصرياً عن أحداث المشهد الخاص به، بدون أي نصوص أو عبارات داخل الصورة.
+إذا كان يجب ترقيم المشاهد، ضع فقط رقم المشهد باللغة العربية (١، ٢، ٣، ٤) بشكل فني وجذاب داخل كل مربع، ويفضل أن يكون الرقم في زاوية المربع أو بشكل جميل.
+المشاهد الأربعة بالترتيب من اليسار إلى اليمين (أو من الأعلى للأسفل):
+١. ${storySteps[0]}
+٢. ${storySteps[1]}
+٣. ${storySteps[2]}
+٤. ${storySteps[3]}
 
-الشخصية الرئيسية ${this.heroName} مع ${characterDescription}
-استخدم نفس التصميم والألوان في جميع الصور لضمان التناسق
-أسلوب رسم متناسق وملون بألوان زاهية
+الشخصية الرئيسية ${this.heroName} مع ${characterDescription} تظهر بوضوح في بعض المشاهد حسب الأحداث.
+استخدم نفس التصميم والألوان في جميع الأجزاء.
+لا تضف أي نص أو شعارات أو كلمات داخل الصورة سوى رقم المشهد فقط وباللغة العربية.
+أسلوب رسم كرتوني جميل وملون، مع إبراز تعبيرات الوجه والمشاعر والأحداث في كل مربع.
 seed للشخصية: ${characterSeed}
 `;
         
-        // توليد الصور تباعاً مع ضمان التناسق
-        for (let i = 0; i < storySteps.length; i++) {
-            const storyText = storySteps[i];
-            const isFirstScene = i === 0;
-            
-            let scenePrompt;
-            if (isFirstScene) {
-                // المشهد الأول: إظهار البطل
-                scenePrompt = `
-${unifiedPrompt}
-
-المشهد الأول: ${storyText}
-الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة
-`;
-            } else {
-                // باقي المشاهد: مشهد معبر بدون البطل
-                scenePrompt = `
-${unifiedPrompt}
-
-المشهد ${i + 1}: ${storyText}
-مشهد معبر ومثير للخيال بدون إظهار الشخصية
-ركز على الخلفية والعناصر المحيطة
-`;
-            }
-            
-            try {
-                const img = await generateDalleImage(scenePrompt);
-                const imageContainer = document.querySelector(`.story-image-container-${i}`);
-                if (imageContainer && img) {
-                    imageContainer.innerHTML = '';
-                    imageContainer.appendChild(img);
-                }
-            } catch (error) {
-                console.error(`Error generating image for step ${i}:`, error);
-                const imageContainer = document.querySelector(`.story-image-container-${i}`);
-                if (imageContainer) {
-                    imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
-                }
-            }
-            
-            // انتظار قليلاً بين كل صورة لتجنب تجاوز حدود API
-            await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+        // توليد صورة واحدة فقط
+        const img = await generateDalleImage(unifiedPrompt, characterSeed);
+        // اعرض الصورة في أول حاوية فقط
+        const imageContainer = document.querySelector('.story-image-container-0');
+        if (imageContainer && img) {
+            imageContainer.innerHTML = '';
+            imageContainer.appendChild(img);
         }
+        // أخفي باقي الحاويات تمامًا
+        for (let i = 1; i < storySteps.length; i++) {
+            const container = document.querySelector(`.story-image-container-${i}`);
+            if (container) {
+                container.style.display = 'none';
+            }
+        }
+    } catch (error) {
+        console.error('Error generating unified image:', error);
+        const imageContainer = document.querySelector('.story-image-container-0');
+        if (imageContainer) {
+            imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
+        }
+    }
     }
 
     // توليد 4 صور متناسقة دفعة واحدة للقصة الكاملة
     async generateUnifiedStoryImages() {
-        const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
-        
-        // إنشاء prompt شامل للقصة الكاملة مع تعليمات واضحة للتناسق
-        const fullStoryText = storySteps.join('\n\n');
-        const characterDescription = this.getCharacterDescription();
-        const characterSeed = this.getCharacterSeed();
-        
-        // إنشاء prompt موحد مع تعليمات صارمة للتناسق
-        const unifiedPrompt = `
-رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لسلسلة من المشاهد من قصة ${this.storyType}:
+    const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
+    const fullStoryText = storySteps.join('\n\n');
+    const characterDescription = this.getCharacterDescription();
+    const characterSeed = this.getCharacterSeed();
+
+    // برومبت واحد فقط يلخص القصة كلها في صورة واحدة
+    const unifiedPrompt = `
+رسم كرتوني ملون بأسلوب مجلة أطفال/كوميكس لمشهد بانورامي كبير يلخص قصة ${this.storyType}:
 القصة الكاملة: ${fullStoryText}
 
-الشخصية الرئيسية ${this.heroName} مع ${characterDescription}
-مهم جداً: استخدم نفس الشخصية بالضبط في جميع الصور - نفس الوجه، نفس الملابس، نفس الألوان
-مهم جداً: لا تغير ملامح الشخصية أو ألوانها أو تصميمها
-مهم جداً: حافظ على نفس التصميم والألوان في جميع الصور
+الشخصية الرئيسية ${this.heroName} مع ${characterDescription} تظهر بوضوح في الصورة
+أظهر أهم أحداث القصة بشكل متسلسل في صورة واحدة كبيرة (بانوراما)
+استخدم نفس التصميم والألوان في جميع العناصر
 أسلوب رسم متناسق وملون بألوان زاهية
 seed للشخصية: ${characterSeed}
 `;
-        
-        // إنشاء prompts للـ 4 مشاهد مع تعليمات إضافية للتناسق
-        const scenePrompts = [];
-        
-        for (let i = 0; i < storySteps.length; i++) {
-            const storyText = storySteps[i];
-            const isFirstScene = i === 0;
-            
-            let scenePrompt;
-            if (isFirstScene) {
-                // المشهد الأول: إظهار البطل
-                scenePrompt = `
-${unifiedPrompt}
 
-المشهد الأول: ${storyText}
-الشخصية الرئيسية ${this.heroName} تظهر بوضوح في الصورة
-مهم: استخدم نفس الشخصية بالضبط كما في باقي الصور
-`;
-            } else {
-                // باقي المشاهد: مشهد معبر بدون البطل
-                scenePrompt = `
-${unifiedPrompt}
-
-المشهد ${i + 1}: ${storyText}
-مشهد معبر ومثير للخيال بدون إظهار الشخصية
-ركز على الخلفية والعناصر المحيطة
-مهم: لا تظهر أي شخصية بشرية في هذه الصورة
-`;
-            }
-            
-            scenePrompts.push(scenePrompt);
+    try {
+        // توليد صورة واحدة فقط
+        const img = await generateDalleImage(unifiedPrompt, characterSeed);
+        // اعرض الصورة في أول حاوية فقط
+        const imageContainer = document.querySelector('.story-image-container-0');
+        if (imageContainer && img) {
+            imageContainer.innerHTML = '';
+            imageContainer.appendChild(img);
         }
-        
-        // توليد جميع الصور دفعة واحدة مع seed ثابت
-        try {
-            const images = await Promise.all(scenePrompts.map(async (prompt, index) => {
-                try {
-                    const img = await generateDalleImage(prompt, characterSeed);
-                    return { img, index };
-                } catch (error) {
-                    console.error(`Error generating image for step ${index}:`, error);
-                    return { img: null, index };
-                }
-            }));
-            
-            // عرض الصور في الحاويات المناسبة
-            images.forEach(({ img, index }) => {
-                const imageContainer = document.querySelector(`.story-image-container-${index}`);
-                if (imageContainer) {
-                    imageContainer.innerHTML = '';
-                    if (img) {
-                        imageContainer.appendChild(img);
-                    } else {
-                        imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
-                    }
-                }
-            });
-            
-        } catch (error) {
-            console.error('Error generating unified images:', error);
-            // في حالة الخطأ، عرض رسالة خطأ في جميع الحاويات
-            for (let i = 0; i < storySteps.length; i++) {
-                const imageContainer = document.querySelector(`.story-image-container-${i}`);
-                if (imageContainer) {
-                    imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
-                }
+        // أخفي باقي الحاويات تمامًا
+        for (let i = 1; i < storySteps.length; i++) {
+            const container = document.querySelector(`.story-image-container-${i}`);
+            if (container) {
+                container.style.display = 'none';
             }
+        }
+    } catch (error) {
+        console.error('Error generating unified image:', error);
+        const imageContainer = document.querySelector('.story-image-container-0');
+        if (imageContainer) {
+            imageContainer.innerHTML = '<span class="text-red-500">تعذر تحميل الصورة</span>';
         }
     }
+}
 
     // Switch to story screen
     switchToStoryScreen() {
