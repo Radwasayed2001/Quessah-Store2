@@ -61,21 +61,21 @@ document.getElementById('nav-games').classList.add('active');
   backButton.addEventListener('click', () => showScreen('playerScreen'));
   gamesGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.game-card');
-    if (card && getComputedStyle(card).opacity === '1') {
-      if (card.dataset.gameId === 'outOfTopic') showScreen('outOfTopicScreen');
-      else if (card.dataset.gameId === 'mafia') showScreen('mafiaScreen');
-      else if (card.dataset.gameId === 'phoneOnHead') showScreen('jawwalRulesScreen');
-      else if (card.dataset.gameId === 'similarPictures') showScreen('similarPicturesScreen');
-      else if (card.dataset.gameId === 'boxes') showScreen('boxesRulesScreen');
-      else if (card.dataset.gameId === 'whoAmongUs') showScreen('whoRulesScreen');
-      else if (card.dataset.gameId === 'fastest') showScreen('fastRulesScreen');
-      else if (card.dataset.gameId === 'treasure') showScreen('treasureRulesScreen');
-      else if (card.dataset.gameId === 'balance') showScreen('balanceRulesScreen');
-      else if (card.dataset.gameId === 'noSpeech') showScreen('charadesRulesScreen');
-      else if (card.dataset.gameId === 'ghomza') showScreen('winkRulesScreen');
-      else if (card.dataset.gameId === 'jassos') showScreen('spyRulesScreen');
+    // if (card && getComputedStyle(card).opacity === '1') {
+    //   if (card.dataset.gameId === 'outOfTopic') showScreen('outOfTopicScreen');
+    //   else if (card.dataset.gameId === 'mafia') showScreen('mafiaScreen');
+    //   else if (card.dataset.gameId === 'phoneOnHead') showScreen('jawwalRulesScreen');
+    //   else if (card.dataset.gameId === 'similarPictures') showScreen('similarPicturesScreen');
+    //   else if (card.dataset.gameId === 'boxes') showScreen('boxesRulesScreen');
+    //   else if (card.dataset.gameId === 'whoAmongUs') showScreen('whoRulesScreen');
+    //   else if (card.dataset.gameId === 'fastest') showScreen('fastRulesScreen');
+    //   else if (card.dataset.gameId === 'treasure') showScreen('treasureRulesScreen');
+    //   else if (card.dataset.gameId === 'balance') showScreen('balanceSettingsScreen');
+    //   else if (card.dataset.gameId === 'noSpeech') showScreen('charadesRulesScreen'); 
+    //   else if (card.dataset.gameId === 'ghomza') showScreen('winkRulesScreen');
+    //   else if (card.dataset.gameId === 'jassos') showScreen('spyRulesScreen');
 
-    }
+    // }
   });
   
   submitGuessButton.addEventListener('click', calculateResults);
@@ -86,7 +86,7 @@ document.getElementById('nav-games').classList.add('active');
       return;
 
     } 
-    showScreen('categoryScreen')
+    showScreen('categoryScreen');
   });
   document.querySelector('.category-grid').addEventListener('click', e => {
     // find the nearest ancestor (or self) that has the .category-card class

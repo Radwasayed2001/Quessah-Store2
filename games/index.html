@@ -219,7 +219,7 @@
 
 <!-- 3. Reveal role & location -->
 <section id="spyRevealScreen" class="screen">
-  <div class="secret-box">
+  <div class="warning-box">
     <p id="spyRevealPrompt" class="game-header-title">اضغط لمعرفة دورك</p>
     <button id="spyConfirmRevealBtn" class="btn btn-primary">كشف الدور ▶️</button>
     <h2 id="spyRevealTitle" class="game-header-title" style="display:none;"></h2>
@@ -378,7 +378,7 @@
 <!-- 3. شاشة تمرير الهاتف لتعيين القاتل -->
 <section id="winkPassScreen" class="screen">
   <div class="container">
-    <div class="wink-box">
+    <div class="secret-box">
       <p id="winkPassText" class="player-name-display">📱 أعطِ الهاتف للاعب...</p>
       <button id="winkPassNextBtn" class="btn btn-primary btn-animated">
         كشف الدور ▶️
@@ -390,7 +390,7 @@
 <!-- 4. شاشة عرض الدور -->
 <section id="winkRoleScreen" class="screen">
   <div class="container">
-    <div class="wink-box">
+    <div class="warning-box">
       <h2 id="winkRoleTitle" class="game-header-title"></h2>
       <p id="winkRoleExplain" class="settings-info"></p>
       <div class="buttons-row">
@@ -1154,7 +1154,7 @@
 <!-- Pass Phone Screen -->
 <section id="whoPassScreen" class="screen">
   <div class="container">
-    <div class="game-info">
+    <div class="game-info warning-box">
       <h2 class="game-title">📱 حان دور التصويت</h2>
       <div id="whoPassText" class="info-section player-name-display"></div>
     </div>
@@ -1199,7 +1199,7 @@
     <!-- Jawwal on Head Rules Screen -->
     <!-- Jawwal on Head Rules Screen -->
      <!-- Jawwal Rules Screen -->
-<section id="jawwalRulesScreen" class="screen">
+<section id="jawwalRulesScreen" class="screen py-20">
   <header class="game-header">
     <div class="headercontainer">
       <h1 class="game-header-title">📱 لعبة: جوالك على راسك</h1>
@@ -1452,6 +1452,16 @@
 
       </div>
     </section>
+    <section id="midSimPic" class="screen">
+      <div class="container">
+        <div class="warning-box">
+  <button id="moveTocounter" class="btn btn-primary">
+    اعط الهاتف إلى <span id="simPlayerName"></span>
+  </button>
+  </div>
+  </div>
+</section>
+
     <section id="countdownScreen" class="screen">
       <div class="countdown-container">
         <div id="playerNameDisplay" class="player-name-display"></div>
@@ -1528,7 +1538,15 @@
       </div>
     </section>
     <!-- Player Input Screen -->
-
+<section id="midBox" class="screen">
+      <div class="container">
+        <div class="warning-box">
+  <button id="moveTocounterBox" class="btn btn-primary">
+    اعط الهاتف إلى <span id="BoxPlayerName"></span>
+  </button>
+  </div>
+  </div>
+</section>
     <!-- Boxes Game Rules Screen -->
     <section id="boxesRulesScreen" style="padding-bottom: 3rem !important;"
       class="screen">
@@ -2218,9 +2236,9 @@
 
         <!-- Illustration: use your own asset or replace with SVG markup -->
         <img src="./public/discussion.png" alt="Mafia Morning"
-          class="illustration" style="width: 100%;">
+          class="illustration w-full md:w-96 my-8">
 
-        <div class="description">
+        <div class="description w-full flex flex-col items-center justify-center">
           <p>💡قبل بدء الجولة الصباحية🌞, ناقشوا💬 واتهموا بعضكم البعض لمعرفة
             أعضاء المافيا بينكم ☠️, ستبدأ الجولة الصباحية بالتصويت على القاتل🔪
           </p>
@@ -2253,10 +2271,10 @@
         <div class="sub-title">الجولة التالية هي الجولة المسائية</div>
 
         <!-- Illustration: use your own asset or replace with SVG markup -->
-        <img src="./public/mafia2.png" alt="Mafia Night" class="illustration"
-          style="width: 100%;">
+        <img src="./public/mafia2.png" alt="Mafia Night" class="illustration w-full md:w-96 my-8"
+          >
 
-        <div class="description">
+        <div class="description w-full flex flex-col items-center justify-center">
           <p>💡 خلال الجولة المسائية، ينام المواطنون 😴 بينما تنشط المافيا 🔪
             لقتل لاعب واحد،</p>
           <p>🩺 ويحاول الطبيب إنقاذه 🎗️، و🕵️‍♂️ المحقق يكشف سرًا عن هوية أحد

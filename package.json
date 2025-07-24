@@ -4,15 +4,30 @@
   "description": "Interactive Stories Application",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "npx tailwindcss -i ./input.css -o ./output.css",
+    "dev": "nodemon server.js",
+    "watch": "npx tailwindcss -i ./input.css -o ./output.css --watch"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
+    "express": "^4.18.2",
     "node-fetch": "^2.6.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
-  }
+    "autoprefixer": "^10.4.21",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Radwasayed2001/Quessah-Store2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Radwasayed2001/Quessah-Store2/issues"
+  },
+  "homepage": "https://github.com/Radwasayed2001/Quessah-Store2#readme"
 }

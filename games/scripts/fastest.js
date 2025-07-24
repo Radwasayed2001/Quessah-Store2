@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // انتهت التحديات؟
     if (availableChallenges.length === 0) {
       availableChallenges = challengesFastest.slice();
-      repeatFastChallengeBtn.style.display = "block";
+      // repeatFastChallengeBtn.style.display = "block";
       showScreen('fastChallengeScreen');
       return;
     }

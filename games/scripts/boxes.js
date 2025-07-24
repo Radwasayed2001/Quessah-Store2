@@ -45,10 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const startBtn        = document.getElementById('startBoxesBtn');
   const againBtn        = document.getElementById('boxPlayAgainBtn');
   const homeBtn         = document.getElementById('boxBackHomeBtn');
-
+  const moveTocounterBox     = document.getElementById('moveTocounterBox');
+  moveTocounterBox.addEventListener('click', () => playTurn());
+const BoxPlayerName = document.getElementById('BoxPlayerName');
+  BoxPlayerName.textContent =playersBoxes[currentPlayer];
   function resetGame() {
     clearBoxAllTimers();
     currentPlayer = 0;
+  BoxPlayerName.textContent =playersBoxes[currentPlayer];
+
     boxResults = [];
   }
 
@@ -57,19 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
       return showAlert('error','يحتاج 3 لاعبين على الأقل');
     }
     resetGame();
-    playTurn();
+  BoxPlayerName.textContent =playersBoxes[currentPlayer];
+
+    showScreen('midBox');
+
+    // playTurn();
   });
 
   againBtn.addEventListener('click', () => {
+
     resetGame();
-    playTurn();
+    showScreen('midBox');
+
+    // playTurn();
   });
 
   homeBtn.addEventListener('click', () => showScreen('gamesScreen'));
 
   function playTurn() {
     nextNumber = 1;
-    timeLeft = 60;
+    timeLeft = 3;
+  BoxPlayerName.textContent =playersBoxes[currentPlayer];
 
     playerLabel.textContent = `📱 دور: ${playersBoxes[currentPlayer]}`;
     showScreen('boxCountdownScreen');
@@ -151,8 +164,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function nextPlayer() {
     currentPlayer++;
+  BoxPlayerName.textContent =playersBoxes[currentPlayer];
+
     if (currentPlayer < playersBoxes.length) {
-      playTurn();
+      // playTurn();
+     showScreen('midBox');
+
+
     } else {
       showResults();
     }

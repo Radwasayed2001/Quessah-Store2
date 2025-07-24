@@ -45,14 +45,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const startBtn     = document.getElementById('startSimilarBtn');
   const againBtn     = document.getElementById('playAgainBtn');
   const homeBtn      = document.getElementById('backHomeBtn');
-
+  const moveTocounter     = document.getElementById('moveTocounter');
+ const simNameSpan = document.getElementById('simPlayerName');
+  simNameSpan.textContent =picPlayers[currentIndex];
   // إعادة تهيئة الحالة لكل لعبة
-  function resetGame() {
+  function resetGameSim() {
     clearAllTimersSim();
     currentIndex = 0;
     dupUrl       = '';
     attempts     = 0;
     roundResults = [];
+
+    simNameSpan.textContent =picPlayers[currentIndex];
+    showScreen('midSimPic');
+    // runTurn(); 
   }
 
   // زرّ البدء
@@ -61,23 +67,23 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة الصور المتشابهة تتطلب لاعب واحد على الأقل');
       return;
     }
-    resetGame();
-    runTurn();
+    resetGameSim();
   });
 
   // زر إعادة اللعب
   againBtn.addEventListener('click', () => {
-    resetGame();
-    runTurn();
+    resetGameSim();
   });
 
   // زر العودة للقائمة
   homeBtn.addEventListener('click', () => showScreen('gamesScreen'));
+  moveTocounter.addEventListener('click', () => runTurn());
 
   // 1) دور اللاعب: عدّ تنازلي
   function runTurn() {
     attempts = 0;
     const name = picPlayers[currentIndex];
+    simNameSpan.textContent =picPlayers[currentIndex];
     displayName.textContent = `📱 دور: ${name}`;
 
     showScreen('countdownScreen');
@@ -95,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (count <= 0) {
         clearInterval(imageCountdownInterval);
         imageCountdownInterval = null;
+    
         startImagePhase();
       }
     }, 1000);
@@ -184,7 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function nextPlayer() {
     currentIndex++;
     if (currentIndex < picPlayers.length) {
-      runTurn();
+    simNameSpan.textContent =picPlayers[currentIndex];
+
+     showScreen('midSimPic');
+
     } else {
       showResults();
     }

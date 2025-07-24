@@ -1,12 +1,12 @@
 /* Main Styles */
 :root {
   /* Color System */
-  --color-yellow: #FFD700;
+  --color-yellow: #303590;
   --color-yellow-light: #fff8cc;
   --color-purple: #8A2BE2;
   --color-purple-light: #9d52e2;
   --color-purple-dark: #7823c0;
-  --color-primary: var(--color-purple);
+  --color-primary: #303590;
   --color-secondary: #3498db;
   --color-success: #2ecc71;
   --color-warning: #f39c12;
@@ -367,7 +367,7 @@ h2 {
 /* Warning Screen */
 .warning-box {
   background: var(--color-bg-light);
-  border: 4px dashed var(--color-yellow);
+  border: 2px dashed var(--color-yellow);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
   text-align: center;
@@ -520,7 +520,7 @@ h2 {
 
 /* Results Screen */
 .results-container {
-  max-width: 900px;
+  /* max-width: 900px; */
   margin: 0 auto;
   padding: 2rem 1rem;
   text-align: center;
@@ -671,6 +671,7 @@ h2 {
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 #MorningDurationScreen .stat,
@@ -1354,7 +1355,7 @@ h2 {
 }
 
 .rules-box {
-  background-color: #fff8dc;
+  background-color: #ffffff;
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -1367,7 +1368,7 @@ h2 {
 }
 
 .rule-text.highlight {
-  background-color: #fff3b0;
+  background-color: #fafafa;
   padding: 10px;
   border-radius: 10px;
   font-weight: bold;
@@ -2383,4 +2384,28 @@ h2 {
 .game-card.disabled {
   opacity: 0.6;
   pointer-events: none;
+}
+#revealButton, #revealButtonMafia, #voteConButton, #voteConButtonMorning{
+  color: white !important;
+}
+#charadesPassScreen .container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} 
+#NightDurationScreen .container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#MorningDurationScreen .container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.btn.btn-secondary.choice-btn{
+  color: white;
 }
