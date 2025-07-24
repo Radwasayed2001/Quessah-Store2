@@ -147,12 +147,8 @@
 
     
     <!-- 1. Rules -->
-    <section id="spyRulesScreen" class="screen">
-      <header class="game-header">
-        <div class="headercontainer">
-          <h1 class="game-header-title">🕵🏻‍♂️ لعبة: الجاسوس</h1>
-        </div>
-      </header>
+    <section id="spyRulesScreen" class="modal-screen">
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
       <div class="container">
         <h2>📜 قوانين لعبة الجاسوس</h2>
         <p>عدد اللاعبين المقترح في اللعبة من 5 إلى 8 لاعبين.</p>
@@ -267,12 +263,9 @@
 </section>
 
 <!-- 1. Rules Screen -->
-<section id="winkRulesScreen" class="screen">
-  <header class="game-header">
-    <div class="headercontainer">
-      <h1 class="game-header-title">😏 لعبة: الدخيل 😉</h1>
-    </div>
-  </header>
+  <section id="winkRulesScreen" class="modal-screen">
+  <button id="closeWinkModal" class="modal-close-btn" aria-label="إغلاق">&times;</button>
+
   <div class="container">
     <h2 class="game-title">📜 قوانين لعبة الدخيل</h2>
     
@@ -511,12 +504,8 @@
 
 
 <!-- 1. Rules Screen -->
-<section id="charadesRulesScreen" class="screen">
-  <header class="game-header">
-    <div class="headercontainer">
-      <h1 class="game-header-title">🤐 لعبة: بدون كلام</h1>
-    </div>
-  </header>
+<section id="charadesRulesScreen" class="modal-screen">
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
   <div class="container">
     <h2>📜 قوانين اللعبة</h2>
     <p>عدد اللاعبين المقترح في اللعبة من 4 إلى 12 لاعب.</p>
@@ -666,14 +655,10 @@
 
 
     <!-- قواعد لعبة التوازن -->
-<section id="balanceRulesScreen" class="screen">
-  <header class="game-header">
-    <div class="headercontainer">
-      <h1 class="game-header-title">⚖️ لعبة: التوازن</h1>
-    </div>
-  </header>
-  <div class="container">
-    <div class="game-info">
+<section id="balanceRulesScreen" class="modal-screen" style="box-shadow: none;">
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <div class="container" style="box-shadow: none;">
+    <div class="game-info" style="box-shadow: none !important;">
       <h2 class="game-title">📜 قوانين اللعبة</h2>
       <p>عدد اللاعبين: من 1 إلى 12 لاعب.</p>
       <p>لعبة حركية تتطلب ثباتاً وتركيزاً! 🏃‍♂️</p>
@@ -689,57 +674,6 @@
     </div>
   </div>
 </section>
-<!-- Modal Overlay -->
-<div id="rulesModalOverlay" class="screen fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-  <!-- Modal Content -->
-  <div class="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 p-6 relative">
-    <!-- Close Button -->
-    <button id="rulesModalClose" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
-      ✕
-    </button>
-    <!-- Modal Header -->
-    <h2 id="rulesModalTitle" class="text-2xl font-bold mb-4">قوانين اللعبة</h2>
-    <!-- Modal Body -->
-    <div id="rulesModalBody" class="text-gray-700 space-y-3">
-      <!-- هنا سيُضاف نص القوانين ديناميكيًا -->
-    </div>
-  </div>
-</div>
-
-<!-- Overlay -->
-<div id="balanceRulesScreen" class="screen fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
-  <!-- Modal -->
-  <div id="balanceRulesModal" class="bg-white rounded-2xl shadow-xl w-11/12 max-w-lg p-6 relative">
-    <!-- Close Button -->
-    <button id="closeBalanceRulesModal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-           viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
-
-    <h2 class="text-2xl font-bold mb-4">📜 قوانين لعبة التوازن</h2>
-    <div class="space-y-2 text-gray-700 mb-6">
-      <p>عدد اللاعبين: من 1 إلى 12 لاعب.</p>
-      <p>لعبة حركية تتطلب ثباتاً وتركيزاً! 🏃‍♂️</p>
-      <ol class="list-decimal list-inside space-y-1">
-        <li>اتفقوا على حركة توازن (وقوف على رجل واحدة، أو أطراف الأصابع…).</li>
-        <li>عند دورك، أمسك الهاتف بثبات وحافظ على الوضع المتفق عليه.</li>
-        <li>أقل لاعب يتحرك خلال الوقت المحدد هو الفائز! 🏆</li>
-      </ol>
-    </div>
-
-    <div class="flex justify-end space-x-2">
-      <button id="cancelBalanceRules" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
-        إلغاء
-      </button>
-      <button id="confirmBalanceRules" class="px-4 py-2 bg-[#303590] text-white rounded-lg hover:bg-[#25246e]">
-        ابدأ اللعبة ▶️
-      </button>
-    </div>
-  </div>
-</div>
 
 <!-- إعدادات التوازن -->
 <section id="balanceSettingsScreen" class="screen">
@@ -831,12 +765,10 @@
   </div>
 </section>
 
-    <section id="treasureRulesScreen" class="screen rules-screen">
-      <header class="game-header">
-        <div class="headercontainer">
-          <h1>📜 قوانين لعبة الكنز</h1>
-        </div>
-      </header>
+    <section id="treasureRulesScreen" class="modal-screen">
+  <!-- زر الإغلاق -->
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+      
     
       <div class="container">
         <div class="rules-box">
@@ -933,12 +865,10 @@
     </section>
                 
     <!-- ====== شاشة قوانين لعبة "الأسرع" ====== -->
-<section id="fastRulesScreen" class="screen">
-  <header class="game-header">
-    <div class="headercontainer">
-      <h1 class="game-header-title">⚡ لعبة الأسرع</h1>
-    </div>
-  </header>
+<section id="fastRulesScreen" class="modal-screen">
+  <!-- زرّ الإغلاق -->
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  
   <div class="container">
     <div class="game-info">
       <h2 class="game-title">📜 قوانين لعبة «الأسرع»</h2>
@@ -1073,12 +1003,9 @@
     <!-- شاشة القوانين -->
     <!-- شاشة القوانين -->
     <!-- Rules Screen -->
-<section id="whoRulesScreen" class="screen">
-  <header class="game-header">
-    <div class="headercontainer">
-      <h1 class="game-header-title">👧🏽 لعبة: مين فينا؟</h1>
-    </div>
-  </header>
+<section id="whoRulesScreen" class="modal-screen">
+  <!-- زر إغلاق في أعلى المودال -->
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
   <div class="container">
     <div class="game-info">
       <h2 class="game-title">📜 قوانين اللعبة</h2>
@@ -1199,12 +1126,8 @@
     <!-- Jawwal on Head Rules Screen -->
     <!-- Jawwal on Head Rules Screen -->
      <!-- Jawwal Rules Screen -->
-<section id="jawwalRulesScreen" class="screen py-20">
-  <header class="game-header">
-    <div class="headercontainer">
-      <h1 class="game-header-title">📱 لعبة: جوالك على راسك</h1>
-    </div>
-  </header>
+  <section id="jawwalRulesScreen" class="modal-screen">
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
 
   <div class="container">
     <h2 class="game-title">📜 قوانين لعبة جوالك على راسك</h2>
@@ -1391,14 +1314,11 @@
       </div>
     </section>
 
-    <section id="similarPicturesScreen" class="screen">
-      <header class="game-header">
-        <div class="headercontainer">
-          <h1 class="game-header-title">🎲 لعبة: الصور المتشابهة</h1>
-        </div>
-      </header>
+    <section id="similarPicturesScreen" class="modal-screen">
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
 
-      <div class="container">
+
+  <div class="container">
         <div class="game-info">
           <h2 class="game-title">📜 قوانين لعبة الصور المتشابهة</h2>
 
@@ -1549,12 +1469,9 @@
 </section>
     <!-- Boxes Game Rules Screen -->
     <section id="boxesRulesScreen" style="padding-bottom: 3rem !important;"
-      class="screen">
-      <header class="game-header">
-        <div class="headercontainer">
-          <h1 class="game-header-title">🎲 لعبة الصناديق</h1>
-        </div>
-      </header>
+      class="modal-screen">
+  <!-- زرّ الإغلاق -->
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
 
       <div class="container">
         <div class="game-info">
@@ -1717,12 +1634,9 @@
     </section>
 
     <!-- Out of Topic Game Screen -->
-    <section id="outOfTopicScreen" class="screen">
-      <header class="game-header">
-        <div class="headercontainer">
-          <h1 class="game-header-title">🎲 لعبة: برا السالفة</h1>
-        </div>
-      </header>
+    <section id="outOfTopicScreen" class="modal-screen">
+  <!-- زر الإغلاق -->
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
 
       <div class="container">
         <div class="game-info">
@@ -1777,12 +1691,9 @@
           للقائمة</button>
       </div>
     </section>
-    <section id="mafiaScreen" class="screen">
-      <header class="game-header">
-        <div class="headercontainer">
-          <h1 class="game-header-title">🎲 لعبة: 🕵️‍♂️ المافيا</h1>
-        </div>
-      </header>
+    <section id="mafiaScreen" class="modal-screen">
+  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+      
 
       <div class="container">
         <div class="game-info">
@@ -2327,7 +2238,9 @@
   </button>
 </nav>
 
-    <!-- في <head> أو قبل </body> -->
+    <!-- الظل الخلفي للمودال -->
+<div id="modalOverlay" class="modal-overlay"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
     <script src="scripts/constants.js"></script>

@@ -15,6 +15,74 @@ const submitGuessButton = document.getElementById("submitGuessButton");
  * Switch between screens
  * @param {string} screenId - The ID of the screen to show
  */
+const overlay   = document.getElementById('modalOverlay');
+  const modal     = document.getElementById('balanceRulesScreen');
+  const closeBtn  = modal.querySelector('.modal-close-btn');
+  const backBtn   = document.getElementById('backToGamesBtnBalance');
+  const startBtn  = document.getElementById('startBalanceBtn');
+
+  function openModal() {
+    overlay.classList.add('active');
+    modal.classList.add('active');
+  }
+  function closeModal() {
+    overlay.classList.remove('active');
+    modal.classList.remove('active');
+  }
+
+  // مستمعات الإغلاق
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+  backBtn.addEventListener('click', closeModal);
+  startBtn.addEventListener('click', closeModal);
+  const simModal      = document.getElementById('similarPicturesScreen');
+  const simCloseBtn   = simModal.querySelector('.modal-close-btn');
+  const startSimBtn   = document.getElementById('startSimilarBtn');
+
+  function openSimModal() {
+    overlay.classList.add('active');
+    simModal.classList.add('active');
+  }
+  function closeSimModal() {
+    overlay.classList.remove('active');
+    simModal.classList.remove('active');
+  }
+
+  // استمع للنقر على × أو خلفية الـ overlay أو زر العودة
+  simCloseBtn.addEventListener('click', closeSimModal);
+  overlay.addEventListener('click', closeSimModal);
+
+  // زر “العودة للقائمة”:
+  window.closeSimilarModal = closeSimModal;
+
+  // زر بدء اللعبة: أولاً يغلق المودال ثم يشغّل منطق اللعبة
+  startSimBtn.addEventListener('click', () => {
+    closeSimModal();
+    runPicGame();    // أو أي دالة تُطلق اللعبة
+  });
+  const mafiaModal     = document.getElementById('mafiaScreen');
+const closeMafiaBtn  = mafiaModal.querySelector('.modal-close-btn');
+// const showMafiaBtn   = document.getElementById('showMafiaRulesBtn');
+
+// 2) دوال الفتح والإغلاق
+function openMafiaModal() {
+  overlay.classList.add('active');
+  mafiaModal.classList.add('active');
+}
+function closeMafiaModal() {
+  overlay.classList.remove('active');
+  mafiaModal.classList.remove('active');
+}
+
+// 3) ربط الأحداث
+// showMafiaBtn.addEventListener('click', openMafiaModal);
+closeMafiaBtn.addEventListener('click', closeMafiaModal);
+document.getElementById("startMafiaGameButton").addEventListener('click', closeMafiaModal);
+overlay.addEventListener('click', closeMafiaModal);
+
+// (اختياري) زر العودة داخل المودال
+const backFromMafia = document.querySelector('#mafiaScreen .btn-secondary');
+if (backFromMafia) backFromMafia.addEventListener('click', closeMafiaModal);
 function showScreen(screenId) {
   console.log("uiuiuiuiuiuiuiuiuiuiu")
   // Hide all screens
@@ -29,6 +97,204 @@ function showScreen(screenId) {
     behavior: 'smooth' // Optional: makes the scroll smooth
   });
 }
+const phoneModal    = document.getElementById('jawwalRulesScreen');
+const closeModalBtn = phoneModal.querySelector('.modal-close-btn');
+// const showRulesBtn  = document.getElementById('showPhoneOnHeadRulesBtn');
+
+// دوال الفتح والإغلاق
+function openPhoneModal() {
+  overlay.classList.add('active');
+  phoneModal.classList.add('active');
+}
+function closePhoneModal() {
+  overlay.classList.remove('active');
+  phoneModal.classList.remove('active');
+}
+
+// ربط الأحداث
+// showRulesBtn.addEventListener('click', openPhoneModal);
+closeModalBtn.addEventListener('click', closePhoneModal);
+overlay.addEventListener('click', closePhoneModal);
+
+// أيضاً زر العودة داخل المودال (إذا لديك واحد)
+document.getElementById('startJawwalBtn').addEventListener('click', closePhoneModal);
+document.getElementById('backToGamesBtnJawwal').addEventListener('click', closePhoneModal);
+
+const winkModal = document.getElementById('winkRulesScreen');
+const backBtnW  = document.getElementById('backToGamesBtnWink');
+
+function openWinkModal() {
+  overlay.classList.add('active');
+  winkModal.classList.add('active');
+}
+function closeWinkModal() {
+  overlay.classList.remove('active');
+  winkModal.classList.remove('active');
+}
+// زر ×
+closeBtn.addEventListener('click', closeWinkModal);
+// النقر على الخلفية
+overlay.addEventListener('click', closeWinkModal);
+document.getElementById("closeWinkModal").addEventListener('click', closeWinkModal);
+// زر العودة
+backBtnW.addEventListener('click', closeWinkModal);
+document.getElementById("startWinkBtn").addEventListener('click', closeWinkModal);
+
+const spyModal   = document.getElementById('spyRulesScreen');
+const spyClose   = spyModal.querySelector('.modal-close-btn');
+const spyBackBtn = document.getElementById('spyBackToGames');
+function openSpyModal() {
+  overlay.classList.add('active');
+  spyModal.classList.add('active');
+}
+function closeSpyModal() {
+  overlay.classList.remove('active');
+  spyModal.classList.remove('active');
+}
+spyClose.addEventListener('click', closeSpyModal);
+overlay.addEventListener('click', closeSpyModal);
+spyBackBtn.addEventListener('click', closeSpyModal);
+document.getElementById("spyStartRules").addEventListener('click', closeSpyModal);
+// داخل DOMContentLoaded أو قبل بناء البطاقة
+const charadesModal   = document.getElementById('charadesRulesScreen');
+// const overlay         = document.getElementById('modalOverlay');
+const charadesClose   = charadesModal.querySelector('.modal-close-btn');
+const charadesBackBtn = document.getElementById('backToGamesBtnCharades');
+
+// دوال الفتح/الإغلاق
+function openCharadesModal() {
+  overlay.classList.add('active');
+  charadesModal.classList.add('active');
+}
+function closeCharadesModal() {
+  overlay.classList.remove('active');
+  charadesModal.classList.remove('active');
+}
+
+// ربط الأحداث
+charadesClose.addEventListener('click', closeCharadesModal);
+overlay.addEventListener('click', closeCharadesModal);
+charadesBackBtn.addEventListener('click', closeCharadesModal);
+document.getElementById("startCharadesBtn").addEventListener('click', closeCharadesModal);
+// عناصر المودال
+// const overlay       = document.getElementById('modalOverlay');
+const whoModal      = document.getElementById('whoRulesScreen');
+const whoCloseBtn   = whoModal.querySelector('.modal-close-btn');
+const whoBackBtn    = document.getElementById('backToGamesBtnWho');
+
+// دوال الفتح والإغلاق
+function openWhoModal() {
+  overlay.classList.add('active');
+  whoModal.classList.add('active');
+}
+function closeWhoModal() {
+  overlay.classList.remove('active');
+  whoModal.classList.remove('active');
+}
+
+// الأحداث
+overlay.addEventListener('click', closeWhoModal);
+whoCloseBtn.addEventListener('click', closeWhoModal);
+whoBackBtn.addEventListener('click', closeWhoModal);
+document.getElementById('startWhoBtn').addEventListener('click', closeWhoModal);
+// العناصر المشتركة
+// const overlay         = document.getElementById('modalOverlay');
+const outModal        = document.getElementById('outOfTopicScreen');
+const outCloseBtn     = outModal.querySelector('.modal-close-btn');
+const outBackBtn      = document.getElementById('backToGamesButton');
+
+// دوال الفتح والإغلاق
+function openOutModal() {
+  overlay.classList.add('active');
+  outModal.classList.add('active');
+}
+function closeOutModal() {
+  overlay.classList.remove('active');
+  outModal.classList.remove('active');
+}
+
+// أحداث الإغلاق
+overlay.addEventListener('click', closeOutModal);
+outCloseBtn.addEventListener('click', closeOutModal);
+document.getElementById('startGameButton').addEventListener('click', closeOutModal);
+outBackBtn.addEventListener('click', closeOutModal);
+
+// ربط زر “كيف ألعب؟”
+// const showOutBtn = document.getElementById('showOutOfTopicRulesBtn');
+// showOutBtn.addEventListener('click', openOutModal);
+
+// العناصر المشتركة
+// const overlay          = document.getElementById('modalOverlay');
+const treasureModal    = document.getElementById('treasureRulesScreen');
+const treasureCloseBtn = treasureModal.querySelector('.modal-close-btn');
+const treasureBackBtn  = document.getElementById('backToMenuButtonT');
+
+// دوال الفتح والإغلاق
+function openTreasureModal() {
+  overlay.classList.add('active');
+  treasureModal.classList.add('active');
+}
+function closeTreasureModal() {
+  overlay.classList.remove('active');
+  treasureModal.classList.remove('active');
+}
+
+// ربط أحداث الإغلاق
+overlay.addEventListener('click', closeTreasureModal);
+treasureCloseBtn.addEventListener('click', closeTreasureModal);
+treasureBackBtn.addEventListener('click', closeTreasureModal);
+document.getElementById('nextButton').addEventListener('click', closeTreasureModal);
+
+// ربط زر “كيف ألعب؟”
+// const showTreasureBtn = document.getElementById('showTreasureRulesBtn');
+// showTreasureBtn.addEventListener('click', openTreasureModal);
+// العناصر المشتركة
+// const overlay          = document.getElementById('modalOverlay');
+const boxesModal       = document.getElementById('boxesRulesScreen');
+const boxesCloseBtn    = boxesModal.querySelector('.modal-close-btn');
+const backToMenuBtn    = document.getElementById('backToGamesBtn');
+// const showBoxesBtn     = document.getElementById('showBoxesRulesBtn');
+
+// دوال الفتح والإغلاق
+function openBoxesModal() {
+  overlay.classList.add('active');
+  boxesModal.classList.add('active');
+}
+function closeBoxesModal() {
+  overlay.classList.remove('active');
+  boxesModal.classList.remove('active');
+}
+
+// ربط الأحداث
+// showBoxesBtn.addEventListener('click', openBoxesModal);
+overlay.addEventListener('click', closeBoxesModal);
+boxesCloseBtn.addEventListener('click', closeBoxesModal);
+backToMenuBtn.addEventListener('click', closeBoxesModal);
+document.getElementById('startBoxesBtn').addEventListener('click', closeBoxesModal);
+// العناصر المشتركة
+// const overlay         = document.getElementById('modalOverlay');
+const fastModal       = document.getElementById('fastRulesScreen');
+const fastCloseBtn    = fastModal.querySelector('.modal-close-btn');
+const backFastBtn     = document.getElementById('backToGamesBtnFast');
+// const showFastBtn     = document.getElementById('showFastRulesBtn');
+
+// دوال الفتح والإغلاق
+function openFastModal() {
+  overlay.classList.add('active');
+  fastModal.classList.add('active');
+}
+function closeFastModal() {
+  overlay.classList.remove('active');
+  fastModal.classList.remove('active');
+}
+
+// ربط الأحداث
+// showFastBtn.addEventListener('click', openFastModal);
+overlay.addEventListener('click', closeFastModal);
+fastCloseBtn.addEventListener('click', closeFastModal);
+backFastBtn.addEventListener('click', closeFastModal);
+document.getElementById('startFastTimeBtn').addEventListener('click', closeFastModal);
+
 function runBalanceGame(){
   const players = loadPlayers();
   if (players.length < 1) {
@@ -203,6 +469,11 @@ function renderGamesList() {
     const isPlayable  = !isTooFew && !isTooMany;
     console.log(game.id);
     if(game.id == "balance"){
+      const explainBtn = document.createElement('button');
+      explainBtn.textContent = 'كيف ألعب؟';
+      explainBtn.className = 'btn-explain';
+      gameCard.appendChild(explainBtn);
+      explainBtn.addEventListener('click', openModal);
       gameCard.innerHTML = `
     <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
@@ -256,7 +527,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button  onclick="showScreen('balanceRulesScreen')"
+        <button  onclick="openModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -271,6 +542,11 @@ function renderGamesList() {
     `;
     }
     else if(game.id == "similarPictures"){
+      const explainBtn = document.createElement('button');
+    explainBtn.textContent = 'كيف ألعب؟';
+    explainBtn.className = 'btn-explain';
+    gameCard.appendChild(explainBtn);
+    explainBtn.addEventListener('click', openSimModal);
       gameCard.innerHTML = `
     <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
@@ -324,7 +600,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button  onclick="showScreen('similarPicturesScreen')"
+        <button  onclick="openSimModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -393,7 +669,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick=" showScreen('jawwalRulesScreen')"
+        <button onclick="openPhoneModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -461,7 +737,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick=" showScreen('fastRulesScreen')"
+        <button onclick="openFastModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -529,7 +805,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button  onclick=" showScreen('boxesRulesScreen')"
+        <button  onclick="openBoxesModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -597,7 +873,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('treasureRulesScreen')"
+        <button onclick="openTreasureModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -665,7 +941,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('outOfTopicScreen')"
+        <button onclick="openOutModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -733,7 +1009,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('whoRulesScreen')"
+        <button onclick="openWhoModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -801,7 +1077,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('charadesRulesScreen')"
+        <button onclick="openCharadesModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -869,7 +1145,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('spyRulesScreen')"
+        <button onclick="openSpyModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -937,7 +1213,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('winkRulesScreen')"
+        <button onclick="openWinkModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>
@@ -1005,7 +1281,7 @@ function renderGamesList() {
     </svg>
           <span class="text-sm">ادعُ أصدقاء</span>
         </button>
-        <button onclick="showScreen('mafiaScreen')"
+        <button onclick="openMafiaModal()"
           class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg flex gap-1 justify-center items-center hover:bg-gray-200">
           <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.62516 1.14587C6.22042 1.14587 4.271 3.0953 4.271 5.50004C4.271 7.90478 6.22042 9.85421 8.62516 9.85421C11.0299 9.85421 12.9793 7.90478 12.9793 5.50004C12.9793 3.0953 11.0299 1.14587 8.62516 1.14587ZM5.646 5.50004C5.646 3.85469 6.97981 2.52087 8.62516 2.52087C10.2705 2.52087 11.6043 3.85469 11.6043 5.50004C11.6043 7.14539 10.2705 8.47921 8.62516 8.47921C6.97981 8.47921 5.646 7.14539 5.646 5.50004Z" fill="#666666"/>

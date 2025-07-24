@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // navigation
   document.getElementById('backToGamesBtnBalance').onclick = () => showScreen('gamesScreen');
-  backRulesBtn.onclick    = () => showScreen('balanceRulesScreen');
+  backRulesBtn.onclick    = () => openModal();
   startBtn.onclick        = () => {
     if (players.length < 1) {
       showAlert('error', 'لعبة التوازن تتطلب لاعب واحد على الأقل  ');
@@ -179,6 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${m}:${s.toString().padStart(2,'0')}`;
   }
 
-  replayBtn.onclick    = () => showScreen('balanceRulesScreen');
+  replayBtn.onclick    = () => openModal();
   backGamesBtn.onclick = () => showScreen('gamesScreen');
 });
