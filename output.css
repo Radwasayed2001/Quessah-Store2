@@ -684,14 +684,6 @@ video {
   left: 1rem;
 }
 
-.right-3 {
-  right: 0.75rem;
-}
-
-.right-4 {
-  right: 1rem;
-}
-
 .top-0 {
   top: 0px;
 }
@@ -704,8 +696,8 @@ video {
   top: 0.5rem;
 }
 
-.top-3 {
-  top: 0.75rem;
+.top-32 {
+  top: 8rem;
 }
 
 .top-4 {
@@ -863,6 +855,14 @@ video {
   margin-top: 2rem;
 }
 
+.mt-32 {
+  margin-top: 8rem;
+}
+
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -994,6 +994,10 @@ video {
   height: 2rem;
 }
 
+.h-\[80px\] {
+  height: 80px;
+}
+
 .h-full {
   height: 100%;
 }
@@ -1016,10 +1020,6 @@ video {
 
 .min-h-screen {
   min-height: 100vh;
-}
-
-.w-11\/12 {
-  width: 91.666667%;
 }
 
 .w-12 {
@@ -1366,10 +1366,6 @@ video {
 
 .list-outside {
   list-style-position: outside;
-}
-
-.list-decimal {
-  list-style-type: decimal;
 }
 
 .list-disc {
@@ -1723,18 +1719,6 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
@@ -2247,6 +2231,16 @@ video {
   border-color: rgb(147 51 234 / var(--tw-border-opacity, 1));
 }
 
+.border-\[\#E8EDF0\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(232 237 240 / var(--tw-border-opacity, 1));
+}
+
+.border-b-\[\#E8EDF0\] {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(232 237 240 / var(--tw-border-opacity, 1));
+}
+
 .bg-\[\#303590\] {
   --tw-bg-opacity: 1;
   background-color: rgb(48 53 144 / var(--tw-bg-opacity, 1));
@@ -2268,6 +2262,11 @@ video {
 .bg-\[\#FCFCFC\] {
   --tw-bg-opacity: 1;
   background-color: rgb(252 252 252 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#f00\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
@@ -2345,6 +2344,11 @@ video {
 }
 
 .bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#fff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
@@ -2629,11 +2633,6 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.py-20 {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -2676,6 +2675,14 @@ video {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pt-32 {
+  padding-top: 8rem;
+}
+
+.pt-36 {
+  padding-top: 9rem;
 }
 
 .text-left {
@@ -3196,12 +3203,6 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-xl {
-  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow-gray-300 {
   --tw-shadow-color: #d1d5db;
   --tw-shadow: var(--tw-shadow-colored);
@@ -3558,11 +3559,6 @@ video {
   color: rgb(55 65 81 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-gray-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
-}
-
 .hover\:shadow-2xl:hover {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
@@ -3709,6 +3705,10 @@ video {
     max-width: 48rem;
   }
 
+  .md\:max-w-4xl {
+    max-width: 56rem;
+  }
+
   .md\:items-center {
     align-items: center;
   }
@@ -3739,6 +3739,16 @@ video {
   .md\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
+  }
+
+  .md\:py-24 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .md\:py-32 {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 
   .md\:text-3xl {

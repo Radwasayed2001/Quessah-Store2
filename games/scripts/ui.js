@@ -11,6 +11,7 @@ const backButton = document.getElementById('backButton');
 const gamesGrid = document.querySelector('.games-grid');
 // const guessInput = document.getElementById("guessInput");
 const submitGuessButton = document.getElementById("submitGuessButton");
+
 /**
  * Switch between screens
  * @param {string} screenId - The ID of the screen to show
