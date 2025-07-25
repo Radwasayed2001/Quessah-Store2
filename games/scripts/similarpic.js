@@ -67,6 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة الصور المتشابهة تتطلب لاعب واحد على الأقل');
       return;
     }
+    total_games["simpic"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     resetGameSim();
   });
 

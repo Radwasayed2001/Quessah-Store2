@@ -310,5 +310,8 @@ function startJawwalGame(){
     showAlert('error', 'لعبة التوازن تتطلب لاعبين 2 على الأقل');
     return; 
   } 
+  total_games["jawwal"] = 1;
+  console.log(total_games);
+  localStorage.setItem("total_games", JSON.stringify(total_games));
   showScreen('headsUpSettings');
 }

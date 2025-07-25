@@ -209,6 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `لعبة الأسرع تتطلب 3 لاعبين على الأقل! حالياً: ${loadPlayers().length}`
       );
     }
+    total_games["fast"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     availableChallenges = challengesFastest.slice();
     showScreen('fastTimeScreen');
   };

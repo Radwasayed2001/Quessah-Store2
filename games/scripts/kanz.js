@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `لعبة الكنز تتطلب 3 لاعبين على الأقل! الآن: ${playersT.length}`);
       return;
     }
+    total_games["kanz"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     showScreen('gameSettingsScreen');
   };
 

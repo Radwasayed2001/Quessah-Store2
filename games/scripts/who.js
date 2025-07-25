@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', `لعبة مين فينا تتطلب 3 لاعبين على الأقل! حالياً: ${playersWho.length}`);
       return;
     }
+    total_games["who"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     showScreen('whoSettingsScreen');
   };
 

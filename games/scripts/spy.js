@@ -139,6 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (players.length < 5 || players.length > 8) {
       showAlert('error', 'يتطلب من 5 إلى 8 لاعبين للعب! حالياً: ' + players.length);
     } else {
+      total_games["spy"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
       showScreen('spySettingsScreen');
     }
   };

@@ -54,7 +54,10 @@ function startMafiaGame() {
     mafiaRoles[detective] = 'محقق';
     villagers.forEach(p => { mafiaRoles[p] = 'مواطن'; });
   
-  
+  total_games["mafia"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     // now you can proceed to the privacy/role-reveal flow...
     showMafiaRoleRevealScreen();
   }

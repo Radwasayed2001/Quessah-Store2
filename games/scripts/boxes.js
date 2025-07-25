@@ -61,6 +61,9 @@ const BoxPlayerName = document.getElementById('BoxPlayerName');
     if (playersBoxes.length < 3) {
       return showAlert('error','يحتاج 3 لاعبين على الأقل');
     }
+    total_games["box"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     resetGame();
   BoxPlayerName.textContent =playersBoxes[currentPlayer];
 
@@ -81,7 +84,7 @@ const BoxPlayerName = document.getElementById('BoxPlayerName');
 
   function playTurn() {
     nextNumber = 1;
-    timeLeft = 3;
+    timeLeft = 60;
   BoxPlayerName.textContent =playersBoxes[currentPlayer];
 
     playerLabel.textContent = `📱 دور: ${playersBoxes[currentPlayer]}`;

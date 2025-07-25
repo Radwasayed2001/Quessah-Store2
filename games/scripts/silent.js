@@ -155,6 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة بدون كلام تتطلب 4 لاعبين على الأقل للعب! حالياً: ' + players.length);
       return;
     }
+    total_games["nospeach"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('charadesSettingsScreen');
   };
   backRulesBtn.onclick  = () => showScreen('charadesRulesScreen');

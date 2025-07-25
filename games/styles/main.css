@@ -281,13 +281,16 @@ h2 {
 
 /* Game Screen */
 .game-header {
-  background-color: #222;
+  background-color: #fff;
   color: var(--color-text-light);
   padding: var(--space-md);
   margin-bottom: var(--space-xl);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-bottom-left-radius: var(--radius-lg);
   border-bottom-right-radius: var(--radius-lg);
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .game-info {
@@ -426,11 +429,6 @@ h2 {
   animation: bounce 1s infinite;
 }
 
-.player-name {
-  font-size: 1.8rem;
-  color: var(--color-text-dark);
-  margin-bottom: var(--space-xl);
-}
 
 .secret-content {
   margin: var(--space-xl) 0;
@@ -618,11 +616,14 @@ h2 {
 /* Morning/Night Duration Screens */
 #MorningDurationScreen .game-header,
 #NightDurationScreen .game-header {
-  background: #222;
+  background: #fff;
   color: var(--color-text-light);
   padding: 1rem;
   border-bottom-left-radius: var(--radius-lg);
   border-bottom-right-radius: var(--radius-lg);
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 #MorningDurationScreen .sub-title,
@@ -1333,7 +1334,7 @@ h2 {
 .score-row {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   border-bottom: #eee solid 1px;
 }
@@ -1347,11 +1348,14 @@ h2 {
 }
 
 .rules-screen .game-header {
-  background-color: #222;
-  color: #fff;
+  background-color: #fff;
+  color: #222;
   padding: 15px 0;
   border-radius: 0 0 20px 20px;
   text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .rules-box {
@@ -1606,7 +1610,7 @@ h2 {
   margin: 1em 0;
   font-size: 1.5em;
   font-weight: bold;
-  color: #fff;
+  color: #222;
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
   background: rgba(0, 0, 0, 0.3);
   padding: 0.5em 1em;
@@ -1864,6 +1868,14 @@ h2 {
   font-size: 2rem;
   color: var(--color-error);
   margin-bottom: var(--space-lg);
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-primary);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Info text */
@@ -2479,4 +2491,8 @@ h2 {
   .modal-screen {
     width: calc(100vw - 2rem);
   }
+}
+.player-score, .player-id, .player-name{
+  width: 100px;
+  
 }

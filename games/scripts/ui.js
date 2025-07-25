@@ -5,6 +5,7 @@ const playerNameInput = document.getElementById('playerName');
 const addPlayerButton = document.getElementById('addPlayer');
 const noPlayer = document.getElementById('noPlayer');
 const playerCountElement = document.getElementById('playerCount');
+const resultsPlayerCountElement = document.getElementById('results-player-count');
 const playerListElement = document.getElementById('playerList');
 const startButton = document.getElementById('startButton');
 const backButton = document.getElementById('backButton');
@@ -302,6 +303,10 @@ function runBalanceGame(){
     showAlert('error', 'لعبة التوازن تتطلب لاعب واحد على الأقل');
     return; 
   }  
+  total_games["balance"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
   showScreen('balanceSettingsScreen');
 }
 function runPicGame(){
@@ -310,6 +315,10 @@ function runPicGame(){
     showAlert('error', 'لعبة الصور المتشابهة تتطلب لاعب واحد على الأقل');
     return; 
   }  
+  total_games["simpic"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('midSimPic');
 }
 function runJawwal(){
@@ -318,6 +327,10 @@ function runJawwal(){
     showAlert('error', 'لعبة جوالك على رأسك تتطلب لاعبين 2 على الأقل');
     return; 
   }  
+  total_games["jawwal"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('headsUpSettings');
 }
 function runFastestGame(){
@@ -327,6 +340,10 @@ function runFastestGame(){
     showAlert('error', 'لعبة الأسرع تتطلب 3 لاعبين على الأقل');
     return; 
   }  
+  total_games["fast"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
         showScreen('fastTimeScreen');
 
 }
@@ -336,6 +353,10 @@ function runBoxestGame(){
     showAlert('error', 'لعبة الصناديق تتطلب 3 لاعبين على الأقل');
     return; 
   }  
+  total_games["box"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
         showScreen('midBox');
 
 }
@@ -346,6 +367,10 @@ function runKanzGame(){
         `لعبة الكنز تتطلب 3 لاعبين على الأقل! الآن: ${playersT.length}`);
       return;
     }
+    total_games["kanz"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('gameSettingsScreen');
 }
 function runOutoftopic(){
@@ -355,6 +380,10 @@ function runOutoftopic(){
       return;
 
     } 
+    total_games["outoftopic"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('categoryScreen');
 }
 function runWhoGame(){
@@ -363,6 +392,10 @@ function runWhoGame(){
       showAlert('error', `لعبة مين فينا تتطلب 3 لاعبين على الأقل! حالياً: ${playersWho.length}`);
       return;
     }
+    total_games["who"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('whoSettingsScreen');
 }
 function runNospeachGame(){
@@ -371,6 +404,10 @@ function runNospeachGame(){
       showAlert('error', 'لعبة بدون كلام تتطلب 4 لاعبين على الأقل للعب! حالياً: ' + players.length);
       return;
     }
+    total_games["nospeach"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
     showScreen('charadesSettingsScreen');
 }
 function runSpyGame(){
@@ -378,15 +415,24 @@ function runSpyGame(){
   if (players.length < 5 || players.length > 8) {
       showAlert('error', 'يتطلب من 5 إلى 8 لاعبين للعب! حالياً: ' + players.length);
     } else {
+      total_games["spy"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
       showScreen('spySettingsScreen');
     }
 }
 function runWinkGame(){
+  
   const players = loadPlayers();
 
   if (players.length < 5) {
       showAlert('error', 'لا يمكن اللعب بأقل من 5 لاعبين!');
     } else {
+      total_games["wink"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
       showScreen("winkSettingsScreen");
     }
 }
@@ -399,6 +445,7 @@ function runMafiaGame(){
  */
 function updatePlayerCount(count) {
   playerCountElement.textContent = count;
+  resultsPlayerCountElement.textContent = count;
   
   // Enable or disable start button based on player count
   startButton.disabled = count < MIN_PLAYERS_TO_START;

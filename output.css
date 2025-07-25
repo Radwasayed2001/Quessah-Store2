@@ -704,6 +704,10 @@ video {
   top: 1rem;
 }
 
+.top-44 {
+  top: 11rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -839,8 +843,16 @@ video {
   margin-top: 0.5rem;
 }
 
+.mt-24 {
+  margin-top: 6rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
+}
+
+.mt-32 {
+  margin-top: 8rem;
 }
 
 .mt-4 {
@@ -855,12 +867,8 @@ video {
   margin-top: 2rem;
 }
 
-.mt-32 {
-  margin-top: 8rem;
-}
-
-.mt-24 {
-  margin-top: 6rem;
+.mt-\[80px\] {
+  margin-top: 80px;
 }
 
 .box-border {
@@ -1064,6 +1072,14 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-96 {
+  width: 24rem;
+}
+
+.w-80 {
+  width: 20rem;
 }
 
 .max-w-2xl {
@@ -2231,11 +2247,6 @@ video {
   border-color: rgb(147 51 234 / var(--tw-border-opacity, 1));
 }
 
-.border-\[\#E8EDF0\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(232 237 240 / var(--tw-border-opacity, 1));
-}
-
 .border-b-\[\#E8EDF0\] {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(232 237 240 / var(--tw-border-opacity, 1));
@@ -2264,9 +2275,9 @@ video {
   background-color: rgb(252 252 252 / var(--tw-bg-opacity, 1));
 }
 
-.bg-\[\#f00\] {
+.bg-\[\#fff\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 0 0 / var(--tw-bg-opacity, 1));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
@@ -2344,11 +2355,6 @@ video {
 }
 
 .bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#fff\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
@@ -2657,6 +2663,10 @@ video {
   padding-bottom: 0.25rem;
 }
 
+.pb-12 {
+  padding-bottom: 3rem;
+}
+
 .pl-10 {
   padding-left: 2.5rem;
 }
@@ -2673,16 +2683,20 @@ video {
   padding-top: 0.25rem;
 }
 
+.pt-36 {
+  padding-top: 9rem;
+}
+
 .pt-8 {
   padding-top: 2rem;
 }
 
-.pt-32 {
-  padding-top: 8rem;
+.pb-64 {
+  padding-bottom: 16rem;
 }
 
-.pt-36 {
-  padding-top: 9rem;
+.pb-32 {
+  padding-bottom: 8rem;
 }
 
 .text-left {
@@ -3739,11 +3753,6 @@ video {
   .md\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
-  }
-
-  .md\:py-24 {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
   }
 
   .md\:py-32 {

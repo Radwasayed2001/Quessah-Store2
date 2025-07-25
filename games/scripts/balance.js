@@ -43,6 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة التوازن تتطلب لاعب واحد على الأقل  ');
       return; 
     } 
+    total_games["balance"] = 1;
+  console.log(total_games);
+        localStorage.setItem("total_games", JSON.stringify(total_games));
+
+
     showScreen('balanceSettingsScreen');
   }
 

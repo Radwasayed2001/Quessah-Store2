@@ -96,6 +96,10 @@ winkTimeSlider.addEventListener('input', e => {
     if (players.length < 5) {
       showAlert('error', 'لا يمكن اللعب بأقل من 5 لاعبين!');
     } else {
+      total_games["wink"] = 1;
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+
       showScreenById(settingsScreen);
     }
   };
