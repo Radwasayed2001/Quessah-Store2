@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultsBody       = document.getElementById('balanceResultsBody');
   const replayBtn         = document.getElementById('balanceReplayBtn');
   const backGamesBtn      = document.getElementById('balanceBackBtn');
+const resultsPlayerCountElementBalance = document.getElementById('results-player-count-balance');
+
 
   // navigation
   document.getElementById('backToGamesBtnBalance').onclick = () => showScreen('gamesScreen');
@@ -43,7 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة التوازن تتطلب لاعب واحد على الأقل  ');
       return; 
     } 
-    total_games["balance"] = 1;
+    // total_games["balance"] = 1;
+    total_games["balance"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['balance']||0)+1):1;
+
   console.log(total_games);
         localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -133,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function showFinalResults() {
     // 1) نرتّب النتائج تصاعدياً حسب عدد الحركات
     const sorted = [...results].sort((a,b) => a.movement - b.movement);
-  
+  resultsPlayerCountElementBalance.innerHTML = players.length;
+  document.getElementById("balance-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["balance"]||0;
     // 2) مصفوفة النقاط للمراتب 1–3
     const pointsByRank = [20, 10, 5];
   

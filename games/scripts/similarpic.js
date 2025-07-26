@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة الصور المتشابهة تتطلب لاعب واحد على الأقل');
       return;
     }
-    total_games["simpic"] = 1;
+    total_games["simpic"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['simpic']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
     resetGameSim();
@@ -75,6 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // زر إعادة اللعب
   againBtn.addEventListener('click', () => {
+    total_games["simpic"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['simpic']||0)+1):1;
+
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     resetGameSim();
   });
 
@@ -251,7 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${r.total}</td>
         </tr>
       `).join('');
-
+      document.getElementById("results-player-count-simpic").innerHTML = picPlayers.length;
+      document.getElementById("simpic-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["simpic"]||0;
     showScreen('similarResultsScreen');
   }
 });

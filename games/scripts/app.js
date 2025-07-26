@@ -93,7 +93,8 @@ document.getElementById('nav-games').classList.add('active');
       return;
 
     } 
-    total_games["outoftopic"] = 1;
+    total_games["outoftopic"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['outoftopic']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
     showScreen('categoryScreen');
@@ -438,6 +439,12 @@ function submitVote(voter, candidate) {
   });
 
   // 4. الانتقال لصفحة النتائج
+  total_score = 0;
+  loadPlayers().forEach(element => {
+    score = localStorage.getItem(element)||0;
+    total_score+=score*1;
+  });
+  document.getElementById('results-total-score').innerHTML = total_score;
   showScreen('resultsScreen');
 }
 function loadStoredResults() {
@@ -496,6 +503,12 @@ function loadStoredResults() {
       ${rowsHTML}
     </div>
   `;
+  total_score = 0;
+  loadPlayers().forEach(element => {
+    score = localStorage.getItem(element)||0;
+    total_score+=score*1;
+  });
+  document.getElementById('results-total-score').innerHTML = total_score;
   showScreen('resultsScreen');
 }
 /**

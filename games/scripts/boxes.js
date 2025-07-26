@@ -61,7 +61,8 @@ const BoxPlayerName = document.getElementById('BoxPlayerName');
     if (playersBoxes.length < 3) {
       return showAlert('error','يحتاج 3 لاعبين على الأقل');
     }
-    total_games["box"] = 1;
+    total_games["box"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['box']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
     resetGame();
@@ -73,7 +74,10 @@ const BoxPlayerName = document.getElementById('BoxPlayerName');
   });
 
   againBtn.addEventListener('click', () => {
+total_games["box"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['box'])||0)+1:1;
 
+  console.log(total_games);
+  localStorage.setItem("total_games", JSON.stringify(total_games));
     resetGame();
     showScreen('midBox');
 
@@ -227,7 +231,12 @@ const BoxPlayerName = document.getElementById('BoxPlayerName');
           <td>${r.total}</td>
         </tr>
       `).join('');
+// total_games["box"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['box'])||0)+1:1;
 
+//   console.log(total_games);
+//   localStorage.setItem("total_games", JSON.stringify(total_games));
+document.getElementById("results-player-count-box").innerHTML = loadPlayers().length;
+      document.getElementById("box-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["box"]||0;
     showScreen('boxResultsScreen');
   }
 });

@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `لعبة الكنز تتطلب 3 لاعبين على الأقل! الآن: ${playersT.length}`);
       return;
     }
-    total_games["kanz"] = 1;
+    total_games["kanz"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['kanz']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
     showScreen('gameSettingsScreen');
@@ -154,7 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </tr>
       `;
     }).join('');
-
+    
+    document.getElementById("results-player-count-kanz").innerHTML = loadPlayers().length;
+      document.getElementById("kanz-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["kanz"]||0;
     showScreen("resultsScreenT");
   }
 });

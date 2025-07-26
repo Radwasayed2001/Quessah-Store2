@@ -54,7 +54,9 @@ function startMafiaGame() {
     mafiaRoles[detective] = 'محقق';
     villagers.forEach(p => { mafiaRoles[p] = 'مواطن'; });
   
-  total_games["mafia"] = 1;
+  // total_games["mafia"] = 1;
+  total_games["mafia"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['mafia']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -812,5 +814,11 @@ function loadStoredResultsMafia() {
       ${rowsHTML}
     </div>
   `;
+  total_score = 0;
+  loadPlayers().forEach(element => {
+    score = localStorage.getItem(element)||0;
+    total_score+=score*1;
+  });
+  document.getElementById('results-total-score').innerHTML = total_score;
   showScreen('resultsScreen');
 }

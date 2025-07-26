@@ -303,7 +303,7 @@ function runBalanceGame(){
     showAlert('error', 'لعبة التوازن تتطلب لاعب واحد على الأقل');
     return; 
   }  
-  total_games["balance"] = 1;
+  total_games["balance"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['balance']||0)+1):1;
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -315,7 +315,9 @@ function runPicGame(){
     showAlert('error', 'لعبة الصور المتشابهة تتطلب لاعب واحد على الأقل');
     return; 
   }  
-  total_games["simpic"] = 1;
+  // total_games["simpic"] = 1;
+  total_games["simpic"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['simpic']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -327,7 +329,9 @@ function runJawwal(){
     showAlert('error', 'لعبة جوالك على رأسك تتطلب لاعبين 2 على الأقل');
     return; 
   }  
-  total_games["jawwal"] = 1;
+  // total_games["jawwal"] = 1;
+    total_games["jawwal"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['jawwal']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -340,7 +344,9 @@ function runFastestGame(){
     showAlert('error', 'لعبة الأسرع تتطلب 3 لاعبين على الأقل');
     return; 
   }  
-  total_games["fast"] = 1;
+  // total_games["fast"] = 1;
+    total_games["fast"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['fast']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -353,7 +359,9 @@ function runBoxestGame(){
     showAlert('error', 'لعبة الصناديق تتطلب 3 لاعبين على الأقل');
     return; 
   }  
-  total_games["box"] = 1;
+  // total_games["box"] = 1;
+    total_games["box"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['box']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -367,7 +375,9 @@ function runKanzGame(){
         `لعبة الكنز تتطلب 3 لاعبين على الأقل! الآن: ${playersT.length}`);
       return;
     }
-    total_games["kanz"] = 1;
+    // total_games["kanz"] = 1;
+    total_games["kanz"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['kanz']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -380,7 +390,9 @@ function runOutoftopic(){
       return;
 
     } 
-    total_games["outoftopic"] = 1;
+    // total_games["outoftopic"] = 1;
+    total_games["outoftopic"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['outoftopic']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -392,7 +404,9 @@ function runWhoGame(){
       showAlert('error', `لعبة مين فينا تتطلب 3 لاعبين على الأقل! حالياً: ${playersWho.length}`);
       return;
     }
-    total_games["who"] = 1;
+    // total_games["who"] = 1;
+    total_games["who"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['who']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -404,7 +418,9 @@ function runNospeachGame(){
       showAlert('error', 'لعبة بدون كلام تتطلب 4 لاعبين على الأقل للعب! حالياً: ' + players.length);
       return;
     }
-    total_games["nospeach"] = 1;
+    // total_games["nospeach"] = 1;
+    total_games["nospeach"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['nospeach']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -415,7 +431,9 @@ function runSpyGame(){
   if (players.length < 5 || players.length > 8) {
       showAlert('error', 'يتطلب من 5 إلى 8 لاعبين للعب! حالياً: ' + players.length);
     } else {
-      total_games["spy"] = 1;
+      // total_games["spy"] = 1;
+      total_games["spy"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['spy']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -429,7 +447,9 @@ function runWinkGame(){
   if (players.length < 5) {
       showAlert('error', 'لا يمكن اللعب بأقل من 5 لاعبين!');
     } else {
-      total_games["wink"] = 1;
+      // total_games["wink"] = 1;
+      total_games["wink"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['wink']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 

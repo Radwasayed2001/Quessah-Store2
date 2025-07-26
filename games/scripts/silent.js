@@ -155,7 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', 'لعبة بدون كلام تتطلب 4 لاعبين على الأقل للعب! حالياً: ' + players.length);
       return;
     }
-    total_games["nospeach"] = 1;
+    // total_games["nospeach"] = 1;
+    total_games["nospeach"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['nospeach']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -279,6 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // إذا كان فريق B انتهى، نعرض نتائج الجولة
       renderRoundResults();
       roundResultText.textContent = `⏳ انتهى وقت فريق B! هذه نهايتها.`;
+      document.getElementById("results-player-count-nospeach").innerHTML = loadPlayers().length;
+      document.getElementById("nospeach-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["nospeach"]||0;
       showScreen('charadesRoundResultsScreen');
     }
   }
@@ -298,6 +302,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // بعد انتهاء الجولة والضغط على "الجولة الجديدة"
   nextRoundBtn.onclick = () => {
+    total_games["nospeach"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['nospeach']||0)+1):1;
+
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
     actorIndex = 0; // نعيد الفهرس لفريق A في جولة جديدة
     playerResults.forEach(pr => pr.roundPoints = 0);
     nextPass();

@@ -7,7 +7,7 @@ function clearTimersJ() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const playersJawwal = loadPlayers();
-  let settingsJawwal = { time: 60, categories: [] };
+  let settingsJawwal = { time: 1, categories: [] };
   let order = [], idx = 0;
   let currentPlayerJawwal = 0, correctCount = 0;
   const roundResultsJ = [];
@@ -205,10 +205,18 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${r.total}</td>
       </tr>
     `).join('');
+    document.getElementById("results-player-count-jawwal").innerHTML = playersJawwal.length;
+      document.getElementById("jawwal-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["jawwal"]||0;
     showScreen('headsUpResults');
   }
 
-  replayBtn.onclick    = () => showScreen('headsUpSettings');
+  replayBtn.onclick    = () => {
+    total_games["jawwal"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['jawwal'])||0)+1:1;
+
+  console.log(total_games);
+  localStorage.setItem("total_games", JSON.stringify(total_games));
+  showScreen('headsUpSettings');
+}
   backGameBtnJ.onclick = () => showScreen('gamesScreen');
 });
 
@@ -310,7 +318,8 @@ function startJawwalGame(){
     showAlert('error', 'لعبة التوازن تتطلب لاعبين 2 على الأقل');
     return; 
   } 
-  total_games["jawwal"] = 1;
+  total_games["jawwal"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['jawwal'])||0)+1:1;
+
   console.log(total_games);
   localStorage.setItem("total_games", JSON.stringify(total_games));
   showScreen('headsUpSettings');

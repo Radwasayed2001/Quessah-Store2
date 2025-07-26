@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
       showAlert('error', `لعبة مين فينا تتطلب 3 لاعبين على الأقل! حالياً: ${playersWho.length}`);
       return;
     }
-    total_games["who"] = 1;
+    total_games["who"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['who']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
     showScreen('whoSettingsScreen');
@@ -138,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>🏆 الأكثر تصويتًا: <strong>${mostVoted}</strong></p>
       </div>
     `;
+    
     showScreen('whoResultsScreen');
   }
 

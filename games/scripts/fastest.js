@@ -163,12 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${r.pointsTotal}</td>
       </tr>
     `).join('');
-
+    document.getElementById("results-player-count-fast").innerHTML = loadPlayers().length;
+      document.getElementById("fast-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["fast"]||0;
     showScreen('fastResultsScreen');
   }
 
   // ==== بدء جولة جديدة ====
   function startFastGame(duration) {
+    
     if (!Object.keys(playerStats).length) initStats();
 
     // انتهت التحديات؟
@@ -209,7 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `لعبة الأسرع تتطلب 3 لاعبين على الأقل! حالياً: ${loadPlayers().length}`
       );
     }
-    total_games["fast"] = 1;
+    total_games["fast"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['fast']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
     availableChallenges = challengesFastest.slice();
@@ -218,7 +221,15 @@ document.addEventListener('DOMContentLoaded', () => {
   backToRulesBtnFast.onclick        = () => showScreen('fastRulesScreen');
   confirmFastTimeBtn.onclick        = () => startFastGame(+range.value);
 
-  nextFastChallengeBtn.onclick      = () => startFastGame(challengeDuration);
+  nextFastChallengeBtn.onclick      = () => {
+    total_games["fast"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['fast']||0)+1):1;
+    
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+      document.getElementById("fast-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["fast"]||0;
+  
+    startFastGame(challengeDuration);
+  }
   backToGamesBtnFastResults.onclick = () => showScreen('gamesScreen');
   // أول ربط لعناصر جولة التحدي
   rebindPostRevealElements();
@@ -226,5 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 function repeateGame() {
   availableChallenges = challengesFastest.slice();
+    
     showScreen('fastTimeScreen');
   }

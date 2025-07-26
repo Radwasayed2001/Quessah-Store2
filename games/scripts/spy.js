@@ -139,7 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (players.length < 5 || players.length > 8) {
       showAlert('error', 'يتطلب من 5 إلى 8 لاعبين للعب! حالياً: ' + players.length);
     } else {
-      total_games["spy"] = 1;
+      // total_games["spy"] = 1;
+      total_games["spy"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['spy']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -305,11 +307,17 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem(players[killerIndex], scores[players[killerIndex]]);
       roundText.textContent = `😈 الجاسوس انتصر! (+50 نقطة)`;
     }
+    
     renderResultsTable();
+    
     showScreen('spyRoundResults');
+    
   }
 
   function renderResultsTable() {
+    document.getElementById("results-player-count-spy").innerHTML = loadPlayers().length;
+      document.getElementById("spy-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["spy"]||0;
+      
     const sorted = players
       .map(p => ({ name:p, pts:scores[p] }))
       .sort((a,b)=>b.pts - a.pts);
@@ -320,7 +328,13 @@ document.addEventListener('DOMContentLoaded', () => {
       </tr>`).join('');
   }
 
-  replayBtn.onclick    = () => confirmSettings.onclick();
+  replayBtn.onclick    = () => {
+    total_games["spy"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['spy']||0)+1):1;
+
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+    confirmSettings.onclick()
+  };
   backGamesBtn.onclick = () => showScreen('gamesScreen');
 
   function formatTime(sec) {

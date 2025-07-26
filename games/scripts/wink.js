@@ -96,7 +96,9 @@ winkTimeSlider.addEventListener('input', e => {
     if (players.length < 5) {
       showAlert('error', 'لا يمكن اللعب بأقل من 5 لاعبين!');
     } else {
-      total_games["wink"] = 1;
+      // total_games["wink"] = 1;
+      total_games["wink"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['wink']||0)+1):1;
+
   console.log(total_games);
     localStorage.setItem("total_games", JSON.stringify(total_games));
 
@@ -332,9 +334,18 @@ confirmSet.onclick = () => {
           <td>${totalPts}</td>
         </tr>`;
     }).join('');
+    document.getElementById("results-player-count-wink").innerHTML = loadPlayers().length;
+      document.getElementById("wink-num").innerHTML = JSON.parse(localStorage.getItem("total_games")||{})["wink"]||0;
+      
     showScreenById(resultScreen);
     replayBtn.textContent = 'جولة جديدة';
-    replayBtn.onclick = () => confirmSet.onclick();
+    replayBtn.onclick = () => {
+      total_games["wink"] = localStorage.getItem("total_games")?((JSON.parse(localStorage.getItem("total_games"))['wink']||0)+1):1;
+
+  console.log(total_games);
+    localStorage.setItem("total_games", JSON.stringify(total_games));
+      confirmSet.onclick();
+    }
   }
 
   // --- Init ---
