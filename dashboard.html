@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - إدارة المحتوى</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#303590',
+                        accent: '#565BB6',
+                        'dark-accent': '#041710'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-primary text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold">لوحة التحكم</h1>
+                <a href="index.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                    العودة للموقع
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex">
+                    <button onclick="showTab('story')" id="story-tab" class="tab-button active mr-8 py-2 px-1 border-b-2 font-medium text-sm">
+                        إدارة القصص
+                    </button>
+                    <button onclick="showTab('prizes')" id="prizes-tab" class="tab-button mr-8 py-2 px-1 border-b-2 font-medium text-sm">
+                        إدارة الجوائز
+                    </button>
+                    <button onclick="showTab('claims')" id="claims-tab" class="tab-button py-2 px-1 border-b-2 font-medium text-sm">
+                        سجل المطالبات
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Story Management Tab -->
+        <div id="story-content" class="tab-content">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-2xl font-bold text-primary mb-6">إدارة قصة اليوم</h2>
+                
+                <form id="story-form" class="space-y-6">
+                    <div>
+                        <label for="story-title-input" class="block text-sm font-medium text-gray-700 mb-2">عنوان القصة</label>
+                        <input type="text" id="story-title-input" name="title" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                               placeholder="أدخل عنوان القصة">
+                    </div>
+                    
+                    <div>
+                        <label for="story-image-input" class="block text-sm font-medium text-gray-700 mb-2">رابط الصورة</label>
+                        <input type="url" id="story-image-input" name="image" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                               placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div>
+                        <label for="story-content-input" class="block text-sm font-medium text-gray-700 mb-2">محتوى القصة</label>
+                        <textarea id="story-content-input" name="content" rows="8" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                  placeholder="أدخل محتوى القصة هنا..."></textarea>
+                    </div>
+                    
+                    <div class="flex gap-4">
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors">
+                            حفظ القصة
+                        </button>
+                        <button type="button" onclick="clearStoryForm()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+                            مسح النموذج
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Current Story Display -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">القصة الحالية</h3>
+                <div id="current-story" class="space-y-4">
+                    <div class="text-gray-500 text-center py-8">لا توجد قصة محفوظة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prizes Management Tab -->
+        <div id="prizes-content" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-2xl font-bold text-primary mb-6">إدارة جوائز العجلة</h2>
+                
+                <form id="prize-form" class="space-y-4 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="prize-name-input" class="block text-sm font-medium text-gray-700 mb-2">اسم الجائزة</label>
+                            <input type="text" id="prize-name-input" name="name" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                   placeholder="مثال: خصم 20%">
+                        </div>
+                        
+                        <div>
+                            <label for="prize-icon-input" class="block text-sm font-medium text-gray-700 mb-2">الرمز (emoji)</label>
+                            <input type="text" id="prize-icon-input" name="icon" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                   placeholder="🎁">
+                        </div>
+                        
+                        <div class="flex items-end">
+                            <button type="submit" class="w-full bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition-colors">
+                                إضافة جائزة
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Prizes List -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">قائمة الجوائز</h3>
+                <div id="prizes-list" class="space-y-2">
+                    <!-- Prizes will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Claims Log Tab -->
+        <div id="claims-content" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-primary">سجل المطالبات اليومية</h2>
+                    <button onclick="clearAllClaims()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        مسح جميع السجلات
+                    </button>
+                </div>
+                
+                <div id="claims-list" class="space-y-4">
+                    <!-- Claims will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="message-container" class="fixed top-4 right-4 z-50"></div>
+
+    <script>
+        // Tab Management
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+                button.classList.add('text-gray-500', 'hover:text-gray-700', 'border-transparent');
+                button.classList.remove('text-primary', 'border-primary');
+            });
+            
+            // Show selected tab content
+            document.getElementById(`${tabName}-content`).classList.remove('hidden');
+            
+            // Add active class to selected tab
+            const activeTab = document.getElementById(`${tabName}-tab`);
+            activeTab.classList.add('active', 'text-primary', 'border-primary');
+            activeTab.classList.remove('text-gray-500', 'hover:text-gray-700', 'border-transparent');
+            
+            // Load content for the selected tab
+            if (tabName === 'story') {
+                loadCurrentStory();
+            } else if (tabName === 'prizes') {
+                loadPrizes();
+            } else if (tabName === 'claims') {
+                loadClaims();
+            }
+        }
+
+        // Story Management
+        function loadCurrentStory() {
+            const story = JSON.parse(localStorage.getItem('storyOfTheDay') || '{}');
+            const container = document.getElementById('current-story');
+            
+            if (story.title) {
+                container.innerHTML = `
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="text-lg font-bold text-primary mb-2">${story.title}</h4>
+                        <img src="${story.image}" alt="Story Image" class="w-32 h-32 object-cover rounded mb-4">
+                        <p class="text-gray-700 mb-4">${story.content.substring(0, 200)}...</p>
+                        <div class="flex gap-2">
+                            <button onclick="editStory()" class="bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded text-sm transition-colors">
+                                تعديل
+                            </button>
+                            <button onclick="deleteStory()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm transition-colors">
+                                حذف
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد قصة محفوظة</div>';
+            }
+        }
+
+        function editStory() {
+            const story = JSON.parse(localStorage.getItem('storyOfTheDay') || '{}');
+            document.getElementById('story-title-input').value = story.title || '';
+            document.getElementById('story-image-input').value = story.image || '';
+            document.getElementById('story-content-input').value = story.content || '';
+        }
+
+        function deleteStory() {
+            if (confirm('هل أنت متأكد من حذف القصة؟')) {
+                localStorage.removeItem('storyOfTheDay');
+                clearStoryForm();
+                loadCurrentStory();
+                showMessage('تم حذف القصة بنجاح', 'success');
+            }
+        }
+
+        function clearStoryForm() {
+            document.getElementById('story-form').reset();
+        }
+
+        // Handle Story Form Submission
+        document.getElementById('story-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const story = {
+                title: formData.get('title'),
+                image: formData.get('image'),
+                content: formData.get('content'),
+                updatedAt: new Date().toISOString()
+            };
+            
+            if (!story.title || !story.content) {
+                showMessage('يرجى ملء جميع الحقول المطلوبة', 'error');
+                return;
+            }
+            
+            localStorage.setItem('storyOfTheDay', JSON.stringify(story));
+            showMessage('تم حفظ القصة بنجاح', 'success');
+            loadCurrentStory();
+            clearStoryForm();
+        });
+
+        // Prizes Management
+        function loadPrizes() {
+            const prizes = JSON.parse(localStorage.getItem('wheelPrizes') || '[]');
+            const container = document.getElementById('prizes-list');
+            
+            if (prizes.length === 0) {
+                container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد جوائز محفوظة</div>';
+                return;
+            }
+            
+            container.innerHTML = prizes.map(prize => `
+                <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
+                    <div class="flex items-center gap-4">
+                        <span class="text-2xl">${prize.icon}</span>
+                        <span class="font-medium">${prize.name}</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editPrize('${prize.id}')" class="bg-accent hover:bg-accent/90 text-white px-3 py-1 rounded text-sm transition-colors">
+                            تعديل
+                        </button>
+                        <button onclick="deletePrize('${prize.id}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                            حذف
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editPrize(prizeId) {
+            const prizes = JSON.parse(localStorage.getItem('wheelPrizes') || '[]');
+            const prize = prizes.find(p => p.id === prizeId);
+            
+            if (prize) {
+                document.getElementById('prize-name-input').value = prize.name;
+                document.getElementById('prize-icon-input').value = prize.icon;
+                // Store the ID for updating
+                document.getElementById('prize-form').dataset.editingId = prizeId;
+            }
+        }
+
+        function deletePrize(prizeId) {
+            if (confirm('هل أنت متأكد من حذف هذه الجائزة؟')) {
+                let prizes = JSON.parse(localStorage.getItem('wheelPrizes') || '[]');
+                prizes = prizes.filter(p => p.id !== prizeId);
+                localStorage.setItem('wheelPrizes', JSON.stringify(prizes));
+                loadPrizes();
+                showMessage('تم حذف الجائزة بنجاح', 'success');
+            }
+        }
+
+        // Handle Prize Form Submission
+        document.getElementById('prize-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const prizes = JSON.parse(localStorage.getItem('wheelPrizes') || '[]');
+            const editingId = e.target.dataset.editingId;
+            
+            const prizeData = {
+                name: formData.get('name'),
+                icon: formData.get('icon') || '🎁'
+            };
+            
+            if (!prizeData.name) {
+                showMessage('يرجى إدخال اسم الجائزة', 'error');
+                return;
+            }
+            
+            if (editingId) {
+                // Update existing prize
+                const index = prizes.findIndex(p => p.id === editingId);
+                if (index !== -1) {
+                    prizes[index] = { ...prizes[index], ...prizeData };
+                }
+                delete e.target.dataset.editingId;
+            } else {
+                // Add new prize
+                const newPrize = {
+                    id: Date.now().toString(),
+                    ...prizeData
+                };
+                prizes.push(newPrize);
+            }
+            
+            localStorage.setItem('wheelPrizes', JSON.stringify(prizes));
+            showMessage('تم حفظ الجائزة بنجاح', 'success');
+            loadPrizes();
+            e.target.reset();
+        });
+
+        // Claims Management
+        function loadClaims() {
+            const container = document.getElementById('claims-list');
+            const claims = [];
+            
+            // Get all daily claims from localStorage
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('dailyClaim_')) {
+                    const claimData = JSON.parse(localStorage.getItem(key));
+                    claims.push({
+                        userId: key.replace('dailyClaim_', ''),
+                        ...claimData
+                    });
+                }
+            }
+            
+            if (claims.length === 0) {
+                container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد مطالبات مسجلة</div>';
+                return;
+            }
+            
+            container.innerHTML = claims.map(claim => `
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="font-medium text-gray-800">المستخدم: ${claim.userId}</div>
+                            <div class="text-sm text-gray-600">الجائزة: ${claim.prizeName}</div>
+                            <div class="text-sm text-gray-500">التاريخ: ${new Date(claim.claimDate).toLocaleDateString('ar-SA')}</div>
+                        </div>
+                        <button onclick="clearUserClaim('${claim.userId}')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition-colors">
+                            مسح
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function clearUserClaim(userId) {
+            if (confirm('هل أنت متأكد من مسح هذه المطالبة؟')) {
+                localStorage.removeItem(`dailyClaim_${userId}`);
+                loadClaims();
+                showMessage('تم مسح المطالبة بنجاح', 'success');
+            }
+        }
+
+        function clearAllClaims() {
+            if (confirm('هل أنت متأكد من مسح جميع المطالبات؟')) {
+                // Remove all daily claims
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('dailyClaim_')) {
+                        keysToRemove.push(key);
+                    }
+                }
+                
+                keysToRemove.forEach(key => localStorage.removeItem(key));
+                loadClaims();
+                showMessage('تم مسح جميع المطالبات بنجاح', 'success');
+            }
+        }
+
+        // Utility Functions
+        function showMessage(message, type = 'info') {
+            const container = document.getElementById('message-container');
+            const messageEl = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-green-500' : 
+                           type === 'error' ? 'bg-red-500' : 
+                           'bg-blue-500';
+            
+            messageEl.className = `${bgColor} text-white px-4 py-2 rounded-lg mb-2 shadow-lg`;
+            messageEl.textContent = message;
+            
+            container.appendChild(messageEl);
+            
+            setTimeout(() => {
+                messageEl.remove();
+            }, 3000);
+        }
+
+        // Initialize default prizes if none exist
+        function initializeDefaultPrizes() {
+            const prizes = JSON.parse(localStorage.getItem('wheelPrizes') || '[]');
+            
+            if (prizes.length === 0) {
+                const defaultPrizes = [
+                    { id: '1', name: 'خصم 10%', icon: '🎯' },
+                    { id: '2', name: 'شحن مجاني', icon: '🚚' },
+                    { id: '3', name: 'هدية مجانية', icon: '🎁' },
+                    { id: '4', name: 'خصم 20%', icon: '💰' },
+                    { id: '5', name: 'كوبون خاص', icon: '🎫' },
+                    { id: '6', name: 'عطر مجاني', icon: '🌸' }
+                ];
+                
+                localStorage.setItem('wheelPrizes', JSON.stringify(defaultPrizes));
+            }
+        }
+
+        // Initialize default story if none exists
+        function initializeDefaultStory() {
+            const story = JSON.parse(localStorage.getItem('storyOfTheDay') || '{}');
+            
+            if (!story.title) {
+                const defaultStory = {
+                    title: 'قصة النجاح والإصرار',
+                    image: 'https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg?auto=compress&cs=tinysrgb&w=800',
+                    content: 'مرحباً بك في قصة اليوم! هذه قصة ملهمة تحكي عن رحلة النجاح والإصرار. في كل يوم نقدم لك قصة جديدة تملأ قلبك بالأمل والحماس لتحقيق أحلامك.\n\nهذه القصة تذكرنا بأن النجاح يأتي لمن يثابر ولا يستسلم، وأن كل خطوة صغيرة تقودنا نحو هدفنا الكبير.\n\nتعلمنا هذه القصة أن الطريق إلى النجاح مليء بالتحديات، لكن مع الإصرار والعزيمة يمكننا تحقيق المستحيل.',
+                    updatedAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('storyOfTheDay', JSON.stringify(defaultStory));
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDefaultStory();
+            initializeDefaultPrizes();
+            showTab('story'); // Show story tab by default
+        });
+    </script>
+</body>
+</html>
