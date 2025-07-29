@@ -98,7 +98,7 @@ const GAMES = [
     icon: "./scripts/assets/icons/wink.svg",
     minPlayers: 5,
     maxPlayers: 12,
-    description: ' شخص واحد لا يعرف الكلمة من هو؟'
+    description: 'هناك دخلاء بينكم، من هم؟'
   },
   {
     id: 'mafia',
