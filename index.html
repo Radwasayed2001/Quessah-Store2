@@ -9,6 +9,8 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+<!-- في الـ <head> من الصفحة -->
+
 <link
   href="https://unpkg.com/aos@next/dist/aos.css"
   rel="stylesheet"
@@ -458,9 +460,11 @@
                     </div>
                     
                     <div class="flex gap-4">
-                        <button onclick="claimPrize()" class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        <!-- <button onclick="claimPrize()" class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
                             استلام الجائزة
-                        </button>
+                        </button> -->
+                        <button id="auto-claim-btn" class="hidden">استلام تلقائي</button>
+
                         <button onclick="closePrizeModal()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors">
                             إغلاق
                         </button>

@@ -29,107 +29,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-function closeWheelModal() {
-    document.getElementById('wheel-modal').classList.add('hidden');
-    document.body.style.overflow = '';
-}
 
 
 
-function drawWheel() {
-    if (!wheelCtx || currentPrizes.length === 0) return;
-    
-    const centerX = wheelCanvas.width / 2;
-    const centerY = wheelCanvas.height / 2;
-    const outerRadius = Math.min(centerX, centerY) - 20;
-    const innerRadius = 30;
-    
-    // Clear canvas
-    wheelCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-    
-    // Draw wheel segments
-    const segmentAngle = (2 * Math.PI) / currentPrizes.length;
-    const colors = [
-        '#565BB6', '#565BB6', '#565BB6', '#565BB6', 
-        '#565BB6', '#565BB6', '#565BB6', '#565BB6'
-    ];
-    
-    currentPrizes.forEach((prize, index) => {
-        const startAngle = wheelAngle + (index * segmentAngle);
-        const endAngle = startAngle + segmentAngle;
-        
-        // Draw outer segment
-        wheelCtx.beginPath();
-        wheelCtx.moveTo(centerX, centerY);
-        wheelCtx.arc(centerX, centerY, outerRadius, startAngle, endAngle);
-        wheelCtx.fillStyle = colors[index % colors.length];
-        wheelCtx.fill();
-        
-        // Add gradient effect
-        const gradient = wheelCtx.createRadialGradient(centerX, centerY, innerRadius, centerX, centerY, outerRadius);
-        gradient.addColorStop(0, colors[index % colors.length]);
-        gradient.addColorStop(1, colors[index % colors.length] + '80');
-        wheelCtx.fillStyle = gradient;
-        wheelCtx.fill();
-        
-        // Draw segment border
-        wheelCtx.strokeStyle = '#ffffff';
-        wheelCtx.lineWidth = 3;
-        wheelCtx.stroke();
-        
-        // Draw prize icon
-        wheelCtx.save();
-        wheelCtx.translate(centerX, centerY);
-        wheelCtx.rotate(startAngle + segmentAngle / 2);
-        
-        // Draw icon
-        wheelCtx.fillStyle = '#ffffff';
-        wheelCtx.font = 'bold 24px Arial';
-        wheelCtx.textAlign = 'center';
-        wheelCtx.fillText(prize.icon, outerRadius * 0.5, 8);
-        
-        // Draw prize name
-        wheelCtx.font = 'bold 11px Cairo, Arial';
-        wheelCtx.fillText(prize.name, outerRadius * 0.75, 4);
-        
-        wheelCtx.restore();
-        
-        // Add decorative dots around the wheel
-        const dotAngle = startAngle + segmentAngle / 2;
-        const dotX = centerX + Math.cos(dotAngle) * (outerRadius + 8);
-        const dotY = centerY + Math.sin(dotAngle) * (outerRadius + 8);
-        
-        wheelCtx.beginPath();
-        wheelCtx.arc(dotX, dotY, 4, 0, 2 * Math.PI);
-        wheelCtx.fillStyle = '#ffffff';
-        wheelCtx.fill();
-        wheelCtx.strokeStyle = colors[index % colors.length];
-        wheelCtx.lineWidth = 2;
-        wheelCtx.stroke();
-    });
-    
-    // Draw center hub
-    wheelCtx.beginPath();
-    wheelCtx.arc(centerX, centerY, innerRadius, 0, 2 * Math.PI);
-    
-    // Center gradient
-    const centerGradient = wheelCtx.createRadialGradient(centerX, centerY, 0, centerX, centerY, innerRadius);
-    centerGradient.addColorStop(0, '#ffffff');
-    centerGradient.addColorStop(1, '#f1f5f9');
-    wheelCtx.fillStyle = centerGradient;
-    wheelCtx.fill();
-    
-    wheelCtx.strokeStyle = '#303590';
-    wheelCtx.lineWidth = 4;
-    wheelCtx.stroke();
-    
-    // Add center logo/text
-    wheelCtx.fillStyle = '#303590';
-    wheelCtx.font = 'bold 12px Cairo, Arial';
-    wheelCtx.textAlign = 'center';
-    wheelCtx.fillText('حظ', centerX, centerY - 2);
-    wheelCtx.fillText('سعيد', centerX, centerY + 12);
-}
 
 function spinWheel() {
   if (isSpinning || currentPrizes.length === 0) return;
@@ -150,32 +52,22 @@ function spinWheel() {
   spinBtn.textContent = 'جاري التدوير...';
 
   // 1) نختار فائز عشوائي
-  const prizeCount = currentPrizes.length;
-  let winningIndex   = Math.floor(Math.random() * prizeCount);
-
-  // 2) نزيح فهرس الفوز بمقدار 2 للخلف عشان يتطابق مع الرسم
-//   winningIndex = (winningIndex - 2 + prizeCount) % prizeCount;
+  const prizeCount   = currentPrizes.length;
+  const winningIndex = Math.floor(Math.random() * prizeCount);
   const winningPrize = currentPrizes[(winningIndex - 2 + prizeCount) % prizeCount];
 
-  // 2) نحسب الزاوية لكل شريحة
-  const segmentAngle = (2 * Math.PI) / prizeCount;
-
-  // 3) نحدد الزاوية النهائية التي تُحرك العجلة عندها إلى منتصف الشريحة
-  //    نعتبر أن 0 rad هو المؤشر العلوي، والعجلة تدور عكس عقارب الساعة
-  //    لذا: نريد أن نصل إلى زاوية =  ( (prizeCount - winningIndex - 0.5) * segmentAngle )
-  const desiredAngle = (prizeCount - winningIndex - 0.5) * segmentAngle;
-
-  // 4) نضيف عليها عدة دورات كاملة (مثلاً 4 دورات)
-  const totalRotation = 4 * 2 * Math.PI + ((desiredAngle - (wheelAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI));
-
-  const startAngle = wheelAngle;
-  const duration = 3000;
-  const startTime = Date.now();
+  // 2) حساب الزاوية النهائية...
+  const segmentAngle    = (2 * Math.PI) / prizeCount;
+  const desiredAngle    = (prizeCount - winningIndex - 0.5) * segmentAngle;
+  const totalRotation   = 4 * 2 * Math.PI + ((desiredAngle - (wheelAngle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI));
+  const startAngle      = wheelAngle;
+  const duration        = 3000;
+  const startTime       = Date.now();
 
   function animate() {
     const elapsed = Date.now() - startTime;
-    const t = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+    const t       = Math.min(elapsed / duration, 1);
+    const eased   = 1 - Math.pow(1 - t, 3);
 
     wheelAngle = startAngle + totalRotation * eased;
     drawWheel();
@@ -183,9 +75,27 @@ function spinWheel() {
     if (t < 1) {
       requestAnimationFrame(animate);
     } else {
-      setTimeout(() => {
+      setTimeout(async () => {
+        // ✨ هنا نستبدل alert بالمودال ونخزن الفائز في Firestore:
+
+        // 1) خزّن الـclaim
+        const docKey = `dailyClaim_${userId}`;
+        const newClaim = {
+          userId,
+          prizeName: winningPrize.name,
+          prizeIcon: winningPrize.icon,
+          claimDate: new Date().toISOString()
+        };
+        await db.collection('claims').doc(docKey).set(newClaim);
+
+        // 2) حدّث قائمة المطالبات (لو عندك داشبورد جانبي)
+        loadClaims();
+
+        // 3) أظهر مودال الجائزة:
         showPrizeModal(winningPrize);
-        isSpinning = false;
+
+        // 4) أعد تفعيل الزر
+        isSpinning    = false;
         spinBtn.disabled = false;
         spinBtn.textContent = 'تدوير العجلة';
       }, 500);
@@ -194,6 +104,7 @@ function spinWheel() {
 
   animate();
 }
+
 
 
 
@@ -210,6 +121,7 @@ function showPrizeModal(prize) {
 function closePrizeModal() {
     document.getElementById('prize-modal').classList.add('hidden');
     window.currentPrize = null;
+    closeWheelModal();
 }
 
 
@@ -418,38 +330,12 @@ async function openWheelModal() {
   document.body.style.overflow='hidden';
   setTimeout(drawWheel,100);
 }
-
 function closeWheelModal() {
   document.getElementById('wheel-modal').classList.add('hidden');
   document.body.style.overflow='';
 }
 
-function spinWheel() {
-  if (isSpinning||currentPrizes.length===0) return;
-  isSpinning=true;
-  const btn = document.getElementById('spin-button');
-  btn.disabled=true; btn.textContent='جاري التدوير...';
 
-  const n = currentPrizes.length;
-  const idx = Math.floor(Math.random()*n);
-  const prize = currentPrizes[(idx-2+n)%n];
-  const segA = 2*Math.PI/n;
-  const desired = (n-idx-0.5)*segA;
-  const totalRot = 4*2*Math.PI + ((desired - (wheelAngle%(2*Math.PI)) + 2*Math.PI)%(2*Math.PI));
-  const start = wheelAngle, dur=3000, t0=Date.now();
-
-  function animate() {
-    const t = Math.min((Date.now()-t0)/dur,1);
-    wheelAngle = start + totalRot*(1-Math.pow(1-t,3));
-    drawWheel();
-    if (t<1) requestAnimationFrame(animate);
-    else setTimeout(()=>{
-      showPrizeModal(prize);
-      isSpinning=false; btn.disabled=false; btn.textContent='تدوير العجلة';
-    },500);
-  }
-  animate();
-}
 
 // ======= Prize Modal =======
 function showPrizeModal(p) {
@@ -457,10 +343,6 @@ function showPrizeModal(p) {
   document.getElementById('prize-icon').textContent = p.icon;
   document.getElementById('prize-name').textContent = p.name;
   document.getElementById('prize-modal').classList.remove('hidden');
-}
-function closePrizeModal() {
-  window.currentPrize=null;
-  document.getElementById('prize-modal').classList.add('hidden');
 }
 
 async function claimPrize() {
@@ -483,6 +365,7 @@ async function claimPrize() {
 // ======= Claims Dashboard =======
 async function loadClaims() {
   const container = document.getElementById('claims-list');
+  if (!container) return;
   container.innerHTML = '<div class="text-gray-500 text-center py-8">جاري التحميل...</div>';
   const claims = await fetchAllClaims();
   if (claims.length===0) {
