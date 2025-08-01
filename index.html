@@ -243,16 +243,13 @@
           <h2 class="relative text-2xl  md:text-3xl lg:text-5xl mt-4 font-semibold text-gray-900 mb-2">
             مرحباً بك في <span class="text-[#303590]">عالم قصة</span>
           </h2>
-          <p class="relative text-[#666666] text-base md:text-lg lg:text-xl">
-            استمتع بتجربة ترفيهية فريدة مع الألعاب والقصص التفاعلية والجوائز الرائعة
-          </p>
         </div>
   
         <!-- Services Grid -->
         <div class="mt-12 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 md:px-8 max-w-6xl mx-auto">
           <!-- Card 1 -->
-           <div  data-aos='zoom-in' class="bg-white  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
-            <div>
+           <div  class="bg-white  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
+            <div class="w-full flex flex-col items-center">
               
               <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957]">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,9 +257,7 @@
   </svg>
               </div>
               <h3 class="text-base md:text-lg font-semibold text-[#041710] my-2">قصة اليوم</h3>
-              <p class="text-[#666666] text-xs md:text-sm pb-4">
-              اكتشف قصة جديدة كل يوم مليئة بالإثارة والمغامرة، واستمتع بتجربة قراءة فريدة ومميزة
-              </p>
+              
             </div>
             <button  onclick="window.location.href='story.html'" class="mt-2 bg-[#303590] text-white py-2 rounded-full text-base md:text-lg hover:bg-indigo-900 transition">
                 اقرأ القصة
@@ -270,17 +265,15 @@
           </div>
           <!-- Card 2 -->
   
-          <div  data-aos='zoom-in' class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
-            <div>
+          <div  class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
+            <div class="w-full flex flex-col items-center">
               <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957]">
               <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M16.4236 1.66666C13.3457 1.66664 10.9337 1.66663 9.05169 1.91965C7.12537 2.17864 5.60534 2.71909 4.41226 3.91217C3.21918 5.10525 2.67873 6.62528 2.41974 8.5516C2.16672 10.4336 2.16673 12.8456 2.16675 15.9235V16.0765C2.16673 19.1543 2.16672 21.5664 2.41974 23.4484C2.67873 25.3747 3.21918 26.8947 4.41226 28.0878C5.60534 29.2809 7.12537 29.8213 9.05169 30.0803C10.9337 30.3334 13.3457 30.3333 16.4236 30.3333H16.5766C19.6544 30.3333 22.0665 30.3334 23.9485 30.0803C25.8748 29.8213 27.3948 29.2809 28.5879 28.0878C29.781 26.8947 30.3214 25.3747 30.5804 23.4484C30.8334 21.5664 30.8334 19.1543 30.8334 16.0765V15.9235C30.8334 12.8456 30.8334 10.4336 30.5804 8.5516C30.3214 6.62528 29.781 5.10525 28.5879 3.91217C27.3948 2.71909 25.8748 2.17864 23.9485 1.91965C22.0665 1.66663 19.6545 1.66664 16.5766 1.66666H16.4236ZM15.5001 3.66702C12.8418 3.66983 10.8636 3.69404 9.31818 3.90182C7.61365 4.13099 6.58602 4.56684 5.82648 5.32639C5.06694 6.08593 4.63108 7.11355 4.40191 8.81809C4.19413 10.3635 4.16992 12.3417 4.16712 15H9.71842C9.25047 14.4155 8.90082 13.726 8.71016 12.9634C7.99249 10.0927 10.5928 7.49239 13.4634 8.21007C14.2261 8.40073 14.9156 8.75038 15.5001 9.21833V3.66702ZM4.16712 17C4.16992 19.6583 4.19413 21.6364 4.40191 23.1819C4.63108 24.8864 5.06694 25.9141 5.82648 26.6736C6.58602 27.4331 7.61365 27.869 9.31818 28.0982C10.8636 28.3059 12.8418 28.3302 15.5001 28.333V18.8315C14.4606 20.9078 12.3135 22.3333 9.83342 22.3333C9.28113 22.3333 8.83342 21.8856 8.83342 21.3333C8.83342 20.781 9.28113 20.3333 9.83342 20.3333C11.8825 20.3333 13.5993 18.9111 14.0508 17H13.8802L13.8679 17H4.16712ZM17.5001 28.333C20.1584 28.3302 22.1365 28.3059 23.682 28.0982C25.3865 27.869 26.4141 27.4331 27.1737 26.6736C27.9332 25.9141 28.3691 24.8864 28.5983 23.1819C28.806 21.6364 28.8302 19.6583 28.833 17H19.1323L19.12 17H18.9494C19.4008 18.9111 21.1177 20.3333 23.1667 20.3333C23.719 20.3333 24.1667 20.781 24.1667 21.3333C24.1667 21.8856 23.719 22.3333 23.1667 22.3333C20.6867 22.3333 18.5396 20.9078 17.5001 18.8315V28.333ZM28.833 15H23.2818C23.7497 14.4155 24.0994 13.726 24.29 12.9634C25.0077 10.0927 22.4074 7.49239 19.5367 8.21007C18.7741 8.40073 18.0846 8.75038 17.5001 9.21834V3.66702C20.1584 3.66983 22.1365 3.69404 23.682 3.90182C25.3865 4.13099 26.4141 4.56684 27.1737 5.32639C27.9332 6.08593 28.3691 7.11355 28.5983 8.81809C28.806 10.3635 28.8302 12.3417 28.833 15ZM17.5001 15L17.5001 13.3722C17.5037 11.8478 18.5423 10.5202 20.0218 10.1504C21.4277 9.79887 22.7012 11.0724 22.3497 12.4783C21.98 13.9572 20.6533 14.9956 19.1297 15H17.5001ZM15.5001 13.37C15.4955 11.8466 14.4571 10.52 12.9784 10.1504C11.5725 9.79887 10.299 11.0724 10.6504 12.4783C11.0202 13.9572 12.3469 14.9956 13.8705 15H15.5001V13.37Z" fill="#303590"/>
   </svg>
               </div>
               <h3 class="text-base md:text-lg font-semibold text-[#041710] my-2">جرب حظك</h3>
-              <p class="text-[#666666] text-xs md:text-sm pb-4">
-              استمتع بألعاب الحظ والمفاجآت الممتعة، واكتشف ما يخفيه لك القدر من جوائز رائعة
-              </p>
+              
             </div>
             <button  onclick="openWheelModal()" id="open-wheel" class="mt-2  bg-[#303590] text-white py-2 rounded-full text-base md:text-lg hover:bg-indigo-900 transition">
             جرب حظك الآن
@@ -288,8 +281,8 @@
           </div>
   
           <!-- Card 3 -->
-          <div  data-aos='zoom-in' class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
-            <div>
+          <div  class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
+            <div class="w-full flex flex-col items-center">
               <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957]">
               <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M9.66659 9.33333C9.66659 8.78104 10.1143 8.33333 10.6666 8.33333H21.3333C21.8855 8.33333 22.3333 8.78104 22.3333 9.33333C22.3333 9.88561 21.8855 10.3333 21.3333 10.3333H10.6666C10.1143 10.3333 9.66659 9.88561 9.66659 9.33333Z" fill="#303590"/>
@@ -298,9 +291,7 @@
   </svg>
               </div>
               <h3 class="text-base md:text-lg font-semibold text-[#041710] my-2">القصص التفاعلية</h3>
-              <p class="text-[#666666] text-xs md:text-sm pb-4">
-              كن بطل قصتك الخاصة! اختر اسم الشخصية الرئيسية واتخذ القرارات التي تشكل مجرى الأحداث
-              </p>
+              
             </div>
             <button onclick="showInteractiveStories()" class="mt-2 bg-[#303590] text-white py-2 rounded-full text-base md:text-lg hover:bg-indigo-900 transition">
             أنشئ قصتك
@@ -308,8 +299,8 @@
           </div>
   
           <!-- Card 4 -->
-          <div  data-aos='zoom-in' class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
-            <div>
+          <div  class="bg-white rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 px-2 md:px-6 py-6 md:py-6 flex flex-col justify-between">
+            <div class="w-full flex flex-col items-center">
               <div class="flex justify-center items-center rounded-full p-3 w-14 h-14 bg-[#898EE957]">
               <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.04468 4.60499C8.71862 4.36597 9.4032 4.33334 9.97018 4.33334H10.7868C12.1639 4.33334 13.507 4.76054 14.6311 5.55604L15.3003 6.02965C15.6511 6.27793 16.0703 6.41127 16.5001 6.41127C16.9299 6.41127 17.3491 6.27793 17.7 6.02963L18.3691 5.55605C19.4932 4.76055 20.8363 4.33334 22.2133 4.33334H23.03C23.597 4.33334 24.2815 4.36597 24.9555 4.60499C26.8798 5.28748 28.4017 6.85589 29.404 9.39353C30.396 11.905 30.9053 15.419 30.8252 20.1538C30.8083 21.1531 30.6837 22.2731 30.2994 23.2819C29.9101 24.3039 29.2301 25.2673 28.0859 25.8145C27.4349 26.1258 26.6677 26.3333 25.7978 26.3333C24.7486 26.3333 23.8856 26.0311 23.2084 25.5873C22.5785 25.1744 22.0277 24.6407 21.5571 24.1847C21.4998 24.1291 21.4437 24.0748 21.3887 24.0219C20.8489 23.5023 20.3951 23.0968 19.8914 22.8356C19.255 22.5056 18.5487 22.3333 17.8319 22.3333H15.1683C14.4515 22.3333 13.7451 22.5056 13.1088 22.8356C12.6051 23.0968 12.1512 23.5023 11.6114 24.0219C11.5565 24.0747 11.5004 24.1291 11.4431 24.1847C10.9725 24.6407 10.4217 25.1744 9.79177 25.5873C9.11457 26.0311 8.25159 26.3333 7.20237 26.3333C6.33249 26.3333 5.56524 26.1258 4.9143 25.8145C3.77005 25.2673 3.09002 24.3039 2.70073 23.2819C2.31651 22.2731 2.19185 21.1531 2.17495 20.1538C2.09485 15.419 2.6042 11.905 3.59617 9.39354C4.59848 6.8559 6.12035 5.28749 8.04468 4.60499ZM9.97018 6.33334C9.45932 6.33334 9.05512 6.36868 8.71322 6.48995C7.46062 6.93421 6.30138 7.98876 5.45633 10.1283C4.60095 12.2939 4.09669 15.5112 4.17466 20.1199C4.1896 21.0032 4.30112 21.8647 4.56975 22.57C4.83331 23.262 5.22282 23.7451 5.77715 24.0102C6.18483 24.2051 6.6588 24.3333 7.20237 24.3333C7.84919 24.3333 8.33307 24.1521 8.69543 23.9146C9.15644 23.6124 9.56617 23.2166 10.0584 22.7412C10.1127 22.6887 10.168 22.6353 10.2245 22.5809C10.7591 22.0663 11.3983 21.4697 12.1881 21.0601C13.1089 20.5826 14.131 20.3333 15.1683 20.3333H17.8319C18.8692 20.3333 19.8913 20.5826 20.8121 21.0601C21.6018 21.4697 22.2411 22.0663 22.7757 22.5809C22.8322 22.6353 22.8875 22.6887 22.9418 22.7412C23.434 23.2166 23.8437 23.6124 24.3047 23.9146C24.6671 24.1521 25.151 24.3333 25.7978 24.3333C26.3414 24.3333 26.8153 24.2051 27.223 24.0102C27.7773 23.7451 28.1669 23.262 28.4304 22.57C28.699 21.8647 28.8106 21.0032 28.8255 20.1199C28.9035 15.5112 28.3992 12.2939 27.5438 10.1282C26.6988 7.98875 25.5395 6.9342 24.2869 6.48995C23.945 6.36868 23.5409 6.33334 23.03 6.33334H22.2133C21.2502 6.33334 20.3107 6.63215 19.5245 7.18856L18.8553 7.66215C18.1667 8.14953 17.3438 8.41127 16.5001 8.41127C15.6564 8.41127 14.8336 8.14954 14.1449 7.66217L13.4757 7.18857C12.6895 6.63215 11.75 6.33334 10.7868 6.33334H9.97018ZM10.5001 11C11.0524 11 11.5001 11.4477 11.5001 12V13H12.5001C13.0524 13 13.5001 13.4477 13.5001 14C13.5001 14.5523 13.0524 15 12.5001 15H11.5001V16C11.5001 16.5523 11.0524 17 10.5001 17C9.9478 17 9.50009 16.5523 9.50009 16V15H8.50009C7.9478 15 7.50009 14.5523 7.50009 14C7.50009 13.4477 7.9478 13 8.50009 13H9.50009V12C9.50009 11.4477 9.9478 11 10.5001 11Z" fill="#303590"/>
@@ -320,9 +311,7 @@
   </svg>
               </div>
               <h3 class="text-base md:text-lg font-semibold text-[#041710] my-2">الألعاب الجماعية</h3>
-              <p class="text-[#666666] text-xs md:text-sm pb-4">
-              استمتع بألعاب ممتعة ومثيرة مع الأصدقاء والعائلة، أو تحدَّ نفسك في الألعاب الفردية!
-              </p>
+              
             </div>
             <button onclick="window.location.href = './games/index.html'" class="mt-2 bg-[#303590] text-white py-2 rounded-full text-base md:text-lg hover:bg-indigo-900 transition">
             انضم إلى اللعب
@@ -333,7 +322,7 @@
         </div>
   
         <!-- Footer CTA -->
-        <div  data-aos='zoom-in' class="mt-12 max-w-full md:mx-8  bg-[#898EE90F] border border-[#F3F0FA] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between">
+        <div  class="mt-12 max-w-full md:mx-8  bg-[#898EE90F] border border-[#F3F0FA] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between">
           <div class="flex items-center mb-4 sm:mb-0">
           <div class="flex justify-center items-center rounded-full p-4 w-14 h-14 bg-[#898EE957] me-4">
           <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -374,7 +363,7 @@
       <img src="./images/friend.png" alt="الصداقة" class="w-full lg:h-64 md:h-52 sm:h-40 object-cover object-center rounded-lg mb-4" />
 
       <!-- Modal Content (scrollable if طويل) -->
-      <div class="text-gray-700 text-right space-y-3 max-h-80 overflow-y-auto pr-2">
+      <div class="text-gray-700  space-y-3 max-h-80 overflow-y-auto pr-2">
         <p>قال الجندي لرئيسه: "صديقي في المستشفى وأريد أن أذهب لأراه."</p>
         <p>فقال له الرئيس: "اذهب إليه، وإذا مات فاتصل بي حتى أرسل لك بديلاً."</p>
         <p>ذهب الجندي إلى المستشفى وبقي هناك طوال اليوم، وفي المساء اتصل بالرئيس وقال له: "لقد مات صديقي."</p>
@@ -513,19 +502,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     AOS.init({ duration: 800, once: true /* only-once reveal */ });
-  </script>
-  <script>
-    // Simple typewriter for the tagline
-    const txt = "استمتع بتجربة ترفيهية فريدة مع الألعاب والقصص التفاعلية والجوائز الرائعة";
-    const el  = document.querySelector("p.relative");
-    let i = 0;
-    function type() {
-      if (i <= txt.length) {
-        el.textContent = txt.slice(0, i++);
-        setTimeout(type, 40);
-      }
-    }
-    type();
   </script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
 

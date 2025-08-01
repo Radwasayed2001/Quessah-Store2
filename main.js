@@ -864,7 +864,8 @@ ${this.storySteps.join('\n')}
                     </div>
                   `).join('')}
                 </div>
-                <button id="finish-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">انتهى</button>
+                <button id="finish-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">مشاركة</button>
+                <button id="back-to-main-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">انتهى</button>
               </div>
             </div>
             <div id="story-modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 hidden pt-8">
@@ -875,9 +876,17 @@ ${this.storySteps.join('\n')}
                 <div class="flex flex-col gap-3 mb-4 animate-fade-in-up">
                   <button style="display: none !important;" id="download-pdf" class="hidden w-full flex items-center justify-center gap-2 bg-red-600 text-white rounded-lg py-2 font-semibold hover:bg-red-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z'/></svg>تحميل القصة كـ PDF</button>
                   <button id="print-story" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z'/></svg>طباعة القصة</button>
-                  <button id="share-fb" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.127 22 17 22 12z'/></svg>شارك عبر فيسبوك</button>
-                  <button id="share-wa" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white rounded-lg py-2 font-semibold hover:bg-green-600 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.69.97.99-3.59-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z'/></svg>شارك عبر واتساب</button>
-                  <button id="share-x" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
+                  <button
+  id="share-fb"
+  class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white rounded-lg py-2 font-semibold hover:opacity-90 transition"
+>
+  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.5-.875a1.125 1.125 0 1 1 0 2.25 1.125 1.125 0 0 1 0-2.25z"/>
+  </svg>
+  شارك عبر انستاجرام
+</button>
+ <button id="share-wa" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white rounded-lg py-2 font-semibold hover:bg-green-600 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.69.97.99-3.59-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z'/></svg>شارك عبر واتساب</button>
+                  <button id="share-x" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg style="width: 1.375rem;margin-left: 5px;margin-top: 5px;" fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
                   <button id="copy-story" class="w-full flex items-center justify-center gap-2 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 transition"><svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>نسخ نص القصة</button>
                 </div>
                 <button id="new-story-btn" class="w-full mt-2 py-2 bg-indigo-100 text-indigo-700 rounded-lg font-semibold hover:bg-indigo-200 transition animate-fade-in">ابدأ قصة جديدة ↺</button>
@@ -898,13 +907,14 @@ ${this.storySteps.join('\n')}
             // --- منطق البوب أب وأزرار المشاركة ---
             setTimeout(() => {
               const finishBtn = document.getElementById('finish-story-btn');
+              const toMain = document.getElementById('back-to-main-story-btn');
               const modal = document.getElementById('story-modal');
               const closeModal = document.getElementById('close-modal');
               const newStoryBtn = document.getElementById('new-story-btn');
               const copyBtn = document.getElementById('copy-story');
               const downloadPdfBtn = document.getElementById('download-pdf');
               const printStoryBtn = document.getElementById('print-story');
-              const shareFb = document.getElementById('share-fb');
+              const shareInsta = document.getElementById('share-fb');
               const shareWa = document.getElementById('share-wa');
               const shareX = document.getElementById('share-x');
               finishBtn && finishBtn.addEventListener('click', () => { 
@@ -915,6 +925,9 @@ ${this.storySteps.join('\n')}
               });
               closeModal && closeModal.addEventListener('click', () => { modal.classList.add('hidden'); });
               newStoryBtn && newStoryBtn.addEventListener('click', () => { location.reload(); });
+              toMain.addEventListener('click', () => { 
+                location.href = "./index.html";
+              });
               
                   // معالجة زر تحميل PDF
     downloadPdfBtn && downloadPdfBtn.addEventListener('click', async () => {
@@ -1089,11 +1102,35 @@ ${this.storySteps.join('\n')}
                 copyBtn.textContent = 'تم النسخ!';
                 setTimeout(()=>{copyBtn.textContent='نسخ نص القصة';}, 1500);
               });
-              shareFb && shareFb.addEventListener('click', () => {
-                const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`,'_blank');
-              });
+            //   shareFb && shareFb.addEventListener('click', () => {
+            //     const url = encodeURIComponent(window.location.href);
+            //     const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
+            //     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`,'_blank');
+            //   });
+              shareInsta && shareInsta.addEventListener('click', () => {
+  // 1) Grab your page URL and the generated AI image
+  const pageUrl = encodeURIComponent(window.location.href);
+  // حاول إيجاد صورة القصة الكاملة (أول صورة)
+  let imageUrl = '';
+  const imageContainer = document.querySelector('.story-image-container-0');
+  if (imageContainer) {
+    const img = imageContainer.querySelector('img');
+    if (img && img.src) {
+      imageUrl = encodeURIComponent(img.src);
+    }
+  }
+  // fallback placeholder if no image found
+  if (!imageUrl) {
+    imageUrl = encodeURIComponent('https://example.com/path/to/your-image.png');
+  }
+
+  // 2) Build the Instagram story-creation URL
+  const instaStoryUrl = 
+    `https://www.instagram.com/stories?background_image_url=${imageUrl}&attribution_link=${pageUrl}`;
+
+  // 3) Fire it off
+  window.open(instaStoryUrl, '_blank');
+});
               shareWa && shareWa.addEventListener('click', () => {
                 const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
                 window.open(`https://wa.me/?text=${text}`,'_blank');
