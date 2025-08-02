@@ -7,6 +7,7 @@
     body { font-family: sans-serif; max-width: 400px; margin: 2em auto; }
     textarea, button { width: 100%; margin-top: 0.5em; padding: 0.5em; }
     button { cursor: pointer; }
+    #status { margin-top: 1em; }
   </style>
 </head>
 <body>
@@ -18,7 +19,7 @@
       <textarea id="captionInput" placeholder="Write a caption…" rows="4"></textarea>
     </label>
     <button type="submit">Post to Instagram</button>
-    <p id="status" style="color: #b00; margin-top:1em;"></p>
+    <p id="status" style="color: #b00;"></p>
   </form>
 
   <script>
@@ -28,31 +29,42 @@
       const statusEl = document.getElementById('status');
 
       // Your static Base64 image data URI
-      const STATIC_IMAGE_BASE64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAxwMBEQACEQEDEQH/... (truncated for brevity)";
+      const STATIC_IMAGE_BASE64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/...";
 
       form.addEventListener('submit', async e => {
         e.preventDefault();
+        statusEl.style.color = '#b00';
         statusEl.textContent = '';
 
         const caption = captionInput.value.trim();
+        const payload = { imageData: STATIC_IMAGE_BASE64, caption };
 
         try {
-          fetch('https://api.myapp.com/instagram/post', { 
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ imageData: STATIC_IMAGE_BASE64, caption })
-})
-          if (!resp.ok) {
-            const err = await resp.json();
-            throw new Error(err.error || resp.statusText);
+          const response = await fetch('https://api.myapp.com/instagram/post', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          // Read raw response text (could be JSON or HTML error page)
+          const text = await response.text();
+
+          if (!response.ok) {
+            // Display the raw error (HTML or JSON) for debugging
+            console.error('Server responded with error:', text);
+            throw new Error(`Server ${response.status}: ${response.statusText}`);
           }
 
-          const data = await resp.json();
+          // Now safely parse JSON
+          const data = JSON.parse(text);
           statusEl.style.color = 'green';
           statusEl.textContent = '✅ Posted! ID: ' + data.postId;
+
         } catch (err) {
-          console.error(err);
-          statusEl.style.color = '#b00';
+          console.error('Fetch failed:', err);
           statusEl.textContent = '❌ Failed: ' + err.message;
         }
       });
