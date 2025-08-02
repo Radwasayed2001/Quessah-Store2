@@ -37,17 +37,11 @@
         const caption = captionInput.value.trim();
 
         try {
-          const resp = await fetch('/api/instagram/post', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              imageData: STATIC_IMAGE_BASE64,
-              caption: caption
-            })
-          });
-
+          fetch('https://api.myapp.com/instagram/post', { 
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ imageData: STATIC_IMAGE_BASE64, caption })
+})
           if (!resp.ok) {
             const err = await resp.json();
             throw new Error(err.error || resp.statusText);
