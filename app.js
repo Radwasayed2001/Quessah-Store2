@@ -136,11 +136,21 @@ function shareWhatsApp() {
     window.open(whatsappUrl, '_blank');
 }
 
-function shareFacebook() {
-    const storyUrl = window.location.origin + window.location.pathname.replace('index.html', 'story.html');
+function shareInstagram() {
+    const story = JSON.parse(localStorage.getItem('storyOfTheDay') || '{}');
+    const storyUrl = `${window.location.origin}/story.html`;
     
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(storyUrl)}`;
-    window.open(facebookUrl, '_blank', 'width=600,height=400');
+    const message = `🌟 ${story.title || 'قصة ملهمة'}\n\n${(story.content || '').substring(0, 150)}...\n\n${storyUrl}`;
+    
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(message).then(() => {
+            alert('تم نسخ محتوى القصة! يمكنك الآن لصقه في إنستاجرام Stories أو Post جديد.');
+        }).catch(() => {
+            fallbackCopyToClipboard(message);
+        });
+    } else {
+        fallbackCopyToClipboard(message);
+    }
 }
 
 function copyToClipboard() {
