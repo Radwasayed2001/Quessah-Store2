@@ -383,7 +383,7 @@
         </div>
     </div>
     <!-- Loading Message -->
-    <div id="loading-message" class="fixed top-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+    <div id="loading-message" class="hidden fixed top-4 right-4 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
         <div class="flex items-center gap-2">
             <svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -403,16 +403,20 @@
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
   // جلب القصة من Firestore
-  async function fetchStoryFromFirestore() {
-    try {
-      const snap = await db.collection("stories").get();
-      const stories = snap.docs.map(d => d.data());
-      return stories[0] || null;
-    } catch (err) {
-      console.error("Error fetching story:", err);
-      return null;
-    }
+  // new: pick a random story
+async function fetchStoryFromFirestore() {
+  try {
+    const snap = await db.collection("stories").get();
+    const stories = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (!stories.length) return null;
+    const randomIndex = Math.floor(Math.random() * stories.length);
+    return stories[randomIndex];
+  } catch (err) {
+    console.error("Error fetching stories:", err);
+    return null;
   }
+}
+
 
   // عند التحميل
   document.addEventListener("DOMContentLoaded", async () => {

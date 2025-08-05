@@ -81,123 +81,84 @@
         </div>
 
         <!-- Story Management Tab -->
-        <div id="story-content" class="tab-content">
-            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-                <h2 class="text-2xl font-bold text-primary mb-6">إدارة قصة اليوم</h2>
+        <!-- === Story Management Tab === -->
+<div id="story-content" class="tab-content">
 
-                <form id="story-form" class="space-y-6">
-  <div>
-    <label for="story-title-input" class="block text-sm font-medium text-gray-700 mb-2">
-      عنوان القصة
-    </label>
-    <input
-      type="text"
-      id="story-title-input"
-      name="title"
-      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-      placeholder="أدخل عنوان القصة"
-      required
-    />
+  <!-- Form for Add / Edit -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <h2 class="text-2xl font-bold text-primary mb-6">إدارة القصص</h2>
+
+    <form id="story-form" class="space-y-6" data-editing-id="">
+      <div>
+        <label for="story-title-input" class="block text-sm font-medium text-gray-700 mb-2">
+          عنوان القصة
+        </label>
+        <input
+          type="text"
+          id="story-title-input"
+          name="title"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="أدخل عنوان القصة"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="story-image-file" class="block text-sm font-medium text-gray-700 mb-2">
+          صورة القصة
+        </label>
+        <div class="flex items-center space-x-4">
+          <label
+            for="story-image-file"
+            class="cursor-pointer bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+          >
+            📷 اختر صورة
+          </label>
+          <input type="file" id="story-image-file" accept="image/*" class="hidden" />
+          <span id="story-image-filename" class="text-gray-600 truncate">لم يتم اختيار صورة</span>
+        </div>
+        <div id="story-image-preview" class="mt-4 hidden">
+          <img src="" alt="معاينة الصورة" class="mx-auto rounded-lg max-h-48 shadow-md" />
+        </div>
+      </div>
+
+      <div>
+        <label for="story-content-input" class="block text-sm font-medium text-gray-700 mb-2">
+          محتوى القصة
+        </label>
+        <textarea
+          id="story-content-input"
+          name="content"
+          rows="6"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="أدخل محتوى القصة هنا..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="flex gap-4">
+        <button id="submitStoryBtn" type="submit"
+          class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors flex-1 text-center">
+          <span id="submitStoryText">نشر القصة</span>
+          <span id="submitStoryLoader" class="hidden ml-2 animate-spin">⏳</span>
+        </button>
+        <button type="button" onclick="clearStoryForm()"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+          مسح النموذج
+        </button>
+      </div>
+    </form>
   </div>
 
-  <!-- رفع الصورة -->
-  <div>
-  <label for="story-image-file" class="block text-sm font-medium text-gray-700 mb-2">
-    صورة القصة
-  </label>
-  
-  <div class="flex items-center space-x-4">
-    <label
-      for="story-image-file"
-      class="cursor-pointer bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-           viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M7 16v4h10v-4m-5-4v8m5-8h2a2 2 0 002-2V7a2 2 0 00-2-2h-2M7 12H5a2 2 0 00-2 2v1a2 2 0 002 2h2m0-8V4h10v4" />
-      </svg>
-      اختر صورة
-    </label>
-    
-    <!-- The actual file input -->
-    <input
-      type="file"
-      id="story-image-file"
-      accept="image/*"
-      class="hidden"
-    />
-    
-    <span id="story-image-filename" class="text-gray-600 truncate">لم يتم اختيار صورة</span>
-  </div>
-
-  <!-- معاينة الصورة -->
-  <div id="story-image-preview" class="mt-4 hidden">
-    <img src="" alt="معاينة الصورة" class="mx-auto rounded-lg max-h-48 shadow-md" />
+  <!-- List of Stories -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">قائمة القصص</h3>
+    <div id="stories-list" class="space-y-4 text-right">
+      <!-- JS will inject -->
+    </div>
   </div>
 </div>
 
-
-  <div>
-    
-
-    <label for="story-content-input" class="block text-sm font-medium text-gray-700 mb-2">
-      محتوى القصة
-    </label>
-    <textarea
-      id="story-content-input"
-      name="content"
-      rows="8"
-      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-      placeholder="أدخل محتوى القصة هنا..."
-      required
-    ></textarea>
-  </div>
-
-  <div class="flex gap-4">
-    <!-- <button
-      type="submit"
-      class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors"
-    >
-      حفظ القصة
-    </button> -->
-    <button id="submitStoryBtn" type="submit" class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors w-32 h-12 text-center flex justify-center items-center">
-  <span id="submitStoryText">نشر القصة</span>
-  <span id="submitStoryLoader" class="hidden ml-2">
-    <div role="status">
-      <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-      </svg>
-      <span class="sr-only">Loading...</span>
-    </div>
-  </span>
-</button>
-
-    <button
-      type="button"
-      onclick="clearStoryForm()"
-      class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors flex justify-center items-center"
-    >
-      مسح النموذج
-    </button>
-  </div>
-</form>
-
-            </div>
-
-            <!-- Current Story Display -->
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">القصة الحالية</h3>
-                <div id="current-story" class="space-y-4 text-center">
-                    <!-- هنا بنحط العناصر الفارغة، ياخدها الجافاسكريبت ويملّاها -->
-                    <h2 id="story-title" class="text-2xl font-semibold text-primary"></h2>
-                    <img id="story-image" src="" alt="قصة اليوم" class="mx-auto my-4 max-w-full rounded-lg" />
-                    <p id="story-content2" class="whitespace-pre-line text-gray-700"></p>
-                    <small id="story-updated" class="text-gray-500 block mt-2"></small>
-                </div>
-            </div>
-
-        </div>
 
         <!-- Prizes Management Tab -->
         <div id="prizes-content" class="tab-content hidden">
@@ -230,6 +191,21 @@
              class="w-full px-3 py-2 border border-gray-300 rounded-lg"
              placeholder="مثال: 20">
     </div>
+    <!-- inside <form id="prize-form"> … -->
+<div>
+  <label for="prize-message-input" class="block text-sm font-medium text-gray-700 mb-2">
+    نص الجائزة
+  </label>
+  <textarea
+    id="prize-message-input"
+    name="message"
+    rows="2"
+    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+    placeholder="مثال: مبروووك! استخدم الكود XYZ واحصل على…"
+    required
+  ></textarea>
+</div>
+
                         <div class="flex items-end">
                             <button type="submit"
                                 class="w-full bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition-colors">
@@ -274,6 +250,38 @@
 <!-- Add Firebase products that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+<!-- right after your Firebase init scripts, but before any HTML that uses showTab/uploadImageToCloudinary -->
+<script>
+  // — showTab/Tab-management must be here before the <button onclick="showTab(…)"> runs
+  function showTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.classList.remove('active','text-primary','border-primary');
+      btn.classList.add('text-gray-500','hover:text-gray-700','border-transparent');
+    });
+    document.getElementById(`${tabName}-content`).classList.remove('hidden');
+    const active = document.getElementById(`${tabName}-tab`);
+    active.classList.add('active','text-primary','border-primary');
+    active.classList.remove('text-gray-500','hover:text-gray-700','border-transparent');
+  }
+
+  // — uploadImageToCloudinary also needs to be defined before you ever call it in the form handler
+  const CLOUDINARY_CLOUD_NAME   = 'dxp3nhgpm';
+  const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
+  async function uploadImageToCloudinary(file) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    const res = await fetch(url, { method:'POST', body: formData });
+    const data = await res.json();
+    if (!res.ok || !data.secure_url) {
+      console.error('Cloudinary error', data);
+      throw new Error(data.error?.message || 'Upload failed');
+    }
+    return data.secure_url;
+  }
+</script>
 
 <script>
   const firebaseConfig = {
@@ -291,233 +299,161 @@
 
 
     <script>
-      
-  // === Configuration ===
-  const API_ENDPOINT = 'http://localhost:3000/api/stories';
-  const CLOUDINARY_CLOUD_NAME = 'dxp3nhgpm';
-  const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
-
-  // === Tab Management ===
-  function showTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-    document.querySelectorAll('.tab-button').forEach(btn => {
-      btn.classList.remove('active', 'text-primary', 'border-primary');
-      btn.classList.add('text-gray-500', 'hover:text-gray-700', 'border-transparent');
-    });
-    document.getElementById(`${tabName}-content`).classList.remove('hidden');
-    const active = document.getElementById(`${tabName}-tab`);
-    active.classList.add('active', 'text-primary', 'border-primary');
-    active.classList.remove('text-gray-500', 'hover:text-gray-700', 'border-transparent');
-
-    if (tabName === 'story') loadCurrentStory();
-    else if (tabName === 'prizes') loadPrizes();
-    else if (tabName === 'claims') loadClaims();
+  // — HELPER to show toast —
+  function showMessage(msg, type='info') {
+    const c = document.getElementById('message-container');
+    const bg = type==='success' ? 'bg-green-500'
+             : type==='error'   ? 'bg-red-500'
+                                : 'bg-blue-500';
+    const d = document.createElement('div');
+    d.className = `${bg} text-white px-4 py-2 rounded-lg mb-2 shadow`;
+    d.textContent = msg;
+    c.append(d);
+    setTimeout(() => d.remove(), 3000);
   }
 
-  // === Cloudinary Image Upload ===
-  async function uploadImageToCloudinary(file) {
-  const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-
-  // طباعة المحتوى للتأكد
-  console.log('Uploading to Cloudinary:', {
-    url,
-    preset: CLOUDINARY_UPLOAD_PRESET,
-    fileName: file.name,
-    fileType: file.type,
-  });
-
-  const res = await fetch(url, { method: 'POST', body: formData });
-  const data = await res.json();
-
-  if (!res.ok) {
-    console.error('Cloudinary upload error response:', data);
-    // إذا في رسالة خطأ من Cloudinary، نمرّرها للمستخدم
-    const msg = data.error?.message || JSON.stringify(data);
-    throw new Error(`Cloudinary upload failed: ${msg}`);
+  // — LOAD all stories —
+  async function loadStories() {
+  const c = document.getElementById('stories-list');
+  c.innerHTML = `<div class="text-gray-500 text-center py-6">جاري التحميل…</div>`;
+  try {
+    const snap = await db.collection('stories').orderBy('createdAt','desc').get();
+    if (snap.empty) {
+      c.innerHTML = `<div class="text-gray-500 text-center py-6">لا توجد قصص</div>`;
+      return;
+    }
+    c.innerHTML = snap.docs.map(doc => {
+      const s = { id: doc.id, ...doc.data() };
+      return `
+      <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-start">
+        <!-- عرض الصورة -->
+        <div class="flex-shrink-0 mr-4">
+          <img src="${s.image}" alt="${s.title}" class="w-24 h-24 object-cover rounded-lg shadow-sm">
+        </div>
+        <!-- نص القصة -->
+        <div class="flex-1 text-right">
+          <h4 class="font-semibold mb-1">${s.title}</h4>
+          <p class="text-sm text-gray-700 p-2">${s.content}</p>
+        </div>
+        <!-- أزرار التعديل والحذف -->
+        <div class="flex flex-col gap-2 ml-4">
+          <button onclick="editStory('${s.id}')" class="px-3 py-1 bg-accent text-white rounded">تعديل</button>
+          <button onclick="deleteStory('${s.id}')" class="px-3 py-1 bg-red-500 text-white rounded">حذف</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    console.error(e);
+    c.innerHTML = `<div class="text-red-500 text-center py-6">خطأ في جلب القصص</div>`;
   }
-
-  if (!data.secure_url) {
-    console.error('No secure_url in Cloudinary response:', data);
-    throw new Error('Cloudinary upload did not return secure_url');
-  }
-
-  return data.secure_url;
 }
 
 
-   // معرّف الوثيقة الثابت
-  const DAILY_DOC_ID = 'dailyStory';
+  // — POPULATE form for editing —
+  async function editStory(id) {
+    const doc = await db.collection('stories').doc(id).get();
+    if (!doc.exists) return showMessage('القصة غير موجودة','error');
+    const s = { id: doc.id, ...doc.data() };
+    document.getElementById('story-title-input').value = s.title;
+    document.getElementById('story-content-input').value = s.content;
 
-  // 1️⃣ حفظ القصة في Firestore
-  async function saveStoryToFirestore({ title, image, content }) {
-    try {
-      await db
-        .collection('stories')
-        .doc(DAILY_DOC_ID)
-        .set({
-          title,
-          image,
-          content,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-      return DAILY_DOC_ID;
-    } catch (e) {
-      console.error('Error saving story:', e);
-      throw e;
-    }
+    // image preview
+    const prev = document.getElementById('story-image-preview');
+    prev.querySelector('img').src = s.image;
+    prev.classList.remove('hidden');
+    document.getElementById('story-image-filename').textContent = '–';
+
+    document.getElementById('story-form').dataset.editingId = id;
   }
 
-  // 2️⃣ جلب أحدث قصة من Firestore
-  async function fetchLatestStoryFromFirestore() {
-    try {
-      const doc = await db.collection('stories').doc(DAILY_DOC_ID).get();
-      if (!doc.exists) {
-        const err = new Error('No story found');
-        err.code = 'NOT_FOUND';
-        throw err;
-      }
-      return { id: doc.id, ...doc.data() };
-    } catch (e) {
-      console.error('Error fetching story:', e);
-      throw e;
-    }
+  // — DELETE a story —
+  async function deleteStory(id) {
+    if (!confirm('هل أنت متأكد من الحذف؟')) return;
+    await db.collection('stories').doc(id).delete();
+    showMessage('تم حذف القصة','success');
+    loadStories();
   }
 
-  // 3️⃣ تهيئة القصة الافتراضية إذا لم تكن موجودة
-  async function initializeDefaultStory() {
-    try {
-      await fetchLatestStoryFromFirestore();
-      // إذا لم يُرمِّل خطأ، معناته القصة موجودة، فنمرّ إلى التحميل
-    } catch (e) {
-      if (e.code === 'NOT_FOUND') {
-        // لم توجد قصة، فنبني الافتراضية
-        const defaultStory = {
-          title: 'قصة النجاح والإصرار',
-          image: 'https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg',
-          content: 'مرحباً بك في قصة اليوم!...'
-        };
-        await saveStoryToFirestore(defaultStory);
-      } else {
-        // أي خطأ آخر نعيد المحاولة بحفظ الافتراضية
-        const defaultStory = {
-          title: 'قصة النجاح والإصرار',
-          image: 'https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg',
-          content: 'مرحباً بك في قصة اليوم!...'
-        };
-        await saveStoryToFirestore(defaultStory);
-      }
-    } finally {
-      // في كل الأحوال، حمّل القصة لعرضها
-      loadCurrentStory();
-    }
+  // — CLEAR form to Add new —
+  function clearStoryForm() {
+    const f = document.getElementById('story-form');
+    f.reset();
+    f.dataset.editingId = '';
+    document.getElementById('story-image-preview').classList.add('hidden');
+    document.getElementById('story-image-filename').textContent = 'لم يتم اختيار صورة';
   }
-  // === Story Form Handling ===
+
+  // — HANDLE form submit for Add / Update —
   document.getElementById('story-form').addEventListener('submit', async e => {
     e.preventDefault();
-    const submitBtn = document.getElementById('submitStoryBtn');
-    const submitText = document.getElementById('submitStoryText');
-    const submitLoader = document.getElementById('submitStoryLoader');
+    const btn    = document.getElementById('submitStoryBtn');
+    const txt    = document.getElementById('submitStoryText');
+    const load   = document.getElementById('submitStoryLoader');
+    btn.disabled = true; txt.classList.add('hidden'); load.classList.remove('hidden');
 
-    submitBtn.disabled = true;
-    submitText.classList.add('hidden');
-    submitLoader.classList.remove('hidden');
+    const form    = e.target;
+    const id      = form.dataset.editingId || null;
+    const title   = form.title.value.trim();
+    const content = form.content.value.trim();
 
-    const title   = e.target.title.value.trim();
-    const content = e.target.content.value.trim();
-    const file    = document.getElementById('story-image-file').files[0];
-
-    if (!title || !content || !file) {
-      showMessage('يرجى ملء جميع الحقول واختيار صورة', 'error');
-      submitBtn.disabled = false;
-      submitText.classList.remove('hidden');
-      submitLoader.classList.add('hidden');
-      return;
+    // upload or reuse existing image
+    let imageUrl = '';
+    const file = form.elements['story-image-file'].files[0];
+    if (file) {
+      imageUrl = await uploadImageToCloudinary(file);
+    } else {
+      imageUrl = document.querySelector('#story-image-preview img').src;
     }
 
     try {
-      const imageUrl = await uploadImageToCloudinary(file);
-      await saveStoryToFirestore({ title, image: imageUrl, content });
-      showMessage('تم حفظ القصة بنجاح', 'success');
+      if (id) {
+        await db.collection('stories').doc(id)
+                .update({ title, content, image: imageUrl });
+        showMessage('تم تحديث القصة','success');
+      } else {
+        await db.collection('stories')
+                .add({ title, content, image: imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+        showMessage('تم إضافة القصة','success');
+      }
       clearStoryForm();
-      loadCurrentStory();
-    } catch {
-      showMessage('خطأ في حفظ القصة', 'error');
+      loadStories();
+    } catch(err) {
+      console.error(err);
+      showMessage('خطأ في حفظ القصة','error');
     } finally {
-      submitBtn.disabled = false;
-      submitText.classList.remove('hidden');
-      submitLoader.classList.add('hidden');
+      btn.disabled = false; txt.classList.remove('hidden'); load.classList.add('hidden');
     }
   });
-  // Preview selected image
+
+  // — PREVIEW image on file select —
   document.getElementById('story-image-file').addEventListener('change', e => {
     const file = e.target.files[0];
-    const nameSpan = document.getElementById('story-image-filename');
-    const preview = document.getElementById('story-image-preview');
-    const img     = preview.querySelector('img');
+    const name = document.getElementById('story-image-filename');
+    const prev = document.getElementById('story-image-preview');
+    const img  = prev.querySelector('img');
 
     if (file) {
-      nameSpan.textContent = file.name;
-      const reader = new FileReader();
-      reader.onload = () => {
-        img.src = reader.result;
-        preview.classList.remove('hidden');
+      name.textContent = file.name;
+      const r = new FileReader();
+      r.onload = () => {
+        img.src = r.result;
+        prev.classList.remove('hidden');
       };
-      reader.readAsDataURL(file);
+      r.readAsDataURL(file);
     } else {
-      nameSpan.textContent = 'لم يتم اختيار صورة';
-      preview.classList.add('hidden');
+      name.textContent = 'لم يتم اختيار صورة';
+      prev.classList.add('hidden');
     }
   });
 
-  function clearStoryForm() {
-    const form = document.getElementById('story-form');
-    form.reset();
-    document.getElementById('story-image-filename').textContent = 'لم يتم اختيار صورة';
-    document.getElementById('story-image-preview').classList.add('hidden');
-  }
-
-  const STORIES_COLLECTION = 'stories';
-
-  // 3️⃣ دالة لجلب القصة
-  async function loadCurrentStory() {
-    const container = document.getElementById('story-content2');
-    try {
-      const doc = await db
-        .collection(STORIES_COLLECTION)
-        .doc(DAILY_DOC_ID)
-        .get();
-
-      if (!doc.exists) {
-        container.textContent = 'لا توجد قصة اليوم';
-        return;
-      }
-
-      const story = doc.data();
-      document.getElementById('story-title').textContent = story.title;
-      const imgEl = document.getElementById('story-image');
-      if (story.image) {
-        imgEl.src = story.image;
-        imgEl.classList.remove('hidden');
-      }
-      document.getElementById('story-content2').textContent = story.content;
-
-      // عرض التاريخ
-      const updated = story.updatedAt;
-      if (updated && updated.toDate) {
-        document.getElementById('story-updated')
-          .textContent = updated.toDate().toLocaleString('ar-EG');
-      }
-    } catch (e) {
-      console.error(e);
-      container.textContent = 'خطأ في جلب القصة';
-    }
-  }
-  // === Prizes Management via API ===
-
+  // — INITIALIZATION —
+  document.addEventListener('DOMContentLoaded', () => {
+    showTab('story');
+    loadStories();
+    // … your existing init for prizes/claims …
+  });
 </script>
+
 
 <!-- تحت التهيئة نفسها لـ Firebase + Firestore كما في القصة -->
 <script>
@@ -533,17 +469,18 @@
       return;
     }
     container.innerHTML = prizes.map(p => `
-      <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
-        <div class="flex items-center gap-4">
+      <div class="bg-gray-50 p-4 rounded-lg mb-2">
+        <div class="flex items-start gap-4">
           <span class="text-2xl">${p.icon}</span>
-          <div>
-            <div class="font-medium">${p.name}</div>
-            <div class="text-sm text-gray-500">الوزن: ${p.weight || 1}%</div>
+          <div class="flex-1">
+            <div class="font-medium text-lg">${p.name}</div>
+            <div class="text-sm text-gray-600 mb-2">${p.message}</div>
+            <div class="text-xs text-gray-500">الوزن: ${p.weight || 1}%</div>
           </div>
-        </div>
-        <div class="flex gap-2">
-          <button onclick="editPrize('${p.id}')" class="bg-accent px-3 py-1 rounded text-sm text-white">تعديل</button>
-          <button onclick="deletePrize('${p.id}')" class="bg-red-500 px-3 py-1 rounded text-sm text-white">حذف</button>
+          <div class="flex flex-col gap-2">
+            <button onclick="editPrize('${p.id}')" class="bg-accent px-3 py-1 rounded text-sm text-white">تعديل</button>
+            <button onclick="deletePrize('${p.id}')" class="bg-red-500 px-3 py-1 rounded text-sm text-white">حذف</button>
+          </div>
         </div>
       </div>
     `).join('');
@@ -553,14 +490,15 @@
   }
 }
 
-
-  async function editPrize(id) {
+ 
+async function editPrize(id) {
   const doc = await db.collection('wheelPrizes').doc(id).get();
   if (!doc.exists) return showMessage('لم أجد الجائزة','error');
   const p = { id: doc.id, ...doc.data() };
-  document.getElementById('prize-name-input').value   = p.name;
-  document.getElementById('prize-icon-input').value   = p.icon;
-  document.getElementById('prize-weight-input').value = p.weight || '';
+  document.getElementById('prize-name-input').value    = p.name;
+  document.getElementById('prize-icon-input').value    = p.icon;
+  document.getElementById('prize-message-input').value = p.message || '';
+  document.getElementById('prize-weight-input').value  = p.weight  || '';
   document.getElementById('prize-form').dataset.editingId = id;
 }
 
@@ -574,34 +512,36 @@
 
   document.getElementById('prize-form').addEventListener('submit', async e => {
   e.preventDefault();
-  const form = e.target;
+  const form   = e.target;
   const name   = form.name.value.trim();
   const icon   = form.icon.value.trim()   || '🎁';
-  const weight = parseInt(form.weight.value, 10) || 1;  // افتراضي 1 إذا لم يُدخل
+  const message= form.message.value.trim();
+  const weight = parseInt(form.weight.value, 10) || 1;
 
-  if (!name) return showMessage('أدخل اسم الجائزة', 'error');
+  if (!name || !message) {
+    return showMessage('يرجى إدخال اسم الجائزة ورسالتها', 'error');
+  }
 
   const editingId = form.dataset.editingId;
   try {
     if (editingId) {
-      // تحديث
+      // تحديث موجود
       await db.collection('wheelPrizes').doc(editingId)
-              .update({ name, icon, weight });
+        .update({ name, icon, message, weight });
       delete form.dataset.editingId;
     } else {
       // إضافة جديدة
       await db.collection('wheelPrizes')
-              .add({ name, icon, weight });
+        .add({ name, icon, message, weight });
     }
-    showMessage('تم الحفظ بنجاح', 'success');
+    showMessage('تم حفظ الجائزة بنجاح', 'success');
     form.reset();
     loadPrizes();
   } catch (err) {
     console.error(err);
-    showMessage('خطأ في الحفظ', 'error');
+    showMessage('خطأ في حفظ الجائزة', 'error');
   }
 });
-
 
   async function initializeDefaultPrizes() {
     const snap = await db.collection('wheelPrizes').limit(1).get();
