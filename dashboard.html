@@ -221,7 +221,15 @@
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                                 placeholder="🎁">
                         </div>
-
+                        <div>
+      <label for="prize-weight-input" class="block text-sm font-medium text-gray-700 mb-2">
+        الوزن (prob. weight %)
+      </label>
+      <input type="number" id="prize-weight-input" name="weight"
+             min="1" max="100" step="1"
+             class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+             placeholder="مثال: 20">
+    </div>
                         <div class="flex items-end">
                             <button type="submit"
                                 class="w-full bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition-colors">
@@ -515,41 +523,47 @@
 <script>
   // ===== إدارة الجوائز =====
   async function loadPrizes() {
-    const container = document.getElementById('prizes-list');
-    container.innerHTML = '<div class="text-gray-500 text-center py-8">جاري التحميل...</div>';
-    try {
-      const snap = await db.collection('wheelPrizes').orderBy('name').get();
-      const prizes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      if (prizes.length === 0) {
-        container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد جوائز</div>';
-        return;
-      }
-      container.innerHTML = prizes.map(p => `
-        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
-          <div class="flex items-center gap-4">
-            <span class="text-2xl">${p.icon}</span>
-            <span class="font-medium">${p.name}</span>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="editPrize('${p.id}')" class="bg-accent px-3 py-1 rounded text-sm text-white">تعديل</button>
-            <button onclick="deletePrize('${p.id}')" class="bg-red-500 px-3 py-1 rounded text-sm text-white">حذف</button>
+  const container = document.getElementById('prizes-list');
+  container.innerHTML = '<div class="text-gray-500 text-center py-8">جاري التحميل...</div>';
+  try {
+    const snap = await db.collection('wheelPrizes').orderBy('name').get();
+    const prizes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (prizes.length === 0) {
+      container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد جوائز</div>';
+      return;
+    }
+    container.innerHTML = prizes.map(p => `
+      <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg">
+        <div class="flex items-center gap-4">
+          <span class="text-2xl">${p.icon}</span>
+          <div>
+            <div class="font-medium">${p.name}</div>
+            <div class="text-sm text-gray-500">الوزن: ${p.weight || 1}%</div>
           </div>
         </div>
-      `).join('');
-    } catch (e) {
-      console.error(e);
-      container.innerHTML = '<div class="text-red-500 text-center py-8">خطأ في التحميل</div>';
-    }
+        <div class="flex gap-2">
+          <button onclick="editPrize('${p.id}')" class="bg-accent px-3 py-1 rounded text-sm text-white">تعديل</button>
+          <button onclick="deletePrize('${p.id}')" class="bg-red-500 px-3 py-1 rounded text-sm text-white">حذف</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = '<div class="text-red-500 text-center py-8">خطأ في التحميل</div>';
   }
+}
+
 
   async function editPrize(id) {
-    const doc = await db.collection('wheelPrizes').doc(id).get();
-    if (!doc.exists) return showMessage('لم أجد الجائزة','error');
-    const p = { id: doc.id, ...doc.data() };
-    document.getElementById('prize-name-input').value = p.name;
-    document.getElementById('prize-icon-input').value = p.icon;
-    document.getElementById('prize-form').dataset.editingId = id;
-  }
+  const doc = await db.collection('wheelPrizes').doc(id).get();
+  if (!doc.exists) return showMessage('لم أجد الجائزة','error');
+  const p = { id: doc.id, ...doc.data() };
+  document.getElementById('prize-name-input').value   = p.name;
+  document.getElementById('prize-icon-input').value   = p.icon;
+  document.getElementById('prize-weight-input').value = p.weight || '';
+  document.getElementById('prize-form').dataset.editingId = id;
+}
+
 
   async function deletePrize(id) {
     if (!confirm('هل أنت متأكد؟')) return;
@@ -559,32 +573,77 @@
   }
 
   document.getElementById('prize-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value.trim();
-    const icon = form.icon.value.trim() || '🎁';
-    if (!name) return showMessage('أدخل اسم','error');
+  e.preventDefault();
+  const form = e.target;
+  const name   = form.name.value.trim();
+  const icon   = form.icon.value.trim()   || '🎁';
+  const weight = parseInt(form.weight.value, 10) || 1;  // افتراضي 1 إذا لم يُدخل
 
-    const editingId = form.dataset.editingId;
+  if (!name) return showMessage('أدخل اسم الجائزة', 'error');
+
+  const editingId = form.dataset.editingId;
+  try {
     if (editingId) {
-      await db.collection('wheelPrizes').doc(editingId).update({ name, icon });
+      // تحديث
+      await db.collection('wheelPrizes').doc(editingId)
+              .update({ name, icon, weight });
       delete form.dataset.editingId;
     } else {
-      await db.collection('wheelPrizes').add({ name, icon });
+      // إضافة جديدة
+      await db.collection('wheelPrizes')
+              .add({ name, icon, weight });
     }
-    showMessage('تم الحفظ','success');
+    showMessage('تم الحفظ بنجاح', 'success');
     form.reset();
     loadPrizes();
-  });
+  } catch (err) {
+    console.error(err);
+    showMessage('خطأ في الحفظ', 'error');
+  }
+});
+
 
   async function initializeDefaultPrizes() {
     const snap = await db.collection('wheelPrizes').limit(1).get();
     if (snap.empty) {
       const defaults = [
-        { name:'خصم 10%', icon:'🎯' },
-        { name:'شحن مجاني', icon:'🚚' },
-        { name:'هدية مجانية', icon:'🎁' }
-      ];
+      {
+        name: 'مناديل قصة هدية',
+        icon: '🧻',
+        message: 'مبروووك! استخدم كود: GIFT5 و احصل على مناديل قصة مجانًا مع طلبك القادم.',
+        weight: 5
+      },
+      {
+        name: 'خصم 50% على طلبك القادم',
+        icon: '🎉',
+        message: 'مبروووك! استخدم كود: D50 و احصل على خصم 50٪ حتى 100 ريال مع طلبك القادم.',
+        weight: 5
+      },
+      {
+        name: 'خصم 25% على طلبك القادم',
+        icon: '💵',
+        message: 'مبروووك! استخدم كود: D25 و احصل على خصم 25٪ حتى 100 ريال مع طلبك القادم.',
+        weight: 35
+      },
+      {
+        name: 'توصيل مجاني على طلبك القادم',
+        icon: '🚚',
+        message: 'مبروووك! استخدم كود: SHIP و احصل على شحن مجاني مع طلبك القادم.',
+        weight: 30
+      },
+      {
+        name: 'خصم 10 ريال على طلبك القادم',
+        icon: '🔖',
+        message: 'حظك طيب! خصم 10 ريال على طلبك القادم، استخدم الكود: D10',
+        weight: 20
+      },
+      {
+        name: 'طلبك علينا (حد أقصى 300 ريال)',
+        icon: '🎁',
+        message: 'مبرووووك!!! طلبك علينا، استخدم الكود: FREE300',
+        weight: 5
+      }
+    ];
       const batch = db.batch();
       defaults.forEach(d => {
         const ref = db.collection('wheelPrizes').doc();

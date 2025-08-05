@@ -390,7 +390,7 @@
     </div>
   </div>
   <!-- Wheel Modal -->
-    <div id="wheel-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 modal-overlay">
+    <div id="wheel-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 modal-overlay max-w-screen overflow-x-hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="bg-white rounded-2xl max-w-2xl w-full fade-in">
                 <div class="p-6 border-b border-gray-200">
@@ -427,6 +427,7 @@
                     <div id="daily-limit-message" class="hidden mt-4 p-4 bg-yellow-100 text-yellow-800 rounded-lg">
                         <p class="font-semibold">لقد استخدمت عجلة الحظ اليوم!</p>
                         <p class="text-sm">يمكنك المحاولة مرة أخرى غداً</p>
+                        <div id="daily-prize" class="mt-2 text-center"></div>
                     </div>
                 </div>
             </div>
@@ -434,7 +435,7 @@
     </div>
 
     <!-- Prize Modal -->
-    <div id="prize-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 modal-overlay">
+    <div id="prize-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 modal-overlay max-h-screen overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="bg-white rounded-2xl max-w-md w-full fade-in">
                 <div class="p-8 text-center">
@@ -457,6 +458,7 @@
                     <div class="bg-indigo-50 rounded-lg p-6 mb-6">
                         <div id="prize-icon" class="text-4xl mb-2">🎁</div>
                         <p id="prize-name" class="text-xl font-bold text-indigo-800">جائزة رائعة</p>
+                        <p id="prize-message"></p>
                     </div>
                     
                     <div class="flex gap-4">

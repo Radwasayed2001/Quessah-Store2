@@ -877,7 +877,7 @@ ${this.storySteps.join('\n')}
                   <button style="display: none !important;" id="download-pdf" class="hidden w-full flex items-center justify-center gap-2 bg-red-600 text-white rounded-lg py-2 font-semibold hover:bg-red-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z'/></svg>تحميل القصة كـ PDF</button>
                   <button id="print-story" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z'/></svg>طباعة القصة</button>
                   <button
-  id="share-fb"
+  id="share-instagram"
   class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white rounded-lg py-2 font-semibold hover:opacity-90 transition"
 >
   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -886,9 +886,11 @@ ${this.storySteps.join('\n')}
   شارك عبر انستاجرام
 </button>
  <button id="share-wa" class="w-full flex items-center justify-center gap-2 bg-green-500 text-white rounded-lg py-2 font-semibold hover:bg-green-600 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.63A11.93 11.93 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.25-1.44l-.37-.22-3.69.97.99-3.59-.24-.37A9.94 9.94 0 0 1 2 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.62-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-.97 2.43.03 1.43 1.04 2.81 1.19 3 .15.19 2.05 3.13 5.01 4.27.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.65-.67 1.88-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z'/></svg>شارك عبر واتساب</button>
-                  <button id="share-x" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg style="width: 1.375rem;margin-left: 5px;margin-top: 5px;" fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
-                  <button id="copy-story" class="w-full flex items-center justify-center gap-2 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 transition"><svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>نسخ نص القصة</button>
+                  <button id="share-twitter" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg style="width: 1.375rem;margin-left: 5px;margin-top: 5px;" fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
+                  <button id="share-copy" class="w-full flex items-center justify-center gap-2 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 transition"><svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>نسخ نص القصة</button>
                 </div>
+                <button id="share-instagram">تحميل القصة كصورة</button>
+<button id="download-pdf">تحميل القصة PDF</button>
                 <button id="new-story-btn" class="w-full mt-2 py-2 bg-indigo-100 text-indigo-700 rounded-lg font-semibold hover:bg-indigo-200 transition animate-fade-in">ابدأ قصة جديدة ↺</button>
                 <button id="close-modal" class="absolute top-2 left-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
               </div>
@@ -905,241 +907,64 @@ ${this.storySteps.join('\n')}
             if (storyTypeHeading) storyTypeHeading.classList.add('hidden');
 
             // --- منطق البوب أب وأزرار المشاركة ---
-            setTimeout(() => {
-              const finishBtn = document.getElementById('finish-story-btn');
-              const toMain = document.getElementById('back-to-main-story-btn');
-              const modal = document.getElementById('story-modal');
-              const closeModal = document.getElementById('close-modal');
-              const newStoryBtn = document.getElementById('new-story-btn');
-              const copyBtn = document.getElementById('copy-story');
-              const downloadPdfBtn = document.getElementById('download-pdf');
-              const printStoryBtn = document.getElementById('print-story');
-              const shareInsta = document.getElementById('share-fb');
-              const shareWa = document.getElementById('share-wa');
-              const shareX = document.getElementById('share-x');
-              finishBtn && finishBtn.addEventListener('click', () => { 
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(() => {
-                  modal.classList.remove('hidden'); 
-                }, 500);
-              });
-              closeModal && closeModal.addEventListener('click', () => { modal.classList.add('hidden'); });
-              newStoryBtn && newStoryBtn.addEventListener('click', () => { location.reload(); });
-              toMain.addEventListener('click', () => { 
-                location.href = "./index.html";
-              });
-              
-                  // معالجة زر تحميل PDF
-    downloadPdfBtn && downloadPdfBtn.addEventListener('click', async () => {
-        try {
-            downloadPdfBtn.innerHTML = '<svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> جاري التحميل...';
-            downloadPdfBtn.disabled = true;
-            
-            // جمع بيانات القصة للـ PDF
-            const storyPages = [];
-            const storySteps = this.storySteps.filter(step => !/^\(اختيار المستخدم:/.test(step.trim()));
-            
-            console.log('Story steps for PDF:', storySteps);
-            
-            for (let i = 0; i < storySteps.length; i++) {
-                const storyText = storySteps[i];
-                const imageContainer = document.querySelector(`.story-image-container-${i}`);
-                let imageUrl = '';
-                
-                if (imageContainer) {
-                    const img = imageContainer.querySelector('img');
-                    if (img) {
-                        imageUrl = img.src;
-                        console.log(`Image ${i + 1} URL:`, imageUrl);
-                    }
-                }
-                
-                storyPages.push({
-                    text: storyText,
-                    imageUrl: imageUrl
-                });
-            }
-            
-            console.log('Story pages for PDF:', storyPages);
-            
-            // تحميل PDF
-            await downloadStoryAsPDF(storyPages, this.heroName);
-            
-            downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z"/></svg> تم التحميل!';
-            setTimeout(() => {
-                downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z"/></svg> تحميل القصة كـ PDF';
-                downloadPdfBtn.disabled = false;
-            }, 2000);
-            
-        } catch (error) {
-            console.error('Error downloading PDF:', error);
-            downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> خطأ في التحميل';
-            setTimeout(() => {
-                downloadPdfBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z"/></svg> تحميل القصة كـ PDF';
-                downloadPdfBtn.disabled = false;
-            }, 3000);
-        }
+            // --- منطق البوب أب وأزرار المشاركة ---
+            const self = this;
+setTimeout(() => {
+  const finishBtn = document.getElementById('finish-story-btn');
+  const toMain    = document.getElementById('back-to-main-story-btn');
+  const modal     = document.getElementById('story-modal');
+  const closeModal= document.getElementById('close-modal');
+  const newStory  = document.getElementById('new-story-btn');
+
+  // share buttons
+  const btnFb    = document.getElementById('share-fb');
+  const btnWa    = document.getElementById('share-wa');
+  const btnTw    = document.getElementById('share-twitter');
+  const btnCopy  = document.getElementById('share-copy');
+  const btnInsta = document.getElementById('share-instagram');
+  const btnPdf   = document.getElementById('download-pdf');
+  const btnPrint = document.getElementById('print-story');
+
+  // pop-up
+  finishBtn   && finishBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    modal.classList.remove('hidden');
+  });
+  closeModal  && closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+  newStory    && newStory.addEventListener('click', () => location.reload());
+  toMain      && toMain.addEventListener('click', () => location.href = './index.html');
+
+  // share handlers
+  btnFb   && btnFb.addEventListener('click', () => self.shareStory('facebook'));
+  btnWa   && btnWa.addEventListener('click', () => self.shareStory('whatsapp'));
+  btnTw   && btnTw.addEventListener('click', () => self.shareStory('twitter'));
+  btnCopy && btnCopy.addEventListener('click', () => self.shareStory('copy'));
+
+  // instagram download
+  btnInsta && btnInsta.addEventListener('click', () => {
+    // use the export-container trick to grab #full-story as image
+    populateExportContainer();
+    html2canvas(document.getElementById('export-container'), {
+      useCORS: true, backgroundColor: '#fff', scale: 1
+    }).then(canvas => {
+      canvas.toBlob(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'full-story.png';
+        a.click();
+      }, 'image/png');
+    }).catch(err => {
+      console.error(err);
+      alert('فشل في إنشاء صورة الإنستاجرام.');
     });
+  });
 
-    // إضافة معالج حدث لزر الطباعة
-    printStoryBtn && printStoryBtn.addEventListener('click', () => {
-        try {
-            printStoryBtn.innerHTML = '<svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> جاري الطباعة...';
-            printStoryBtn.disabled = true;
-            
-            // إضافة أنماط الطباعة
-            const printStyles = document.createElement('style');
-            printStyles.id = 'print-styles';
-            printStyles.textContent = `
-                @media print {
-                    body * {
-                        visibility: hidden;
-                    }
-                    #full-story, #full-story * {
-                        visibility: visible;
-                    }
-                    #story-modal, #story-modal * {
-                        visibility: hidden !important;
-                        display: none !important;
-                    }
-                    #full-story {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: white;
-                        padding: 20px;
-                        font-size: 14px;
-                        line-height: 1.6;
-                    }
-                    .story-step {
-                        margin-bottom: 20px;
-                        page-break-inside: avoid;
-                    }
-                    .story-image {
-                        max-width: 100%;
-                        height: auto;
-                        margin: 10px 0;
-                    }
-                    .story-title {
-                        text-align: center;
-                        font-size: 24px;
-                        font-weight: bold;
-                        margin-bottom: 30px;
-                        color: #333;
-                    }
-                    .story-hero {
-                        text-align: center;
-                        font-size: 18px;
-                        margin-bottom: 20px;
-                        color: #666;
-                    }
-                    .story-scene {
-                        border-left: 4px solid #667eea;
-                        padding-left: 15px;
-                        margin-bottom: 15px;
-                    }
-                    .story-scene-title {
-                        font-weight: bold;
-                        color: #667eea;
-                        margin-bottom: 10px;
-                    }
-                    .story-text {
-                        text-align: right;
-                        direction: rtl;
-                        margin-bottom: 10px;
-                    }
-                    .story-image-container {
-                        text-align: center;
-                        margin: 15px 0;
-                    }
-                    .story-footer {
-                        text-align: center;
-                        margin-top: 30px;
-                        padding-top: 20px;
-                        border-top: 2px solid #667eea;
-                        color: #666;
-                    }
-                    @page {
-                        margin: 1cm;
-                        size: A4;
-                    }
-                }
-            `;
-            document.head.appendChild(printStyles);
-            
-            // طباعة القصة
-            window.print();
-            
-            // إزالة أنماط الطباعة بعد الطباعة
-            setTimeout(() => {
-                const existingStyles = document.getElementById('print-styles');
-                if (existingStyles) {
-                    existingStyles.remove();
-                }
-                
-                printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg> تم الطباعة!';
-                setTimeout(() => {
-                    printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z"/></svg> طباعة القصة';
-                    printStoryBtn.disabled = false;
-                }, 2000);
-            }, 1000);
-            
-        } catch (error) {
-            console.error('Error printing story:', error);
-            printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> خطأ في الطباعة';
-            setTimeout(() => {
-                printStoryBtn.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z"/></svg> طباعة القصة';
-                printStoryBtn.disabled = false;
-            }, 3000);
-        }
-    });
-              
-              copyBtn && copyBtn.addEventListener('click', () => {
-                const text = Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n');
-                navigator.clipboard.writeText(text);
-                copyBtn.textContent = 'تم النسخ!';
-                setTimeout(()=>{copyBtn.textContent='نسخ نص القصة';}, 1500);
-              });
-            //   shareFb && shareFb.addEventListener('click', () => {
-            //     const url = encodeURIComponent(window.location.href);
-            //     const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
-            //     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`,'_blank');
-            //   });
-              shareInsta && shareInsta.addEventListener('click', () => {
-  // 1) Grab your page URL and the generated AI image
-  const pageUrl = encodeURIComponent(window.location.href);
-  // حاول إيجاد صورة القصة الكاملة (أول صورة)
-  let imageUrl = '';
-  const imageContainer = document.querySelector('.story-image-container-0');
-  if (imageContainer) {
-    const img = imageContainer.querySelector('img');
-    if (img && img.src) {
-      imageUrl = encodeURIComponent(img.src);
-    }
-  }
-  // fallback placeholder if no image found
-  if (!imageUrl) {
-    imageUrl = encodeURIComponent('https://example.com/path/to/your-image.png');
-  }
+  // PDF & print (if you have handlers)
+  btnPdf  && btnPdf.addEventListener('click', () => this.downloadPDF());
+  btnPrint&& btnPrint.addEventListener('click', () => this.printStory());
 
-  // 2) Build the Instagram story-creation URL
-  const instaStoryUrl = 
-    `https://www.instagram.com/stories?background_image_url=${imageUrl}&attribution_link=${pageUrl}`;
+}, 100);
 
-  // 3) Fire it off
-  window.open(instaStoryUrl, '_blank');
-});
-              shareWa && shareWa.addEventListener('click', () => {
-                const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
-                window.open(`https://wa.me/?text=${text}`,'_blank');
-              });
-              shareX && shareX.addEventListener('click', () => {
-                const text = encodeURIComponent(Array.from(document.querySelectorAll('.mb-3')).map(p => p.textContent).join('\n'));
-                window.open(`https://twitter.com/intent/tweet?text=${text}`,'_blank');
-              });
-            }, 100);
         }
     }
 
@@ -1173,11 +998,13 @@ seed للشخصية: ${characterSeed}
         try {
         // توليد صورة واحدة فقط
         const img = await generateDalleImage(unifiedPrompt, characterSeed);
+        localStorage.setItem('lastGeneratedImage', img.src); // حفظ الصورة في التخزين المحلي
         // اعرض الصورة في أول حاوية فقط
         const imageContainer = document.querySelector('.story-image-container-0');
         if (imageContainer && img) {
             imageContainer.innerHTML = '';
             imageContainer.appendChild(img);
+            img.crossOrigin = 'anonymous';
         }
         // أخفي باقي الحاويات تمامًا
         for (let i = 1; i < storySteps.length; i++) {
@@ -1605,3 +1432,9 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+function populateExportContainer() {
+  const exportDiv = document.getElementById('export-container');
+  const fullStory = document.getElementById('full-story');
+  exportDiv.innerHTML = '';
+  exportDiv.appendChild(fullStory.cloneNode(true));
+}

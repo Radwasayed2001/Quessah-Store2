@@ -46,6 +46,10 @@
     </div>
   </div>
 </header>
+<!-- hidden off-screen export container -->
+<div id="export-container" style="position:absolute; top:-9999px; left:-9999px; width:1080px; padding:40px; background:#fff; box-sizing:border-box; font-family:Tajawal, sans-serif;">
+  <!-- we'll clone the #full-story content into here -->
+</div>
 
     <div class="min-h-screen bg-white py-12 md:py-32 py-12 px-4 sm:px-6 lg:px-10">
       
@@ -230,8 +234,12 @@
     AOS.init({ duration: 800, once: true /* only-once reveal */ });
   </script>
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <script src="./main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 <script>
       function goTomain(){
         
@@ -239,5 +247,80 @@
         window.scrollTo(0, 0); 
       }
     </script>
+    <script>
+  // --- share on social platforms ---
+  function shareFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank','width=600,height=400');
+  }
+  function shareWhatsApp() {
+    const text = encodeURIComponent(document.getElementById('full-story').textContent.trim());
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+  }
+  function shareTwitter() {
+    const text = encodeURIComponent(document.getElementById('full-story').textContent.trim());
+    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+  }
+  function copyStory() {
+    const txt = document.getElementById('full-story').textContent.trim();
+    navigator.clipboard.writeText(txt).then(() => {
+      alert('تم نسخ القصة إلى الحافظة!');
+    });
+  }
+
+  // --- download complete story as image (Instagram‐style) ---
+ /**
+ * ينزل الصورة التي تم إنشاؤها عبر DALL·E والمخزنة في localStorage
+ */
+async function downloadCompleteStoryImage() {
+  try {
+    // 1) اجلب رابط الصورة من localStorage
+    const imageUrl = localStorage.getItem('lastGeneratedImage');
+    if (!imageUrl) {
+      alert('لا توجد صورة محفوظة. جرّب إنشاء القصة أولاً.');
+      return;
+    }
+
+    // 2) أنشئ رابط تحميل مباشر
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    // اجعل اسم الملف مناسباً
+    link.download = 'my-full-story.png';
+    document.body.appendChild(link);
+
+    // 3) قم بمحاكاة نقرة تحميل
+    link.click();
+
+    // 4) نظّف العنصر
+    document.body.removeChild(link);
+
+  } catch (err) {
+    console.error('Error downloading story image from localStorage:', err);
+    alert('حدث خطأ أثناء تنزيل الصورة من التخزين المحلي.');
+  }
+}
+
+  // --- wire up all buttons on completion screen ---
+  document.addEventListener('DOMContentLoaded', () => {
+    const btnFb     = document.getElementById('share-fb');
+    const btnWa     = document.getElementById('share-wa');
+    const btnTw     = document.getElementById('share-twitter');
+    const btnCopy   = document.getElementById('share-copy');
+    const btnInsta  = document.getElementById('share-instagram'); // add this id to your HTML
+    const btnPdf    = document.getElementById('download-pdf');
+
+    btnFb    && btnFb.addEventListener('click', shareFacebook);
+    btnWa    && btnWa.addEventListener('click', shareWhatsApp);
+    btnTw    && btnTw.addEventListener('click', shareTwitter);
+    btnCopy  && btnCopy.addEventListener('click', copyStory);
+    btnInsta && btnInsta.addEventListener('click', downloadCompleteStoryImage);
+
+    // if you already have a PDF download handler, leave it
+    btnPdf   && btnPdf.addEventListener('click', () => {
+      // your existing PDF download logic here...
+    });
+  });
+</script>
+
 </body>
 </html>
