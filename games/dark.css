@@ -1,0 +1,24 @@
+/* الألوان الأساسية – الوضع الفاتح */
+:root {
+  --bg: #fff;
+  --text: #333;
+  --logo: url('/images/logo-light.png');
+}
+
+/* الوضع الداكن */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --text: #eee;
+    --logo: url('/images/logo-dark.png');
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.site-logo {
+  background-image: var(--logo);
+}
