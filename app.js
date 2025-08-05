@@ -36,7 +36,10 @@ async function spinWheel() {
   const today    = new Date().toDateString();
   const userId   = getUserId();
   const key      = `dailyClaim_${userId}`;
-  const last     = JSON.parse(localStorage.getItem(key) || '{}');
+  // جلب آخر Claim من Firestore
+const lastDoc = await db.collection('claims').doc(key).get();
+const last = lastDoc.exists ? lastDoc.data() : {};
+
   if (last.claimDate && new Date(last.claimDate).toDateString() === today) {
     alert('لقد استخدمت عجلة الحظ اليوم! يمكنك المحاولة مرة أخرى غداً');
     return;

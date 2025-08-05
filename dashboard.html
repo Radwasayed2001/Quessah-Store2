@@ -684,17 +684,23 @@
 
   async function clearUserClaim(userId) {
     if (!confirm('مسح؟')) return;
+    localStorage.clear();
+
     await db.collection('claims').doc(`dailyClaim_${userId}`).delete();
+
     showMessage('تم المسح','success');
     loadClaims();
   }
 
   async function clearAllClaims() {
     if (!confirm('مسح الكل؟')) return;
+    localStorage.clear();
+
     const snap = await db.collection('claims').get();
     const batch = db.batch();
     snap.forEach(d => batch.delete(d.ref));
     await batch.commit();
+
     showMessage('تم المسح الكل','success');
     loadClaims();
   }
