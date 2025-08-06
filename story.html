@@ -12,7 +12,6 @@
  <!-- 1) تحميل مكتبات Firebase في الأعلى -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<link rel="stylesheet" href="./dark.css">
 
  <script>
     const firebaseConfig = {
@@ -124,11 +123,11 @@
             animation-delay: 4s;
         }
         
-        .content-card {
+        /* .content-card {
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+        } */
         
         .story-content {
             font-family: 'Amiri', serif;
@@ -226,22 +225,20 @@
         }
     </style>
 </head>
-<body class="bg-[#fff]">
+<body class="bg-[#fff] dark:bg-[#121212]">
     <!-- Loading Overlay -->
-<div id="loading-overlay" class="fixed inset-0 flex items-center justify-center bg-white z-50">
-  <svg class="animate-spin h-12 w-12 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+<div id="loading-overlay" class="fixed  dark:bg-[#121212] inset-0 flex items-center justify-center bg-white z-50">
+  <svg class="animate-spin h-12 w-12 text-primary dark:text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
   </svg>
 </div>
 
-     <header class="fixed top-0 left-0 w-full h-20 bg-white border-b border-gray-200 z-50 shadow-sm">
+     <header class="fixed top-0 left-0 w-full h-20 bg-white dark:bg-[#121212] border-b border-gray-200 dark:border-gray-700 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
     <!-- زر العودة -->
-    <button 
-      onclick="goTomain()" 
-      class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 focus:outline-none w-[100px] z-10"
-    >
+    <button onclick="goTomain()"
+              class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none w-[100px] z-10">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-180" fill="none" 
            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" 
@@ -251,17 +248,13 @@
     </button>
 
     <!-- الشعار -->
-     <div class=" flex justify-center flex-1" style="margin-right: -100px;" >
-    <img 
-      src="./games/public/quesahlogo.png" 
-      alt="Quesah Logo" 
-      width="120" 
-      height="52" 
-      class="cursor-pointer"
-      onclick="goTomain()"
-      
-    />
-    </div>
+     <div class="flex justify-center flex-1" style="margin-right: -100px;">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./images/white-logo.png">
+          <img src="./games/public/quesahlogo.png" alt="Quesah Logo" width="120" height="52" class="cursor-pointer"
+               onclick="goTomain()"/>
+        </picture>
+      </div>
   </div>
 </header>
 
@@ -269,19 +262,19 @@
     <div class="reading-progress mt-[80px] " id="reading-progress"></div>
 
     <!-- Hero Section --> 
-    <section class="mt-[90px] min-h-[80px] text-black flex items-center justify-center relative">
+    <section class="mt-[90px] min-h-[80px] text-black dark:text-[#eee]  flex items-center justify-center relative">
         <!-- Floating Shapes -->
         <div class="floating-shapes">
-            <div class="shape w-20 h-20 bg-white rounded-full"></div>
-            <div class="shape w-16 h-16 bg-white rounded-lg rotate-45"></div>
-            <div class="shape w-12 h-12 bg-white rounded-full"></div>
+            <div class="shape w-20 h-20 dark:bg-gray-800 bg-white rounded-full"></div>
+            <div class="shape w-16 h-16 dark:bg-gray-800 bg-white rounded-lg rotate-45"></div>
+            <div class="shape w-12 h-12 dark:bg-gray-800 bg-white rounded-full"></div>
         </div>
         
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center ">
                 
                 <!-- Story Title -->
-                <h1 id="story-title" class="text-4xl md:text-5xl font-bold mt-6 animate-fade-in-up text-[#303590]">
+                <h1 id="story-title" class="text-4xl md:text-5xl font-bold mt-6 animate-fade-in-up text-[#303590] dark:text-[#a5b4fc]">
                     قصة الصداقة
                 </h1>
                 
@@ -299,7 +292,7 @@
                 crossOrigin="anonymous"
                      src="./images/friend.png" 
                      alt="Story Image" 
-                     class="story-image w-full max-w-2xl mx-auto object-cover h-96">
+                     class="story-image w-full max-w-2xl mx-auto object-cover h-96 border border-gray-200 dark:border-gray-700 rounded-2xl">
             </div>
             
             <!-- Decorative Line -->
@@ -307,7 +300,7 @@
             
             <!-- Story Content -->
             <div class="content-card rounded-3xl p-8 md:p-12 shadow-2xl animate-fade-in-up">
-                <div id="story-content" class="story-content text-gray-800">
+                <div id="story-content" class="story-content text-gray-800 dark:text-gray-200">
                      <p>
                         قال الجندي لرئيسه: "صديقي في المستشفى وأريد أن أذهب لأراه."فقال له الرئيس: "اذهب إليه، وإذا مات فاتصل بي حتى أرسل لك بديلاً."ذهب الجندي إلى المستشفى وبقي هناك طوال اليوم، وفي المساء اتصل بالرئيس وقال له: "لقد مات صديقي."فقال الرئيس: "آسف لسماع هذا الخبر، سأرسل لك بديلاً غداً."فقال الجندي: "لا حاجة لإرسال بديل، لقد وجدت بديلاً."فقال الرئيس متعجباً: "من هو؟"أجاب الجندي: "أنا! لقد أخذت مكانه في السرير، فقد كان يقاتل بدلاً مني وأنا لم أعرف!"العبرة: الصداقة الحقيقية تعني التضحية والوفاء، وأحياناً لا نكتشف قيمة الأصدقاء إلا بعد فوات الأوان. الصديق الحقيقي هو من يقف معك في الصعاب ويضحي من أجلك دون انتظار مقابل.
                      </p>
@@ -316,8 +309,8 @@
             
            <!-- Share Section -->
             <div class="mt-16 animate-fade-in-up">
-                <div class="content-card rounded-3xl p-8 shadow-2xl">
-                    <h3 class="text-3xl font-bold text-center text-primary mb-8">شارك هذه القصة الملهمة</h3>
+                <div class="content-card rounded-3xl p-8 shadow-2xl bg-white dark:bg-[#1e1e1e]">
+                    <h3 class="text-3xl font-bold text-center text-primary dark:text-[#a5b4fc] mb-8">شارك هذه القصة الملهمة</h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- WhatsApp Share -->

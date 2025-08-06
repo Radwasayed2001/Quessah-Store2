@@ -212,7 +212,7 @@ h2 {
 .player-list li {
   list-style: none;
   padding: var(--space-xs) var(--space-sm);
-  background-color: var(--color-yellow-light);
+  /* background-color: var(--color-yellow-light); */
   margin-bottom: var(--space-xs);
   border-radius: var(--radius-sm);
   display: flex;
@@ -281,7 +281,7 @@ h2 {
 
 /* Game Screen */
 .game-header {
-  background-color: #fff;
+  /* background-color: #fff; */
   color: var(--color-text-light);
   padding: var(--space-md);
   margin-bottom: var(--space-xl);
@@ -402,7 +402,7 @@ h2 {
 
 /* Secret Word Screen */
 .secret-box {
-  background: var(--color-bg-light);
+  /* background: var(--color-bg-light); */
   border: 3px solid var(--color-primary);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
@@ -1410,7 +1410,7 @@ h2 {
 }
 
 .player-btn {
-  background-color: #7b2ff7;
+  /* background-color: #7b2ff7; */
   color: #fff;
   border: 2px solid #7b2ff7;
   width: 100%;
@@ -1729,7 +1729,7 @@ h2 {
 
 .team-assignment-form .player-item {
   flex: 1 1 calc(50% - 1em);
-  background: #f9f9f9;
+  /* background: #f9f9f9; */
   padding: 0.5em;
   border-radius: 4px;
 }
@@ -1753,7 +1753,7 @@ h2 {
 #winkSettingsScreen .container {
   transform: translateY(20px);
   animation: slideUpContainer 0.6s ease-out forwards;
-  background: #ffffff;
+  /* background: #ffffff; */
   border-radius: 12px;
   padding: 2rem;
   max-width: 600px;
@@ -1903,7 +1903,7 @@ h2 {
   width: 100%;
   padding: 0.6rem;
   border: 2px solid #007bff;
-  background: #fff;
+  /* background: #fff; */
   color: #007bff;
   border-radius: 6px;
   font-size: 1rem;
@@ -1996,7 +1996,7 @@ h2 {
   align-items: center;
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  background: #fff;
+  /* background: #fff; */
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: move;
@@ -2043,13 +2043,13 @@ h2 {
 .role-text h4 {
   margin: 0 0 0.25rem;
   font-size: 1.1rem;
-  color: #222;
+  /* color: #222; */
 }
 
 .role-text p {
   margin: 0;
   font-size: 0.95rem;
-  color: #444;
+  /* color: #444; */
 }
 
 /* تنسيق الأزرار */

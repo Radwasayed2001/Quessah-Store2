@@ -213,7 +213,7 @@ confirmSet.onclick = () => {
     remaining.forEach(p => {
       const btn = document.createElement('button');
       btn.textContent = p;
-      btn.className   = 'btn btn-warning player-btn';
+      btn.className   = 'btn btn-warning player-btn dark:bg-transparent dark:text-white dark:hover:bg-gray-600';
       btn.onclick     = () => {
         const idx = players.indexOf(p);
         if (impostorIndices.includes(idx)) {
@@ -225,6 +225,7 @@ confirmSet.onclick = () => {
         startVoting();
       };
       const li = document.createElement('li');
+      li.className = 'bg-white dark:bg-transparent dark:text-white';
       li.appendChild(btn);
       victimList.appendChild(li);
     });

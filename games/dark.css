@@ -2,7 +2,7 @@
 :root {
   --bg: #fff;
   --text: #333;
-  --logo: url('/images/logo-light.png');
+  --logo: url('../images/white-logo.png');
 }
 
 /* الوضع الداكن */
@@ -10,7 +10,7 @@
   :root {
     --bg: #121212;
     --text: #eee;
-    --logo: url('/images/logo-dark.png');
+    --logo: url('../images/white-logo.png');
   }
 }
 

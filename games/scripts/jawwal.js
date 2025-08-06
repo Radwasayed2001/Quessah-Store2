@@ -7,7 +7,7 @@ function clearTimersJ() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const playersJawwal = loadPlayers();
-  let settingsJawwal = { time: 1, categories: [] };
+  let settingsJawwal = { time: 60, categories: [] };
   let order = [], idx = 0;
   let currentPlayerJawwal = 0, correctCount = 0;
   const roundResultsJ = [];

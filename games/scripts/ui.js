@@ -543,7 +543,7 @@ function renderGamesList() {
       gameCard.appendChild(explainBtn);
       explainBtn.addEventListener('click', openModal);
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -610,7 +610,7 @@ function renderGamesList() {
     gameCard.appendChild(explainBtn);
     explainBtn.addEventListener('click', openSimModal);
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -673,7 +673,7 @@ function renderGamesList() {
     }
     else if(game.id == "phoneOnHead"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -735,7 +735,7 @@ function renderGamesList() {
     }
     else if(game.id == "fastest"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -797,7 +797,7 @@ function renderGamesList() {
     }
     else if(game.id == "boxes"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -859,7 +859,7 @@ function renderGamesList() {
     }
     else if(game.id == "treasure"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -921,7 +921,7 @@ function renderGamesList() {
     }
     else if(game.id == "outOfTopic"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -983,7 +983,7 @@ function renderGamesList() {
     }
     else if(game.id == "whoAmongUs"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -1045,7 +1045,7 @@ function renderGamesList() {
     }
     else if(game.id == "noSpeech"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -1107,7 +1107,7 @@ function renderGamesList() {
     }
     else if(game.id == "jassos"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -1169,7 +1169,7 @@ function renderGamesList() {
     }
     else if(game.id == "ghomza"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -1231,7 +1231,7 @@ function renderGamesList() {
     }
     else if(game.id == "mafia"){
       gameCard.innerHTML = `
-    <div class="bg-white rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
+    <div class="bg-white  dark:bg-gray-800 rounded-2xl h-full justify-between p-2 flex flex-col items-center text-center">
       <!-- الأيقونة -->
       <img src="${game.icon}" alt="${game.name} icon" class="w-12 h-12 mb-4">
     
@@ -1316,7 +1316,7 @@ function renderGamesList() {
         // ... launch game ...
       });
     }
-
+    gameCard.classList.add('dark:bg-gray-800');
     gamesGrid.appendChild(gameCard);
   });
 }

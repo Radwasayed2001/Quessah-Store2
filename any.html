@@ -1,513 +1,106 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyAXOfkZH-iisY9RecsDlKFdF2CPQDn5J-Y",
-  authDomain: "quessah-c52e7.firebaseapp.com",
-  projectId: "quessah-c52e7",
-  storageBucket: "quessah-c52e7.appspot.com",
-  messagingSenderId: "370785509486",
-  appId: "1:370785509486:web:a8970f44852ff24f9dc67f"
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-const db      = firebase.firestore();
-const auth    = firebase.auth();
-const storage = firebase.storage();
-
-// ======= Global Variables =======
-let wheelCanvas, wheelCtx;
-let wheelAngle = Math.PI / (10);
-let isSpinning = false;
-let currentPrizes = [];
-
-// ======= Initialization =======
-document.addEventListener('DOMContentLoaded', async () => {
-  await initializeDefaultPrizes();
-  currentPrizes = await fetchPrizesFromFirestore();
-  initializeWheel();
-  loadClaims();
-});
-
-
-
-
-
-
-function spinWheel() {
-  if (isSpinning || currentPrizes.length === 0) return;
-
-  // حد يومي
-  const today = new Date().toDateString();
-  const userId = getUserId();
-  const dailyClaimKey = `dailyClaim_${userId}`;
-  const lastClaim = JSON.parse(localStorage.getItem(dailyClaimKey) || '{}');
-  if (lastClaim.claimDate && new Date(lastClaim.claimDate).toDateString() === today) {
-    alert('لقد استخدمت عجلة الحظ اليوم! يمكنك المحاولة مرة أخرى غداً');
-    return;
-  }
-
-  isSpinning = true;
-  const spinBtn = document.getElementById('spin-button');
-  spinBtn.disabled = true;
-  spinBtn.textContent = 'جاري التدوير...';
-
-  // 1) نختار فائز عشوائي
-  const prizeCount   = currentPrizes.length;
-  if (prizeCount < 6) {
-    alert('يجب أن تحتوي العجلة على 6 جوائز على الأقل');
-    isSpinning = false;
-    spinBtn.disabled = false;
-    spinBtn.textContent = 'تدوير العجلة';
-    return;
-  }
-  const winningIndex = Math.floor(Math.random() * prizeCount);
-  const winningPrize = currentPrizes[(winningIndex - 2 + prizeCount) % prizeCount];
-
-  // 2) حساب الزاوية النهائية...
-  const segmentAngle    = (2 * Math.PI) / prizeCount;
-  const rawCenter     = (winningIndex + 0.5) * segmentAngle;
-const desiredAngle = (2*Math.PI - rawCenter + wheelAngle % (2*Math.PI)) % (2*Math.PI);
-const totalRotation = 4*2*Math.PI + desiredAngle;
-
-  const startAngle      = wheelAngle;
-  const duration        = 3000;
-  const startTime       = Date.now();
-
-  function animate() {
-    const elapsed = Date.now() - startTime;
-    const t       = Math.min(elapsed / duration, 1);
-    const eased   = 1 - Math.pow(1 - t, 3);
-
-    wheelAngle = startAngle + totalRotation * eased;
-    drawWheel();
-
-    if (t < 1) {
-      requestAnimationFrame(animate);
-    } else {
-      setTimeout(async () => {
-        // ✨ هنا نستبدل alert بالمودال ونخزن الفائز في Firestore:
-
-        // 1) خزّن الـclaim
-        const docKey = `dailyClaim_${userId}`;
-        const newClaim = {
-          userId,
-          prizeName: winningPrize.name,
-          prizeIcon: winningPrize.icon,
-          claimDate: new Date().toISOString()
-        };
-        await db.collection('claims').doc(docKey).set(newClaim);
-
-        // 2) حدّث قائمة المطالبات (لو عندك داشبورد جانبي)
-        loadClaims();
-
-        // 3) أظهر مودال الجائزة:
-        showPrizeModal(winningPrize);
-
-        // 4) أعد تفعيل الزر
-        isSpinning    = false;
-        spinBtn.disabled = false;
-        spinBtn.textContent = 'تدوير العجلة';
-      }, 500);
-    }
-  }
-
-  animate();
-}
-
-
-
-
-// Prize Modal Functions
-function showPrizeModal(prize) {
-    document.getElementById('prize-icon').textContent = prize.icon;
-    document.getElementById('prize-name').textContent = prize.name;
-    document.getElementById('prize-modal').classList.remove('hidden');
-    
-    // Store current prize for claiming
-    window.currentPrize = prize;
-}
-
-function closePrizeModal() {
-    document.getElementById('prize-modal').classList.add('hidden');
-    window.currentPrize = null;
-    closeWheelModal();
-}
-
-
-// Share Functions
-function shareWhatsApp() {
-    const story = JSON.parse(localStorage.getItem('storyOfTheDay') || '{}');
-    const storyUrl = window.location.origin + window.location.pathname.replace('index.html', 'story.html');
-    
-    const message = `🌟 ${story.title || 'قصة ملهمة'}\n\n${(story.content || '').substring(0, 100)}...\n\nاقرأ القصة كاملة: ${storyUrl}`;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank');
-}
-
-function shareInstagram() {
-    const story = JSON.parse(localStorage.getItem('storyOfTheDay') || '{}');
-    const storyUrl = `${window.location.origin}/story.html`;
-    
-    const message = `🌟 ${story.title || 'قصة ملهمة'}\n\n${(story.content || '').substring(0, 150)}...\n\n${storyUrl}`;
-    
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(message).then(() => {
-            alert('تم نسخ محتوى القصة! يمكنك الآن لصقه في إنستاجرام Stories أو Post جديد.');
-        }).catch(() => {
-            fallbackCopyToClipboard(message);
-        });
-    } else {
-        fallbackCopyToClipboard(message);
-    }
-}
-
-function copyToClipboard() {
-    const storyUrl = window.location.origin + window.location.pathname.replace('index.html', 'story.html');
-    
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(storyUrl).then(() => {
-            alert('تم نسخ الرابط بنجاح!');
-        }).catch(() => {
-            fallbackCopyToClipboard(storyUrl);
-        });
-    } else {
-        fallbackCopyToClipboard(storyUrl);
-    }
-}
-
-function fallbackCopyToClipboard(text) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-        document.execCommand('copy');
-        alert('تم نسخ الرابط بنجاح!');
-    } catch (err) {
-        alert('فشل في نسخ الرابط. يرجى نسخه يدوياً: ' + text);
-    }
-    document.body.removeChild(textArea);
-}
-
-// Utility Functions
-function getUserId() {
-    let userId = localStorage.getItem('userId');
-    if (!userId) {
-        userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('userId', userId);
-    }
-    return userId;
-}
-
-// Event Listeners for modal close on outside click
-document.getElementById('wheel-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeWheelModal();
-    }
-});
-
-document.getElementById('prize-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closePrizeModal();
-    }
-});
-
-// Keyboard event listeners for accessibility
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        if (!document.getElementById('wheel-modal').classList.contains('hidden')) {
-            closeWheelModal();
-        }
-        if (!document.getElementById('prize-modal').classList.contains('hidden')) {
-            closePrizeModal();
-        }
-    }
-});
-
-// Handle wheel redraw when prizes are updated (for live updates)
-window.addEventListener('storage', function(e) {
-    if (e.key === 'wheelPrizes') {
-        currentPrizes = JSON.parse(e.newValue || '[]');
-        if (wheelCtx) {
-            drawWheel();
-        }
-    }
-});
-
-// Touch events for mobile wheel interaction (optional enhancement)
-if (wheelCanvas) {
-    wheelCanvas.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-    });
-}
-// Global Variables
- currentPrizes = [];
-// ======= Firestore Helpers =======
-async function fetchPrizesFromFirestore() {
-  try {
-    const snap = await db.collection('wheelPrizes').orderBy('name').get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  } catch (e) {
-    console.error('Error loading prizes:', e);
-    return [];
-  }
-}
-
-
-
-async function fetchAllClaims() {
-  try {
-    const snap = await db.collection('claims').orderBy('claimDate','desc').get();
-    return snap.docs.map(d => d.data());
-  } catch (e) {
-    console.error('Error loading claims:', e);
-    return [];
-  }
-}
-
-async function fetchUserClaimFromFirestore(userId) {
-  const docKey = `dailyClaim_${userId}`;
-  const doc = await db.collection('claims').doc(docKey).get();
-  return doc.exists ? doc.data() : null;
-}
-
-// ======= Default Data Seeders =======
-async function initializeDefaultPrizes() {
-  const snap = await db.collection('wheelPrizes').limit(1).get();
-  if (snap.empty) {
-    const defaults = [
-      { name:'خصم 10%', icon:'🎯' },
-      { name:'شحن مجاني', icon:'🚚' },
-      { name:'هدية مجانية', icon:'🎁' },
-      { name:'خصم 20%', icon:'💰' },
-      { name:'كوبون خاص', icon:'🎫' },
-      { name:'عطر مجاني', icon:'🌸' }
-    ];
-    const batch = db.batch();
-    defaults.forEach(d => {
-      const ref = db.collection('wheelPrizes').doc();
-      batch.set(ref, d);
-    });
-    await batch.commit();
-  }
-}
-
-// ======= Wheel Initialization & Drawing =======
-function initializeWheel() {
-  wheelCanvas = document.getElementById('wheel-canvas');
-  if (wheelCanvas) {
-    wheelCtx = wheelCanvas.getContext('2d');
-    drawWheel();
-  }
-}
-function drawWheel() {
-  if (!wheelCtx || currentPrizes.length === 0) return;
-
-  // أولاً: نكبر أبعاد الكانڤاس (مثلاً 600×600)
-  wheelCanvas.width  = 600;
-  wheelCanvas.height = 600;
-
-  const cx     = wheelCanvas.width  / 2;
-  const cy     = wheelCanvas.height / 2;
-  // نزود المسافة من الحواف لـ 40px بدل 20px
-  const outerR = Math.min(cx, cy) - 40;
-  const innerR = 60;         // نخلي المحور الداخلي أكبر شوية
-  const segA   = (2 * Math.PI) / currentPrizes.length;
-
-  wheelCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
-
-  // ألوان أكثر وضوحاً وتدرجات أخف
-  const baseColors = [
-    '#6B5B95', '#feb236', '#d64161', '#ff7b25',
-    '#4a90e2', '#50e3c2', '#b8e986', '#bd10e0'
-  ];
-
-  currentPrizes.forEach((p, i) => {
-    const start = wheelAngle + i * segA;
-    const end   = start + segA;
-    const color = baseColors[i % baseColors.length];
-
-    // رسم القطاع مع تدرج لوني خفيف
-    const grad = wheelCtx.createRadialGradient(cx, cy, innerR, cx, cy, outerR);
-    grad.addColorStop(0, tinycolor(color).lighten(10).toString());
-    grad.addColorStop(1, tinycolor(color).darken(10).toString());
-
-    wheelCtx.save();
-    wheelCtx.beginPath();
-    wheelCtx.moveTo(cx, cy);
-    wheelCtx.arc(cx, cy, outerR, start, end);
-    wheelCtx.fillStyle   = grad;
-    wheelCtx.shadowColor = 'rgba(0,0,0,0.15)';
-    wheelCtx.shadowBlur  = 6;
-    wheelCtx.fill();
-
-    // حدود القطاع
-    wheelCtx.strokeStyle = 'rgba(255,255,255,0.9)';
-    wheelCtx.lineWidth   = 5;
-    wheelCtx.stroke();
-    wheelCtx.restore();
-
-    // أيقونة ونص
-    wheelCtx.save();
-    wheelCtx.translate(cx, cy);
-    wheelCtx.rotate(start + segA / 2);
-
-    // أيقونة أكبر
-    wheelCtx.fillStyle = '#fff';
-    wheelCtx.font      = '36px serif';
-    wheelCtx.textAlign = 'center';
-    wheelCtx.fillText(p.icon, outerR * 0.5, 16);
-
-    // اسم الجائزة بخط أوضح وأكبر
-    wheelCtx.font      = 'bold 18px Cairo, Arial';
-    wheelCtx.fillText(p.name, outerR * 0.75, 8);
-
-    wheelCtx.restore();
-  });
-
-  // المحور الداخلي بتدرج أنعم
-  wheelCtx.save();
-  const hubGrad = wheelCtx.createRadialGradient(cx, cy, 0, cx, cy, innerR);
-  hubGrad.addColorStop(0, '#ffffff');
-  hubGrad.addColorStop(1, '#f0f0f0');
-
-  wheelCtx.beginPath();
-  wheelCtx.arc(cx, cy, innerR, 0, 2 * Math.PI);
-  wheelCtx.fillStyle = hubGrad;
-  wheelCtx.fill();
-
-  wheelCtx.strokeStyle = '#ccc';
-  wheelCtx.lineWidth   = 4;
-  wheelCtx.stroke();
-  wheelCtx.restore();
-
-  // نص المحور المركزي أكبر
-  wheelCtx.save();
-  wheelCtx.fillStyle = '#333';
-  wheelCtx.font      = 'bold 20px Arial';
-  wheelCtx.textAlign = 'center';
-  wheelCtx.fillText('حظّاً سعيداً', cx, cy + 8);
-  wheelCtx.restore();
-
-  // السهم العلوي لتحديد القطاع الفائز
-  wheelCtx.save();
-  wheelCtx.fillStyle = '#e74c3c';
-  wheelCtx.beginPath();
-  wheelCtx.moveTo(cx - 18, cy - outerR - 15);
-  wheelCtx.lineTo(cx + 18, cy - outerR - 15);
-  wheelCtx.lineTo(cx, cx - outerR + 25);
-  wheelCtx.closePath();
-  wheelCtx.fill();
-  wheelCtx.restore();
-}
-
-
-
-// ======= Wheel Modal & Spin =======
-async function openWheelModal() {
-  const userId = getUserId();
-  const today = new Date().toDateString();
-  const claim = await fetchUserClaimFromFirestore(userId);
-  if (claim?.claimDate && new Date(claim.claimDate).toDateString()===today) {
-    document.getElementById('spin-button').style.display='none';
-    document.getElementById('daily-limit-message').classList.remove('hidden');
-  } else {
-    document.getElementById('spin-button').style.display='block';
-    document.getElementById('daily-limit-message').classList.add('hidden');
-  }
-  document.getElementById('wheel-modal').classList.remove('hidden');
-  document.body.style.overflow='hidden';
-  setTimeout(drawWheel,100);
-}
-function closeWheelModal() {
-  document.getElementById('wheel-modal').classList.add('hidden');
-  document.body.style.overflow='';
-}
-
-
-
-// ======= Prize Modal =======
-function showPrizeModal(p) {
-  window.currentPrize = p;
-  document.getElementById('prize-icon').textContent = p.icon;
-  document.getElementById('prize-name').textContent = p.name;
-  document.getElementById('prize-modal').classList.remove('hidden');
-}
-
-async function claimPrize() {
-  if (!window.currentPrize) return;
-  const userId = getUserId();
-  const docKey = `dailyClaim_${userId}`;
-  const newClaim = {
-    userId,
-    prizeName: window.currentPrize.name,
-    prizeIcon: window.currentPrize.icon,
-    claimDate: new Date().toISOString()
-  };
-  // save in Firestore
-  await db.collection('claims').doc(docKey).set(newClaim);
-  alert(`تم استلام جائزتك: ${newClaim.prizeName}`);
-  closePrizeModal();
-  closeWheelModal();
-}
-
-// ======= Claims Dashboard =======
-async function loadClaims() {
-  const container = document.getElementById('claims-list');
-  if (!container) return;
-  container.innerHTML = '<div class="text-gray-500 text-center py-8">جاري التحميل...</div>';
-  const claims = await fetchAllClaims();
-  if (claims.length===0) {
-    container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد مطالبات</div>';
-    return;
-  }
-  container.innerHTML = claims.map(c=>`
-    <div class="bg-gray-50 p-4 rounded-lg mb-2">
-      <div class="flex justify-between">
-        <div>
-          <div class="font-medium">المستخدم: ${c.userId}</div>
-          <div class="text-sm">الجائزة: ${c.prizeName}</div>
-          <div class="text-xs text-gray-500">${new Date(c.claimDate).toLocaleString('ar-SA')}</div>
+completeStory() {
+  const fullStoryContainer = document.getElementById('full-story');
+  const storyScreen        = document.getElementById('screen-story');
+  const completeScreen     = document.getElementById('screen-complete');
+  const storyTypeHeading   = document.querySelector('h2.text-2xl.font-semibold');
+
+  if (fullStoryContainer && storyScreen && completeScreen) {
+    let storyHTML = `
+      <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in bg-white dark:bg-gray-900 transition-colors">
+        <div class="bg-white dark:bg-gray-800 dark:shadow-none p-8 w-full max-w-4xl text-center animate-bounce-in">
+          
+          <div class="flex flex-col items-center mb-6">
+            <span class="text-5xl animate-bounce mb-2">🎉</span>
+            <h2 class="text-3xl font-extrabold mb-2 text-indigo-800 dark:text-indigo-300 tracking-tight animate-fade-in">قصتك الكاملة</h2>
+            <p class="text-gray-500 dark:text-gray-400 text-base animate-fade-in">استمتع بقراءة مغامرتك الرائعة مع الصور!</p>
+          </div>
+
+          <div class="mb-8 space-y-8">
+            ${this.storySteps
+              .filter(step => !/^\(اختيار المستخدم:/.test(step.trim()))
+              .map((step, i, arr) => `
+                <div class="relative group animate-fade-in-up">
+                  ${i === 0 ? `
+                    <div class="story-image-container-${i} flex justify-center mb-4">
+                      <div class="loading-image text-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
+                        <span class="text-gray-500 dark:text-gray-400">جاري إنشاء الصورة المتناسقة...</span>
+                      </div>
+                    </div>
+                  ` : ''}
+
+                  <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-gray-700 dark:to-gray-800 dark:text-gray-200 border border-purple-100 dark:border-gray-700 group-hover:scale-105 transition-transform mb-4">
+                    <span class="block">${step}</span>
+                  </div>
+
+                  ${i < arr.length - 1
+                    ? `<div class="my-4 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 dark:from-gray-600 dark:to-gray-700 rounded-full opacity-60 animate-pulse"></div>`
+                    : ''
+                  }
+                </div>
+              `).join('')}
+          </div>
+
+          <button id="finish-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">
+            مشاركة
+          </button>
+          <button id="back-to-main-story-btn" class="mt-4 px-10 py-3 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 animate-fade-in-up">
+            انتهى
+          </button>
         </div>
-        <button class="bg-red-500 px-2 rounded" onclick="clearUserClaim('${c.userId}')">مسح</button>
       </div>
-    </div>
-  `).join('');
-}
 
-async function clearUserClaim(userId) {
-  if (!confirm('مسح هذه المطالبة؟')) return;
-  await db.collection('claims').doc(`dailyClaim_${userId}`).delete();
-  loadClaims();
-}
+      <div id="story-modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 hidden pt-8">
+        <div class="bg-white dark:bg-gray-800 dark:shadow-none p-8 w-full max-w-md text-center relative animate-fade-in-up mt-8">
+          
+          <div class="text-5xl mb-2 animate-bounce">✨</div>
+          <h3 class="text-2xl font-extrabold mb-2 text-indigo-800 dark:text-indigo-300 animate-fade-in">رائع! كانت رحلة ممتعة.</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4 animate-fade-in">لقد وصلت إلى نهاية المغامرة!</p>
 
-async function clearAllClaims() {
-  if (!confirm('مسح جميع المطالبات؟')) return;
-  const snap = await db.collection('claims').get();
-  const batch = db.batch();
-  snap.forEach(d=> batch.delete(d.ref));
-  await batch.commit();
-  loadClaims();
-}
+          <div class="flex flex-col gap-3 mb-4 animate-fade-in-up">
+            <button id="print-story" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg py-2 font-semibold transition">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z"/>
+              </svg>
+              طباعة القصة
+            </button>
 
-// ======= Utility =======
-function getUserId() {
-  let uid = localStorage.getItem('userId');
-  if (!uid) {
-    uid = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2,9);
-    localStorage.setItem('userId', uid);
+            <button id="share-instagram" class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white rounded-lg py-2 font-semibold hover:opacity-90 transition">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- … --></svg>
+              شارك عبر انستاجرام
+            </button>
+
+            <button id="share-wa" class="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 font-semibold transition">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- … --></svg>
+              شارك عبر واتساب
+            </button>
+
+            <button id="share-twitter" class="w-full flex items-center justify-center gap-2 bg-black hover:bg-gray-900 text-white rounded-lg py-2 font-semibold transition">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><!-- … --></svg>
+              شارك عبر X
+            </button>
+
+            <button id="share-copy" class="w-full flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg py-2 font-semibold transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><!-- … --></svg>
+              نسخ نص القصة
+            </button>
+          </div>
+
+          <button id="new-story-btn" class="w-full mt-2 py-2 bg-indigo-100 dark:bg-indigo-700 dark:text-indigo-100 dark:hover:bg-indigo-600 transition animate-fade-in">
+            ابدأ قصة جديدة ↺
+          </button>
+
+          <button id="close-modal" class="absolute top-2 left-2 text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-white text-2xl">&times;</button>
+        </div>
+      </div>
+    `;
+
+    fullStoryContainer.innerHTML = storyHTML;
+    this.generateUnifiedStoryImages();
+    storyScreen.classList.add('hidden');
+    completeScreen.classList.remove('hidden');
+    if (storyTypeHeading) storyTypeHeading.classList.add('hidden');
+
+    // …rest of your popup & share logic…
   }
-  return uid;
 }
-
-// ======= Event Listeners for Modals =======
-document.getElementById('wheel-modal').addEventListener('click', e=> {
-  if (e.target===e.currentTarget) closeWheelModal();
-});
-document.getElementById('prize-modal').addEventListener('click', e=> {
-  if (e.target===e.currentTarget) closePrizeModal();
-});
-document.addEventListener('keydown', e=> {
-  if (e.key==='Escape') { closeWheelModal(); closePrizeModal(); }
-});

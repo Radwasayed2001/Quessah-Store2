@@ -15,7 +15,7 @@
       rel="stylesheet">
       <link rel="stylesheet" href="../output.css">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./dark.css">
+
       <style>
         body{
           font-family: "Tajawal", sans-serif;
@@ -33,15 +33,15 @@
   .main-nav { /* مثال ألوان وخطوط */ }
 </style>
 
-<section id="playerScreen" class="screen active bg-white">
+<section id="playerScreen" class="screen active bg-white dark:bg-black">
 
    <!-- HTML -->
-    <header class="fixed top-0 left-0 w-full h-20 bg-white border-b border-gray-200 z-50 shadow-sm">
+    <header class="fixed top-0 left-0 w-full h-20 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
     <!-- زر العودة -->
     <button 
       onclick="goTomain()" 
-      class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 focus:outline-none w-[100px] z-10"
+      class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none w-[100px] z-10"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-180" fill="none" 
            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -53,14 +53,12 @@
 
     <!-- الشعار -->
      <div class=" flex justify-center flex-1" style="margin-right: -100px;" >
-    <img 
-      src="./public/quesahlogo.png" 
-      alt="Quesah Logo" 
-      width="120" 
-      height="52" 
-      class="cursor-pointer"
-      onclick="goTomain()"
-    />
+    
+    <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./public/white-logo.png">
+          <img src="./public/quesahlogo.png" alt="Quesah Logo" width="120" height="52"
+               class="cursor-pointer" onclick="goTomain()" />
+        </picture>
     </div>
   </div>
 </header>
@@ -75,17 +73,17 @@
     />
 
     <!-- Actual text on top -->
-    <h2 class="relative text-3xl  md:text-4xl lg:text-5xl mt-4 font-semibold text-gray-900 mb-2">
-      استعدوا لتحدي <span class="text-[#303590]">الأصدقاء!</span>
+    <h2 class="relative text-3xl  md:text-4xl lg:text-5xl mt-4 font-semibold text-gray-900 dark:text-gray-100 mb-2">
+      استعدوا لتحدي <span class="text-[#303590] dark:text-[#a5b4fc]">الأصدقاء!</span>
     </h2>
-    <p class="relative text-[#666666] text-base md:text-lg lg:text-xl">
+    <p class="relative text-[#666666] dark:text-[#ccc] text-base md:text-lg lg:text-xl">
       اختر لعبة، اجمع أصدقاءك، واستعد للتحدّي. العب وحدك أو مع الآخرين!
     </p>
   </div>
-  <div class="container p-0" style="padding: 0 !important;">
+  <div class="container p-0 bg-white dark:bg-black" style="padding: 0 !important;">
     <!-- Navigation Tabs -->
     <div class="tabs hidden p-3  my-12">
-      <button class="tab active  flex gap-1 items-center rounded-xl font-bold text-sm md:text-lg" data-target="playersTab">
+      <button class="tab active  flex gap-1 items-center rounded-xl font-bold text-sm md:text-lg dark:text-gray-200" data-target="playersTab">
         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4998 0.666656C7.00203 0.666656 4.1665 3.50219 4.1665 6.99999C4.1665 10.4978 7.00203 13.3333 10.4998 13.3333C13.9976 13.3333 16.8332 10.4978 16.8332 6.99999C16.8332 3.50219 13.9976 0.666656 10.4998 0.666656ZM6.1665 6.99999C6.1665 4.60676 8.1066 2.66666 10.4998 2.66666C12.8931 2.66666 14.8332 4.60676 14.8332 6.99999C14.8332 9.39322 12.8931 11.3333 10.4998 11.3333C8.1066 11.3333 6.1665 9.39322 6.1665 6.99999Z" fill="#666666"/>
 <path d="M18.4998 1.99999C17.9476 1.99999 17.4998 2.44771 17.4998 2.99999C17.4998 3.55227 17.9476 3.99999 18.4998 3.99999C20.1567 3.99999 21.4998 5.34314 21.4998 6.99999C21.4998 8.65684 20.1567 9.99999 18.4998 9.99999C17.9476 9.99999 17.4998 10.4477 17.4998 11C17.4998 11.5523 17.9476 12 18.4998 12C21.2613 12 23.4998 9.76141 23.4998 6.99999C23.4998 4.23857 21.2613 1.99999 18.4998 1.99999Z" fill="#666666"/>
@@ -93,7 +91,7 @@
 <path d="M22.714 16.6899C22.1746 16.5716 21.6413 16.913 21.523 17.4525C21.4047 17.9919 21.7462 18.5251 22.2856 18.6434C23.3421 18.8751 24.1864 19.2731 24.7437 19.7291C25.3017 20.1857 25.4998 20.6316 25.4998 21C25.4998 21.3343 25.339 21.7267 24.8957 22.1385C24.4492 22.5533 23.7631 22.9366 22.8782 23.203C22.3494 23.3623 22.0497 23.9201 22.209 24.4489C22.3682 24.9777 22.926 25.2773 23.4548 25.1181C24.5516 24.7879 25.5322 24.2771 26.2569 23.6038C26.9848 22.9276 27.4998 22.0382 27.4998 21C27.4998 19.847 26.8675 18.8827 26.0102 18.1812C25.1522 17.4791 23.9966 16.9711 22.714 16.6899Z" fill="#666666"/>
 </svg> اللاعبين
       </button>
-      <button id="nav-games2" class="tab flex gap-1 items-center rounded-xl font-bold text-sm md:text-lg" data-target="gamesTab">
+      <button id="nav-games2" class="tab flex gap-1 items-center rounded-xl font-bold text-sm md:text-lg dark:text-gray-200" data-target="gamesTab">
         <svg width="29" height="23" viewBox="0 0 29 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.04493 0.604992C6.71886 0.365969 7.40345 0.333344 7.97042 0.333344H8.78705C10.1641 0.333344 11.5073 0.760543 12.6313 1.55604L13.3005 2.02965C13.6513 2.27793 14.0706 2.41127 14.5004 2.41127C14.9302 2.41127 15.3494 2.27793 15.7002 2.02963L16.3694 1.55605C17.4934 0.760545 18.8365 0.333344 20.2136 0.333344H21.0302C21.5972 0.333344 22.2818 0.365968 22.9557 0.604987C24.8801 1.28748 26.4019 2.85589 27.4042 5.39353C28.3962 7.90502 28.9056 11.419 28.8255 16.1538C28.8086 17.1531 28.6839 18.2731 28.2997 19.2819C27.9104 20.3039 27.2304 21.2673 26.0861 21.8145C25.4352 22.1258 24.6679 22.3333 23.798 22.3333C22.7488 22.3333 21.8858 22.0311 21.2086 21.5873C20.5787 21.1744 20.0279 20.6407 19.5573 20.1847C19.5 20.1291 19.4439 20.0748 19.389 20.0219C18.8492 19.5023 18.3953 19.0968 17.8916 18.8356C17.2553 18.5056 16.549 18.3333 15.8321 18.3333H13.1685C12.4517 18.3333 11.7454 18.5056 11.109 18.8356C10.6054 19.0968 10.1515 19.5023 9.61167 20.0219C9.55675 20.0747 9.50064 20.1291 9.44334 20.1847C8.97277 20.6407 8.42196 21.1744 7.79201 21.5873C7.11482 22.0311 6.25183 22.3333 5.20261 22.3333C4.33274 22.3333 3.56548 22.1258 2.91454 21.8145C1.7703 21.2673 1.09027 20.3039 0.700978 19.2819C0.316749 18.2731 0.192095 17.1531 0.175189 16.1538C0.0950909 11.419 0.60444 7.90503 1.59642 5.39354C2.59872 2.8559 4.12059 1.28749 6.04493 0.604992ZM7.97042 2.33334C7.45956 2.33334 7.05537 2.36868 6.71346 2.48995C5.46086 2.93421 4.30163 3.98876 3.45658 6.12826C2.6012 8.2939 2.09694 11.5112 2.1749 16.1199C2.18984 17.0032 2.30136 17.8647 2.56999 18.57C2.83356 19.262 3.22307 19.7451 3.7774 20.0102C4.18508 20.2051 4.65904 20.3333 5.20261 20.3333C5.84944 20.3333 6.33332 20.1521 6.69567 19.9146C7.15668 19.6124 7.56642 19.2166 8.05861 18.7412C8.11291 18.6887 8.16821 18.6353 8.2247 18.5809C8.75933 18.0663 9.39859 17.4697 10.1883 17.0601C11.1091 16.5826 12.1312 16.3333 13.1685 16.3333H15.8321C16.8694 16.3333 17.8915 16.5826 18.8124 17.0601C19.6021 17.4697 20.2413 18.0663 20.776 18.5809C20.8324 18.6353 20.8878 18.6887 20.9421 18.7412C21.4342 19.2166 21.844 19.6124 22.305 19.9146C22.6673 20.1521 23.1512 20.3333 23.798 20.3333C24.3416 20.3333 24.8156 20.2051 25.2233 20.0102C25.7776 19.7451 26.1671 19.262 26.4307 18.57C26.6993 17.8647 26.8108 17.0032 26.8258 16.1199C26.9037 11.5112 26.3995 8.2939 25.5441 6.12825C24.699 3.98875 23.5398 2.9342 22.2872 2.48995C21.9453 2.36868 21.5411 2.33334 21.0302 2.33334H20.2136C19.2504 2.33334 18.311 2.63215 17.5248 3.18856L16.8556 3.66215C16.1669 4.14953 15.344 4.41127 14.5004 4.41127C13.6567 4.41127 12.8338 4.14954 12.1452 3.66217L11.4759 3.18857C10.6897 2.63215 9.75025 2.33334 8.78705 2.33334H7.97042ZM8.50033 7.00001C9.05262 7.00001 9.50033 7.44773 9.50033 8.00001V9.00001H10.5003C11.0526 9.00001 11.5003 9.44773 11.5003 10C11.5003 10.5523 11.0526 11 10.5003 11H9.50033V12C9.50033 12.5523 9.05262 13 8.50033 13C7.94805 13 7.50033 12.5523 7.50033 12V11H6.50033C5.94805 11 5.50033 10.5523 5.50033 10C5.50033 9.44773 5.94805 9.00001 6.50033 9.00001H7.50033V8.00001C7.50033 7.44773 7.94805 7.00001 8.50033 7.00001Z" fill="#666666"/>
 <path d="M23.8337 9.66668C23.8337 10.219 23.3859 10.6667 22.8337 10.6667C22.2814 10.6667 21.8337 10.219 21.8337 9.66668C21.8337 9.11439 22.2814 8.66668 22.8337 8.66668C23.3859 8.66668 23.8337 9.11439 23.8337 9.66668Z" fill="#666666"/>
@@ -102,7 +100,7 @@
 <path d="M20.8337 10.6667C21.3859 10.6667 21.8337 11.1144 21.8337 11.6667C21.8337 12.219 21.3859 12.6667 20.8337 12.6667C20.2814 12.6667 19.8337 12.219 19.8337 11.6667C19.8337 11.1144 20.2814 10.6667 20.8337 10.6667Z" fill="#666666"/>
 </svg>  الألعاب
       </button>
-      <button class="tab flex gap-1 items-center rounded-xl font-bold text-sm md:text-lg" data-target="resultsTab">
+      <button class="tab flex gap-1 items-center rounded-xl font-bold text-sm md:text-lg dark:text-gray-200" data-target="resultsTab">
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M15 0.666656C12.5631 0.666656 10.5482 0.881309 8.99771 1.14292L8.8179 1.17309C7.47094 1.39857 6.35139 1.58597 5.476 2.6641C4.91461 3.35551 4.73347 4.10273 4.69172 4.93746L4.03565 5.15615C3.41815 5.36194 2.87692 5.54232 2.44753 5.74207C1.98334 5.95802 1.55793 6.23617 1.23272 6.68739C0.907512 7.13861 0.778169 7.63015 0.72011 8.13881C0.666403 8.60933 0.666452 9.17982 0.666507 9.83072L0.666513 10.0244C0.666498 10.5601 0.666484 11.0333 0.706037 11.429C0.748903 11.858 0.843828 12.2749 1.08095 12.6779C1.31806 13.0809 1.63647 13.3664 1.99059 13.6121C2.31735 13.8389 2.73099 14.0687 3.19933 14.3288L6.72087 16.2853C7.44007 17.7002 8.42804 18.9618 9.78673 19.873C10.9695 20.6663 12.3889 21.1643 14.0703 21.2973C14.0248 21.4116 13.9998 21.5362 13.9998 21.6667V24H12.0929C10.9807 24 10.023 24.7851 9.8049 25.8757L9.51338 27.3333H6.99984C6.44755 27.3333 5.99984 27.781 5.99984 28.3333C5.99984 28.8856 6.44755 29.3333 6.99984 29.3333H22.9998C23.5521 29.3333 23.9998 28.8856 23.9998 28.3333C23.9998 27.781 23.5521 27.3333 22.9998 27.3333H20.4863L20.1948 25.8757C19.9767 24.7851 19.019 24 17.9068 24H15.9998V21.6667C15.9998 21.5362 15.9749 21.4116 15.9294 21.2974C17.611 21.1643 19.0305 20.6664 20.2134 19.873C21.5722 18.9617 22.5602 17.7 23.2794 16.2849L26.8003 14.3288C27.2686 14.0687 27.6823 13.8389 28.009 13.6121C28.3631 13.3664 28.6816 13.0809 28.9187 12.6779C29.1558 12.2749 29.2507 11.858 29.2936 11.429C29.3331 11.0333 29.3331 10.5602 29.3331 10.0244L29.3331 9.83074C29.3332 9.17984 29.3332 8.60933 29.2795 8.13881C29.2214 7.63015 29.0921 7.13861 28.7669 6.68739C28.4417 6.23617 28.0163 5.95802 27.5521 5.74207C27.1227 5.54232 26.5815 5.36194 25.964 5.15615L25.3084 4.93762C25.2666 4.10283 25.0855 3.35556 24.5241 2.6641C23.6487 1.58597 22.5292 1.39857 21.1822 1.1731L21.0024 1.14292C19.4519 0.881309 17.437 0.666656 15 0.666656ZM18.4467 27.3333L18.2336 26.268C18.2025 26.1121 18.0657 26 17.9068 26H12.0929C11.934 26 11.7972 26.1121 11.7661 26.268L11.553 27.3333H18.4467ZM4.71783 7.03694L4.73597 7.0309C4.8314 9.05796 5.06036 11.2983 5.63048 13.3916L4.20956 12.6022C3.69068 12.3139 3.36579 12.1321 3.1309 11.969C2.91434 11.8188 2.84381 11.7301 2.80468 11.6636C2.76554 11.5971 2.72234 11.4924 2.69612 11.2302C2.66769 10.9457 2.66653 10.5734 2.66651 9.97978L2.66651 9.88308C2.66649 9.1643 2.66799 8.7092 2.70721 8.36562C2.74351 8.04759 2.80291 7.92936 2.85522 7.85679C2.90753 7.78421 3.0009 7.69047 3.29113 7.55545C3.60467 7.40959 4.03594 7.26424 4.71783 7.03694ZM25.2641 7.03105C25.1687 9.05798 24.9397 11.2982 24.3697 13.3913L25.7901 12.6022C26.3089 12.3139 26.6338 12.1321 26.8687 11.969C27.0853 11.8188 27.1558 11.7301 27.1949 11.6636C27.2341 11.5971 27.2773 11.4924 27.3035 11.2302C27.3319 10.9457 27.3331 10.5734 27.3331 9.97978L27.3331 9.88308C27.3331 9.1643 27.3316 8.7092 27.2924 8.36562C27.2561 8.04759 27.1967 7.92936 27.1444 7.85679C27.0921 7.78421 26.9987 7.69047 26.7085 7.55545C26.395 7.40959 25.9637 7.26424 25.2818 7.03694L25.2641 7.03105ZM9.33045 3.11504C10.7774 2.87091 12.6809 2.66666 15 2.66666C17.3192 2.66666 19.2227 2.87091 20.6696 3.11504C22.2789 3.38655 22.6169 3.48812 22.9714 3.92477C23.3208 4.35509 23.354 4.76208 23.2823 6.56895C23.1627 9.58048 22.7654 12.8303 21.5351 15.3019C20.9278 16.5219 20.1338 17.5182 19.0993 18.212C18.0715 18.9014 16.7455 19.3333 15 19.3333C13.2546 19.3333 11.9286 18.9014 10.9008 18.212C9.86628 17.5182 9.07226 16.5219 8.46495 15.3019C7.23464 12.8303 6.83737 9.58048 6.71781 6.56895C6.64608 4.76208 6.67925 4.35509 7.02865 3.92477C7.38318 3.48812 7.72123 3.38655 9.33045 3.11504Z" fill="#666666"/>
 </svg> 
@@ -111,18 +109,19 @@
     </div>
 
     <!-- Players Tab Content -->
-    <div id="playersTab" class="tab-content active">
+    <div id="playersTab" class="tab-content active bg-white dark:bg-black text-gray-900 dark:text-gray-100">
       <!-- Input Row -->
       <div class="player-input-row my-8 mx-2">
-        <input type="text" id="playerName" placeholder="اكتب اسم اللاعب هنا" maxlength="20">
-        <button id="addPlayer" class="btn bg-[#303590] font-bold" style="color: #FEFEFE;">إضافة لاعب + </button>
+        <input type="text" id="playerName" placeholder="اكتب اسم اللاعب هنا" maxlength="20"
+        class="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded px-4 py-2 w-full" />
+        <button id="addPlayer"  class="btn bg-[#303590] dark:bg-[#565BB6] font-bold text-white px-4 py-2 ml-2 rounded">إضافة لاعب + </button>
       </div>
       <!-- Counter -->
       
       <!-- List Container -->
-      <div class="player-list-container">
+      <div class="player-list-container bg-gray-50 dark:bg-gray-900 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
         <div class="flex items-center justify-between mb-2">
-          <div class="flex flex-col items-start gap-0">
+          <div class="flex flex-col items-start gap-0 dark:text-gray-200">
             <h2 class="font-bold">قائمة اللاعبين</h2>
             <p class="drag-hint text-sm md:text-lg text-start">📌 اضغط مطولاً على اسم اللاعب ثم حرّكه لإعادة الترتيب</p>
 
@@ -132,7 +131,7 @@
           </div>
         </div>
         <ul id="playerList" class="player-list"></ul>
-        <div id="noPlayer" class="flex flex-col items-center py-6 gap-4">
+        <div id="noPlayer" class="flex flex-col items-center py-6 gap-4 dark:text-gray-400">
           <svg width="114" height="114" viewBox="0 0 114 114" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_159_716)">
             <rect x="3" y="2" width="108" height="108" rx="54" fill="#EEEEEE"/>
@@ -159,16 +158,16 @@
         </div>
       </div>
       <!-- Start Button -->
-      <button id="startButton"  class="btn btn-start" disabled>ابدأ اللعب </button>
+      <button id="startButton" class="btn btn-start dark:bg-gray-500 " disabled>ابدأ اللعب </button>
     </div>
 
     <!-- Games Tab Content (مثال placeholder) -->
-    <div id="gamesTab" class="tab-content">
+    <div id="gamesTab" class="tab-content bg-white dark:bg-black text-gray-900 dark:text-gray-100 p-6 rounded-lg">
       <h2>الألعاب</h2>
     </div>
 
     <!-- Results Tab Content (مثال placeholder) -->
-    <div id="resultsTab" class="tab-content">
+    <div id="resultsTab" class="tab-content bg-white dark:bg-black text-gray-900 dark:text-gray-100 p-6 rounded-lg">
       <h2>النتائج</h2>
       <p>هنا تظهر النتائج...</p>
     </div>
@@ -177,20 +176,20 @@
 
     
     <!-- 1. Rules -->
-    <section id="spyRulesScreen" class="modal-screen">
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
-      <div class="container">
+    <section id="spyRulesScreen" class="modal-screen dark:bg-gray-800">
+  <button class="modal-close-btn  dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
+      <div class="container bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <h2>📜 قوانين لعبة الجاسوس</h2>
         <p>عدد اللاعبين المقترح في اللعبة من 5 إلى 8 لاعبين.</p>
         <p>🎯 <strong>الهدف:</strong> الجاسوس هي لعبة اجتماعية مشوّقة 🤩 تعتمد على الخداع وتحدي اللاعبين للكشف عن الجاسوس بينهم 🕵🏻‍♂️🕵🏻‍♀️ في حين يستكشفون أماكن خيالية مختلفة 🌄. اكتشف مهاراتك في التفكير والتحليل 🤔 وشارك في محادثات استراتيجية 🗣️، وتفوق على خصومك في هذه اللعبة المثيرة والمليئة بالأسرار والخداع 🤫.</p>
         <h3>🔧 إعداد اللعبة:</h3>
-        <ul class="game-info">
+        <ul class="game-info dark:bg-gray-700 ">
           <li>يقوم البرنامج باختيار مكان عشوائي لكل اللاعبين (مثل بنك 🏦، مسجد 🕌، مستشفى 🏥، مدرسة 🏫، مطعم 🍽️، مطار 🛫، سوق 🛍️، سينما 🎥).</li>
           <li>يُعيّن دور الجاسوس للاعب واحد سرّياً، وباقي اللاعبين هم أبرياء.</li>
           <li>كما يُعيّن لكل لاعب مهمة أو وظيفة ضمن المكان المُختار (مثل: موظف صراف في البنك، إمام في المسجد، طبيب في المستشفى… إلخ).</li>
         </ul>
         <h3>🏃 سير اللعبة:</h3>
-        <ul class="game-info">
+        <ul class="game-info dark:bg-gray-700 ">
           <li>⏱ كل جولة مدتها 8 دقائق.</li>
           <li>🗣️ يتناوب اللاعبون على طرح الأسئلة لجمع المعلومات والكشف عن الجاسوس.</li>
           <li>😈 يحاول الجاسوس خداع الآخرين وتجنب الاشتباه.</li>
@@ -202,74 +201,74 @@
         <h3>🗺️ الأدوار والمهمات:</h3>
         <p>الأدوار الوظيفية (مثل حارس أمن 👮🏻‍♂️، مدير المستشفى 🏥، معيد في الجامعة 🎓) ليست أساسية للفوز، ولكن تساعد في توجيه الأسئلة وتحليل الإجابات أثناء النقاش.</p>
         <h3>🔄 طرح الأسئلة:</h3>
-        <ul class="game-info">
+        <ul class="game-info  dark:bg-gray-700 ">
           <li>كل لاعب له فرصة واحدة في طرح سؤال على لاعب آخر.</li>
           <li>لا يُسمح بإعادة نفس السؤال أو شرحه مرة أخرى.</li>
           <li>يجيب اللاعب حسب فهمه، ثم تنتقل الحقّ في السؤال إلى لاعب آخر.</li>
         </ul>
         <p>استعدوا لاختبار مهاراتكم في التواصل والملاحظة والتفكير التحليلي، واستمتعوا بجو التشويق أثناء استكشاف المواقع السرية! 😍</p>
         <div class="buttons-row">
-          <button id="spyBackToGames" class="btn btn-secondary">🔙 الرجوع</button>
-          <button id="spyStartRules" class="btn btn-primary">ابدأ ▶️</button>
+          <button id="spyBackToGames" class="btn btn-secondary dark:text-gray-200  dark:hover:bg-gray-600">🔙 الرجوع</button>
+          <button id="spyStartRules"  class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ ▶️</button>
         </div>
       </div>
     </section>
     
 
 <!-- 2. Settings -->
-<section id="spySettingsScreen" class="screen">
-  <div class="container settings-box">
+<section id="spySettingsScreen" class="screen dark:text-gray-100 dark:bg-gray-900">
+  <div class="container settings-box bg-white dark:bg-gray-800 ">
     <h2 class="game-header-title">⚙️ إعدادات الجاسوس</h2>
     <div class="info-section">
       <h3>⏲ زمن الجولة</h3>
       <div class="slider-wrapper">
-        <input id="spyTimeSlider" type="range" min="120" max="480" step="60" value="480">
+        <input id="spyTimeSlider" class="dark:accent-blue-500" type="range" min="120" max="480" step="60" value="480">
         <span id="spyTimeValue">8:00</span>
       </div>
-      <small>اختر من دقيقتين إلى ثماني دقائق</small>
+      <small class=" dark:text-gray-400">اختر من دقيقتين إلى ثماني دقائق</small>
     </div>
     <div class="buttons-row">
-      <button id="spyBackRules" class="btn btn-secondary">🔙 رجوع</button>
-      <button id="spyConfirmSettings" class="btn btn-primary">تأكيد ▶️</button>
+      <button id="spyBackRules" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 رجوع</button>
+      <button id="spyConfirmSettings" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">تأكيد ▶️</button>
     </div>
   </div>
 </section>
 
 <!-- 2a. Pass phone to the next player -->
-<section id="spyPassPlayerScreen" class="screen">
-  <div class="secret-box">
-    <p id="spyPassPlayerText" class="player-name-display">📱 أعطِ الهاتف للاعب …</p>
-    <button id="spyPassPlayerBtn" class="btn btn-primary">أنا …</button>
+<section id="spyPassPlayerScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
+  <div class="secret-box dark:bg-gray-800">
+    <p id="spyPassPlayerText" class="player-name-display dark:text-white">📱 أعطِ الهاتف للاعب …</p>
+    <button id="spyPassPlayerBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">أنا …</button>
   </div>
 </section>
 
 <!-- 3. Reveal role & location -->
-<section id="spyRevealScreen" class="screen">
-  <div class="warning-box">
+<section id="spyRevealScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
+  <div class="warning-box  dark:bg-gray-800">
     <p id="spyRevealPrompt" class="game-header-title">اضغط لمعرفة دورك</p>
-    <button id="spyConfirmRevealBtn" class="btn btn-primary">كشف الدور ▶️</button>
+    <button id="spyConfirmRevealBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">كشف الدور ▶️</button>
     <h2 id="spyRevealTitle" class="game-header-title" style="display:none;"></h2>
     <p id="spyRevealText" style="display:none;"></p>
-    <button id="spyRevealNext" class="btn btn-primary" style="display:none;">التالي ▶️</button>
+    <button id="spyRevealNext" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600" style="display:none;">التالي ▶️</button>
   </div>
 </section>
 
 <!-- 4. Game screen -->
-<section id="spyGameScreen" class="screen">
+<section id="spyGameScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
     <h2 id="spyTimer" class="game-header-title"></h2>
     <div class="buttons-row">
-      <button id="spyGuessBtn" class="btn btn-primary" style="margin-left:.5rem;">
+      <button id="spyGuessBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600" style="margin-left:.5rem;">
         خاص بالجاسوس: أعرف المكان السري
       </button>
       
-      <button id="spyAccuseBtn" class="btn btn-warning">اتهام الجاسوس</button>
+      <button id="spyAccuseBtn" class="btn btn-warning dark:bg-yellow-600 dark:hover:bg-yellow-700">اتهام الجاسوس</button>
     </div>
   </div>
 </section>
 
 <!-- 5. Accusation -->
-<section id="spyAccuseScreen" class="screen">
+<section id="spyAccuseScreen" class="screen  dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
     <h2>❓ من تشكون به؟</h2>
     <ul id="spyPlayerList" class="player-list"></ul>
@@ -277,12 +276,12 @@
 </section>
 
 <!-- 6. Round results -->
-<section id="spyRoundResults" class="screen">
+<section id="spyRoundResults" class="screen  dark:bg-gray-900 dark:text-gray-100">
   <div class="container results-container">
     <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 mb-12 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 dark:ring-gray-700 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -295,13 +294,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-spy">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 dark:ring-gray-700 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -313,13 +312,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 الجاسوس
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 dark:ring-gray-700 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -328,7 +327,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="spy-num">
                 0
               </p>
@@ -339,21 +338,21 @@
     <h2 class="game-header-title">🏆 نتيجة الجولة</h2>
     <p id="spyRoundText"></p>
     <table class="results-table">
-      <thead><tr><th>#</th><th>اسم</th><th>النقاط</th><th>المجموع الكلي</th></tr></thead>
+      <thead><tr  class="dark:bg-gray-700"><th>#</th><th>اسم</th><th>النقاط</th><th>المجموع الكلي</th></tr></thead>
       <tbody id="spyResultsBody"></tbody>
     </table>
     <div class="results-actions">
-      <button id="spyReplay" class="btn btn-primary">جولة جديدة 🔄</button>
-      <button id="spyBackGames" class="btn btn-secondary">🏠 القائمة</button>
+      <button id="spyReplay" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">جولة جديدة 🔄</button>
+      <button id="spyBackGames" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600">🏠 القائمة</button>
     </div>
   </div>
 </section>
 
 <!-- 1. Rules Screen -->
-  <section id="winkRulesScreen" class="modal-screen">
-  <button id="closeWinkModal" class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <section id="winkRulesScreen" class="modal-screen dark:bg-gray-800">
+  <button id="closeWinkModal" class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
 
-  <div class="container">
+  <div class="container bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
     <h2 class="game-title">📜 قوانين لعبة الدخيل</h2>
     
     <h3>👥 عدد اللاعبين المقترح</h3>
@@ -366,7 +365,7 @@
     </p>
     
     <h3>🛠️ الإعداد</h3>
-    <ul class="game-info">
+    <ul class="game-info dark:bg-gray-700 ">
       <li>اختر عدد الدخلاء (2–3).</li>
     </ul>
     
@@ -374,7 +373,7 @@
     <p>3 دقائق لكل جولة.</p>
     
     <h3>🔸 سير الجولة</h3>
-    <ul class="game-info">
+    <ul class="game-info dark:bg-gray-700 ">
       <li>ضع الهاتف في وسط الأرض ليتمكن الجميع من رؤية زر الطوارئ.</li>
       <li>تمرّ شاشة سرّية لكل لاعب: “أعطِ الهاتف لـ فلان” → “أنا فلان” → “اضغط لمعرفة دورك”.</li>
       <li>إذا كنت دخيلًا، ستظهر لك أسماء زملائك الدخلاء قبل بدء النقاش.</li>
@@ -383,7 +382,7 @@
     </ul>
     
     <h3>🚨 اجتماع الطوارئ (SOS)</h3>
-    <ul class="game-info">
+    <ul class="game-info dark:bg-gray-700 ">
       <li>عند الضغط عليه تبدأ جولة تصويت سري.</li>
       <li>عند وجود دخيلين في الجولة:</li>
       <li>&nbsp;&nbsp;&nbsp;&nbsp;•	لا يُسمح لهما بالتبليغ أو التصويت طالما هما موجودان </li>
@@ -395,7 +394,7 @@
     </ul>
     
     <h3>❓ التصويت والاكتشاف</h3>
-    <ul class="game-info">
+    <ul class="game-info dark:bg-gray-700 ">
       <li>بعد انتهاء النقاش أو الضغط على “SOS”، يصوّت كل لاعب على من يظن أنه الدخيل.</li>
       <li>إذا صوتت الأغلبية على دخيل، يفوز الأبرياء → كل بريء +25 نقطة.</li>
       <li>إذا أخطأوا، يُستبعد البريء ويستمر اللعب من الجولة التالية.</li>
@@ -403,7 +402,7 @@
     </ul>
     
     <h3>🏆 نقاط الفوز</h3>
-    <ul class="game-info">
+    <ul class="game-info dark:bg-gray-700 ">
       <li>فوز الأبرياء: كل بريء +25 نقطة.</li>
       <li>فوز الدخلاء: كل دخيل +100 نقطة.</li>
     </ul>
@@ -412,8 +411,8 @@
     <p>تُعاد اختيار دخلاء جُدد وتُكرر نفس الخطوات في كل جولة.</p>
     
     <div class="buttons-row">
-      <button id="backToGamesBtnWink" class="btn btn-secondary">🔙 العودة للقائمة</button>
-      <button id="startWinkBtn" class="btn btn-primary">ابدأ ▶️</button>
+      <button id="backToGamesBtnWink" class="btn btn-secondary dark:text-gray-200  dark:hover:bg-gray-600">🔙 العودة للقائمة</button>
+      <button id="startWinkBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ ▶️</button>
     </div>
   </div>
 </section>
@@ -423,31 +422,31 @@
 
 <!-- 2. شاشة الإعداد: تأكيد توزيع الأدوار -->
 <!-- 1. Settings Screen (winkSettingsScreen) -->
-<section id="winkSettingsScreen" class="screen animated-screen">
-  <div class="container settingss-box">
+<section id="winkSettingsScreen" class="screen animated-screen bg-white dark:bg-gray-900 dark:text-gray-100">
+  <div class="container settingss-box dark:bg-gray-800">
     <h2 class="settings-title">⚙️ إعدادات اللعبة</h2>
     <p class="settings-info">
-      عدد اللاعبين: <strong id="winkPlayerCount"></strong>
+      عدد اللاعبين: <strong id="winkPlayerCount" class=" dark:text-primary/80"></strong>
     </p>
     <p class="settings-info">
       اختر عدد الدخلاء (2–3):
-      <select id="impostorCountSelect">
+      <select id="impostorCountSelect" class=" dark:border-gray-700 dark:bg-gray-700">
         <option value="1">دخيل واحد</option>
         <option value="2">2 دخيل</option>
         <option value="3">3 دخلاء</option>
       </select>
     </p>
     <div class="slider-wrapper">
-        <input id="winkTimeSlider" type="range" min="60" max="180" step="30" value="180">
+        <input id="winkTimeSlider" type="range" min="60" max="180" step="30" value="180" class=" dark:accent-blue-500">
         <span id="winkTimeValue">3 دقائق</span>
       </div>
     <div class="buttons-row">
       <button id="backToRulesBtnWink"
-              class="btn btn-secondary btn-animated">
+              class="btn btn-secondary btn-animated  dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
         🔙 الرجوع
       </button>
       <button id="confirmWinkSettingsBtn"
-              class="btn btn-primary btn-animated">
+              class="btn btn-primary btn-animated  dark:bg-blue-500 dark:hover:bg-blue-600">
         تأكيد ▶️
       </button>
     </div>
@@ -456,11 +455,11 @@
 
 
 <!-- 3. شاشة تمرير الهاتف لتعيين القاتل -->
-<section id="winkPassScreen" class="screen">
+<section id="winkPassScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="secret-box">
-      <p id="winkPassText" class="player-name-display">📱 أعطِ الهاتف للاعب...</p>
-      <button id="winkPassNextBtn" class="btn btn-primary btn-animated">
+    <div class="secret-box dark:bg-gray-800">
+      <p id="winkPassText" class="player-name-display dark:text-white">📱 أعطِ الهاتف للاعب...</p>
+      <button id="winkPassNextBtn" class="btn btn-primary btn-animated dark:bg-blue-500 dark:hover:bg-blue-600">
         كشف الدور ▶️
       </button>
     </div>
@@ -468,13 +467,13 @@
 </section>
 
 <!-- 4. شاشة عرض الدور -->
-<section id="winkRoleScreen" class="screen">
+<section id="winkRoleScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="warning-box">
+    <div class="warning-box  dark:bg-gray-800">
       <h2 id="winkRoleTitle" class="game-header-title"></h2>
       <p id="winkRoleExplain" class="settings-info"></p>
       <div class="buttons-row">
-        <button id="winkRoleDoneBtn" class="btn btn-primary btn-animated">
+        <button id="winkRoleDoneBtn" class="btn btn-primary btn-animated dark:bg-blue-500 dark:hover:bg-blue-600">
           تم ▶️
         </button>
       </div>
@@ -483,12 +482,12 @@
 </section>
 
 <!-- 5. شاشة اللعب: زر الالدخيل وSOS -->
-<section id="winkGameScreen" class="screen">
+<section id="winkGameScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="wink-box">
+    <div class="wink-box dark:bg-gray-800">
       <p class="settings-info">الجولة جارية...</p>
       <div class="buttons-row">
-        <button id="winkSOSBtn1" class="btn btn-warning btn-animated">
+        <button id="winkSOSBtn1" class="btn btn-warning btn-animated dark:bg-yellow-600 dark:hover:bg-yellow-700">
           SOS 🚨
         </button>
       </div>
@@ -497,17 +496,17 @@
 </section>
 
 <!-- Pre-vote screen: -->
-<section id="winkPreVoteScreen" class="screen">
+<section id="winkPreVoteScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="wink-box" style="text-align: center; padding: 2rem;">
+    <div class="wink-box dark:bg-gray-800" style="text-align: center; padding: 2rem;">
       <h2 class="settings-title">⏳ الجولة قيد التنفيذ</h2>
       <p class="settings-info">اضغط “SOS 🚨” لبدء اجتماع التصويت فورًا.</p>
 
       <div class="buttons-row">
-        <button id="winkMarkVictimBtn" class="btn btn-warning btn-animated">
+        <button id="winkMarkVictimBtn" class="btn btn-warning btn-animated dark:bg-yellow-600 dark:hover:bg-yellow-700">
           خروج
         </button>
-        <button id="winkCallVoteBtn" class="btn btn-danger btn-animated sos-btn">
+        <button id="winkCallVoteBtn" class="btn btn-danger btn-animated sos-btn dark:bg-red-500 dark:hover:bg-red-600">
           🚨 SOS 🚨
         </button>
       </div>
@@ -521,28 +520,28 @@
 </section>
 
 <!-- Victim selection -->
-<section id="winkVictimScreen" class="screen">
+<section id="winkVictimScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="wink-box">
+    <div class="wink-box dark:bg-gray-800">
       <h2 class="settings-title">من تم استهدافه؟</h2>
-      <ul id="winkVictimList" class="player-list"></ul>
-      <button id="winkSkipBtn" class="btn btn-secondary mt-3">تخطي</button>
+      <ul id="winkVictimList" class="player-list dark:bg-gray-900 dark:text-white"></ul>
+      <button id="winkSkipBtn" class="btn btn-secondary mt-3 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">تخطي</button>
     
     </div>
   </div>
 </section>
 
 <!-- 6. شاشة الاجتماع والتصويت -->
-<section id="winkVoteScreen" class="screen">
+<section id="winkVoteScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="wink-box">
+    <div class="wink-box dark:bg-gray-800">
       <h2 class="settings-title">اجتماع تصويت</h2>
       <p id="winkVotePrompt" class="game-header-title"></p>
       <form id="winkVoteForm" class="vote-form">
         <div id="winkVoteOptions"></div>
       </form>
       <div class="buttons-row">
-        <button id="winkSubmitVoteBtn" class="btn btn-primary btn-animated">
+        <button id="winkSubmitVoteBtn" class="btn btn-primary btn-animated  dark:bg-blue-500 dark:hover:bg-blue-600">
           تصويت
         </button>
       </div>
@@ -551,13 +550,13 @@
 </section>
 
 <!-- شاشة إعلان براءة المشتبه فيه -->
-<section id="winkInnocentScreen" class="screen">
+<section id="winkInnocentScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="wink-box">
+    <div class="wink-box dark:bg-gray-800">
       <h2 class="settings-title">🙌 براءة!</h2>
       <p id="winkInnocentText" class="settings-info"></p>
       <div class="buttons-row">
-        <button id="winkInnocentContinueBtn" class="btn btn-primary btn-animated">
+        <button id="winkInnocentContinueBtn" class="btn btn-primary btn-animated  dark:bg-blue-500 dark:hover:bg-blue-600">
           استمرار ▶️
         </button>
       </div>
@@ -566,12 +565,12 @@
 </section>
 
 <!-- 7. شاشة النتائج النهائية للجولة -->
-<section id="winkResultsScreen" class="screen">
+<section id="winkResultsScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
     <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 mb-12 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white w-80 dark:bg-gray-800 rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -584,13 +583,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-wink">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white w-80 dark:bg-gray-800 rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -602,13 +601,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 الجاسوس
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -617,7 +616,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="wink-num">
                 0
               </p>
@@ -625,20 +624,20 @@
           </div>
 
         </div>
-    <div class="wink-box results-container">
+    <div class="wink-box dark:bg-gray-800 results-container">
       <h1 class="settings-title">🏆 نتيجة الجولة</h1>
       <p id="winkResultsText" class="settings-info"></p>
       <table class="results-table">
         <thead>
-          <tr><th>#</th><th>اللاعب</th><th>النقاط</th><th>المجموع الكلي</th></tr>
+          <tr  class="dark:bg-gray-700"><th>#</th><th>اللاعب</th><th>النقاط</th><th>المجموع الكلي</th></tr>
         </thead>
         <tbody id="winkResultsBody"></tbody>
       </table>
       <div class="results-actions">
-        <button id="winkReplayBtn" class="btn btn-primary btn-animated">
+        <button id="winkReplayBtn" class="btn btn-primary btn-animated dark:bg-blue-500 dark:hover:bg-blue-600">
           جولة جديدة 🔄
         </button>
-        <button id="winkEndBtn" class="btn btn-secondary btn-animated">
+        <button id="winkEndBtn" class="btn btn-secondary btn-animated dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
           🏠 العودة للقائمة
         </button>
       </div>
@@ -648,15 +647,15 @@
 
 
 <!-- 1. Rules Screen -->
-<section id="charadesRulesScreen" class="modal-screen">
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+<section id="charadesRulesScreen" class="modal-screen dark:bg-gray-800 dark:text-gray-100">
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
   <div class="container">
     <h2>📜 قوانين اللعبة</h2>
     <p>عدد اللاعبين المقترح في اللعبة من 4 إلى 12 لاعب.</p>
     <p>بدون كلام 🤐 هي لعبة تخمين ممتعة وتفاعلية 🎭 تتيح للاعبين استخدام مهاراتهم في التمثيل والإيماء 🙋🏻‍♀️ لمساعدة فريقهم في تخمين العناوين العشوائية 🎯. يمكن للاعبين اختيار فرقهم 👥 وتحديد وقت الجولة ⏳ في بداية اللعبة. بمجرد اختيار الفرق والوقت، تختار اللعبة عنوانًا عشوائيًا 🎲 من مجموعة متنوعة من الفئات مثل المسرحيات 🎭 والأفلام 🎥 والبرامج التلفزيونية 📺 والمسلسلات.</p>
     
     <h3>⚖️ قواعد اللعبة:</h3>
-    <ul class="game-info">
+    <ul class="game-info dark:bg-gray-700 ">
       <li>👫 يجب أن يحتوي كل فريق على لاعبين على الأقل.</li>
       <li>🔁 بعد رؤية عنوان الجولة لدى المُمثّل، لديه فرصتان لتغيير العنوان ولا يمكن الرجوع للعنوان السابق بعد تغييره.</li>
       <li>🚫🗣️ يمنع الكلام بعد اختيار العنوان، ويجب على اللاعب محاولة شرح العنوان لفريقه عن طريق التمثيل الصامت.</li>
@@ -668,8 +667,8 @@
     </ul>
 
     <div class="buttons-row">
-      <button id="backToGamesBtnCharades" class="btn btn-secondary">🔙 العودة للقائمة</button>
-      <button id="startCharadesBtn"      class="btn btn-primary">ابدأ ▶️</button>
+      <button id="backToGamesBtnCharades" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200">🔙 العودة للقائمة</button>
+      <button id="startCharadesBtn"      class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ ▶️</button>
     </div>
   </div>
 </section>
@@ -677,8 +676,8 @@
 
 <!-- 2. Teams & Settings -->
 <!-- شاشة الإعدادات المعدلة -->
-<section id="charadesSettingsScreen" class="screen">
-  <header class="game-header">
+<section id="charadesSettingsScreen"  class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header dark:bg-gray-800">
     <div class="headercontainer">
       <h2 class="game-header-title">⚙️ إعدادات بدون كلام</h2>
     </div>
@@ -696,24 +695,24 @@
     <div class="info-section">
       <h3>⏲️ زمن التمثيل:</h3>
       <div class="slider-wrapper">
-        <input id="charadesTimeSlider" type="range" min="60" max="180" step="30" value="180">
+        <input id="charadesTimeSlider" type="range" min="60" max="180" step="30" value="180" class=" dark:accent-blue-500">
         <span id="charadesTimeValue">3 دقائق</span>
       </div>
     </div>
 
     <div class="buttons-row">
-      <button id="backToRulesBtnCharades" class="btn btn-secondary">رجوع</button>
-      <button id="startCharadesGameBtn"   class="btn btn-primary">ابدأ اللعبة</button>
+      <button id="backToRulesBtnCharades" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200">رجوع</button>
+      <button id="startCharadesGameBtn"   class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ اللعبة</button>
     </div>
   </div>
 </section>
 
 
 <!-- 3. Round Screen -->
-<section id="charadesPassScreen" class="screen">
+<section id="charadesPassScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
   <div class="container">
-    <p id="charadesPassText" class="player-name-display"></p>
-    <button id="charadesPassNextBtn" class="btn btn-dark-outline">
+    <p id="charadesPassText" class="player-name-display dark:text-white"></p>
+    <button id="charadesPassNextBtn" class="btn btn-dark-outline dark:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-800">
       على الفريق اختيار لاعب واحد فقط للتمثيل
       <br>
       يجب على الفريق الخصم مشاهدة محتوى الشاشة التالية للحكم في حال نجح الفريق في معرفة العنوان
@@ -724,8 +723,8 @@
   </div>
 </section>
 
-<section id="charadesGameScreen" class="screen">
-  <header class="game-header">
+<section id="charadesGameScreen" class="screen dark:bg-gray-900 dark:text-gray-100">
+  <header class="game-header bg-gray-100 dark:bg-gray-800 p-4">
     <div class="headercontainer">
       <h1>🎭 تمثيل صامت</h1>
     </div>
@@ -739,8 +738,8 @@
       <span id="charadesTimer">60s</span>
     </div>
     <div class="buttons-row">
-      <button id="charadesCorrectBtn" class="btn btn-success">صحيح ✓</button>
-      <button id="charadesChangeBtn"  class="btn btn-warning">
+      <button id="charadesCorrectBtn" class="btn btn-success bg-green-500 dark:bg-green-600 px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-700">صحيح ✓</button>
+      <button id="charadesChangeBtn"  class="btn btn-warning bg-yellow-500 dark:bg-yellow-600 px-4 py-2 rounded hover:bg-yellow-600 dark:hover:bg-yellow-700">
         تغيير الموضوع 🔄 (<span id="charadesChangeCount">2</span>)
       </button>
     </div>
@@ -751,12 +750,12 @@
 
 <!-- 5. Round Results -->
 <!-- شاشة نتائج الجولة -->
-<section id="charadesRoundResultsScreen" class="screen">
+<section id="charadesRoundResultsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container results-container">
     <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 mb-12 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -769,13 +768,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-nospeach">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -787,13 +786,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 بدون كلام
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -802,7 +801,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="nospeach-num">
                 0
               </p>
@@ -813,7 +812,7 @@
     <p id="charadesRoundResultText"></p>
     <table class="results-table">
       <thead>
-        <tr>
+        <tr  class="dark:bg-gray-700">
           <th>المركز</th>
           <th>اللاعب</th>
           <th>نقاط الجولة</th>
@@ -825,40 +824,40 @@
       </tbody>
     </table>
     <div class="results-actions">
-      <button id="charadesNextRoundBtn" class="btn btn-primary">جولة جديدة</button>
-      <button id="charadesEndGameBtn"   class="btn btn-secondary">إنهاء اللعبة</button>
+      <button id="charadesNextRoundBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">جولة جديدة</button>
+      <button id="charadesEndGameBtn"   class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200">إنهاء اللعبة</button>
     </div>
   </div>
 </section>
 
 
 <!-- 6. Final Results -->
-<section id="charadesFinalResultsScreen" class="screen">
-  <header class="game-header">
+<section id="charadesFinalResultsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header bg-gray-100 dark:bg-gray-800 p-4">
     <div class="headercontainer">
       <h1>🏆 النتائج النهائية</h1>
     </div>
   </header>
   <div class="container">
-    <table class="results-table">
-      <thead>
-        <tr><th>#</th><th>الفريق</th><th>جولات الفوز</th><th>النقاط</th></tr>
+    <table class="results-table dark:bg-gray-800">
+      <thead class="bg-gray-200 dark:bg-gray-700">
+        <tr  class="dark:bg-gray-700"><th>#</th><th>الفريق</th><th>جولات الفوز</th><th>النقاط</th></tr>
       </thead>
-      <tbody id="charadesFinalResultsBody"></tbody>
+      <tbody id="charadesFinalResultsBody" class="divide-y divide-gray-200 dark:divide-gray-600"></tbody>
     </table>
     <div class="buttons-row">
-      <button id="charadesReplayBtn" class="btn btn-primary">🔄 إعادة اللعب</button>
-      <button id="charadesBackBtn"   class="btn btn-secondary">🏠 العودة للقائمة</button>
+      <button id="charadesReplayBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">🔄 إعادة اللعب</button>
+      <button id="charadesBackBtn"   class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200">🏠 العودة للقائمة</button>
     </div>
   </div>
 </section>
 
 
     <!-- قواعد لعبة التوازن -->
-<section id="balanceRulesScreen" class="modal-screen" style="box-shadow: none;">
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+<section id="balanceRulesScreen" class="modal-screen dark:bg-gray-800 text-gray-900 dark:text-gray-100" style="box-shadow: none;">
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
   <div class="container" style="box-shadow: none;">
-    <div class="game-info" style="box-shadow: none !important;">
+    <div class="game-info dark:bg-gray-700" style="box-shadow: none !important;">
       <h2 class="game-title">📜 قوانين اللعبة</h2>
       <p>عدد اللاعبين: من 1 إلى 12 لاعب.</p>
       <p>لعبة حركية تتطلب ثباتاً وتركيزاً! 🏃‍♂️</p>
@@ -869,21 +868,21 @@
       </ol>
     </div>
     <div class="buttons-row">
-      <button id="backToGamesBtnBalance" class="btn btn-secondary">🔙 العودة للقائمة</button>
-      <button id="startBalanceBtn"       class="btn btn-primary">ابدأ ▶️</button>
+      <button id="backToGamesBtnBalance" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 العودة للقائمة</button>
+      <button id="startBalanceBtn"       class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ ▶️</button>
     </div>
   </div>
 </section>
 
 <!-- إعدادات التوازن -->
-<section id="balanceSettingsScreen" class="screen">
-  <header class="game-header">
+<section id="balanceSettingsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header dark:bg-gray-800">
     <div class="headercontainer">
       <h1 class="game-header-title">⚙️ إعدادات التوازن</h1>
     </div>
   </header>
   <div class="container">
-    <div class="info-section">
+    <div class="info-section dark:bg-gray-700">
       <h3>⏲️ زمن الجولة:</h3>
 
       <small>اختر من 10 إلى 60 ثانية</small>
@@ -900,36 +899,34 @@
       </div>
     </div>
     <div class="buttons-row">
-      <button id="backToRulesBtnBalance" class="btn btn-secondary">🔙 الرجوع</button>
-      <button id="startBalanceSettingsBtn" class="btn btn-primary">ابدأ ▶️</button>
+      <button id="backToRulesBtnBalance" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-60">🔙 الرجوع</button>
+      <button id="startBalanceSettingsBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ ▶️</button>
     </div>
   </div>
 </section>
 
 
-<!-- تمرير الهاتف -->
-<section id="balancePassScreen" class="screen">
-  <div class="container">
-    <div id="balancePassText" class="player-name-display"></div>
-    <button id="balancePassNextBtn" class="btn btn-black">
-  <span id="balanceCurrentPlayer"></span><br>
-      امسك الهاتف بثبات أثناء دورك وحاول عدم التحرك و الإلتزام بالحركة المتفق عليها مع باقي اللاعبين. <br>
-      الفائز هو من يحصل على أقل نقاط
-      <br><br>
+<section id="balancePassScreen"
+         class="screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <div class="container max-w-md mx-auto p-6 text-center space-y-6">
+    <div id="balancePassText" class="text-lg font-semibold"></div>
+    <button id="balancePassNextBtn"
+            class="btn btn-dark-outline dark:border-gray-200 dark:text-gray-200 dark:hover:bg-gray-700">
+      <span id="balanceCurrentPlayer" class="font-semibold"></span><br>
+      امسك الهاتف بثبات أثناء دورك… الفائز هو من يحصل على أقل نقاط<br><br>
       اضغط هنا للبدء
-      <br>
-</button>
+    </button>
   </div>
 </section>
 
 <!-- شاشة اللعب -->
 
 <!-- ... inside your balanceGameScreen section ... -->
-<section id="balanceGameScreen" class="screen">
+<section id="balanceGameScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container">
     <h2>⏱️ الوقت المتبقي: <span id="balanceTimer">2:00</span></h2>
     <!-- New movement counter -->
-    <div class="movement-display">
+    <div class="movement-display dark:bg-gray-700">
       حركة: <span id="balanceMovementDisplay">0</span>
     </div>
   </div>
@@ -937,7 +934,7 @@
 
 
 <!-- اختيار الفائز -->
-<section id="balanceSelectWinnerScreen" class="screen">
+<section id="balanceSelectWinnerScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container results-container">
     <h1 class="results-title">من هو الأكثر ثباتاً؟</h1>
     <ul id="balancePlayersList" class="results-list"></ul>
@@ -945,8 +942,8 @@
 </section>
 
 <!-- النتائج النهائية -->
-<section id="balanceResultsScreen" class="screen">
-  <header class="game-header">
+<section id="balanceResultsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header bg-gray-100 dark:bg-gray-800">
     <div class="headercontainer">
       <h1 class="game-header-title">🏆 نتائج التوازن</h1>
     </div>
@@ -955,7 +952,7 @@
     <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -968,13 +965,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-balance">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -986,13 +983,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 التوازن
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -1001,7 +998,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="balance-num">
                 0
               </p>
@@ -1009,26 +1006,26 @@
           </div>
 
         </div>
-    <table class="results-table">
-      <thead>
-        <tr><th>#</th><th>اللاعب</th><th>عدد الحركات</th><th>نقاط الجولة</th><th>النقاط الكلية</th></tr>
+    <table class="results-table dark:bg-gray-800">
+      <thead class="bg-gray-200 dark:bg-gray-700">
+        <tr  class="dark:bg-gray-700"><th>#</th><th>اللاعب</th><th>عدد الحركات</th><th>نقاط الجولة</th><th>النقاط الكلية</th></tr>
       </thead>
-      <tbody id="balanceResultsBody"></tbody>
+      <tbody id="balanceResultsBody" class="divide-y divide-gray-200 dark:divide-gray-600"></tbody>
     </table>
     <div class="results-actions">
-      <button id="balanceReplayBtn" class="btn btn-primary">🔄 إعادة اللعبة</button>
-      <button id="balanceBackBtn"   class="btn btn-secondary">🏠 العودة للقائمة</button>
+      <button id="balanceReplayBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">🔄 إعادة اللعبة</button>
+      <button id="balanceBackBtn"   class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🏠 العودة للقائمة</button>
     </div>
   </div>
 </section>
 
-    <section id="treasureRulesScreen" class="modal-screen">
+    <section id="treasureRulesScreen" class="modal-screen dark:bg-gray-800">
   <!-- زر الإغلاق -->
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
       
     
-      <div class="container">
-        <div class="rules-box">
+      <div class="container  dark:bg-gray-800 dark:text-gray-300">
+        <div class="rules-box  dark:bg-gray-700 dark:text-gray-300">
           <p class="rule-text">
             🎮 <strong>عدد اللاعبين:</strong> اللعبة مناسبة من <strong>3 إلى 12 لاعب</strong>.
           </p>
@@ -1038,51 +1035,51 @@
             وباقي اللاعبين بيبدأوا رحلة البحث عنه 🔍.
           </p>
     
-          <p class="rule-text highlight">
+          <p class="rule-text highlight dark:bg-gray-700 dark:text-gray-400">
             🚨 السرعة والتركيز هما مفتاح الفوز! اللاعب اللي يلاقي الهاتف أسرع هو الكسبان 🏆.
           </p>
     
           <div class="buttons">
-            <button id="nextButton"  class="btn btn-primary">التالي</button>
-            <button id="backToMenuButtonT" onclick="showScreen('gamesScreen')" class="btn btn-secondary">الرجوع</button>
+            <button id="nextButton"  class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">التالي</button>
+            <button id="backToMenuButtonT" onclick="showScreen('gamesScreen')" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">الرجوع</button>
           </div>
         </div>
       </div>
     </section>
-    <section id="gameSettingsScreen" class="screen settings-screen">
+    <section id="gameSettingsScreen" class="screen settings-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div class="container">
         <h2>⚙️ إعدادات الجولة</h2>
     
         <label for="roundDuration" class="label">⏱ اختر وقت الجولة:</label>
-        <select id="roundDuration" class="duration-select">
+        <select id="roundDuration" class="duration-select dark:border-gray-700 dark:bg-gray-800">
           <option value="2">2 دقائق</option>
           <option value="3">3 دقائق</option>
           <option value="4">4 دقائق</option>
         </select>
     
-        <button id="startGameButtonT" class="btn btn-primary">ابدأ</button>
+        <button id="startGameButtonT" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ</button>
       </div>
     </section>
-    <section id="hidePhoneScreen" class="screen hide-screen">
+    <section id="hidePhoneScreen" class="screen hide-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div class="container">
-        <button id="startRoundButton" class="start-button">
+        <button id="startRoundButton" class="start-button dark:bg-gray-600 dark:hover:bg-gray-700">
           الدور على <span id="hiderName">محمد</span> لإخفاء الهاتف 🔐<br>
           بعد الإخفاء اضغط على هذا الزر لبدء الوقت وأخبر باقي اللاعبين
         </button>
       </div>
     </section>
-    <section id="roundRunningScreen" class="screen round-screen">
+    <section id="roundRunningScreen" class="screen round-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div class="container">
         <h2>⏱ الجولة بدأت!</h2>
         <p>الوقت المتبقي: <span id="timeLeft">3:00</span></p>
     
         <div class="action-buttons">
-          <button id="phoneFoundButton" class="btn btn-success">✅ تم العثور على الهاتف</button>
-          <button id="giveUpButton" class="btn btn-danger">❌ لم يتم العثور</button>
+          <button id="phoneFoundButton" class="btn btn-success dark:bg-green-600 dark:hover:bg-green-700">✅ تم العثور على الهاتف</button>
+          <button id="giveUpButton" class="btn btn-danger dark:bg-red-500 dark:hover:bg-red-600">❌ لم يتم العثور</button>
         </div>
       </div>
     </section>
-    <section id="selectWinnerScreen" class="screen winner-screen">
+    <section id="selectWinnerScreen" class="screen winner-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div class="container">
         <h2>🎉 من وجد الهاتف؟</h2>
     
@@ -1090,12 +1087,12 @@
         </ul>
       </div>
     </section>
-    <section id="resultsScreenT" class="screen results-screen">
+    <section id="resultsScreenT" class="screen results-screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div class="container">
         <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1108,13 +1105,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-kanz">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1126,13 +1123,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 الكنز
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -1141,7 +1138,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="kanz-num">
                 0
               </p>
@@ -1149,9 +1146,9 @@
           </div>
 
         </div>
-        <table class="results-table">
-          <thead>
-            <tr>
+        <table class="results-table dark:bg-gray-800">
+          <thead class="bg-gray-200 dark:bg-gray-700">
+            <tr  class="dark:bg-gray-700">
               <th>المركز</th>
               <th>اللاعب</th>
               <th>مرات الفوز</th>
@@ -1159,8 +1156,8 @@
               <th>النقاط الكلية</th>
             </tr>
           </thead>
-          <tbody id="resultsBody">
-            <tr>
+          <tbody id="resultsBody" class="divide-y divide-gray-200 dark:divide-gray-600">
+            <tr  class="dark:bg-gray-700">
               <td>🥇 1</td>
               <td>سارة</td>
               <td>3</td>
@@ -1171,19 +1168,19 @@
           </tbody>
         </table>
         <div class="buttons-row">
-          <button id="backToGamesBtT" class="btn btn-secondary" onclick="showScreen('gamesScreen')">🔙 العودة للقائمة</button>
+          <button id="backToGamesBtT" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200  dark:hover:bg-gray-600" onclick="showScreen('gamesScreen')">🔙 العودة للقائمة</button>
         </div>
       </div>
       
     </section>
                 
     <!-- ====== شاشة قوانين لعبة "الأسرع" ====== -->
-<section id="fastRulesScreen" class="modal-screen">
+<section id="fastRulesScreen" class="modal-screen dark:bg-gray-800 text-gray-900 dark:text-gray-100">
   <!-- زرّ الإغلاق -->
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
   
   <div class="container">
-    <div class="game-info">
+    <div class="game-info  dark:bg-gray-700 ">
       <h2 class="game-title">📜 قوانين لعبة «الأسرع»</h2>
       
       <div class="info-section">
@@ -1222,21 +1219,21 @@
     </div>
     
     <div class="buttons-row">
-      <button id="backToGamesBtnFast" class="btn btn-secondary">🔙 العودة للقائمة</button>
-      <button id="startFastTimeBtn" class="btn btn-primary">التالي ▶️</button>
+      <button id="backToGamesBtnFast" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 العودة للقائمة</button>
+      <button id="startFastTimeBtn" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">التالي ▶️</button>
     </div>
   </div>
 </section>
 
 <!-- ====== شاشة اختيار زمن التحدي ====== -->
-<section id="fastTimeScreen" class="screen">
-  <header class="game-header">
+<section id="fastTimeScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header bg-gray-100 dark:bg-gray-800">
     <div class="headercontainer">
       <h1 class="game-header-title">⏱️ اختيار مدة التحدي</h1>
     </div>
   </header>
   <div class="container">
-    <div class="game-info">
+    <div class="game-info  dark:bg-gray-700 ">
       <h2 class="game-title">حدد المدة (من 1 إلى 2 دقيقة)</h2>
       
       <div class="info-section slider-wrapper">
@@ -1256,25 +1253,25 @@
     </div>
     
     <div class="buttons-row">
-      <button id="backToRulesBtnFast" class="btn btn-secondary">🔙 العودة</button>
-      <button id="confirmFastTimeBtn" class="btn btn-primary">ابدأ التحدي ▶️</button>
+      <button id="backToRulesBtnFast" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 العودة</button>
+      <button id="confirmFastTimeBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ التحدي ▶️</button>
     </div>
   </div>
 </section>
-<section id="fastChallengeScreen" class="screen">
-  <header class="game-header">
+<section id="fastChallengeScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header dark:bg-gray-800">
     <div class="headercontainer">
       <h1 class="game-header-title">🚀 جولة التحدي</h1>
     </div>
   </header>
   <div class="container">
     <!-- صندوق الكشف والعدّ التنازلي -->
-    <div class="challenge-box">
-      <button id="revealChallengeBtn" class="btn-challenge">اكشف السؤال</button>
+    <div class="challenge-box dark:bg-gray-900">
+      <button id="revealChallengeBtn" class="btn-challenge dark:bg-purple-500 dark:hover:bg-purple-600">اكشف السؤال</button>
       <div id="countdownText" class="countdown-text" hidden>3</div>
       <div id="challenge-end" style="display: flex; flex-direction: column;">
 <div id="challengeText" class="challenge-text" hidden>التحدي: أسرع واحد يجيب شباصة يفوز!</div>
-      <button onclick="repeateGame()" id="repeatFastChallengeBtn" class="btn btn-primary" style="display: none;"> إعادة اللعب 🚀</button>
+      <button onclick="repeateGame()" id="repeatFastChallengeBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600" style="display: none;"> إعادة اللعب 🚀</button>
 
       </div>
       
@@ -1282,18 +1279,18 @@
 
     <!-- أزرار بعد الكشف -->
     <div class="buttons-row" id="postRevealButtons" hidden>
-      <button id="pickWinnerBtn" class="btn btn-primary">اختيار الفائز</button>
-      <button id="skipChallengeBtn" class="btn btn-secondary">لا يمكن تنفيذ التحدي</button>
+      <button id="pickWinnerBtn" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">اختيار الفائز</button>
+      <button id="skipChallengeBtn" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">لا يمكن تنفيذ التحدي</button>
     </div>
   </div>
 </section>
 
-<section id="fastResultsScreen" class="screen" style="padding: 0.3rem !important;">
-  <div class="container results-container" style="padding: 2rem 0 !important;">
+<section id="fastResultsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100" style="padding: 0.3rem !important;">
+  <div class="container results-container" style="padding: 2rem 0 !important; padding-bottom: 3rem !important;">
     <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 mb-12 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1306,13 +1303,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-fast">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1324,13 +1321,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 الأسرع
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -1339,7 +1336,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="fast-num">
                 0
               </p>
@@ -1347,22 +1344,22 @@
           </div>
 
         </div>
-    <table class="results-table">
-      <thead>
-        <tr>
+    <table class="results-table dark:bg-gray-800">
+      <thead class="bg-gray-200 dark:bg-gray-700">
+        <tr  class="dark:bg-gray-700">
           <th>اللاعب</th>
           <th>عدد التحديات</th>
           <th>النقاط</th>
           <th>النقاط الكلية</th>
         </tr>
       </thead>
-      <tbody id="fastResultsTableBody">
+      <tbody id="fastResultsTableBody" class="divide-y divide-gray-200 dark:divide-gray-600">
         <!-- تُملأ ديناميكيًا -->
       </tbody>
     </table>
     <div class="buttons-row results-actions">
-      <button id="nextFastChallengeBtn" class="btn btn-primary">تحدي آخر 🚀</button>
-      <button id="backToGamesBtnFastResults" class="btn btn-secondary">🏠 العودة للقائمة</button>
+      <button id="nextFastChallengeBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">تحدي آخر 🚀</button>
+      <button id="backToGamesBtnFastResults" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🏠 العودة للقائمة</button>
     </div>
   </div>
 </section>
@@ -1372,11 +1369,11 @@
     <!-- شاشة القوانين -->
     <!-- شاشة القوانين -->
     <!-- Rules Screen -->
-<section id="whoRulesScreen" class="modal-screen">
+<section id="whoRulesScreen" class="modal-screen  dark:bg-gray-800 text-gray-900 dark:text-gray-100">
   <!-- زر إغلاق في أعلى المودال -->
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
   <div class="container">
-    <div class="game-info">
+    <div class="game-info  dark:bg-gray-700 ">
       <h2 class="game-title">📜 قوانين اللعبة</h2>
       <div class="info-section">
         <h3>👥 عدد اللاعبين المقترح:</h3>
@@ -1403,21 +1400,21 @@
     </div>
 
     <div class="buttons-row">
-      <button id="backToGamesBtnWho" class="btn btn-secondary">🔙 العودة للقائمة</button>
-      <button id="startWhoBtn" class="btn btn-primary">ابدأ ▶️</button>
+      <button id="backToGamesBtnWho" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 العودة للقائمة</button>
+      <button id="startWhoBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ ▶️</button>
     </div>
   </div>
 </section>
 
 <!-- Settings Screen -->
-<section id="whoSettingsScreen" class="screen">
-  <header class="game-header">
+<section id="whoSettingsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header dark:bg-gray-800">
     <div class="headercontainer">
       <h1 class="game-header-title">⚙️ إعدادات مين فينا؟</h1>
     </div>
   </header>
   <div class="container">
-    <div class="game-info">
+    <div class="game-info  dark:bg-gray-700 ">
       <h2 class="game-title">اختر نوع الأسئلة</h2>
       <div class="info-section">
         <form id="categoriesForm" class="checkbox-list scrollable">
@@ -1441,28 +1438,28 @@
       </div>
 
       <div class="buttons-row">
-        <button id="startWhoSettingsBtn" class="btn btn-primary btn-start">ابدأ اللعبة 🎲</button>
+        <button id="startWhoSettingsBtn" class="btn btn-primary btn-start dark:bg-blue-500 dark:hover:bg-blue-600">ابدأ اللعبة 🎲</button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Pass Phone Screen -->
-<section id="whoPassScreen" class="screen">
+<section id="whoPassScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container">
-    <div class="game-info warning-box">
+    <div class="game-info warning-box  dark:bg-gray-800">
       <h2 class="game-title">📱 حان دور التصويت</h2>
-      <div id="whoPassText" class="info-section player-name-display"></div>
+      <div id="whoPassText" class="info-section player-name-display dark:text-white"></div>
     </div>
     <div class="buttons-row">
-      <button id="whoPassNextBtn" class="btn btn-primary">▶️ ابدأ التصويت</button>
+      <button id="whoPassNextBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">▶️ ابدأ التصويت</button>
     </div>
   </div>
 </section>
 
 <!-- Vote Screen -->
-<section id="whoVoteScreen" class="screen">
-  <header class="game-header">
+<section id="whoVoteScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <header class="game-header dark:bg-gray-800">
     <div class="headercontainer">
       <h1 id="whoQuestion" class="game-header-title"></h1>
     </div>
@@ -1472,22 +1469,22 @@
       <!-- تُملأ خيارات التصويت ديناميكيًا -->
     </form>
     <div class="buttons-row">
-      <button id="whoSubmitVote" class="btn btn-primary">✅ تسجيل التصويت</button>
+      <button id="whoSubmitVote" class="btn btn-primary dark:bg-green-500 dark:hover:bg-green-600">✅ تسجيل التصويت</button>
     </div>
   </div>
 </section>
 
 <!-- Results Screen -->
-<section id="whoResultsScreen" class="screen">
+<section id="whoResultsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container results-container">
     <h1 class="results-title">🏆 النتائج</h1>
-    <div id="whoResultsList" class="results-list info-section">
+    <div id="whoResultsList" class="results-list info-section dark:bg-gray-700">
       <!-- تُعرض النتائج هنا -->
     </div>
     <div class="results-actions buttons-row">
-      <button id="whoNextQuestionBtn" class="btn btn-primary">❓ السؤال التالي</button>
-      <button id="whoChangeCategoriesBtn" class="btn btn-secondary">🔄 تغيير تصنيفات الأسئلة</button>
-      <button id="whoBackBtn" onclick="showScreen('gamesScreen')" class="btn btn-secondary">🏠 العودة للقائمة</button>
+      <button id="whoNextQuestionBtn" class="btn btn-primary dark:bg-blue-500 dark:hover:bg-blue-600">❓ السؤال التالي</button>
+      <button id="whoChangeCategoriesBtn" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔄 تغيير تصنيفات الأسئلة</button>
+      <button id="whoBackBtn" onclick="showScreen('gamesScreen')" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🏠 العودة للقائمة</button>
     </div>
   </div>
 </section>
@@ -1495,13 +1492,13 @@
     <!-- Jawwal on Head Rules Screen -->
     <!-- Jawwal on Head Rules Screen -->
      <!-- Jawwal Rules Screen -->
-  <section id="jawwalRulesScreen" class="modal-screen">
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <section id="jawwalRulesScreen" class="modal-screen dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
 
   <div class="container">
     <h2 class="game-title">📜 قوانين لعبة جوالك على راسك</h2>
 
-    <div class="game-info">
+    <div class="game-info  dark:bg-gray-700 ">
       <h3>👥 عدد اللاعبين:</h3>
       <p>من 2 إلى 12 لاعب.</p>
 
@@ -1530,28 +1527,28 @@
     </div>
 
     <div class="buttons-row">
-      <button id="backToGamesBtnJawwal" onclick="showScreen('gamesScreen')" class="btn btn-secondary">🔙 الرجوع</button>
-      <button id="startJawwalBtn" onclick="startJawwalGame()" class="btn btn-primary">ابدأ ▶️</button>
+      <button id="backToGamesBtnJawwal" onclick="showScreen('gamesScreen')" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 الرجوع</button>
+      <button id="startJawwalBtn" onclick="startJawwalGame()" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">ابدأ ▶️</button>
     </div>
   </div>
 </section>
 
-    <section id="headsUpSettings" class="screen">
-      <header class="game-header">
+    <section id="headsUpSettings" class="screen dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <header class="game-header dark:bg-gray-800">
         <div class="headercontainer">
           <h1 class="game-header-title">🎲 لعبة: جوالك على راسك 📱</h1>
         </div>
       </header>
 
       <div class="container">
-        <div class="game-info">
+        <div class="game-info  dark:bg-gray-700 ">
           <h2 class="game-title">⚙️ إعدادات اللعبة</h2>
 
           <!-- إعداد الوقت -->
           <div class="info-section">
             <h3>⏲️ زمن التحدي:</h3>
 
-            <small>اختر دقيقة، دقيقة ونصف، أو دقيقتين</small>
+            <smal class="text-sm text-gray-600 dark:text-gray-400">اختر دقيقة، دقيقة ونصف، أو دقيقتين</small>
             <div class="slider-wrapper">
               <input id="timeSlider" type="range" min="60" max="120" step="30"
                 value="60">
@@ -1629,21 +1626,21 @@
 
           <!-- زر البداية -->
           <div class="buttons-row">
-            <button id="backToGamesBtnJ" class="btn btn-secondary">🔙 العودة
+            <button id="backToGamesBtnJ" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 العودة
               للقائمة</button>
-            <button id="startHeadsUp" class="btn btn-primary">ابدأ ▶️</button>
+            <button id="startHeadsUp" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">ابدأ ▶️</button>
           </div>
         </div>
       </div>
     </section>
-    <section id="headsUpPassPhone" class="screen">
+    <section id="headsUpPassPhone" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="countdown-container">
-        <div id="headsUpPlayerName" class="player-name-display"></div>
-        <div id="headsUpCount" class="countdown-number"></div>
+        <div id="headsUpPlayerName" class="player-name-display dark:text-white"></div>
+        <div id="headsUpCount" class="countdown-number dark:text-white"></div>
       </div>
     </section>
 
-    <section id="headsUpGameScreen" class="screen">
+    <section id="headsUpGameScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div id="headsUpTimer" class="timer-display"></div>
         <div id="headsUpWord" class="word-display"></div>
@@ -1654,7 +1651,7 @@
       </div>
     </section>
 
-    <section id="headsUpEndTurn" class="screen">
+    <section id="headsUpEndTurn" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <h2>انتهى الوقت!</h2>
         <p>عدد الكلمات الصحيحة: <span id="headsUpCountCorrect"></span></p>
@@ -1662,12 +1659,12 @@
       </div>
     </section>
 
-    <section id="headsUpResults" class="screen">
+    <section id="headsUpResults" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container results-container">
         <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 mb-12 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1680,13 +1677,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-jawwal">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1698,13 +1695,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 جوالك على رأسك
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -1713,7 +1710,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="jawwal-num">
                 0
               </p>
@@ -1723,7 +1720,7 @@
         </div>
         <table class="results-table">
           <thead>
-            <tr><th>#</th><th>اللاعب</th><th>الكلمات المخمنة</th>
+            <tr  class="dark:bg-gray-700"><th>#</th><th>اللاعب</th><th>الكلمات المخمنة</th>
               <th>النقاط</th>
               <th>النقاط الكلية</th>
             </tr>
@@ -1731,36 +1728,36 @@
           <tbody id="headsUpResultsBody"></tbody>
         </table>
         <div class="results-actions">
-          <button id="btnReplayHeadsUp" class="btn btn-primary">🔄 العب مرة
+          <button id="btnReplayHeadsUp" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">🔄 العب مرة
             أخرى</button>
-          <button id="btnBackHeadsUp" class="btn btn-secondary">🏠 العودة
+          <button id="btnBackHeadsUp" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🏠 العودة
             للقائمة</button>
         </div>
       </div>
     </section>
 
-    <section id="similarPicturesScreen" class="modal-screen">
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+    <section id="similarPicturesScreen" class="modal-screen dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
 
 
   <div class="container">
-        <div class="game-info">
+        <div class="game-info  dark:bg-gray-700 ">
           <h2 class="game-title">📜 قوانين لعبة الصور المتشابهة</h2>
 
           <div class="info-section">
-            <h3>👥 عدد اللاعبين المقترح:</h3>
+            <h3 class="dark:text-black">👥 عدد اللاعبين المقترح:</h3>
             <p>من 1 إلى 12 لاعب</p>
           </div>
 
           <div class="info-section">
-            <h3>🎯 الهدف:</h3>
+            <h3 class="dark:text-black">🎯 الهدف:</h3>
             <p>
               إيجاد الصورة المكررة 🔍 بأسرع وقت ممكن قبل انتهاء المحاولات ⏱️.
             </p>
           </div>
 
           <div class="info-section">
-            <h3>🎲 طريقة اللعب:</h3>
+            <h3 class="dark:text-black">🎲 طريقة اللعب:</h3>
             <ol>
               <li>أعطِ الهاتف إلى اللاعب التالي في الدور 📱.</li>
               <li>⏳ سيبدأ العد التنازلي: "سيبدأ الوقت بعد 3 ثواني...".</li>
@@ -1782,7 +1779,7 @@
           </div>
 
           <div class="info-section">
-            <h3>💡 نصائح وإرشادات:</h3>
+            <h3 class="dark:text-black">💡 نصائح وإرشادات:</h3>
             <p>
               • ركّز على تفاصيل الصور 🎨.<br>
               • لا تسرع بالاختيار—محاولتان فقط! ⚡<br>
@@ -1793,39 +1790,39 @@
 
         <button id="startSimilarBtn" class="btn btn-start">بدء اللعبة
           ▶️</button>
-          <button class="btn btn-secondary" onclick="showScreen('gamesScreen')">العودة للقائمة</button>
+          <button class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" onclick="showScreen('gamesScreen')">العودة للقائمة</button>
 
       </div>
     </section>
-    <section id="midSimPic" class="screen">
+    <section id="midSimPic" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
-        <div class="warning-box">
-  <button id="moveTocounter" class="btn btn-primary">
+        <div class="warning-box  dark:bg-gray-800">
+  <button id="moveTocounter" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">
     اعط الهاتف إلى <span id="simPlayerName"></span>
   </button>
   </div>
   </div>
 </section>
 
-    <section id="countdownScreen" class="screen">
+    <section id="countdownScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="countdown-container">
-        <div id="playerNameDisplay" class="player-name-display"></div>
-        <div id="countdownNumber" class="countdown-number"></div>
+        <div id="playerNameDisplay" class="player-name-display dark:text-white"></div>
+        <div id="countdownNumber" class="countdown-number dark:text-white"></div>
       </div>
     </section>
-    <div id="boxCountdownScreen" class="screen">
+    <div id="boxCountdownScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="countdown-container">
-        <div id="playerBoxName" class="player-name-display"></div>
-        <div id="boxCountdownNumber" class="countdown-number"></div>
+        <div id="playerBoxName" class="player-name-display dark:text-white"></div>
+        <div id="boxCountdownNumber" class="countdown-number dark:text-white"></div>
       </div>
     </div>
     <!-- Results Screen -->
-    <section id="similarResultsScreen" class="screen">
+    <section id="similarResultsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container results-container">
-        <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
+        <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8 dark:text-white">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1838,13 +1835,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-simpic">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1856,13 +1853,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 الصور المتشابهة
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -1871,7 +1868,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="simpic-num">
                 0
               </p>
@@ -1881,13 +1878,13 @@
         </div>
 
         <!-- جداول النتائج -->
-        <div class="results-tables">
+        <div class="results-tables bg-gray-50 dark:bg-gray-900 ">
           <!-- جدول جولة اللعبة الحالية -->
-          <div class="results-box">
-            <h2 class="box-title">نتائج الجولة</h2>
+          <div class="results-box dark:bg-gray-800 dark:text-white">
+            <h2 class="box-title dark:text-white">نتائج الجولة</h2>
             <table class="results-table">
               <thead>
-                <tr>
+                <tr  class="dark:bg-gray-700">
                   <th>🏅 المركز</th>
                   <th>👤 اللاعب</th>
                   <th>⏱️ الوقت (ث)</th>
@@ -1895,24 +1892,24 @@
                   <th>🌟 النقاط</th>
                 </tr>
               </thead>
-              <tbody id="roundResultsBody">
+              <tbody id="roundResultsBody" class="divide-y divide-gray-200 dark:divide-gray-700">
                 <!-- تعبئة ديناميكياً عبر JS -->
               </tbody>
             </table>
           </div>
 
           <!-- جدول النقاط التراكمية -->
-          <div class="results-box">
-            <h2 class="box-title">النقاط الإجمالية</h2>
+          <div class="results-box dark:bg-gray-800 dark:text-white">
+            <h2 class="box-title dark:text-white">النقاط الإجمالية</h2>
             <table class="results-table">
               <thead>
-                <tr>
+                <tr  class="dark:bg-gray-700">
                   <th>🏆 الترتيب</th>
                   <th>👤 اللاعب</th>
                   <th>💯 المجموع الكلي</th>
                 </tr>
               </thead>
-              <tbody id="totalResultsBody">
+              <tbody id="totalResultsBody" class="divide-y divide-gray-200 dark:divide-gray-700">
                 <!-- تعبئة ديناميكياً عبر JS -->
               </tbody>
             </table>
@@ -1921,28 +1918,28 @@
 
         <!-- زر للعودة أو إعادة اللعب -->
         <div class="results-actions">
-          <button id="playAgainBtn" class="btn btn-primary large">🔄 العب مرة
+          <button id="playAgainBtn" class="btn btn-primary large dark:bg-blue-500 dark:hover:bg-blue-600">🔄 العب مرة
             أخرى</button>
-          <button id="backHomeBtn" class="btn btn-secondary large">🏠 العودة
+          <button id="backHomeBtn" class="btn btn-secondary large dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🏠 العودة
             للقائمة</button>
         </div>
       </div>
     </section>
 
-    <section id="imagesScreen" class="screen">
+    <section id="imagesScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div style="padding-right: 3rem;">
         <h3 id="picgamename"></h3>
       </div>
       <div class="container">
         <div class="image-grid"></div>
-        <button id="nextTurnBtn" class="btn btn-primary">التالي ▶️</button>
+        <button id="nextTurnBtn" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">التالي ▶️</button>
       </div>
     </section>
     <!-- Player Input Screen -->
-<section id="midBox" class="screen">
+<section id="midBox" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
-        <div class="warning-box">
-  <button id="moveTocounterBox" class="btn btn-primary">
+        <div class="warning-box  dark:bg-gray-800">
+  <button id="moveTocounterBox" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">
     اعط الهاتف إلى <span id="BoxPlayerName"></span>
   </button>
   </div>
@@ -1950,12 +1947,12 @@
 </section>
     <!-- Boxes Game Rules Screen -->
     <section id="boxesRulesScreen" style="padding-bottom: 3rem !important;"
-      class="modal-screen">
+      class="modal-screen dark:bg-gray-800 dark:text-white">
   <!-- زرّ الإغلاق -->
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
 
       <div class="container">
-        <div class="game-info">
+        <div class="game-info  dark:bg-gray-700 ">
           <h2 class="game-title">📜 قوانين لعبة الصناديق</h2>
 
           <div class="info-section">
@@ -2011,15 +2008,15 @@
         </div>
 
         <div class="buttons-row">
-          <button id="backToGamesBtn" onclick="showScreen('gamesScreen')" class="btn btn-secondary">🔙 العودة
+          <button id="backToGamesBtn" onclick="showScreen('gamesScreen')" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🔙 العودة
             للقائمة</button>
-          <button id="startBoxesBtn" class="btn btn-primary">▶️ بدء
+          <button id="startBoxesBtn" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">▶️ بدء
             اللعبة</button>
         </div>
       </div>
     </section>
 
-    <div id="boxGameScreen" class="screen">
+    <div id="boxGameScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="box-header">
         <h3 id="boxgamename"></h3>
         <div id="boxTimer"></div>
@@ -2027,11 +2024,11 @@
       <div class="box-grid"></div>
     </div>
     
-    <div id="boxResultsScreen" class="screen results-container">
+    <div id="boxResultsScreen" class="screen results-container dark:bg-gray-900 text-gray-900 dark:text-gray-10" style="padding-bottom: 3rem !important;">
       <h1 class="font-bold text-2xl md:text-3xl w-full text-center py-8">النتائج النهائية</h1>
     <div class="flex gap-4 justify-center items-center my-4 mb-12 flex-wrap">
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2044,13 +2041,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد اللاعبين</h3>
               <p id="results-player-count-box">
                 0
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white w-80 dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               <div class="flex justify-center items-center">
                 <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2062,13 +2059,13 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">اللعبة</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">اللعبة</h3>
               <p>
                 الصناديق
               </p>
             </div>
           </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
+          <div  data-aos='zoom-in' class="bg-white w-80 dark:bg-gray-800 w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
             <div class="flex flex-col justify-center w-full items-center">
               
               <div class="flex justify-center items-center">
@@ -2077,7 +2074,7 @@
 </svg>
 
               </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد الجولات</h3>
+              <h3 class="text-lg font-semibold text-[#041710] my-2 dark:text-white">عدد الجولات</h3>
               <p id="box-num">
                 0
               </p>
@@ -2087,42 +2084,42 @@
         </div>
 
       <div class="results-tables">
-        <div class="results-box">
+        <div class="results-box dark:bg-gray-800">
           <div class="box-title">نتائج الجولة</div>
           <table class="results-table">
             <thead>
-              <tr><th>#</th><th>اللاعب</th><th>الزمن</th><th>النقاط</th></tr>
+              <tr  class="dark:bg-gray-700"><th>#</th><th>اللاعب</th><th>الزمن</th><th>النقاط</th></tr>
             </thead>
-            <tbody id="roundResultsBody1"></tbody>
+            <tbody id="roundResultsBody1" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody>
           </table>
         </div>
 
-        <div class="results-box">
+        <div class="results-box dark:bg-gray-800">
           <div class="box-title">النقاط التراكمية 🏆</div>
           <table class="results-table">
             <thead>
-              <tr><th>#</th><th>اللاعب</th><th>المجموع</th></tr>
+              <tr  class="dark:bg-gray-700"><th>#</th><th>اللاعب</th><th>المجموع</th></tr>
             </thead>
-            <tbody id="totalResultsBody1"></tbody>
+            <tbody id="totalResultsBody1" class="divide-y divide-gray-200 dark:divide-gray-700"></tbody>
           </table>
         </div>
       </div>
 
       <div class="results-actions">
-        <button id="boxPlayAgainBtn" class="btn large">🔁 إعادة اللعب</button>
-        <button id="boxBackHomeBtn" class="btn large">🏠 العودة للقائمة
+        <button id="boxPlayAgainBtn" class="btn large dark:bg-blue-500 dark:hover:bg-blue-600">🔁 إعادة اللعب</button>
+        <button id="boxBackHomeBtn" class="btn large dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">🏠 العودة للقائمة
           الرئيسية</button>
       </div>
     </div>
 
     <!-- Games Menu Screen -->
-    <section id="gamesScreen" class="screen">
-      <header class="fixed top-0 left-0 w-full h-20 bg-white border-b border-gray-200 z-50 shadow-sm">
+    <section id="gamesScreen" class="screen dark:bg-black text-gray-900 dark:text-white">
+      <header class="fixed top-0 left-0 w-full h-20 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
     <!-- زر العودة -->
     <button 
       onclick="goTomain()" 
-      class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 focus:outline-none w-[100px] z-10"
+      class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none w-[100px] z-10"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-180" fill="none" 
            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -2134,14 +2131,12 @@
 
     <!-- الشعار -->
      <div class=" flex justify-center flex-1" style="margin-right: -100px;" >
-    <img 
-      src="./public/quesahlogo.png" 
-      alt="Quesah Logo" 
-      width="120" 
-      height="52" 
-      class="cursor-pointer"
-      onclick="goTomain()"
-    />
+    
+    <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./public/white-logo.png">
+          <img src="./public/quesahlogo.png" alt="Quesah Logo" width="120" height="52"
+               class="cursor-pointer" onclick="goTomain()" />
+        </picture>
     </div>
   </div>
 </header>
@@ -2155,17 +2150,17 @@
         />
     
         <!-- Actual text on top -->
-        <h2 class="relative text-3xl  md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-2">
+        <h2 class="relative text-3xl  md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-2 dark:text-white">
           استعدوا لتحدي <span class="text-[#303590]">الأصدقاء!</span>
         </h2>
-        <p class="relative text-[#666666] text-base md:text-lg lg:text-xl">
+        <p class="relative text-[#666666] text-base md:text-lg lg:text-xl dark:text-gray-400">
           اختر لعبة، اجمع أصدقاءك، واستعد للتحدّي. العب وحدك أو مع الآخرين!
         </p>
       </div>
       
       <div class="container pt-36">
         <div class="tabs hidden">
-          <button class="tab active  flex gap-1 items-center" data-target="playersTab">
+          <button class="tab active  flex gap-1 items-center dark:text-gray-400 hover:text-gray-900 dark:hover:text-white active:text-[#303590]" data-target="playersTab">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4998 0.666656C7.00203 0.666656 4.1665 3.50219 4.1665 6.99999C4.1665 10.4978 7.00203 13.3333 10.4998 13.3333C13.9976 13.3333 16.8332 10.4978 16.8332 6.99999C16.8332 3.50219 13.9976 0.666656 10.4998 0.666656ZM6.1665 6.99999C6.1665 4.60676 8.1066 2.66666 10.4998 2.66666C12.8931 2.66666 14.8332 4.60676 14.8332 6.99999C14.8332 9.39322 12.8931 11.3333 10.4998 11.3333C8.1066 11.3333 6.1665 9.39322 6.1665 6.99999Z" fill="#666666"/>
 <path d="M18.4998 1.99999C17.9476 1.99999 17.4998 2.44771 17.4998 2.99999C17.4998 3.55227 17.9476 3.99999 18.4998 3.99999C20.1567 3.99999 21.4998 5.34314 21.4998 6.99999C21.4998 8.65684 20.1567 9.99999 18.4998 9.99999C17.9476 9.99999 17.4998 10.4477 17.4998 11C17.4998 11.5523 17.9476 12 18.4998 12C21.2613 12 23.4998 9.76141 23.4998 6.99999C23.4998 4.23857 21.2613 1.99999 18.4998 1.99999Z" fill="#666666"/>
@@ -2173,7 +2168,7 @@
 <path d="M22.714 16.6899C22.1746 16.5716 21.6413 16.913 21.523 17.4525C21.4047 17.9919 21.7462 18.5251 22.2856 18.6434C23.3421 18.8751 24.1864 19.2731 24.7437 19.7291C25.3017 20.1857 25.4998 20.6316 25.4998 21C25.4998 21.3343 25.339 21.7267 24.8957 22.1385C24.4492 22.5533 23.7631 22.9366 22.8782 23.203C22.3494 23.3623 22.0497 23.9201 22.209 24.4489C22.3682 24.9777 22.926 25.2773 23.4548 25.1181C24.5516 24.7879 25.5322 24.2771 26.2569 23.6038C26.9848 22.9276 27.4998 22.0382 27.4998 21C27.4998 19.847 26.8675 18.8827 26.0102 18.1812C25.1522 17.4791 23.9966 16.9711 22.714 16.6899Z" fill="#666666"/>
 </svg> اللاعبين
           </button>
-          <button class="tab flex gap-1 items-center" data-target="gamesTab">
+          <button class="tab flex gap-1 items-center dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-target="gamesTab">
             <svg width="29" height="23" viewBox="0 0 29 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.04493 0.604992C6.71886 0.365969 7.40345 0.333344 7.97042 0.333344H8.78705C10.1641 0.333344 11.5073 0.760543 12.6313 1.55604L13.3005 2.02965C13.6513 2.27793 14.0706 2.41127 14.5004 2.41127C14.9302 2.41127 15.3494 2.27793 15.7002 2.02963L16.3694 1.55605C17.4934 0.760545 18.8365 0.333344 20.2136 0.333344H21.0302C21.5972 0.333344 22.2818 0.365968 22.9557 0.604987C24.8801 1.28748 26.4019 2.85589 27.4042 5.39353C28.3962 7.90502 28.9056 11.419 28.8255 16.1538C28.8086 17.1531 28.6839 18.2731 28.2997 19.2819C27.9104 20.3039 27.2304 21.2673 26.0861 21.8145C25.4352 22.1258 24.6679 22.3333 23.798 22.3333C22.7488 22.3333 21.8858 22.0311 21.2086 21.5873C20.5787 21.1744 20.0279 20.6407 19.5573 20.1847C19.5 20.1291 19.4439 20.0748 19.389 20.0219C18.8492 19.5023 18.3953 19.0968 17.8916 18.8356C17.2553 18.5056 16.549 18.3333 15.8321 18.3333H13.1685C12.4517 18.3333 11.7454 18.5056 11.109 18.8356C10.6054 19.0968 10.1515 19.5023 9.61167 20.0219C9.55675 20.0747 9.50064 20.1291 9.44334 20.1847C8.97277 20.6407 8.42196 21.1744 7.79201 21.5873C7.11482 22.0311 6.25183 22.3333 5.20261 22.3333C4.33274 22.3333 3.56548 22.1258 2.91454 21.8145C1.7703 21.2673 1.09027 20.3039 0.700978 19.2819C0.316749 18.2731 0.192095 17.1531 0.175189 16.1538C0.0950909 11.419 0.60444 7.90503 1.59642 5.39354C2.59872 2.8559 4.12059 1.28749 6.04493 0.604992ZM7.97042 2.33334C7.45956 2.33334 7.05537 2.36868 6.71346 2.48995C5.46086 2.93421 4.30163 3.98876 3.45658 6.12826C2.6012 8.2939 2.09694 11.5112 2.1749 16.1199C2.18984 17.0032 2.30136 17.8647 2.56999 18.57C2.83356 19.262 3.22307 19.7451 3.7774 20.0102C4.18508 20.2051 4.65904 20.3333 5.20261 20.3333C5.84944 20.3333 6.33332 20.1521 6.69567 19.9146C7.15668 19.6124 7.56642 19.2166 8.05861 18.7412C8.11291 18.6887 8.16821 18.6353 8.2247 18.5809C8.75933 18.0663 9.39859 17.4697 10.1883 17.0601C11.1091 16.5826 12.1312 16.3333 13.1685 16.3333H15.8321C16.8694 16.3333 17.8915 16.5826 18.8124 17.0601C19.6021 17.4697 20.2413 18.0663 20.776 18.5809C20.8324 18.6353 20.8878 18.6887 20.9421 18.7412C21.4342 19.2166 21.844 19.6124 22.305 19.9146C22.6673 20.1521 23.1512 20.3333 23.798 20.3333C24.3416 20.3333 24.8156 20.2051 25.2233 20.0102C25.7776 19.7451 26.1671 19.262 26.4307 18.57C26.6993 17.8647 26.8108 17.0032 26.8258 16.1199C26.9037 11.5112 26.3995 8.2939 25.5441 6.12825C24.699 3.98875 23.5398 2.9342 22.2872 2.48995C21.9453 2.36868 21.5411 2.33334 21.0302 2.33334H20.2136C19.2504 2.33334 18.311 2.63215 17.5248 3.18856L16.8556 3.66215C16.1669 4.14953 15.344 4.41127 14.5004 4.41127C13.6567 4.41127 12.8338 4.14954 12.1452 3.66217L11.4759 3.18857C10.6897 2.63215 9.75025 2.33334 8.78705 2.33334H7.97042ZM8.50033 7.00001C9.05262 7.00001 9.50033 7.44773 9.50033 8.00001V9.00001H10.5003C11.0526 9.00001 11.5003 9.44773 11.5003 10C11.5003 10.5523 11.0526 11 10.5003 11H9.50033V12C9.50033 12.5523 9.05262 13 8.50033 13C7.94805 13 7.50033 12.5523 7.50033 12V11H6.50033C5.94805 11 5.50033 10.5523 5.50033 10C5.50033 9.44773 5.94805 9.00001 6.50033 9.00001H7.50033V8.00001C7.50033 7.44773 7.94805 7.00001 8.50033 7.00001Z" fill="#666666"/>
 <path d="M23.8337 9.66668C23.8337 10.219 23.3859 10.6667 22.8337 10.6667C22.2814 10.6667 21.8337 10.219 21.8337 9.66668C21.8337 9.11439 22.2814 8.66668 22.8337 8.66668C23.3859 8.66668 23.8337 9.11439 23.8337 9.66668Z" fill="#666666"/>
@@ -2182,7 +2177,7 @@
 <path d="M20.8337 10.6667C21.3859 10.6667 21.8337 11.1144 21.8337 11.6667C21.8337 12.219 21.3859 12.6667 20.8337 12.6667C20.2814 12.6667 19.8337 12.219 19.8337 11.6667C19.8337 11.1144 20.2814 10.6667 20.8337 10.6667Z" fill="#666666"/>
 </svg>  الألعاب
           </button>
-          <button class="tab  flex gap-1 items-center" data-target="resultsTab">
+          <button class="tab  flex gap-1 items-center dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-target="resultsTab">
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M15 0.666656C12.5631 0.666656 10.5482 0.881309 8.99771 1.14292L8.8179 1.17309C7.47094 1.39857 6.35139 1.58597 5.476 2.6641C4.91461 3.35551 4.73347 4.10273 4.69172 4.93746L4.03565 5.15615C3.41815 5.36194 2.87692 5.54232 2.44753 5.74207C1.98334 5.95802 1.55793 6.23617 1.23272 6.68739C0.907512 7.13861 0.778169 7.63015 0.72011 8.13881C0.666403 8.60933 0.666452 9.17982 0.666507 9.83072L0.666513 10.0244C0.666498 10.5601 0.666484 11.0333 0.706037 11.429C0.748903 11.858 0.843828 12.2749 1.08095 12.6779C1.31806 13.0809 1.63647 13.3664 1.99059 13.6121C2.31735 13.8389 2.73099 14.0687 3.19933 14.3288L6.72087 16.2853C7.44007 17.7002 8.42804 18.9618 9.78673 19.873C10.9695 20.6663 12.3889 21.1643 14.0703 21.2973C14.0248 21.4116 13.9998 21.5362 13.9998 21.6667V24H12.0929C10.9807 24 10.023 24.7851 9.8049 25.8757L9.51338 27.3333H6.99984C6.44755 27.3333 5.99984 27.781 5.99984 28.3333C5.99984 28.8856 6.44755 29.3333 6.99984 29.3333H22.9998C23.5521 29.3333 23.9998 28.8856 23.9998 28.3333C23.9998 27.781 23.5521 27.3333 22.9998 27.3333H20.4863L20.1948 25.8757C19.9767 24.7851 19.019 24 17.9068 24H15.9998V21.6667C15.9998 21.5362 15.9749 21.4116 15.9294 21.2974C17.611 21.1643 19.0305 20.6664 20.2134 19.873C21.5722 18.9617 22.5602 17.7 23.2794 16.2849L26.8003 14.3288C27.2686 14.0687 27.6823 13.8389 28.009 13.6121C28.3631 13.3664 28.6816 13.0809 28.9187 12.6779C29.1558 12.2749 29.2507 11.858 29.2936 11.429C29.3331 11.0333 29.3331 10.5602 29.3331 10.0244L29.3331 9.83074C29.3332 9.17984 29.3332 8.60933 29.2795 8.13881C29.2214 7.63015 29.0921 7.13861 28.7669 6.68739C28.4417 6.23617 28.0163 5.95802 27.5521 5.74207C27.1227 5.54232 26.5815 5.36194 25.964 5.15615L25.3084 4.93762C25.2666 4.10283 25.0855 3.35556 24.5241 2.6641C23.6487 1.58597 22.5292 1.39857 21.1822 1.1731L21.0024 1.14292C19.4519 0.881309 17.437 0.666656 15 0.666656ZM18.4467 27.3333L18.2336 26.268C18.2025 26.1121 18.0657 26 17.9068 26H12.0929C11.934 26 11.7972 26.1121 11.7661 26.268L11.553 27.3333H18.4467ZM4.71783 7.03694L4.73597 7.0309C4.8314 9.05796 5.06036 11.2983 5.63048 13.3916L4.20956 12.6022C3.69068 12.3139 3.36579 12.1321 3.1309 11.969C2.91434 11.8188 2.84381 11.7301 2.80468 11.6636C2.76554 11.5971 2.72234 11.4924 2.69612 11.2302C2.66769 10.9457 2.66653 10.5734 2.66651 9.97978L2.66651 9.88308C2.66649 9.1643 2.66799 8.7092 2.70721 8.36562C2.74351 8.04759 2.80291 7.92936 2.85522 7.85679C2.90753 7.78421 3.0009 7.69047 3.29113 7.55545C3.60467 7.40959 4.03594 7.26424 4.71783 7.03694ZM25.2641 7.03105C25.1687 9.05798 24.9397 11.2982 24.3697 13.3913L25.7901 12.6022C26.3089 12.3139 26.6338 12.1321 26.8687 11.969C27.0853 11.8188 27.1558 11.7301 27.1949 11.6636C27.2341 11.5971 27.2773 11.4924 27.3035 11.2302C27.3319 10.9457 27.3331 10.5734 27.3331 9.97978L27.3331 9.88308C27.3331 9.1643 27.3316 8.7092 27.2924 8.36562C27.2561 8.04759 27.1967 7.92936 27.1444 7.85679C27.0921 7.78421 26.9987 7.69047 26.7085 7.55545C26.395 7.40959 25.9637 7.26424 25.2818 7.03694L25.2641 7.03105ZM9.33045 3.11504C10.7774 2.87091 12.6809 2.66666 15 2.66666C17.3192 2.66666 19.2227 2.87091 20.6696 3.11504C22.2789 3.38655 22.6169 3.48812 22.9714 3.92477C23.3208 4.35509 23.354 4.76208 23.2823 6.56895C23.1627 9.58048 22.7654 12.8303 21.5351 15.3019C20.9278 16.5219 20.1338 17.5182 19.0993 18.212C18.0715 18.9014 16.7455 19.3333 15 19.3333C13.2546 19.3333 11.9286 18.9014 10.9008 18.212C9.86628 17.5182 9.07226 16.5219 8.46495 15.3019C7.23464 12.8303 6.83737 9.58048 6.71781 6.56895C6.64608 4.76208 6.67925 4.35509 7.02865 3.92477C7.38318 3.48812 7.72123 3.38655 9.33045 3.11504Z" fill="#666666"/>
 </svg> 
@@ -2199,12 +2194,12 @@
     </section>
 
     <!-- Out of Topic Game Screen -->
-    <section id="outOfTopicScreen" class="modal-screen">
+    <section id="outOfTopicScreen" class="modal-screen dark:bg-gray-800 dark:text-white">
   <!-- زر الإغلاق -->
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
 
       <div class="container">
-        <div class="game-info">
+        <div class="game-info  dark:bg-gray-700 ">
           <h2 class="game-title">قوانين لعبة برا السالفة</h2>
 
           <div class="info-section">
@@ -2252,17 +2247,17 @@
         </div>
 
         <button id="startGameButton" class="btn btn-start">بدء اللعبة</button>
-        <button id="backToGamesButton" class="btn btn-secondary">العودة
+        <button id="backToGamesButton" class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">العودة
           للقائمة</button>
       </div>
     </section>
-    <section id="mafiaScreen" class="modal-screen">
-  <button class="modal-close-btn" aria-label="إغلاق">&times;</button>
+    <section id="mafiaScreen" class="modal-screen dark:bg-gray-800 dark:text-white">
+  <button class="modal-close-btn dark:text-gray-300 dark:hover:text-white dark:bg-gray-800" aria-label="إغلاق">&times;</button>
       
 
       <div class="container">
-        <div class="game-info">
-          <h2 class="game-title">📜 قوانين لعبة المافيا</h2>
+        <div class="game-info  dark:bg-gray-700  dark:text-gray-300">
+          <h2 class="game-title dark:text-white">📜 قوانين لعبة المافيا</h2>
 
           <div class="info-section">
             <h3>عدد اللاعبين المقترح:</h3>
@@ -2284,7 +2279,7 @@
             <h3>📝 الأدوار:</h3>
             <div class="roles-container">
               <!-- دور المافيا -->
-              <div class="role-item">
+              <div class="role-item dark:bg-gray-700  dark:text-white">
                 <img src="./public/mafiaImg.png" alt="مافيا" class="role-img">
                 <div class="role-text">
                   <h4>💀 المافيا</h4>
@@ -2293,7 +2288,7 @@
               </div>
     
               <!-- دور المافيا 2 -->
-              <div class="role-item">
+              <div class="role-item dark:bg-gray-700  dark:text-white">
                 <img src="./public/mafiaImg2.png" alt="مافيا" class="role-img">
                 <div class="role-text">
                   <h4>💀 المافيا</h4>
@@ -2302,7 +2297,7 @@
               </div>
     
               <!-- دور الطبيب -->
-              <div class="role-item">
+              <div class="role-item dark:bg-gray-700  dark:text-white">
                 <img src="./public/DoctorImg.png" alt="طبيب" class="role-img">
                 <div class="role-text">
                   <h4>🩺 الطبيب</h4>
@@ -2311,7 +2306,7 @@
               </div>
     
               <!-- دور المحقق -->
-              <div class="role-item">
+              <div class="role-item dark:bg-gray-700  dark:text-white">
                 <img src="./public/PImg.png" alt="محقق" class="role-img">
                 <div class="role-text">
                   <h4>🕵️‍♂️ المحقق</h4>
@@ -2320,7 +2315,7 @@
               </div>
     
               <!-- دور المواطن العادي -->
-              <div class="role-item">
+              <div class="role-item dark:bg-gray-700  dark:text-white">
                 <img src="./public/CitizinImg.png" alt="مواطن" class="role-img">
                 <div class="role-text">
                   <h4>🧑‍🌾 المواطن</h4>
@@ -2409,13 +2404,13 @@
         </div>
 
         <button id="startMafiaGameButton" onclick="startMafiaGame()"
-          class="btn btn-start">بدء اللعبة</button>
-        <button class="btn btn-secondary" onclick="showScreen('gamesScreen')">العودة للقائمة</button>
+          class="btn btn-start btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">بدء اللعبة</button>
+        <button class="btn btn-secondary dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" onclick="showScreen('gamesScreen')">العودة للقائمة</button>
       </div>
     </section>
 
     <!-- Category Selection Screen -->
-    <section id="categoryScreen" class="screen">
+    <section id="categoryScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <header class="game-header">
         <div class="headercontainer">
           <h1>اختر التصنيف</h1>
@@ -2423,186 +2418,186 @@
       </header>
       <div class="container">
         <div class="category-grid">
-          <button class="category-card" data-category="food"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="food"><span
               style="font-size: 3rem;">🍔</span> مأكولات</button>
-          <button class="category-card" data-category="places"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="places"><span
               style="font-size: 3rem;">🌍</span> أماكن</button>
-          <button class="category-card" data-category="animals"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="animals"><span
               style="font-size: 3rem;">🐶</span> حيوانات</button>
-          <button class="category-card" data-category="clothes"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="clothes"><span
               style="font-size: 3rem;">👕</span> ملابس</button>
-          <button class="category-card" data-category="produce"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="produce"><span
               style="font-size: 3rem;">🥕</span> خضار وفاكهة</button>
-          <button class="category-card" data-category="drinks"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="drinks"><span
               style="font-size: 3rem;">🥤</span> مشروبات</button>
-          <button class="category-card" data-category="household"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="household"><span
               style="font-size: 3rem;">🏠</span> أشياء منزلية</button>
-          <button class="category-card" data-category="vehicles"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="vehicles"><span
               style="font-size: 3rem;">🚗</span> مركبات ومواصلات</button>
-          <button class="category-card" data-category="cities"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="cities"><span
               style="font-size: 3rem;">🏙️</span> مدن</button>
-          <button class="category-card" data-category="cartoons"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="cartoons"><span
               style="font-size: 3rem;">🎬</span> شخصيات كرتونية</button>
-          <button class="category-card" data-category="games"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="games"><span
               style="font-size: 3rem;">🎮</span> ألعاب</button>
-          <button class="category-card" data-category="jobs"><span
+          <button class="category-card dark:bg-gray-800 dark:hover:bg-gray-700" data-category="jobs"><span
               style="font-size: 3rem;">💼</span> وظائف</button>
         </div>
       </div>
     </section>
 
     <!-- Warning Screen -->
-    <section id="warningScreen" class="screen">
+    <section id="warningScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
-        <div class="warning-box">
+        <div class="warning-box  dark:bg-gray-800">
           <h2 class="warning-title">حافظ على الخصوصية</h2>
           <p class="warning-text">
             كل اللاعبين ماعدا لاعب واحد سيعرفون نفس الكلمة السرية.<br>
             حافظ على خصوصية الشاشة بعيدًا عن أعين باقي اللاعبين.<br>
             لا تجعلهم ينظروا لمحتوى الشاشة التالية.
           </p>
-          <button id="playerConfirmButton" class="btn btn-primary"></button>
+          <button id="playerConfirmButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"></button>
         </div>
       </div>
     </section>
-    <section id="mafiaWarningScreen" class="screen">
+    <section id="mafiaWarningScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
-        <div class="warning-box">
+        <div class="warning-box  dark:bg-gray-800">
           <h2>اعط الهاتف ل<span id="playernameMafia"></span></h2>
           <h2 class="warning-title">حافظ على الخصوصية</h2>
           <p class="warning-text">
             حافظ على خصوصية الشاشة التالية. سيتم تحديد الأدوار بشكل عشوائي
           </p>
           <button id="mafiaPlayerConfirmButton"
-            class="btn btn-primary"></button>
+            class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"></button>
         </div>
       </div>
     </section>
-    <section id="mafiaVoting" class="screen">
+    <section id="mafiaVoting" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
-        <div class="warning-box">
+        <div class="warning-box  dark:bg-gray-800">
           <h2>اعط الهاتف ل<span id="playernameVote"></span></h2>
           <h2 class="warning-title">حافظ على الخصوصية</h2>
           <p class="warning-text">
             بحسب دورك في اللعبة, صوت على اللاعب المناسب
           </p>
-          <button id="mafiaPlayerVoteButton" class="btn btn-primary"></button>
+          <button id="mafiaPlayerVoteButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"></button>
         </div>
       </div>
 
     </section>
-    <section id="mafiaVotingMorning" class="screen">
+    <section id="mafiaVotingMorning" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
-        <div class="warning-box">
+        <div class="warning-box  dark:bg-gray-800">
           <h2>اعط الهاتف ل<span id="playernameVoteMorning"></span></h2>
           <h2 class="warning-title">حافظ على الخصوصية</h2>
           <p class="warning-text">
             بحسب دورك في اللعبة, صوت على اللاعب المناسب
           </p>
           <button id="mafiaPlayerVoteButtonMorning"
-            class="btn btn-primary"></button>
+            class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"></button>
         </div>
       </div>
 
     </section>
-    <section id="VoteRoleScreen" class="screen">
+    <section id="VoteRoleScreen" class="screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 class="greeting-title">مرحبا</h2>
           <h3 id="player-name-vote" class="player-name"></h3>
           <div id="VoteContent" class="secret-content">
-            <button id="voteConButton" class="btn btn-primary">انقر</button>
+            <button id="voteConButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">انقر</button>
           </div>
           <button onclick="showVote()" id="VoteConfirmButton"
-            class="btn btn-primary" style="display: none;">موافق</button>
+            class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600" style="display: none;">موافق</button>
         </div>
       </div>
     </section>
-    <section id="VoteRoleScreenMorning" class="screen">
+    <section id="VoteRoleScreenMorning" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 class="greeting-title">مرحبا</h2>
           <h3 id="player-name-vote-morning" class="player-name"></h3>
           <div id="VoteContentMorning" class="secret-content">
             <button id="voteConButtonMorning"
-              class="btn btn-primary">انقر</button>
+              class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">انقر</button>
           </div>
           <button onclick="showVoteMorning()" id="VoteConfirmButtonMorning"
-            class="btn btn-primary" style="display: none;">موافق</button>
+            class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600" style="display: none;">موافق</button>
         </div>
       </div>
     </section>
-    <section id="NightRes" class="screen">
+    <section id="NightRes" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 class="greeting-title">نتيجة الجولة المسائية</h2>
           <p>انتهى التصويت اظهر الشاشة للجميع</p>
           <p id="nightResult"></p> <!-- Dynamically added paragraph -->
-          <button id="showNightRes" class="btn btn-primary"
+          <button id="showNightRes" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"
             style="margin-top: 1rem;">موافق</button>
           <button id="startMorn" onclick="showScreen('MorningDurationScreen')"
-            class="btn btn-primary" style="margin-top: 1rem; display: none;">بدء
+            class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600" style="margin-top: 1rem; display: none;">بدء
             الجولة الصباحية</button>
         </div>
       </div>
     </section>
-    <section id="morningRes" class="screen">
+    <section id="morningRes" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 class="greeting-title">نتيجة الجولة المسائية</h2>
           <p>انتهى التصويت اظهر الشاشة للجميع</p>
           <p id="morningResult"></p> <!-- Dynamically added paragraph -->
-          <button id="showMorningRes" class="btn btn-primary"
+          <button id="showMorningRes" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"
             style="margin-top: 1rem;">موافق</button>
           <button id="startNight" onclick="showScreen('NightDurationScreen')"
-            class="btn btn-primary" style="margin-top: 1rem; display: none;">بدء
+            class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600" style="margin-top: 1rem; display: none;">بدء
             الجولة الصباحية</button>
         </div>
       </div>
     </section>
     <!-- Secret Word Screen -->
-    <section id="secretScreen" class="screen">
+    <section id="secretScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 id="playerGreeting" class="greeting-title">مرحبا</h2>
           <h3 id="playerName" class="player-name"></h3>
           <div id="secretContent" class="secret-content">
-            <button id="revealButton" class="btn btn-primary">انقر</button>
+            <button id="revealButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">انقر</button>
           </div>
-          <button id="secretConfirmButton" class="btn btn-primary"
+          <button id="secretConfirmButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"
             style="display: none;">موافق</button>
         </div>
       </div>
     </section>
-    <section id="roleScreen" class="screen">
+    <section id="roleScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 id="playerGreeting" class="greeting-title">مرحبا</h2>
           <h3 id="playerName" class="player-name"></h3>
           <div id="roleContent" class="secret-content">
-            <button id="revealButtonMafia" class="btn btn-primary">انقر</button>
+            <button id="revealButtonMafia" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">انقر</button>
           </div>
-          <button id="roleConfirmButton" class="btn btn-primary"
+          <button id="roleConfirmButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"
             style="display: none;">موافق</button>
         </div>
       </div>
     </section>
-    <section id="roleScreenMorning" class="screen">
+    <section id="roleScreenMorning" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <div class="container">
         <div class="secret-box">
           <h2 id="playerGreetingMorning" class="greeting-title">مرحبا</h2>
           <h3 id="playerNameMorning" class="player-name"></h3>
           <div id="roleContentMorning" class="secret-content">
             <button id="revealButtonMafiaMorning"
-              class="btn btn-primary">انقر</button>
+              class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">انقر</button>
           </div>
-          <button id="roleConfirmButtonMorning" class="btn btn-primary"
+          <button id="roleConfirmButtonMorning" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600"
             style="display: none;">موافق</button>
         </div>
       </div>
     </section>
     <!-- Questions Round Screen -->
-    <section id="questionsScreen" class="screen">
+    <section id="questionsScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <header class="game-header">
         <!-- <img src="assets/magnifier.svg" class="header-icon" alt=""> -->
         <h1>⏱️ وقت الأسئلة</h1>
@@ -2616,14 +2611,14 @@
             يمنع إعادة نفس السؤال مرة أخرى.
           </p>
           <div id="currentQuestion" class="current-question"></div>
-          <button id="nextQuestionButton" class="btn btn-primary">السؤال
+          <button id="nextQuestionButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">السؤال
             التالي</button>
         </div>
       </div>
     </section>
 
     <!-- Voting Round Screen -->
-    <section id="votingScreen" class="screen">
+    <section id="votingScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <header class="game-header">
         <div class="headercontainer">
           <h1>جولة التصويت على الخارج</h1>
@@ -2644,7 +2639,7 @@
       </div>
     </section>
     <!-- Secret Word Guess Screen -->
-    <section id="guessScreen" class="screen">
+    <section id="guessScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <header class="game-header">
         <div class="headercontainer">
           <h1>تخمين الكلمة السرية</h1>
@@ -2655,65 +2650,88 @@
           <p>أنت برا السالفة، <span id="guessingPlayer"></span>. حاول تخمين
             الكلمة السرية:</p>
           <div id="guessWord" class="voting-area"></div>
-          <button id="submitGuessButton" class="btn btn-primary">تأكيد</button>
+          <button id="submitGuessButton" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">تأكيد</button>
         </div>
       </div>
     </section>
     <!-- Results Screen -->
-    <section id="resultsScreen" class="screen results-screen bg-white pb-32">
-      <header class="fixed top-0 left-0 w-full h-20 bg-white border-b border-gray-200 z-50 shadow-sm">
-  <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
-    <!-- زر العودة -->
-    <button 
-      onclick="goTomain()" 
-      class="flex items-center space-x-2 text-gray-600 hover:text-gray-900 focus:outline-none w-[100px] z-10"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 rotate-180" fill="none" 
-           viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" 
-              d="M15 19l-7-7 7-7" />
-      </svg>
-      <span class="text-base md:text-lg font-medium ">الرئيسية</span>
-    </button>
+<section
+  id="resultsScreen"
+  class="screen results-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 pb-32 transition-colors duration-200"
+>
+  <!-- Fixed Header -->
+  <header
+    class="fixed top-0 left-0 w-full h-20 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-700 z-50 shadow-sm transition-colors duration-200"
+  >
+    <div class="max-w-7xl mx-auto h-full flex items-center justify-between px-4 sm:px-6 lg:px-8">
+      <!-- Back Button -->
+      <button
+        onclick="goTomain()"
+        class="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none w-[100px] z-10 transition-colors duration-150"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 rotate-180"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="text-base md:text-lg font-medium">الرئيسية</span>
+      </button>
 
-    <!-- الشعار -->
-     <div class=" flex justify-center flex-1" style="margin-right: -100px;" >
-    <img 
-      src="./public/quesahlogo.png" 
-      alt="Quesah Logo" 
-      width="120" 
-      height="52" 
-      class="cursor-pointer"
-      onclick="goTomain()"
-    />
-    </div>
-  </div>
-</header>
-    <div data-aos="fade-down" class=" mt-32 max-w-7xl mx-auto flex justify-center flex-col items-center text-center">
-        <!-- Decorative sparkles -->
-        <img
-          src="../images/sparkles.png"
-          alt=""
-          aria-hidden="true"
-          class="pointer-events-none absolute inset-x-0 top-44 -translate-y-1/4 mx-auto  w-full md:max-w-3xl mt-8 opacity-60"
-        />
-    
-        <!-- Actual text on top -->
-        <h2 class="relative text-3xl  md:text-4xl lg:text-5xl mt-4 font-semibold text-gray-900 mb-2">
-          استعدوا لتحدي <span class="text-[#303590]">الأصدقاء!</span>
-        </h2>
-        <p class="relative text-[#666666] text-base md:text-lg lg:text-xl">
-          اختر لعبة، اجمع أصدقاءك، واستعد للتحدّي. العب وحدك أو مع الآخرين!
-        </p>
+      <!-- Logo -->
+      <div class="flex justify-center flex-1" style="margin-right: -100px;">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="./public/white-logo.png" />
+          <img
+            src="./public/quesahlogo.png"
+            alt="Quesah Logo"
+            width="120"
+            height="52"
+            class="cursor-pointer"
+            onclick="goTomain()"
+          />
+        </picture>
       </div>
-      <div class="container mt-[80px]">
-        <h1 class="text-2xl md:text-3xl font-bold w-full text-center py-8">نتائجك النهائية</h1>
-        <div class="flex gap-4 justify-center items-center my-8 flex-wrap">
+    </div>
+  </header>
 
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
-            <div class="flex flex-col justify-center w-full items-center">
-              <div class="flex justify-center items-center">
-                <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Intro -->
+  <div data-aos="fade-down" class="relative max-w-7xl mx-auto flex justify-center flex-col items-center text-center py-16 md:pt-20 px-2 md:px-6 lg:px-10">
+    
+    <!-- Decorative sparkles -->
+    <img
+      src="../images/sparkles.png"
+      alt=""
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-x-0 top-32 -translate-y-1/4 mx-auto  w-full md:max-w-3xl mt-8 opacity-60"
+    />
+
+    <!-- Actual text on top -->
+    <h2 class="relative text-3xl  md:text-4xl lg:text-5xl mt-4 font-semibold text-gray-900 dark:text-gray-100 mb-2">
+      استعدوا لتحدي <span class="text-[#303590] dark:text-[#a5b4fc]">الأصدقاء!</span>
+    </h2>
+    <p class="relative text-[#666666] dark:text-[#ccc] text-base md:text-lg lg:text-xl">
+      اختر لعبة، اجمع أصدقاءك، واستعد للتحدّي. العب وحدك أو مع الآخرين!
+    </p>
+  </div>
+
+  <!-- Results Content -->
+  <div class="container px-4 py-0">
+    <h1 class="text-2xl md:text-3xl font-bold text-center pb-8 text-gray-900 dark:text-gray-100">
+      نتائجك النهائية
+    </h1>
+
+    <div class="flex flex-wrap justify-center gap-6 mb-12">
+      <!-- Card: Players Count -->
+      <div
+        data-aos="zoom-in"
+        class="w-80 bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 flex flex-col justify-between items-center shadow-lg hover:shadow-2xl ring-1 ring-gray-100 dark:ring-gray-700 transition-all duration-200"
+      >
+        <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7502 0.666992C12.2524 0.666992 9.41683 3.50252 9.41683 7.00033C9.41683 10.4981 12.2524 13.3337 15.7502 13.3337C19.248 13.3337 22.0835 10.4981 22.0835 7.00033C22.0835 3.50252 19.248 0.666992 15.7502 0.666992ZM11.4168 7.00033C11.4168 4.60709 13.3569 2.66699 15.7502 2.66699C18.1434 2.66699 20.0835 4.60709 20.0835 7.00033C20.0835 9.39356 18.1434 11.3337 15.7502 11.3337C13.3569 11.3337 11.4168 9.39356 11.4168 7.00033Z" fill="#303590"/>
 <path d="M23.7502 3.33366C23.1979 3.33366 22.7502 3.78137 22.7502 4.33366C22.7502 4.88594 23.1979 5.33366 23.7502 5.33366C25.5855 5.33366 26.7502 6.5413 26.7502 7.66699C26.7502 8.79268 25.5855 10.0003 23.7502 10.0003C23.1979 10.0003 22.7502 10.448 22.7502 11.0003C22.7502 11.5526 23.1979 12.0003 23.7502 12.0003C26.3331 12.0003 28.7502 10.2232 28.7502 7.66699C28.7502 5.11079 26.3331 3.33366 23.7502 3.33366Z" fill="#303590"/>
 <path d="M8.75016 4.33366C8.75016 3.78137 8.30245 3.33366 7.75016 3.33366C5.1672 3.33366 2.75016 5.11079 2.75016 7.66699C2.75016 10.2232 5.1672 12.0003 7.75016 12.0003C8.30245 12.0003 8.75016 11.5526 8.75016 11.0003C8.75016 10.448 8.30245 10.0003 7.75016 10.0003C5.91485 10.0003 4.75016 8.79268 4.75016 7.66699C4.75016 6.5413 5.91485 5.33366 7.75016 5.33366C8.30245 5.33366 8.75016 4.88594 8.75016 4.33366Z" fill="#303590"/>
@@ -2721,83 +2739,86 @@
 <path d="M25.44 17.4528C25.5583 16.9133 26.0916 16.5719 26.631 16.6902C27.9135 16.9715 29.0692 17.4795 29.9272 18.1816C30.7845 18.883 31.4168 19.8473 31.4168 21.0003C31.4168 22.1533 30.7845 23.1176 29.9272 23.8191C29.0692 24.5212 27.9135 25.0292 26.631 25.3104C26.0916 25.4287 25.5583 25.0873 25.44 24.5479C25.3217 24.0084 25.6632 23.4752 26.2026 23.3569C27.2591 23.1252 28.1034 22.7272 28.6607 22.2713C29.2187 21.8147 29.4168 21.3687 29.4168 21.0003C29.4168 20.6319 29.2187 20.186 28.6607 19.7294C28.1034 19.2734 27.2591 18.8755 26.2026 18.6438C25.6632 18.5255 25.3217 17.9923 25.44 17.4528Z" fill="#303590"/>
 <path d="M4.86929 16.6902C5.40876 16.5719 5.94198 16.9133 6.06028 17.4528C6.17859 17.9923 5.83717 18.5255 5.2977 18.6438C4.24121 18.8755 3.3969 19.2734 2.83966 19.7294C2.28167 20.186 2.0835 20.6319 2.0835 21.0003C2.0835 21.3687 2.28167 21.8147 2.83966 22.2713C3.3969 22.7272 4.24121 23.1252 5.2977 23.3569C5.83717 23.4752 6.17859 24.0084 6.06028 24.5479C5.94198 25.0873 5.40876 25.4287 4.86929 25.3104C3.58678 25.0292 2.4311 24.5212 1.57309 23.8191C0.715827 23.1176 0.0834961 22.1533 0.0834961 21.0003C0.0834961 19.8473 0.715827 18.883 1.57309 18.1816C2.4311 17.4795 3.58678 16.9715 4.86929 16.6902Z" fill="#303590"/>
 </svg>
+        <h3 class="text-lg font-semibold mb-2 dark:text-white">عدد اللاعبين</h3>
+        <p id="results-player-count" class="text-gray-700 dark:text-gray-300 text-center">
+          رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
+        </p>
+      </div>
 
-              </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">عدد اللاعبين</h3>
-              <p id="results-player-count">
-                رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
-              </p>
-            </div>
-          </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
-            <div class="flex flex-col justify-center w-full items-center">
-              <div class="flex justify-center items-center">
-                <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Card: Games Played -->
+      <div
+        data-aos="zoom-in"
+        class="w-80 bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 flex flex-col justify-between items-center shadow-lg hover:shadow-2xl ring-1 ring-gray-100 dark:ring-gray-700 transition-all duration-200"
+      >
+        <svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg" class="dark:text-white">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M6.29444 0.604656C6.96837 0.365633 7.65296 0.333008 8.21994 0.333008H9.03656C10.4136 0.333008 11.7568 0.760207 12.8808 1.5557L13.55 2.02931C13.9009 2.27759 14.3201 2.41093 14.7499 2.41093C15.1797 2.41093 15.5989 2.27759 15.9497 2.0293L16.6189 1.55571C17.7429 0.760209 19.0861 0.333008 20.4631 0.333008H21.2798C21.8467 0.333008 22.5313 0.365633 23.2052 0.604652C25.1296 1.28715 26.6514 2.85556 27.6537 5.39319C28.6457 7.90468 29.1551 11.4187 29.075 16.1534C29.0581 17.1528 28.9334 18.2728 28.5492 19.2815C28.1599 20.3036 27.4799 21.2669 26.3356 21.8141C25.6847 22.1254 24.9174 22.333 24.0476 22.333C22.9983 22.333 22.1354 22.0308 21.4582 21.587C20.8282 21.1741 20.2774 20.6403 19.8068 20.1843C19.7495 20.1288 19.6934 20.0744 19.6385 20.0216C19.0987 19.502 18.6448 19.0964 18.1412 18.8353C17.5048 18.5053 16.7985 18.333 16.0816 18.333H13.418C12.7012 18.333 11.9949 18.5053 11.3585 18.8353C10.8549 19.0964 10.401 19.502 9.86119 20.0215C9.80627 20.0744 9.75015 20.1288 9.69285 20.1843C9.22228 20.6403 8.67147 21.1741 8.04153 21.587C7.36433 22.0308 6.50134 22.333 5.45212 22.333C4.58225 22.333 3.81499 22.1254 3.16405 21.8141C2.01981 21.2669 1.33978 20.3036 0.95049 19.2815C0.566261 18.2728 0.441607 17.1528 0.424701 16.1534C0.344603 11.4187 0.853951 7.90469 1.84593 5.3932C2.84824 2.85557 4.37011 1.28716 6.29444 0.604656ZM8.21994 2.33301C7.70907 2.33301 7.30488 2.36835 6.96297 2.48961C5.71038 2.93387 4.55114 3.98842 3.70609 6.12792C2.85071 8.29357 2.34645 11.5109 2.42441 16.1196C2.43936 17.0028 2.55088 17.8644 2.8195 18.5696C3.08307 19.2616 3.47258 19.7447 4.02691 20.0098C4.43459 20.2048 4.90855 20.333 5.45212 20.333C6.09895 20.333 6.58283 20.1517 6.94518 19.9142C7.4062 19.6121 7.81593 19.2163 8.30812 18.7409C8.36242 18.6884 8.41772 18.635 8.47421 18.5806C9.00884 18.066 9.6481 17.4693 10.4378 17.0598C11.3586 16.5823 12.3808 16.333 13.418 16.333H16.0816C17.1189 16.333 18.141 16.5823 19.0619 17.0598C19.8516 17.4693 20.4908 18.066 21.0255 18.5806C21.082 18.635 21.1373 18.6884 21.1916 18.7409C21.6838 19.2163 22.0935 19.6121 22.5545 19.9142C22.9168 20.1517 23.4007 20.333 24.0476 20.333C24.5911 20.333 25.0651 20.2048 25.4728 20.0098C26.0271 19.7447 26.4166 19.2616 26.6802 18.5696C26.9488 17.8644 27.0603 17.0028 27.0753 16.1196C27.1532 11.5109 26.649 8.29356 25.7936 6.12791C24.9485 3.98841 23.7893 2.93386 22.5367 2.48961C22.1948 2.36835 21.7906 2.33301 21.2798 2.33301H20.4631C19.4999 2.33301 18.5605 2.63181 17.7743 3.18823L17.1051 3.66182C16.4164 4.1492 15.5935 4.41093 14.7499 4.41093C13.9062 4.41093 13.0833 4.1492 12.3947 3.66184L11.7255 3.18823C10.9392 2.63182 9.99976 2.33301 9.03656 2.33301H8.21994ZM8.74984 6.99967C9.30213 6.99967 9.74984 7.44739 9.74984 7.99967V8.99967H10.7498C11.3021 8.99967 11.7498 9.44739 11.7498 9.99967C11.7498 10.552 11.3021 10.9997 10.7498 10.9997H9.74984V11.9997C9.74984 12.552 9.30213 12.9997 8.74984 12.9997C8.19756 12.9997 7.74984 12.552 7.74984 11.9997V10.9997H6.74984C6.19756 10.9997 5.74984 10.552 5.74984 9.99967C5.74984 9.44739 6.19756 8.99967 6.74984 8.99967H7.74984V7.99967C7.74984 7.44739 8.19756 6.99967 8.74984 6.99967Z" fill="#303590"/>
 <path d="M24.0832 9.66634C24.0832 10.2186 23.6355 10.6663 23.0832 10.6663C22.5309 10.6663 22.0832 10.2186 22.0832 9.66634C22.0832 9.11406 22.5309 8.66634 23.0832 8.66634C23.6355 8.66634 24.0832 9.11406 24.0832 9.66634Z" fill="#303590"/>
 <path d="M20.0832 9.66634C20.0832 10.2186 19.6355 10.6663 19.0832 10.6663C18.5309 10.6663 18.0832 10.2186 18.0832 9.66634C18.0832 9.11406 18.5309 8.66634 19.0832 8.66634C19.6355 8.66634 20.0832 9.11406 20.0832 9.66634Z" fill="#303590"/>
 <path d="M21.0832 6.66634C21.6355 6.66634 22.0832 7.11406 22.0832 7.66634C22.0832 8.21863 21.6355 8.66634 21.0832 8.66634C20.5309 8.66634 20.0832 8.21863 20.0832 7.66634C20.0832 7.11406 20.5309 6.66634 21.0832 6.66634Z" fill="#303590"/>
 <path d="M21.0832 10.6663C21.6355 10.6663 22.0832 11.1141 22.0832 11.6663C22.0832 12.2186 21.6355 12.6663 21.0832 12.6663C20.5309 12.6663 20.0832 12.2186 20.0832 11.6663C20.0832 11.1141 20.5309 10.6663 21.0832 10.6663Z" fill="#303590"/>
 </svg>
+        <h3 class="text-lg font-semibold mb-2 dark:text-white">ألعاب لعبتها</h3>
+        <p id="results-games-count" class="text-gray-700 dark:text-gray-300 text-center">
+          رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
+        </p>
+      </div>
 
-              </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">ألعاب لعبتها</h3>
-              <p id="results-games-count">
-                رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
-              </p>
-            </div>
-          </div>
-          <div  data-aos='zoom-in' class="bg-white w-80  rounded-2xl tilt-card hover:shadow-2xl cursor-default  shadow-lg z-10 ring-1 ring-gray-100 shadow-gray-300 p-6 flex flex-col justify-between">
-            <div class="flex flex-col justify-center w-full items-center">
-              
-              <div class="flex justify-center items-center">
-               <svg width="32" height="37" viewBox="0 0 32 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Card: Total Score -->
+      <div
+        data-aos="zoom-in"
+        class="w-80 bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 flex flex-col justify-between items-center shadow-lg hover:shadow-2xl ring-1 ring-gray-100 dark:ring-gray-700 transition-all duration-200"
+      >
+        <svg width="32" height="37" viewBox="0 0 32 37" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M16.739 3.87478C16.0842 4.49655 15.2899 5.50087 14.1116 6.9988L13.516 7.75598C13.4768 7.80586 13.4378 7.85556 13.3991 7.90497C12.8648 8.5869 12.3717 9.21623 11.6789 9.58587C10.9747 9.96162 10.1856 10.0053 9.35474 10.0514C9.29461 10.0547 9.23426 10.058 9.17371 10.0615L8.25072 10.1146C6.42057 10.2198 5.20653 10.2935 4.3603 10.4763C3.5449 10.6525 3.42255 10.8576 3.37027 10.9628C3.30804 11.0882 3.22343 11.353 3.56469 12.1832C3.91223 13.0287 4.55755 14.1261 5.52146 15.7554L6.00893 16.5794C6.03954 16.6312 6.07002 16.6825 6.1003 16.7335C6.54585 17.4839 6.94688 18.1592 7.05239 18.9461C7.15705 19.7267 6.95363 20.4912 6.7244 21.3527C6.70881 21.4113 6.69311 21.4703 6.67737 21.5299L6.42723 22.4758C5.93316 24.3444 5.60191 25.6093 5.49055 26.5365C5.37916 27.4641 5.54071 27.6721 5.6052 27.7417C5.60613 27.7427 5.60711 27.7437 5.60815 27.7449C5.65076 27.7915 5.7929 27.9471 6.60944 27.8529C7.39364 27.7624 8.44907 27.4848 9.98432 27.0619C9.48584 26.6468 9.05366 26.2625 8.71692 25.9009C8.12197 25.262 7.55772 24.4151 7.71361 23.3209C7.87065 22.2186 8.657 21.57 9.41226 21.1354C10.1359 20.7191 11.1424 20.325 12.3006 19.8714L13.0378 19.5827C13.4093 19.4372 13.6162 19.3551 13.766 19.282C13.8509 19.2406 13.8849 19.2171 13.895 19.2092C13.9027 19.199 13.9255 19.1648 13.9651 19.0801C14.0355 18.9296 14.1139 18.7221 14.253 18.3488L14.5291 17.6078C14.9625 16.4446 15.3394 15.4331 15.7438 14.7034C16.1665 13.9404 16.8022 13.1462 17.9006 12.9701C18.99 12.7954 19.847 13.3404 20.4987 13.9229C21.1265 14.4839 21.8253 15.32 22.6331 16.2868L23.1444 16.8986C23.4026 17.2075 23.5489 17.3811 23.6685 17.5032C23.722 17.5579 23.7547 17.5858 23.7729 17.6C23.7816 17.6067 23.7868 17.6102 23.7893 17.6118L23.7938 17.6144L23.7984 17.6164C23.801 17.6174 23.8067 17.6194 23.817 17.6223C23.8386 17.6282 23.8798 17.6376 23.9548 17.6476C24.1227 17.6702 24.3475 17.6833 24.7478 17.705L25.541 17.7479C25.9158 17.7682 26.2757 17.7876 26.618 17.8094C27.4395 17.0862 27.9873 16.5544 28.3295 16.1075C28.6958 15.6291 28.6996 15.4128 28.6827 15.2871C28.666 15.1625 28.6097 14.9235 27.8938 14.4858C27.1513 14.0319 26.0262 13.5595 24.3302 12.8537L23.4746 12.4977C23.4188 12.4745 23.3632 12.4515 23.3078 12.4285C22.5357 12.1091 21.8067 11.8074 21.2642 11.2219C20.7309 10.6462 20.4679 9.89195 20.1808 9.0687C20.1602 9.00957 20.1395 8.95009 20.1185 8.89029L19.7982 7.9771C19.1648 6.17116 18.7353 4.95687 18.3148 4.15048C17.9018 3.35865 17.6803 3.32356 17.6387 3.31696C17.6377 3.31681 17.6368 3.31667 17.636 3.31654C17.6352 3.3164 17.6343 3.31622 17.6332 3.31602C17.5943 3.30867 17.3782 3.26787 16.739 3.87478ZM29.8107 18.4032C30.0355 18.1659 30.2377 17.9332 30.4138 17.7032C31.0145 16.9185 31.4285 16.0125 31.2844 14.9382C31.1125 13.6564 30.2478 12.8482 29.263 12.2462C28.3252 11.6728 27.0072 11.1244 25.4413 10.4729L24.4832 10.0742C23.4371 9.63884 23.2929 9.54919 23.1898 9.43789C23.0769 9.31601 22.9862 9.13514 22.5955 8.02147L22.2398 7.0072C21.651 5.32843 21.1611 3.93155 20.6422 2.93662C20.115 1.92571 19.366 0.948415 18.0768 0.728812C16.7839 0.508569 15.7568 1.18768 14.9316 1.97116C14.121 2.74079 13.2093 3.89994 12.1152 5.29098L11.4528 6.13307C10.7252 7.05807 10.5843 7.19464 10.4432 7.26991C10.3144 7.33865 10.1534 7.37584 9.02301 7.44084L8.10002 7.49392C8.06269 7.49607 8.02548 7.4982 7.98841 7.50033C6.2999 7.59735 4.87734 7.67909 3.80598 7.91054C2.68026 8.15374 1.5961 8.63354 1.01918 9.79538C0.452197 10.9372 0.69326 12.1022 1.1368 13.1812C1.56556 14.2243 2.31214 15.4862 3.20866 17.0015L3.74967 17.916C4.33947 18.913 4.42518 19.1049 4.45067 19.2949C4.47705 19.4917 4.44192 19.7154 4.13959 20.8588L3.86306 21.9046C3.40205 23.6479 3.02019 25.0918 2.88428 26.2235C2.74583 27.3763 2.80973 28.5867 3.67958 29.5256C4.57489 30.492 5.77996 30.5911 6.91041 30.4606C7.99598 30.3353 9.37718 29.9534 11.0175 29.4999L11.2422 29.4378L12.288 28.9297C12.3151 28.9536 12.3398 28.976 12.3628 28.9976C12.4186 29.05 12.4472 29.0821 12.4616 29.0999C12.4685 29.1084 12.472 29.1135 12.4736 29.1158L12.4761 29.1199L12.4778 29.1238C12.4788 29.1261 12.4809 29.1316 12.4838 29.1416C12.49 29.1626 12.5001 29.2031 12.5115 29.2774C12.5371 29.4441 12.5543 29.6677 12.5833 30.0667L12.6407 30.8576C12.7312 32.1041 12.8097 33.1849 12.9926 34.0039C13.1837 34.8595 13.565 35.7941 14.549 36.2882C15.5366 36.7841 16.5133 36.5268 17.3102 36.1631C18.0704 35.8161 18.9746 35.2273 20.0149 34.5499L20.6768 34.1188C21.0105 33.9016 21.197 33.7813 21.3433 33.7021C21.4084 33.6668 21.4454 33.651 21.4644 33.6439C21.4734 33.6406 21.4782 33.6392 21.4798 33.6388L21.4815 33.6384L21.4838 33.6382C21.4858 33.6381 21.4914 33.6378 21.5017 33.6382C21.5234 33.6391 21.5652 33.6427 21.6399 33.6559C21.8071 33.6855 22.0261 33.7415 22.415 33.8427L23.1859 34.0433C24.4017 34.3597 25.4546 34.6337 26.289 34.7243C27.1545 34.8183 28.1748 34.7628 28.9542 33.971C29.7347 33.1781 29.7722 32.1566 29.662 31.2933C29.556 30.462 29.2621 29.4162 28.923 28.2098L28.7079 27.444C28.5994 27.0577 28.5394 26.8407 28.5067 26.6749C28.4922 26.6009 28.4879 26.5596 28.4867 26.5385C28.4861 26.5285 28.4862 26.5233 28.4863 26.5216C28.4863 26.5215 28.4865 26.5199 28.4866 26.5194C28.4869 26.5181 28.4881 26.5135 28.4913 26.5047C28.4979 26.486 28.5129 26.449 28.547 26.3836C28.6237 26.2364 28.7407 26.0484 28.9524 25.7116L29.3725 25.0432C30.0324 23.9935 30.6063 23.0807 30.9404 22.3157C31.2907 21.5137 31.5321 20.5314 31.0155 19.5522C30.7221 18.9961 30.2885 18.6394 29.8107 18.4032ZM18.2783 15.5606C18.2779 15.5595 18.2843 15.5593 18.2987 15.5636C18.2859 15.5639 18.2787 15.5618 18.2783 15.5606ZM18.3207 15.5715C18.3823 15.5964 18.5156 15.6711 18.7496 15.8802C19.2165 16.2975 19.7923 16.981 20.6836 18.0475L21.1303 18.5819C21.1619 18.6199 21.1937 18.6581 21.2257 18.6966C21.6157 19.166 22.032 19.6671 22.6158 19.9603C23.201 20.2541 23.8511 20.2874 24.4578 20.3184C24.5075 20.3209 24.5569 20.3235 24.606 20.3261L25.2982 20.3636C26.6799 20.4384 27.5665 20.4898 28.1768 20.6139C28.4681 20.6732 28.6111 20.7339 28.6748 20.7707C28.6797 20.7735 28.6838 20.7761 28.6874 20.7783C28.6872 20.7803 28.6871 20.7824 28.6869 20.7847C28.6814 20.8515 28.6516 20.9976 28.5348 21.2651C28.2895 21.8268 27.826 22.5709 27.0956 23.733L26.73 24.3146C26.7039 24.3561 26.6774 24.3979 26.6508 24.44C26.3299 24.9469 25.9803 25.4992 25.8876 26.15C25.7953 26.7977 25.9743 27.4274 26.1399 28.0097C26.1536 28.0581 26.1673 28.1062 26.1807 28.1539L26.3683 28.8217C26.7429 30.1549 26.9797 31.0107 27.0582 31.6255C27.0939 31.9055 27.0849 32.0517 27.0728 32.1198C27.0046 32.1334 26.8572 32.1456 26.5725 32.1147C25.954 32.0475 25.0912 31.8266 23.7486 31.4773L23.076 31.3023C23.0279 31.2898 22.9796 31.277 22.9309 31.2642C22.3438 31.1096 21.7114 30.943 21.0659 31.0465C20.4172 31.1505 19.8711 31.5085 19.3684 31.838C19.3268 31.8653 19.2855 31.8923 19.2445 31.919L18.6682 32.2943C17.517 33.0438 16.7793 33.5199 16.2203 33.775C15.954 33.8965 15.8073 33.9293 15.739 33.9361C15.7351 33.9365 15.7315 33.9368 15.7284 33.937C15.7259 33.9333 15.7231 33.9289 15.7199 33.9236C15.6823 33.8614 15.619 33.7206 15.5545 33.4317C15.4192 32.826 15.3516 31.9434 15.2515 30.5663L15.2014 29.8765C15.1978 29.8276 15.1944 29.7783 15.1909 29.7287C15.1488 29.1243 15.1036 28.4747 14.7977 27.895C14.493 27.3173 13.983 26.911 13.5058 26.5308C13.4666 26.4996 13.4276 26.4685 13.389 26.4376L12.8452 26.0017C11.7602 25.132 11.0646 24.5701 10.6379 24.112C10.4293 23.8879 10.3511 23.7576 10.3235 23.6956C10.368 23.6463 10.4764 23.5516 10.7214 23.4107C11.2535 23.1045 12.0716 22.7803 13.3535 22.2782L13.9951 22.0269C14.0411 22.0089 14.0875 21.9909 14.1343 21.9727C14.6944 21.7554 15.3054 21.5183 15.7658 21.0507C16.2265 20.5826 16.4534 19.9679 16.661 19.4052C16.6784 19.3582 16.6956 19.3116 16.7128 19.2654L16.953 18.6208C17.4329 17.333 17.7429 16.5115 18.0398 15.9757C18.179 15.7246 18.2727 15.6153 18.3207 15.5715ZM10.3102 23.6506C10.3113 23.6509 10.3137 23.6581 10.3138 23.671C10.3091 23.6566 10.309 23.6502 10.3102 23.6506ZM10.3067 23.7158C10.3023 23.7292 10.2973 23.7359 10.2959 23.7359C10.2945 23.7359 10.2967 23.7292 10.3067 23.7158ZM27.0569 32.1708C27.0561 32.1698 27.0584 32.1621 27.0659 32.1509C27.0614 32.1662 27.0577 32.1718 27.0569 32.1708ZM27.1038 32.1121C27.1146 32.1046 27.1221 32.1022 27.1231 32.1029C27.1241 32.1036 27.1187 32.1074 27.1038 32.1121ZM18.3384 15.5566C18.3518 15.5463 18.3585 15.544 18.3585 15.5455C18.3586 15.5469 18.3518 15.552 18.3384 15.5566Z" fill="#303590"/>
 </svg>
-
-              </div>
-              <h3 class="text-lg font-semibold text-[#041710] my-2">نقاط إجمالية</h3>
-              <p id="results-total-score">
-                رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
-              </p>
-            </div>
-          </div>
-
-        </div>
-        <div class="results-box">
-          <div id="resultsArea" class="results-area"></div>
-          <button id="backToMenuButton" class="btn btn-primary back-btn">العودة للقائمة الرئيسية</button>
-        </div>
+        <h3 class="text-lg font-semibold mb-2 dark:text-white">نقاط إجمالية</h3>
+        <p id="results-total-score" class="text-gray-700 dark:text-gray-300 text-center">
+          رحلة مثيرة مليئة بالتحديات والاكتشافات المذهلة
+        </p>
       </div>
-    </section>
+    </div>
+
+    <!-- Detailed Results & Back Button -->
+    <div class="results-box bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 space-y-4 shadow ring-1 ring-gray-100 dark:ring-gray-700 transition-colors duration-200">
+      <div id="resultsArea" class="results-area text-gray-800 dark:text-gray-200"></div>
+      <button
+        id="backToMenuButton"
+        class="w-full py-2 bg-[#303590] hover:bg-[#25246e] dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-150"
+      >
+        العودة للقائمة الرئيسية
+      </button>
+    </div>
+  </div>
+</section>
+
     
-    <section id="finalCitizen" class="screen">
-      <header class="game-header">
+    <section id="finalCitizen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
+      <header class="game-header dark:bg-gray-800 ">
         <div class="headercontainer">
           <h1>النتائج النهائية</h1>
         </div>
       </header>
-      <div class="results-box">
+      <div class="results-box dark:bg-gray-800">
         <p>انتهت اللعبة بفوز المواطنين🎉</p>
-        <button onclick="loadStoredResultsMafia()" class="btn btn-primary">إظهار
+        <button onclick="loadStoredResultsMafia()" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">إظهار
           النتيجة</button>
 
       </div>
     </section>
-    <section id="finalMafia" class="screen">
-      <header class="game-header">
+    <section id="finalMafia" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
+      <header class="game-header dark:bg-gray-800">
         <div class="headercontainer">
           <h1>النتائج النهائية</h1>
         </div>
       </header>
-      <div class="results-box">
+      <div class="results-box dark:bg-gray-800">
         <p>انتهت اللعبة بفوز المافيا🎉</p>
-        <button onclick="loadStoredResultsMafia()" class="btn btn-primary">إظهار
+        <button onclick="loadStoredResultsMafia()" class="btn btn-primary dark:bg-blue-500  dark:hover:bg-blue-600">إظهار
           النتيجة</button>
 
       </div>
     </section>
-    <section id="MorningDurationScreen" class="screen">
+    <section id="MorningDurationScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <header class="game-header">
         <div class="headercontainer">
           <h1>🕵️‍♂️ لعبة: المافيا</h1>
@@ -2818,7 +2839,7 @@
           <p>وسيتم استبعاد🚫 صاحب أغلبية الأصوات حتى لو كان بريئا</p>
         </div>
 
-        <button onclick="startMafiaVotingMorning()" class="btn-start-night">بدء
+        <button onclick="startMafiaVotingMorning()" class="btn-start-night dark:bg-gray-200 dark:text-black">بدء
           الجولة الصباحية 🌞</button>
 
         <div class="stats">
@@ -2833,7 +2854,7 @@
         </div>
       </div>
     </section>
-    <section id="NightDurationScreen" class="screen">
+    <section id="NightDurationScreen" class="screen dark:bg-gray-900 text-gray-900 dark:text-white">
       <header class="game-header">
         <div class="headercontainer">
           <h1>🕵️‍♂️ لعبة: المافيا</h1>
@@ -2855,7 +2876,7 @@
           <p>🌅 يبدأ النقاش وتبادل الاتهامات بعد انتهاء الليل.</p>
         </div>
 
-        <button onclick="startMafiaVoting()" class="btn-start-night">ابدأ الجولة
+        <button onclick="startMafiaVoting()" class="btn-start-night dark:bg-gray-200 dark:text-black">ابدأ الجولة
           المسائية ⚫️ zZz</button>
 
         <div class="stats">
@@ -2872,8 +2893,8 @@
     </section>
 
     <!-- HTML -->
-<nav class="bottom-nav pb-1">
-  <button class="nav-btn active" id="nav-players" data-target="nav-players">
+<nav class="bottom-nav pb-1 dark:bg-black ">
+  <button class="nav-btn active  dark:text-gray-300 hover:text-gray-900 dark:hover:text-white " id="nav-players" data-target="nav-players">
     <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M9.33301 1.25C6.70966 1.25 4.58301 3.37665 4.58301 6C4.58301 8.62335 6.70966 10.75 9.33301 10.75C11.9564 10.75 14.083 8.62335 14.083 6C14.083 3.37665 11.9564 1.25 9.33301 1.25ZM6.08301 6C6.08301 4.20507 7.53808 2.75 9.33301 2.75C11.1279 2.75 12.583 4.20507 12.583 6C12.583 7.79493 11.1279 9.25 9.33301 9.25C7.53808 9.25 6.08301 7.79493 6.08301 6Z" fill="#666666"/>
       <path d="M15.333 2.25C14.9188 2.25 14.583 2.58579 14.583 3C14.583 3.41421 14.9188 3.75 15.333 3.75C16.5756 3.75 17.583 4.75736 17.583 6C17.583 7.24264 16.5756 8.25 15.333 8.25C14.9188 8.25 14.583 8.58579 14.583 9C14.583 9.41421 14.9188 9.75 15.333 9.75C17.4041 9.75 19.083 8.07107 19.083 6C19.083 3.92893 17.4041 2.25 15.333 2.25Z" fill="#666666"/>
@@ -2882,7 +2903,7 @@
       </svg>
     <span class="text-sm md:text-base font-semibold">اللاعبين</span>
   </button>
-  <button class="nav-btn" id="nav-games" data-target="nav-games">
+  <button class="nav-btn dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" id="nav-games" data-target="nav-games">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M5.65845 3.45374C6.1639 3.27447 6.67734 3.25 7.10257 3.25H7.71504C8.74784 3.25 9.7552 3.5704 10.5982 4.16702L11.1001 4.52223C11.3633 4.70844 11.6777 4.80844 12 4.80844C12.3224 4.80844 12.6368 4.70844 12.8999 4.52222L13.4018 4.16703C14.2448 3.5704 15.2522 3.25 16.2849 3.25H16.8974C17.3227 3.25 17.8361 3.27447 18.3415 3.45373C19.7848 3.96561 20.9262 5.14191 21.6779 7.04514C22.4219 8.92876 22.8039 11.5642 22.7439 15.1153C22.7312 15.8648 22.6377 16.7048 22.3495 17.4614C22.0576 18.2279 21.5475 18.9504 20.6893 19.3608C20.2011 19.5943 19.6257 19.75 18.9733 19.75C18.1864 19.75 17.5391 19.5233 17.0312 19.1905C16.5588 18.8808 16.1457 18.4805 15.7928 18.1385C15.7498 18.0968 15.7077 18.0561 15.6665 18.0164C15.2616 17.6267 14.9212 17.3226 14.5435 17.1267C14.0662 16.8792 13.5365 16.75 12.9989 16.75H11.0012C10.4635 16.75 9.93378 16.8792 9.45652 17.1267C9.07878 17.3226 8.73837 17.6267 8.33351 18.0164C8.29232 18.0561 8.25024 18.0968 8.20726 18.1385C7.85433 18.4805 7.44123 18.8808 6.96877 19.1905C6.46087 19.5233 5.81363 19.75 5.02671 19.75C4.37431 19.75 3.79887 19.5943 3.31066 19.3608C2.45248 18.9504 1.94246 18.2279 1.65049 17.4614C1.36232 16.7048 1.26883 15.8648 1.25615 15.1153C1.19607 11.5643 1.57809 8.92876 2.32207 7.04515C3.0738 5.14192 4.2152 3.96561 5.65845 3.45374ZM7.10257 4.75C6.71943 4.75 6.41628 4.77651 6.15985 4.86745C5.2204 5.20065 4.35098 5.99156 3.71719 7.59618C3.07565 9.22042 2.69746 11.6334 2.75593 15.0899C2.76714 15.7524 2.85078 16.3985 3.05225 16.9275C3.24992 17.4465 3.54206 17.8088 3.95781 18.0076C4.26356 18.1538 4.61904 18.25 5.02671 18.25C5.51183 18.25 5.87475 18.114 6.14651 17.9359C6.49227 17.7093 6.79957 17.4125 7.16871 17.0559C7.20944 17.0165 7.25091 16.9765 7.29328 16.9357C7.69425 16.5497 8.1737 16.1022 8.76598 15.7951C9.45661 15.4369 10.2232 15.25 11.0012 15.25H12.9989C13.7768 15.25 14.5434 15.4369 15.234 15.7951C15.8263 16.1022 16.3058 16.5497 16.7067 16.9357C16.7491 16.9765 16.7906 17.0165 16.8313 17.0559C17.2004 17.4125 17.5077 17.7093 17.8535 17.9359C18.1253 18.114 18.4882 18.25 18.9733 18.25C19.381 18.25 19.7364 18.1538 20.0422 18.0076C20.458 17.8088 20.7501 17.4465 20.9478 16.9275C21.1492 16.3985 21.2329 15.7524 21.2441 15.0899C21.3025 11.6334 20.9244 9.22041 20.2828 7.59618C19.649 5.99155 18.7796 5.20064 17.8401 4.86745C17.5837 4.77651 17.2806 4.75 16.8974 4.75H16.2849C15.5626 4.75 14.858 4.9741 14.2683 5.39141L13.7664 5.74661C13.25 6.11214 12.6328 6.30844 12 6.30844C11.3673 6.30844 10.7501 6.11215 10.2336 5.74662L9.73171 5.39142C9.14205 4.97411 8.43744 4.75 7.71504 4.75H7.10257ZM7.5 8.25C7.91422 8.25 8.25 8.58579 8.25 9V9.75H9C9.41422 9.75 9.75 10.0858 9.75 10.5C9.75 10.9142 9.41422 11.25 9 11.25H8.25V12C8.25 12.4142 7.91422 12.75 7.5 12.75C7.08579 12.75 6.75 12.4142 6.75 12V11.25H6C5.58579 11.25 5.25 10.9142 5.25 10.5C5.25 10.0858 5.58579 9.75 6 9.75H6.75V9C6.75 8.58579 7.08579 8.25 7.5 8.25Z" fill="#666666"/>
       <path d="M19 10.25C19 10.6642 18.6642 11 18.25 11C17.8358 11 17.5 10.6642 17.5 10.25C17.5 9.83579 17.8358 9.5 18.25 9.5C18.6642 9.5 19 9.83579 19 10.25Z" fill="#666666"/>

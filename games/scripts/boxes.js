@@ -135,7 +135,7 @@ total_games["box"] = localStorage.getItem("total_games")?((JSON.parse(localStora
     grid.innerHTML = '';
     nums.forEach(n => {
       const btn = document.createElement('button');
-      btn.className = 'box';
+      btn.className = 'box dark:text-gray-900';
       btn.textContent = n;
       btn.onclick = () => handleClick(n, btn);
       grid.appendChild(btn);

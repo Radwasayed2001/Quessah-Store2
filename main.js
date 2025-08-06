@@ -68,10 +68,10 @@ class InteractiveStories {
         storyCards.forEach((card, index) => {
             card.addEventListener('click', () => {
                 // Remove active class from all cards
-                storyCards.forEach(c => c.classList.remove('ring-2', 'ring-[#565BB6]', 'bg-[#898EE9]'));
+                storyCards.forEach(c => c.classList.remove('ring-2', 'ring-[#565BB6]', 'bg-[#898EE9]', 'dark:bg-[#898EE9]', 'dark:text-white'));
                 
                 // Add active class to selected card
-                card.classList.add('ring-2', 'ring-[#565BB6]', 'bg-[#898EE9]');
+                card.classList.add('ring-2', 'ring-[#565BB6]', 'bg-[#898EE9]', 'dark:bg-[#898EE9]', 'dark:text-white');
                 
                 // Set story type based on card index
                 const storyTypes = ['Adventure', 'Fantasy', 'Comedy', 'Mystery'];
@@ -558,14 +558,14 @@ if (this.storySteps.length >= 4) {
         }
         // إنشاء HTML للقصة والخيارات
         let html = `
-          <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
-            <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl text-center animate-bounce-in">
+          <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in dark:bg-gray-800 dark:text-white">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl text-center animate-bounce-in dark:bg-gray-700 dark:text-white">
               <div class="mb-6">
                 <div class="text-4xl mb-4">📖</div>
-                <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">${step.text}</div>
+                <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800 dark:text-white">${step.text}</div>
               </div>
               <div class="p-2 sm:p-4 md:p-6">
-                <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800">ماذا يفعل بطل القصة؟</div>
+                <div class="font-bold text-base sm:text-xl mb-3 sm:mb-4 text-gray-800 dark:text-white">ماذا يفعل بطل القصة؟</div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 sm:mb-6">
         `;
         
@@ -573,7 +573,7 @@ if (this.storySteps.length >= 4) {
             step.options.forEach((option, index) => {
                 html += `
                   <button 
-                    class="option-btn w-full bg-white border border-gray-200 rounded-lg py-3 px-4 text-gray-700 hover:bg-gray-50 transition text-right text-sm sm:text-base"
+                    class="option-btn w-full bg-white border border-gray-200 rounded-lg py-3 px-4 text-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition text-right text-sm sm:text-base dark:bg-gray-600 dark:text-white"
                     data-next-step="${option.nextStep}"
                     type="button"
                   >
@@ -585,7 +585,7 @@ if (this.storySteps.length >= 4) {
         
         html += `
                 </div>
-                <button id="next-btn" class="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 rounded-lg py-3 font-semibold cursor-not-allowed mt-4" disabled>
+                <button id="next-btn" class="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-400 rounded-lg py-3 font-semibold cursor-not-allowed mt-4 dark:bg-gray-600" disabled>
                   التالي
                   <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </button>
@@ -833,12 +833,12 @@ ${this.storySteps.join('\n')}
         if (fullStoryContainer && storyScreen && completeScreen) {
             // Create the complete story HTML with better formatting and images
             let storyHTML = `
-            <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in">
-              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-4xl text-center animate-bounce-in">
+            <div class="min-h-[70vh] flex items-center justify-center py-8 animate-fade-in  dark:bg-gray-800 dark:text-white">
+              <div class="bg-white dark:bg-gray-800 dark:shadow-none rounded-3xl shadow-2xl p-8 w-full max-w-4xl text-center animate-bounce-in">
                 <div class="flex flex-col items-center mb-6">
                   <span class="text-5xl animate-bounce mb-2">🎉</span>
-                  <h2 class="text-3xl font-extrabold mb-2 text-indigo-800 tracking-tight animate-fade-in">قصتك الكاملة</h2>
-                  <p class="text-gray-500 text-base animate-fade-in">استمتع بقراءة مغامرتك الرائعة مع الصور!</p>
+                  <h2 class="text-3xl font-extrabold mb-2 dark:text-indigo-300 text-indigo-800 tracking-tight animate-fade-in">قصتك الكاملة</h2>
+                  <p class="text-gray-500 text-base animate-fade-in dark:text-gray-400">استمتع بقراءة مغامرتك الرائعة مع الصور!</p>
                 </div>
                 <div class="mb-8 space-y-8">
                   ${this.storySteps
@@ -851,16 +851,16 @@ ${this.storySteps.join('\n')}
                     <div class="story-image-container-${i} flex justify-center mb-4">
                         <div class="loading-image text-center">
                     <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-2"></div>
-                          <span class="text-gray-500">جاري إنشاء الصورة المتناسقة...</span>
+                          <span class="text-gray-500 dark:text-gray-400">جاري إنشاء الصورة المتناسقة...</span>
                           </div>
                       </div>
                       `
                   :""
                         }
-                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4">
+                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4 dark:from-gray-700 dark:to-gray-800 dark:text-gray-200">
                         <span class="block">${step}</span>
                       </div>
-                      ${i < arr.length-1 ? '<div class=\"my-4 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse\"></div>' : ''}
+                      ${i < arr.length-1 ? '<div class=\"my-4 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse dark:from-gray-600 dark:to-gray-700\"></div>' : ''}
                     </div>
                   `).join('')}
                 </div>
@@ -869,10 +869,10 @@ ${this.storySteps.join('\n')}
               </div>
             </div>
             <div id="story-modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 hidden pt-8">
-              <div class="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md text-center relative animate-fade-in-up mt-8">
+              <div class="bg-white  dark:bg-gray-800 dark:shadow-none rounded-3xl shadow-2xl p-8 w-full max-w-md text-center relative animate-fade-in-up mt-8">
                 <div class="text-5xl mb-2 animate-bounce">✨</div>
-                <h3 class="text-2xl font-extrabold mb-2 text-indigo-800 animate-fade-in">رائع! كانت رحلة ممتعة.</h3>
-                <p class="text-gray-600 mb-4 animate-fade-in">لقد وصلت إلى نهاية المغامرة!</p>
+                <h3 class="text-2xl font-extrabold mb-2 text-indigo-800 animate-fade-in dark:text-indigo-300">رائع! كانت رحلة ممتعة.</h3>
+                <p class="text-gray-600 mb-4 animate-fade-in dark:text-gray-400">لقد وصلت إلى نهاية المغامرة!</p>
                 <div class="flex flex-col gap-3 mb-4 animate-fade-in-up">
                   <button style="display: none !important;" id="download-pdf" class="hidden w-full flex items-center justify-center gap-2 bg-red-600 text-white rounded-lg py-2 font-semibold hover:bg-red-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M12 16.5l4-4h-3v-9h-2v9H8l4 4zm9-13v6l-6 6v-4.5l-4.5 4.5h-9v-12h19.5z'/></svg>تحميل القصة كـ PDF</button>
                   <button id="print-story" class="w-full flex items-center justify-center gap-2 bg-blue-600 text-white rounded-lg py-2 font-semibold hover:bg-blue-700 transition"><svg class='w-5 h-5' fill='currentColor' viewBox='0 0 24 24'><path d='M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6V4h12v3z'/></svg>طباعة القصة</button>
@@ -889,10 +889,8 @@ ${this.storySteps.join('\n')}
                   <button id="share-twitter" class="w-full flex items-center justify-center gap-2 bg-black text-white rounded-lg py-2 font-semibold hover:bg-gray-900 transition"><svg style="width: 1.375rem;margin-left: 5px;margin-top: 5px;" fill='currentColor' viewBox='0 0 24 24'><path d='M17.53 2.477h3.7l-8.13 9.3 9.57 9.746h-7.53l-5.94-6.6-6.8 6.6H1.47l8.7-9.6L.29 2.477h7.7l5.36 5.97 6.2-5.97zm-1.06 16.07h2.05L7.1 4.98H4.92l11.55 13.567z'/></svg>شارك عبر X</button>
                   <button id="share-copy" class="w-full flex items-center justify-center gap-2 bg-gray-200 text-gray-700 rounded-lg py-2 font-semibold hover:bg-gray-300 transition"><svg class='w-5 h-5' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'/><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'/></svg>نسخ نص القصة</button>
                 </div>
-                <button id="share-instagram">تحميل القصة كصورة</button>
-<button id="download-pdf">تحميل القصة PDF</button>
-                <button id="new-story-btn" class="w-full mt-2 py-2 bg-indigo-100 text-indigo-700 rounded-lg font-semibold hover:bg-indigo-200 transition animate-fade-in">ابدأ قصة جديدة ↺</button>
-                <button id="close-modal" class="absolute top-2 left-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+                <button id="new-story-btn" class="w-full mt-2 py-2 bg-indigo-100 text-indigo-700 rounded-lg font-semibold hover:bg-indigo-200 transition animate-fade-in  dark:bg-indigo-700 dark:text-indigo-100 dark:hover:bg-indigo-600">ابدأ قصة جديدة ↺</button>
+                <button id="close-modal" class="absolute top-2 left-2 text-gray-400 hover:text-gray-700 text-2xl dark:text-gray-500 hover:text-gray-700 dark:hover:text-white">&times;</button>
               </div>
             </div>`;
             fullStoryContainer.innerHTML = storyHTML;
