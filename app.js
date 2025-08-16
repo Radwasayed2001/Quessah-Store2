@@ -33,52 +33,90 @@ async function spinWheel() {
   if (isSpinning || currentPrizes.length === 0) return;
 
   // حد يومي
-  const today    = new Date().toDateString();
-  const userId   = getUserId();
-  const key      = `dailyClaim_${userId}`;
+  const today  = new Date().toDateString();
+  const userId = getUserId();
+  const key    = `dailyClaim_${userId}`;
+
   // جلب آخر Claim من Firestore
-const lastDoc = await db.collection('claims').doc(key).get();
-const last = lastDoc.exists ? lastDoc.data() : {};
+  const lastDoc = await db.collection('claims').doc(key).get();
+  const last = lastDoc.exists ? lastDoc.data() : {};
 
   if (last.claimDate && new Date(last.claimDate).toDateString() === today) {
     alert('لقد استخدمت عجلة الحظ اليوم! يمكنك المحاولة مرة أخرى غداً');
     return;
   }
 
-  const n = currentPrizes.length;
+  // snapshot ثابت للجوائز (عشان لو اتغيّرت خلال الأنيميشن)
+  const prizesSnapshot = [...currentPrizes];
+  const n = prizesSnapshot.length;
+
   if (n < 6) {
     alert('يجب أن تحتوي العجلة على 6 جوائز على الأقل');
     return;
   }
 
-  // 1) اختَر فائزاً بناءً على الأوزان
-  const totalWeight = currentPrizes.reduce((sum, p) => sum + (p.weight || 1), 0);
-  let r = Math.random() * totalWeight;
-  let chosen = 0;
-  for (let i = 0; i < n; i++) {
-    r -= (currentPrizes[i].weight || 1);
-    if (r <= 0) {
+  // ===== 1) حساب الأوزان والتحقق منها على الـ snapshot =====
+  const weights = prizesSnapshot.map(p => {
+    const raw = p.weight ?? 1;
+    const num = Number(raw);
+    return (isFinite(num) && num > 0) ? num : 0;
+  });
+
+  const totalWeight = weights.reduce((s, w) => s + w, 0);
+
+  if (totalWeight <= 0) {
+    alert('مشكلة في أوزان الجوائز: مجموع الأوزان صفر أو غير صالح.');
+    return;
+  }
+
+  // ===== 2) اختيار عشوائي صحيح في المدى [1 .. totalWeight] =====
+  const rInt = Math.floor(Math.random() * totalWeight) + 1; // 1..totalWeight
+  console.log(`Random integer for selection: ${rInt} (Total weight: ${totalWeight})`);
+  let cum = 0;
+  let chosen = weights.length - 1; // fallback آخر عنصر
+  for (let i = 0; i < weights.length; i++) {
+    console.log(`Checking weight ${prizesSnapshot[i].name}: ${weights[i]} (before cum: ${cum})`);
+    cum += weights[i];
+    console.log(`i= ${i}  cum ${cum}`);
+    if (rInt <= cum) {
       chosen = i;
       break;
     }
   }
+  console.log('Chosen index (by weights):', chosen, 'prize:', prizesSnapshot[chosen]?.name);
 
+  // Defensive: تأكد chosen صالح
+  if (typeof chosen !== 'number' || chosen < 0 || chosen >= n) {
+    console.error('Invalid chosen index, fallback to 0');
+    chosen = 0;
+  }
+
+  // (الجزء الباقي من الأنيميشن) — استخدم chosen + prizesSnapshot
   isSpinning = true;
   const btn = document.getElementById('spin-button');
   btn.disabled      = true;
   btn.textContent   = 'جاري التدوير...';
 
-  // 2) زاوية القطاع
+  // 2) زاوية القطاع (اعتمد على طول الـ snapshot)
   const segA        = 2 * Math.PI / n;
-  const targetAngle = (chosen + 0.5) * segA;      // مركز قطاع الجائزة
-  const pointer     = -Math.PI / 2;               // 12 o'clock
+  const pointer     = -Math.PI / 2;               // 12 o'clock (ثابت على الشاشة)
 
-  // 3) حساب delta
-  const currentMod  = wheelAngle % (2 * Math.PI);
-  let delta = (2 * Math.PI - ((targetAngle - currentMod + 2 * Math.PI) % (2 * Math.PI))) % (2 * Math.PI);
+  // ===== مفتاح التعديل: احسب finalTarget بحيث المؤشر يقع على منتصف قطاع chosen =====
+  // نريد: norm = (pointer - final + TAU) % TAU === (chosen + 0.5)*segA
+  // => final = pointer - (chosen + 0.5)*segA  (mod TAU)
+  const TAU = 2 * Math.PI;
+  const centerOfChosen = (chosen + 0.5) * segA; // زاوية منتصف قطاع chosen بالنسبة لإحداثيات القطاع
+  const finalTargetMod = ((pointer - centerOfChosen) % TAU + TAU) % TAU; // زاوية wheelAngle % TAU التي تجعل المؤشر يواجه منتصف الـ chosen
 
-  // 4) إضافة 4 دورات كاملة
-  const totalRot = delta + 4 * 2 * Math.PI;
+  // current normalized wheel angle
+  const currentMod  = ((wheelAngle % TAU) + TAU) % TAU;
+
+  // نحسب دلتا موجبة للوصول إلى finalTargetMod (دوران للأمام)
+  let delta = (finalTargetMod - currentMod + TAU) % TAU;
+
+  // لو حابب تضيف تنويع (مثلاً 3-6 دورات) بدل ثابت 4
+  const extraFullRotations = 4; // تقدر تجعلها Math.floor(3 + Math.random()*3) لو عايز تنويع
+  const totalRot = delta + extraFullRotations * TAU;
 
   const start    = wheelAngle;
   const duration = 3000;
@@ -93,12 +131,42 @@ const last = lastDoc.exists ? lastDoc.data() : {};
     if (t < 1) {
       requestAnimationFrame(animate);
     } else {
+      // Force final exact value to avoid any floating rounding drift, ثم رسم نهائي
+      wheelAngle = start + totalRot;
+      drawWheel();
+
       setTimeout(async () => {
-        // 5) تأكد من قطاع الهبوط
-        const final       = wheelAngle % (2 * Math.PI);
-        const norm        = (pointer - final + 2 * Math.PI) % (2 * Math.PI);
-        const landedIndex = Math.floor(norm / segA) % n;
-        const landedPrize = currentPrizes[landedIndex];
+        // عند الانتهاء نستخدم chosen كـ landedIndex (أضمن)
+        const landedIndex = chosen;
+        const landedPrize = prizesSnapshot[landedIndex];
+
+        // للتصحيح فقط: نحسب landedIndexFromAngle ونسجله في الـ console (لـ debug فقط)
+        const finalRaw = wheelAngle % TAU;
+        const final = ((finalRaw % TAU) + TAU) % TAU;
+        const normSafe = (((pointer - final + TAU) % TAU) + TAU) % TAU;
+        const landedIndexFromAngle = Math.floor(normSafe / segA) % n;
+
+        console.log({
+          wheelAngle,
+          finalRaw,
+          final,
+          pointer,
+          normSafe,
+          segA,
+          landedIndexFromAngle,
+          chosen,
+          n
+        });
+
+        // Defensive: لو لسبب ما landedPrize undefined (مصادفة)، استخدم fallback
+        if (!landedPrize) {
+          console.error('landedPrize undefined for chosen', chosen, 'falling back to snapshot[0]');
+          alert('حدث خطأ في تحديد الجائزة — يرجى المحاولة لاحقاً.');
+          isSpinning = false;
+          btn.disabled = false;
+          btn.textContent = 'تدوير العجلة';
+          return;
+        }
 
         // 6) حضّر كائن الـ claim
         const newClaim = {
@@ -128,6 +196,7 @@ const last = lastDoc.exists ? lastDoc.data() : {};
 
   animate();
 }
+
 
 
 

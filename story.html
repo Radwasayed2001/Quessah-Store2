@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قصة اليوم - عالم قصة</title>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PZWT3CRV');</script>
+<!-- End Google Tag Manager -->
     <script src="https://cdn.tailwindcss.com"></script>
      <link rel="stylesheet" href="./output.css">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -226,6 +233,10 @@
     </style>
 </head>
 <body class="bg-[#fff] dark:bg-[#121212]">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZWT3CRV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed  dark:bg-[#121212] inset-0 flex items-center justify-center bg-white z-50">
   <svg class="animate-spin h-12 w-12 text-primary dark:text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -286,14 +297,16 @@
     <!-- Story Content -->
     <section class="py-12 relative">
         <div class="container mx-auto px-4 max-w-4xl">
-            <!-- Story Image -->
-            <div class="text-center mb-12 animate-fade-in-up">
-                <img id="story-image" 
-                crossOrigin="anonymous"
-                     src="./images/friend.png" 
-                     alt="Story Image" 
-                     class="story-image w-full max-w-2xl mx-auto object-cover h-96 border border-gray-200 dark:border-gray-700 rounded-2xl">
-            </div>
+                        <!-- Story Image Loading Spinner -->
+                        <div id="story-image-loading" class="text-center mb-12 animate-fade-in-up">
+                            <svg class="animate-spin h-16 w-16 text-primary dark:text-accent mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                        </div>
+                        <div id="story-image-container" class="text-center mb-12 animate-fade-in-up" style="display:none;">
+                            <img id="story-image" crossOrigin="anonymous" src="" alt="Story Image" class="story-image w-full max-w-2xl mx-auto object-cover h-96 border border-gray-200 dark:border-gray-700 rounded-2xl">
+                        </div>
             
             <!-- Decorative Line -->
             <div class="decorative-line animate-slide-in-right"></div>
@@ -312,7 +325,7 @@
                 <div class="content-card rounded-3xl p-8 shadow-2xl bg-white dark:bg-[#1e1e1e]">
                     <h3 class="text-3xl font-bold text-center text-primary dark:text-[#a5b4fc] mb-8">شارك هذه القصة الملهمة</h3>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <!-- WhatsApp Share -->
                         <button onclick="shareWhatsApp()" class="share-button bg-green-500 hover:bg-green-600 text-white p-6 rounded-2xl flex flex-col items-center gap-4 shadow-lg">
                             <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
@@ -336,10 +349,6 @@
                             </svg>
                             <span class="text-lg font-semibold" id="instagram-btn-text">مشاركة عبر إنستاجرام</span>
                         </button>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                        <!-- Copy Link -->
                         <button onclick="copyToClipboard()" class="share-button bg-primary hover:bg-primary3 text-white p-6 rounded-2xl flex flex-col items-center gap-4 shadow-lg">
                             <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -347,6 +356,7 @@
                             <span class="text-lg font-semibold">نسخ الرابط</span>
                         </button>
                     </div>
+                    
                 </div>
             </div>
             
@@ -417,21 +427,39 @@ async function fetchStoryFromFirestore() {
     const loading = document.getElementById("loading-overlay");
     loading.style.display = "flex";
 
-    const story = await fetchStoryFromFirestore();
-    loading.style.display = "none";
-    if (story) {
-      // Main page
-      document.getElementById("story-title").textContent = story.title;
-      document.getElementById("story-image").src = story.image;
-      document.getElementById("story-content").innerHTML =
-        story.content.split("\n\n\n").map(p => `<p>${p}</p>`).join("");
+        const story = await fetchStoryFromFirestore();
+        loading.style.display = "none";
+        const imageLoadingDiv = document.getElementById("story-image-loading");
+        const imageContainerDiv = document.getElementById("story-image-container");
+        const storyImageEl = document.getElementById("story-image");
+        if (story) {
+            document.getElementById("story-title").textContent = story.title;
+            // شرط لإخفاء الصورة إذا كان الرابط غير صالح أو محلي
+            if (
+                story.image &&
+                story.image.trim() !== "" &&
+                !story.image.includes("dashboard.html") &&
+                !story.image.startsWith("file:///")
+            ) {
+                storyImageEl.src = story.image;
+                imageLoadingDiv.style.display = "none";
+                imageContainerDiv.style.display = "block";
+            } else {
+                imageLoadingDiv.style.display = "none";
+                imageContainerDiv.style.display = "none";
+            }
+            document.getElementById("story-content").innerHTML =
+                story.content;
 
-      // Hidden container for instagram
-      document.getElementById("story-image-title").textContent = story.title;
-      document.getElementById("story-image-pic").src = story.image;
-      document.getElementById("story-image-content").innerHTML =
-        story.content.split("\n\n\n").map(p => `<p>${p}</p>`).join("");
-    }
+            // Hidden container for instagram
+            document.getElementById("story-image-title").textContent = story.title;
+            document.getElementById("story-image-pic").src = story.image;
+            document.getElementById("story-image-content").innerHTML =
+                story.content;
+        } else {
+            imageLoadingDiv.style.display = "none";
+            imageContainerDiv.style.display = "none";
+        }
 
     initializeReadingProgress();
   });
@@ -517,7 +545,7 @@ async function fetchStoryFromFirestore() {
     imgEl.crossOrigin = "anonymous";
 
     // split content into paragraphs
-    const paras = story.content.split("\n\n\n").map(p => `<p>${p}</p>`).join("");
+    const paras = story.content;
     document.getElementById("story-image-content").innerHTML = paras;
 
     // 3) التقط الكانڤاس

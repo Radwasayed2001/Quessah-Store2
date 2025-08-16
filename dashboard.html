@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة التحكم - إدارة محتوى عالم قصة</title>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PZWT3CRV');</script>
+<!-- End Google Tag Manager -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Firebase App (core) SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
@@ -47,6 +54,10 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZWT3CRV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- Header -->
     <header class="bg-primary text-white py-6 shadow-lg">
         <div class="container mx-auto px-4">
@@ -324,11 +335,19 @@
     }
     c.innerHTML = snap.docs.map(doc => {
       const s = { id: doc.id, ...doc.data() };
+      const hasImage = s.image
+  && typeof s.image === 'string'
+  && s.image.trim() !== ''
+  && s.image.trim() !== 'null'
+  && !s.image.includes('dashboard.html')
+  && !s.image.startsWith('file:///');
+      console.log(s.image);
+      
       return `
       <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-start">
         <!-- عرض الصورة -->
         <div class="flex-shrink-0 mr-4">
-          <img src="${s.image}" alt="${s.title}" class="w-24 h-24 object-cover rounded-lg shadow-sm">
+           ${hasImage ? `<img src="${s.image}" alt="${s.title}" class="w-24 h-24 object-cover rounded-lg shadow-sm">` : ''}
         </div>
         <!-- نص القصة -->
         <div class="flex-1 text-right">
