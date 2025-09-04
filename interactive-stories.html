@@ -49,7 +49,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- الشعار -->
      <div class=" flex justify-center flex-1" style="margin-right: -100px;" >
     
-    <picture>
+    <style>
+      /* Mobile-first logo sizing */
+      .header-logo img { width: 96px; height: auto; }
+      @media (min-width: 768px) { .header-logo img { width: 128px; } }
+      /* Full story polish */
+      #full-story .rounded-3xl { box-shadow: 0 12px 32px rgba(0,0,0,0.12); border: 1px solid rgba(99,102,241,0.15); }
+      #full-story .text-3xl { letter-spacing: 0.3px; }
+      #full-story .bg-gradient-to-r.from-purple-50.to-pink-50 { background: linear-gradient(135deg, rgba(243,232,255,0.7), rgba(252,231,243,0.7)); }
+      #full-story .bg-gradient-to-r span { line-height: 2; font-size: 1.05rem; }
+      #full-story .story-image-container-0 img { max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+      #full-story button { border-radius: 12px; }
+      @media (max-width: 480px) {
+        #full-story .rounded-3xl { padding: 20px; }
+        #full-story .bg-gradient-to-r span { font-size: 1rem; }
+        #full-story .text-5xl { font-size: 2rem; }
+      }
+    </style>
+    <picture class="header-logo">
           <source media="(prefers-color-scheme: dark)" srcset="./games/public/white-logo.png">
           <img src="./games/public/quesahlogo.png" alt="Quesah Logo" width="120" height="52"
                class="cursor-pointer" onclick="goTomain()" />
