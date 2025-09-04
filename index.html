@@ -106,13 +106,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     /* Label style */
     .slice-label {
       position: absolute;
-      width: 80px;
+      width: 72px;
       text-align: center;
       color: #fff;
       font-weight: 600;
-      font-size: 0.85rem;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+      font-size: 0.8rem;
+      line-height: 1.15;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
       pointer-events: none;
+      z-index: 15; /* ensure above canvas, below pointer */
+      padding: 2px 4px;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.25); /* improve contrast so emojis/text don't clash */
     }
   </style>
   <style>
@@ -223,6 +228,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             0%, 100% { opacity: 0.5; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.05); }
         }
+    </style>
+    <style>
+      /* Tweak prize emoji to avoid overlapping the text */
+      #prize-icon {
+        font-size: 2.25rem; /* was text-4xl (~2.25rem) via class, ensure consistent */
+        line-height: 1;     /* compact line height to reduce overlap */
+      }
+    </style>
+    <style>
+      /* Hide scrollbar while preserving scroll */
+      .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
@@ -408,7 +425,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Wheel Modal -->
     <div id="wheel-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 modal-overlay max-w-screen overflow-x-hidden">
         <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-white dark:bg-gray-900 dark:text-white rounded-2xl max-w-2xl w-full fade-in">
+            <div class="bg-white dark:bg-gray-900 dark:text-white rounded-2xl max-w-2xl w-full fade-in max-h-[90vh] overflow-y-auto hide-scrollbar">
                 <div class="p-6 border-b border-gray-200">
                     <div class="flex justify-between items-center">
                         <h2 class="text-3xl font-bold text-accent">عجلة الحظ</h2>

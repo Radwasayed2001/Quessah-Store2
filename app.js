@@ -286,13 +286,13 @@ function getUserId() {
 
 // Event Listeners for modal close on outside click
 document.getElementById('wheel-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
+    if (!e.target.closest('.fade-in')) {
         closeWheelModal();
     }
 });
 
 document.getElementById('prize-modal').addEventListener('click', function(e) {
-    if (e.target === this) {
+    if (!e.target.closest('.fade-in')) {
         closePrizeModal();
     }
 });
@@ -428,6 +428,22 @@ function drawWheel() {
 
   wheelCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
 
+  // مساعد: رسم مستطيل بزوايا مستديرة
+  function roundRect(ctx, x, y, w, h, r) {
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+
   // تقسم النص لكلمات، ثم تجميعها بأسطر بحيث لا تتجاوز maxWidth
   function wrapText(ctx, text, maxWidth) {
     const words = text.split(' ');
@@ -467,25 +483,63 @@ function drawWheel() {
     wheelCtx.translate(cx, cy);
     wheelCtx.rotate(start + segA / 2);
 
-    // 1) أيقونة (28px)
-    wheelCtx.fillStyle = '#fff';
-    wheelCtx.font      = '28px serif';
-    wheelCtx.textAlign = 'center';
-    wheelCtx.fillText(p.icon, outerR * 0.5, 10);
+    // تحسين محاذاة النص
+    wheelCtx.textAlign    = 'center';
+    wheelCtx.textBaseline = 'middle';
 
-    // 2) نص الجائزة (16px) مقسّم على أسطر
-    wheelCtx.font      = '16px Cairo, Arial';
-    const maxTextW = outerR * 0.6;          // أقصى عرض للنص
+    // 1) أيقونة أصغر وبعيدة عن النص مع هالة خفيفة
+    const iconX = outerR * 0.42;
+    const iconY = 0;
+    wheelCtx.save();
+    wheelCtx.fillStyle = 'rgba(0,0,0,0.25)';
+    wheelCtx.beginPath();
+    wheelCtx.arc(iconX, iconY, 16, 0, Math.PI * 2);
+    wheelCtx.fill();
+    wheelCtx.restore();
+
+    wheelCtx.fillStyle = '#fff';
+    wheelCtx.font      = '24px serif';
+    wheelCtx.fillText(p.icon, iconX, iconY);
+
+    // 2) نص الجائزة (14px عريض) مع لف أسطر وخلفية مستديرة وحد شفاف
+    wheelCtx.font = 'bold 14px Tajawal, Cairo, Arial, sans-serif';
+    const maxTextW = outerR * 0.5; // أقصى عرض للنص
     const lines    = wrapText(wheelCtx, p.name, maxTextW);
-    const lh       = 18;                    // ارتفاع السطر
-    const totalH   = (lines.length - 1) * lh;
-    // نبدأ الرسم عند هذه النقطة (يقع في الاتجاه الشعاعي)
-    const textX    = outerR * 0.6;
-    let textY      = - totalH / 2;         // تعويض لإيجاد المنتصف عموديًا
+    const lh       = 16;           // ارتفاع السطر
+    const totalH   = Math.max(lh, lines.length * lh);
+    const textX    = outerR * 0.72; // أبعد قليلاً لتفادي تداخل الأيقونة
+    const textY    = 0;             // تمركز عمودي
 
+    // خلفية نصف شفافة بزوايا مستديرة وحد خفيف
+    const pad = 6;
+    const widest = lines.reduce((w, line) => Math.max(w, wheelCtx.measureText(line).width), 0);
+    const bgX = textX - widest / 2 - pad;
+    const bgY = textY - totalH / 2 - pad;
+    const bgW = widest + pad * 2;
+    const bgH = totalH + pad * 2;
+    wheelCtx.save();
+    roundRect(wheelCtx, bgX, bgY, bgW, bgH, 8);
+    wheelCtx.fillStyle = 'rgba(0,0,0,0.35)';
+    wheelCtx.fill();
+    wheelCtx.lineWidth = 1;
+    wheelCtx.strokeStyle = 'rgba(255,255,255,0.15)';
+    wheelCtx.stroke();
+    wheelCtx.restore();
+
+    // رسم النص سطرًا بسطر مع ظل وحد بسيط لتحسين الوضوح
     wheelCtx.fillStyle = '#fff';
+    wheelCtx.shadowColor = 'rgba(0,0,0,0.6)';
+    wheelCtx.shadowBlur  = 4;
+    wheelCtx.shadowOffsetX = 0;
+    wheelCtx.shadowOffsetY = 1;
     for (let j = 0; j < lines.length; j++) {
-      wheelCtx.fillText(lines[j], textX, textY + j * lh);
+      const lineY = textY - (totalH - lh) / 2 + j * lh;
+      // stroke خفيف أولاً
+      wheelCtx.lineWidth = 3;
+      wheelCtx.strokeStyle = 'rgba(0,0,0,0.35)';
+      wheelCtx.strokeText(lines[j], textX, lineY);
+      // ثم تعبئة بيضاء فوقه
+      wheelCtx.fillText(lines[j], textX, lineY);
     }
 
     wheelCtx.restore();
@@ -629,10 +683,10 @@ function getUserId() {
 
 // ======= Event Listeners for Modals =======
 document.getElementById('wheel-modal').addEventListener('click', e=> {
-  if (e.target===e.currentTarget) closeWheelModal();
+  if (!e.target.closest('.fade-in')) closeWheelModal();
 });
 document.getElementById('prize-modal').addEventListener('click', e=> {
-  if (e.target===e.currentTarget) closePrizeModal();
+  if (!e.target.closest('.fade-in')) closePrizeModal();
 });
 document.addEventListener('keydown', e=> {
   if (e.key==='Escape') { closeWheelModal(); closePrizeModal(); }
