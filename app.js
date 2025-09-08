@@ -457,11 +457,11 @@ function drawWheel() {
 
     // 2) نص الجائزة (14px عريض) مع لف أسطر وخلفية مستديرة وحد شفاف
     wheelCtx.font = 'bold 14px Tajawal, Cairo, Arial, sans-serif';
-    const maxTextW = outerR * 0.5; // أقصى عرض للنص
+    const maxTextW = outerR * 0.68; // أقصى عرض للنص
     const lines    = wrapText(wheelCtx, p.name, maxTextW);
     const lh       = 16;           // ارتفاع السطر
     const totalH   = Math.max(lh, lines.length * lh);
-    const textX    = outerR * 0.72; // أبعد قليلاً لتفادي تداخل الأيقونة
+    const textX    = outerR * 0.65; // أبعد قليلاً لتفادي تداخل الأيقونة
     const textY    = 0;             // تمركز عمودي
 
     // خلفية نصف شفافة بزوايا مستديرة وحد خفيف
