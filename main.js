@@ -853,7 +853,7 @@ ${this.storySteps.join('\n')}
                       `
                   :""
                         }
-                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4 dark:from-gray-700 dark:to-gray-800 dark:text-gray-200">
+                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl shadow p-4 text-right text-lg text-gray-800 border border-purple-100 group-hover:scale-105 transition-transform mb-4 dark:from-gray-700 dark:to-gray-800 dark:text-gray-900">
                         <span class="block">${step}</span>
                       </div>
                       ${i < arr.length-1 ? '<div class=\"my-4 h-1 w-12 mx-auto bg-gradient-to-r from-purple-200 to-pink-200 rounded-full opacity-60 animate-pulse dark:from-gray-600 dark:to-gray-700\"></div>' : ''}

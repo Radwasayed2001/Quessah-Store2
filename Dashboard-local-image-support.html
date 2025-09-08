@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - إدارة محتوى عالم قصة</title>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PZWT3CRV');</script>
+<!-- End Google Tag Manager -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase App (core) SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+
+<!-- Firebase products you want to use: -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+    <link rel="stylesheet" href="./output.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#303590',
+                        accent: '#565BB6',
+                        'dark-accent': '#041710'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        @keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 0.7s linear infinite;
+}
+
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PZWT3CRV"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <!-- Header -->
+    <header class="bg-primary text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold">لوحة التحكم</h1>
+                <div id="next-image-display" class="text-sm text-white/80 mt-1">الرقم القادم: --</div>
+            </div>
+            <a href="index.html" class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors">
+                العودة للموقع
+            </a>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Tabs -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex">
+                    <button onclick="showTab('story')" id="story-tab"
+                        class="tab-button active mr-8 py-2 px-1 border-b-2 font-medium text-sm">
+                        إدارة القصص
+                    </button>
+                    <button onclick="showTab('prizes')" id="prizes-tab"
+                        class="tab-button mr-8 py-2 px-1 border-b-2 font-medium text-sm">
+                        إدارة الجوائز
+                    </button>
+                    <button onclick="showTab('claims')" id="claims-tab"
+                        class="tab-button py-2 px-1 border-b-2 font-medium text-sm">
+                        سجل المطالبات
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Story Management Tab -->
+        <!-- === Story Management Tab === -->
+<div id="story-content" class="tab-content">
+
+  <!-- Form for Add / Edit -->
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <h2 class="text-2xl font-bold text-primary mb-6">إدارة القصص</h2>
+
+    <form id="story-form" class="space-y-6" data-editing-id="">
+      <div>
+        <label for="story-title-input" class="block text-sm font-medium text-gray-700 mb-2">
+          عنوان القصة
+        </label>
+        <input
+          type="text"
+          id="story-title-input"
+          name="title"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="أدخل عنوان القصة"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="story-image-file" class="block text-sm font-medium text-gray-700 mb-2">
+          صورة القصة
+        </label>
+        <div class="flex items-center space-x-4">
+          <label
+            for="story-image-file"
+            class="cursor-pointer bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+          >
+            📷 اختر صورة
+          </label>
+          <input type="file" id="story-image-file" accept="image/*" class="hidden" />
+          <span id="story-image-filename" class="text-gray-600 truncate">لم يتم اختيار صورة</span>
+        </div>
+        <div id="story-image-preview" class="mt-4 hidden">
+          <img src="" alt="معاينة الصورة" class="mx-auto rounded-lg max-h-48 shadow-md" />
+        </div>
+      </div>
+
+      <div>
+        <label for="story-content-input" class="block text-sm font-medium text-gray-700 mb-2">
+          محتوى القصة
+        </label>
+        <textarea
+          id="story-content-input"
+          name="content"
+          rows="6"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="أدخل محتوى القصة هنا..."
+          required
+        ></textarea>
+      </div>
+
+      <div class="flex gap-4">
+        <button id="submitStoryBtn" type="submit"
+          class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg transition-colors flex-1 text-center">
+          <span id="submitStoryText">نشر القصة</span>
+          <span id="submitStoryLoader" class="hidden ml-2 animate-spin">⏳</span>
+        </button>
+        <button type="button" onclick="clearStoryForm()"
+          class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition-colors">
+          مسح النموذج
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- List of Stories -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h3 class="text-xl font-bold text-gray-800 mb-4">قائمة القصص</h3>
+    <div id="stories-list" class="space-y-4 text-right">
+      <!-- JS will inject -->
+    </div>
+  </div>
+</div>
+
+
+        <!-- Prizes Management Tab -->
+        <div id="prizes-content" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-2xl font-bold text-primary mb-6">إدارة جوائز العجلة</h2>
+
+                <form id="prize-form" class="space-y-4 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="prize-name-input" class="block text-sm font-medium text-gray-700 mb-2">اسم
+                                الجائزة</label>
+                            <input type="text" id="prize-name-input" name="name"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="مثال: خصم 20%">
+                        </div>
+
+                        <div>
+                            <label for="prize-icon-input" class="block text-sm font-medium text-gray-700 mb-2">الرمز
+                                (emoji)</label>
+                            <input type="text" id="prize-icon-input" name="icon"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                placeholder="🎁">
+                        </div>
+                        <div>
+      <label for="prize-weight-input" class="block text-sm font-medium text-gray-700 mb-2">
+        الوزن (prob. weight %)
+      </label>
+      <input type="number" id="prize-weight-input" name="weight"
+             min="1" max="100" step="1"
+             class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+             placeholder="مثال: 20">
+    </div>
+    <!-- inside <form id="prize-form"> … -->
+<div>
+  <label for="prize-message-input" class="block text-sm font-medium text-gray-700 mb-2">
+    نص الجائزة
+  </label>
+  <textarea
+    id="prize-message-input"
+    name="message"
+    rows="2"
+    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+    placeholder="مثال: مبروووك! استخدم الكود XYZ واحصل على…"
+    required
+  ></textarea>
+</div>
+
+                        <div class="flex items-end">
+                            <button type="submit"
+                                class="w-full bg-accent hover:bg-accent/90 text-white px-6 py-2 rounded-lg transition-colors">
+                                إضافة جائزة
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Prizes List -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">قائمة الجوائز</h3>
+                <div id="prizes-list" class="space-y-2">
+                    <!-- Prizes will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Claims Log Tab -->
+        <div id="claims-content" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-primary">سجل المطالبات اليومية</h2>
+                    <button onclick="clearAllClaims()"
+                        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        مسح جميع السجلات
+                    </button>
+                </div>
+
+                <div id="claims-list" class="space-y-4">
+                    <!-- Claims will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="message-container" class="fixed top-4 right-4 z-50"></div>
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+<!-- right after your Firebase init scripts, but before any HTML that uses showTab/uploadImageToCloudinary -->
+<script>
+  // — showTab/Tab-management must be here before the <button onclick="showTab(…)"> runs
+  function showTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.classList.remove('active','text-primary','border-primary');
+      btn.classList.add('text-gray-500','hover:text-gray-700','border-transparent');
+    });
+    document.getElementById(`${tabName}-content`).classList.remove('hidden');
+    const active = document.getElementById(`${tabName}-tab`);
+    active.classList.add('active','text-primary','border-primary');
+    active.classList.remove('text-gray-500','hover:text-gray-700','border-transparent');
+  }
+
+  // — uploadImageToCloudinary also needs to be defined before you ever call it in the form handler
+  const CLOUDINARY_CLOUD_NAME   = 'dxp3nhgpm';
+  const CLOUDINARY_UPLOAD_PRESET = 'unsigned_preset';
+  async function uploadImageToCloudinary(file) {
+    const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/upload`;
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    const res = await fetch(url, { method:'POST', body: formData });
+    const data = await res.json();
+    if (!res.ok || !data.secure_url) {
+      console.error('Cloudinary error', data);
+      throw new Error(data.error?.message || 'Upload failed');
+    }
+    return data.secure_url;
+  }
+</script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXOfkZH-iisY9RecsDlKFdF2CPQDn5J-Y",
+    authDomain: "quessah-c52e7.firebaseapp.com",
+    projectId: "quessah-c52e7",
+    storageBucket: "quessah-c52e7.appspot.com",
+    messagingSenderId: "370785509486",
+    appId: "1:370785509486:web:a8970f44852ff24f9dc67f"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db      = firebase.firestore();
+  const storage = firebase.storage();
+</script>
+
+
+    <script>
+  // — HELPER to show toast —
+  function showMessage(msg, type='info') {
+    const c = document.getElementById('message-container');
+    const bg = type==='success' ? 'bg-green-500'
+             : type==='error'   ? 'bg-red-500'
+                                : 'bg-blue-500';
+    const d = document.createElement('div');
+    d.className = `${bg} text-white px-4 py-2 rounded-lg mb-2 shadow`;
+    d.textContent = msg;
+    c.append(d);
+    setTimeout(() => d.remove(), 3000);
+  }
+
+  // --- get and increment next image number (transactional) ---
+  async function getAndIncrementNextImageNumber() {
+    const ref = db.collection('meta').doc('dashboard');
+    const next = await db.runTransaction(async (tx) => {
+      const doc = await tx.get(ref);
+      let n = 3; // default start
+      if (doc.exists && typeof doc.data().nextImageNumber === 'number') {
+        n = doc.data().nextImageNumber;
+      }
+      tx.set(ref, { nextImageNumber: n + 1 }, { merge: true });
+      return n;
+    });
+    return next;
+  }
+
+  async function loadNextImageNumberDisplay() {
+    try {
+      const doc = await db.collection('meta').doc('dashboard').get();
+      const n = doc.exists && typeof doc.data().nextImageNumber === 'number' ? doc.data().nextImageNumber : 3;
+      document.getElementById('next-image-display').textContent = `الرقم القادم: ${n}`;
+    } catch (e) { console.error(e); }
+  }
+
+  // — LOAD all stories —
+  async function loadStories() {
+  const c = document.getElementById('stories-list');
+  c.innerHTML = `<div class="text-gray-500 text-center py-6">جاري التحميل…</div>`;
+  try {
+    const snap = await db.collection('stories').orderBy('createdAt','desc').get();
+    if (snap.empty) {
+      c.innerHTML = `<div class="text-gray-500 text-center py-6">لا توجد قصص</div>`;
+      return;
+    }
+    c.innerHTML = snap.docs.map(doc => {
+      const s = { id: doc.id, ...doc.data() };
+      const hasImage = s.image
+  && typeof s.image === 'string'
+  && s.image.trim() !== ''
+  && s.image.trim() !== 'null'
+  && !s.image.includes('dashboard.html')
+  && !s.image.startsWith('file:///');
+      console.log(s.image);
+      
+      return `
+      <div class="bg-gray-50 p-4 rounded-lg flex justify-between items-start">
+        <!-- عرض الصورة -->
+        <div class="flex-shrink-0 mr-4">
+           ${hasImage ? `<img src="${s.image}" alt="${s.title}" class="w-24 h-24 object-cover rounded-lg shadow-sm">` : ''}
+        </div>
+        <!-- نص القصة -->
+        <div class="flex-1 text-right">
+          <h4 class="font-semibold mb-1">${s.title}</h4>
+          <p class="text-sm text-gray-700 p-2">${s.content}</p>
+        </div>
+        <!-- أزرار التعديل والحذف -->
+        <div class="flex flex-col gap-2 ml-4">
+          <button onclick="editStory('${s.id}')" class="px-3 py-1 bg-accent text-white rounded">تعديل</button>
+          <button onclick="assignLocalImage('${s.id}')" class="px-3 py-1 bg-yellow-500 text-white rounded">استخدم صورة محلية</button>
+          <button onclick="deleteStory('${s.id}')" class="px-3 py-1 bg-red-500 text-white rounded">حذف</button>
+        </div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    console.error(e);
+    c.innerHTML = `<div class="text-red-500 text-center py-6">خطأ في جلب القصص</div>`;
+  }
+}
+
+
+  // — POPULATE form for editing —
+  async function editStory(id) {
+    const doc = await db.collection('stories').doc(id).get();
+    if (!doc.exists) return showMessage('القصة غير موجودة','error');
+    const s = { id: doc.id, ...doc.data() };
+    document.getElementById('story-title-input').value = s.title || '';
+    document.getElementById('story-content-input').value = s.content || '';
+
+    // image preview
+    const prev = document.getElementById('story-image-preview');
+    prev.querySelector('img').src = s.image || '';
+    if (s.image) prev.classList.remove('hidden'); else prev.classList.add('hidden');
+    document.getElementById('story-image-filename').textContent = s.image || '–';
+
+    document.getElementById('story-form').dataset.editingId = id;
+  }
+
+  // — assign local image to a story doc (./images/N.png) —
+  async function assignLocalImage(docId) {
+    try {
+      if (!confirm('هل أنت متأكدة؟ سيتم تعيين الصورة المحلية التالية لهذا المستند.')) return;
+      const n = await getAndIncrementNextImageNumber();
+      const localPath = `./images/${n}.png`;
+      await db.collection('stories').doc(docId).update({ image: localPath });
+      showMessage(`تم تعيين ${localPath} للقصة`, 'success');
+      loadNextImageNumberDisplay();
+      loadStories();
+    } catch (err) {
+      console.error(err);
+      showMessage('فشل تعيين الصورة المحلية: ' + (err.message || ''), 'error');
+    }
+  }
+
+  // — DELETE a story —
+  async function deleteStory(id) {
+    if (!confirm('هل أنت متأكد من الحذف؟')) return;
+    await db.collection('stories').doc(id).delete();
+    showMessage('تم حذف القصة','success');
+    loadStories();
+  }
+
+  // — CLEAR form to Add new —
+  function clearStoryForm() {
+    const f = document.getElementById('story-form');
+    f.reset();
+    f.dataset.editingId = '';
+    document.getElementById('story-image-preview').classList.add('hidden');
+    document.getElementById('story-image-filename').textContent = 'لم يتم اختيار صورة';
+  }
+
+  // — HANDLE form submit for Add / Update —
+  document.getElementById('story-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn    = document.getElementById('submitStoryBtn');
+    const txt    = document.getElementById('submitStoryText');
+    const load   = document.getElementById('submitStoryLoader');
+    btn.disabled = true; txt.classList.add('hidden'); load.classList.remove('hidden');
+
+    const form    = e.target;
+    const id      = form.dataset.editingId || null;
+    const title   = form.title.value.trim();
+    const content = form.content.value.trim();
+
+    // upload or reuse existing image
+    let imageUrl = '';
+    const file = form.elements['story-image-file'].files[0];
+    if (file) {
+      imageUrl = await uploadImageToCloudinary(file);
+    } else {
+      imageUrl = document.querySelector('#story-image-preview img').src;
+    }
+
+    try {
+      if (id) {
+        await db.collection('stories').doc(id)
+                .update({ title, content, image: imageUrl });
+        showMessage('تم تحديث القصة','success');
+      } else {
+        await db.collection('stories')
+                .add({ title, content, image: imageUrl, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+        showMessage('تم إضافة القصة','success');
+      }
+      clearStoryForm();
+      loadStories();
+    } catch(err) {
+      console.error(err);
+      showMessage('خطأ في حفظ القصة','error');
+    } finally {
+      btn.disabled = false; txt.classList.remove('hidden'); load.classList.add('hidden');
+    }
+  });
+
+  // — PREVIEW image on file select —
+  document.getElementById('story-image-file').addEventListener('change', e => {
+    const file = e.target.files[0];
+    const name = document.getElementById('story-image-filename');
+    const prev = document.getElementById('story-image-preview');
+    const img  = prev.querySelector('img');
+
+    if (file) {
+      name.textContent = file.name;
+      const r = new FileReader();
+      r.onload = () => {
+        img.src = r.result;
+        prev.classList.remove('hidden');
+      };
+      r.readAsDataURL(file);
+    } else {
+      name.textContent = 'لم يتم اختيار صورة';
+      prev.classList.add('hidden');
+    }
+  });
+
+  // — INITIALIZATION —
+  document.addEventListener('DOMContentLoaded', () => {
+    showTab('story');
+    loadNextImageNumberDisplay();
+    loadStories();
+    // … your existing init for prizes/claims …
+  });
+</script>
+
+
+<!-- تحت التهيئة نفسها لـ Firebase + Firestore كما في القصة -->
+<script>
+  // ===== إدارة الجوائز =====
+  async function loadPrizes() {
+  const container = document.getElementById('prizes-list');
+  container.innerHTML = '<div class="text-gray-500 text-center py-8">جاري التحميل...</div>';
+  try {
+    const snap = await db.collection('wheelPrizes').orderBy('name').get();
+    const prizes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    if (prizes.length === 0) {
+      container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد جوائز</div>';
+      return;
+    }
+    container.innerHTML = prizes.map(p => `
+      <div class="bg-gray-50 p-4 rounded-lg mb-2">
+        <div class="flex items-start gap-4">
+          <span class="text-2xl">${p.icon}</span>
+          <div class="flex-1">
+            <div class="font-medium text-lg">${p.name}</div>
+            <div class="text-sm text-gray-600 mb-2">${p.message}</div>
+            <div class="text-xs text-gray-500">الوزن: ${p.weight || 1}%</div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <button onclick="editPrize('${p.id}')" class="bg-accent px-3 py-1 rounded text-sm text-white">تعديل</button>
+            <button onclick="deletePrize('${p.id}')" class="bg-red-500 px-3 py-1 rounded text-sm text-white">حذف</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = '<div class="text-red-500 text-center py-8">خطأ في التحميل</div>';
+  }
+}
+
+ 
+async function editPrize(id) {
+  const doc = await db.collection('wheelPrizes').doc(id).get();
+  if (!doc.exists) return showMessage('لم أجد الجائزة','error');
+  const p = { id: doc.id, ...doc.data() };
+  document.getElementById('prize-name-input').value    = p.name;
+  document.getElementById('prize-icon-input').value    = p.icon;
+  document.getElementById('prize-message-input').value = p.message || '';
+  document.getElementById('prize-weight-input').value  = p.weight  || '';
+  document.getElementById('prize-form').dataset.editingId = id;
+}
+
+
+  async function deletePrize(id) {
+    if (!confirm('هل أنت متأكد؟')) return;
+    await db.collection('wheelPrizes').doc(id).delete();
+    showMessage('تم الحذف','success');
+    loadPrizes();
+  }
+
+  document.getElementById('prize-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form   = e.target;
+  const name   = form.name.value.trim();
+  const icon   = form.icon.value.trim()   || '🎁';
+  const message= form.message.value.trim();
+  const weight = parseInt(form.weight.value, 10) || 1;
+
+  if (!name || !message) {
+    return showMessage('يرجى إدخال اسم الجائزة ورسالتها', 'error');
+  }
+
+  const editingId = form.dataset.editingId;
+  try {
+    if (editingId) {
+      // تحديث موجود
+      await db.collection('wheelPrizes').doc(editingId)
+        .update({ name, icon, message, weight });
+      delete form.dataset.editingId;
+    } else {
+      // إضافة جديدة
+      await db.collection('wheelPrizes')
+        .add({ name, icon, message, weight });
+    }
+    showMessage('تم حفظ الجائزة بنجاح', 'success');
+    form.reset();
+    loadPrizes();
+  } catch (err) {
+    console.error(err);
+    showMessage('خطأ في حفظ الجائزة', 'error');
+  }
+});
+
+  async function initializeDefaultPrizes() {
+    const snap = await db.collection('wheelPrizes').limit(1).get();
+    if (snap.empty) {
+      const defaults = [
+      {
+        name: 'مناديل قصة هدية',
+        icon: '🧻',
+        message: 'مبروووك! استخدم كود: GIFT5 و احصل على مناديل قصة مجانًا مع طلبك القادم.',
+        weight: 5
+      },
+      {
+        name: 'خصم 50% على طلبك القادم',
+        icon: '🎉',
+        message: 'مبروووك! استخدم كود: D50 و احصل على خصم 50٪ حتى 100 ريال مع طلبك القادم.',
+        weight: 5
+      },
+      {
+        name: 'خصم 25% على طلبك القادم',
+        icon: '💵',
+        message: 'مبروووك! استخدم كود: D25 و احصل على خصم 25٪ حتى 100 ريال مع طلبك القادم.',
+        weight: 35
+      },
+      {
+        name: 'توصيل مجاني على طلبك القادم',
+        icon: '🚚',
+        message: 'مبروووك! استخدم كود: SHIP و احصل على شحن مجاني مع طلبك القادم.',
+        weight: 30
+      },
+      {
+        name: 'خصم 10 ريال على طلبك القادم',
+        icon: '🔖',
+        message: 'حظك طيب! خصم 10 ريال على طلبك القادم، استخدم الكود: D10',
+        weight: 20
+      },
+      {
+        name: 'طلبك علينا (حد أقصى 300 ريال)',
+        icon: '🎁',
+        message: 'مبرووووك!!! طلبك علينا، استخدم الكود: FREE300',
+        weight: 5
+      }
+    ];
+      const batch = db.batch();
+      defaults.forEach(d => {
+        const ref = db.collection('wheelPrizes').doc();
+        batch.set(ref, d);
+      });
+      await batch.commit();
+    }
+  }
+
+  // ===== إدارة المطالبات =====
+  async function loadClaims() {
+    const container = document.getElementById('claims-list');
+    container.innerHTML = '<div class="text-gray-500 text-center py-8">جاري التحميل...</div>';
+    try {
+      const snap = await db.collection('claims').orderBy('claimDate','desc').get();
+      const claims = snap.docs.map(d => d.data());
+      if (claims.length === 0) {
+        container.innerHTML = '<div class="text-gray-500 text-center py-8">لا توجد مطالبات</div>';
+        return;
+      }
+      container.innerHTML = claims.map(c => `
+        <div class="bg-gray-50 p-4 rounded-lg mb-2">
+          <div class="flex justify-between">
+            <div>
+              <div>👤 ${c.userId}</div>
+              <div>🎁 ${c.prizeName}</div>
+              <div>${new Date(c.claimDate).toLocaleDateString('ar-SA')}</div>
+            </div>
+            <button onclick="clearUserClaim('${c.userId}')" class="bg-red-500 px-3 py-1 rounded text-white">مسح</button>
+          </div>
+        </div>
+      `).join('');
+    } catch (e) {
+      console.error(e);
+      container.innerHTML = '<div class="text-red-500 text-center py-8">خطأ</div>';
+    }
+  }
+
+  async function clearUserClaim(userId) {
+    if (!confirm('مسح؟')) return;
+    localStorage.clear();
+
+    await db.collection('claims').doc(`dailyClaim_${userId}`).delete();
+
+    showMessage('تم المسح','success');
+    loadClaims();
+  }
+
+  async function clearAllClaims() {
+    if (!confirm('مسح الكل؟')) return;
+    localStorage.clear();
+
+    const snap = await db.collection('claims').get();
+    const batch = db.batch();
+    snap.forEach(d => batch.delete(d.ref));
+    await batch.commit();
+
+    showMessage('تم المسح الكل','success');
+    loadClaims();
+  }
+  </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  await initializeDefaultPrizes();
+  loadPrizes();
+  loadClaims();
+});
+// === Utility: Messages ===
+  function showMessage(msg, type = 'info') {
+    const container = document.getElementById('message-container');
+    const div = document.createElement('div');
+    const bg = type === 'success' ? 'bg-green-500'
+             : type === 'error'   ? 'bg-red-500'
+                                  : 'bg-blue-500';
+    div.className = `${bg} text-white px-4 py-2 rounded-lg mb-2 shadow-lg`;
+    div.textContent = msg;
+    container.appendChild(div);
+    setTimeout(() => div.remove(), 3000);
+  }
+
+  // === Initialization on DOM Ready ===
+  document.addEventListener('DOMContentLoaded', async () => {
+    showTab('story');
+    // initializeDefaultPrizes() called elsewhere
+    // await initializeDefaultStory(); // optional if exists elsewhere
+    loadPrizes();
+  });
+</script>
+
+
+</body>
+
+</html>

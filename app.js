@@ -22,7 +22,8 @@ let currentPrizes = [];
 
 // ======= Initialization =======
 document.addEventListener('DOMContentLoaded', async () => {
-  await initializeDefaultPrizes();
+  // Remove initializeDefaultPrizes() to prevent duplicate prizes
+  // Firebase should already have prizes configured
   currentPrizes = await fetchPrizesFromFirestore();
   initializeWheel();
   loadClaims();
@@ -357,55 +358,8 @@ async function fetchUserClaimFromFirestore(userId) {
 }
 
 // ======= Default Data Seeders =======
-async function initializeDefaultPrizes() {
-  const snap = await db.collection('wheelPrizes').limit(1).get();
-  if (snap.empty) {
-    const defaults = [
-      {
-        name: 'مناديل قصة هدية',
-        icon: '🧻',
-        message: 'مبروووك! استخدم كود: GIFT5 و احصل على مناديل قصة مجانًا مع طلبك القادم.',
-        weight: 5
-      },
-      {
-        name: 'خصم 50% على طلبك القادم',
-        icon: '🎉',
-        message: 'مبروووك! استخدم كود: D50 و احصل على خصم 50٪ حتى 100 ريال مع طلبك القادم.',
-        weight: 5
-      },
-      {
-        name: 'خصم 25% على طلبك القادم',
-        icon: '💵',
-        message: 'مبروووك! استخدم كود: D25 و احصل على خصم 25٪ حتى 100 ريال مع طلبك القادم.',
-        weight: 35
-      },
-      {
-        name: 'توصيل مجاني على طلبك القادم',
-        icon: '🚚',
-        message: 'مبروووك! استخدم كود: SHIP و احصل على شحن مجاني مع طلبك القادم.',
-        weight: 30
-      },
-      {
-        name: 'خصم 10 ريال على طلبك القادم',
-        icon: '🔖',
-        message: 'حظك طيب! خصم 10 ريال على طلبك القادم، استخدم الكود: D10',
-        weight: 20
-      },
-      {
-        name: 'طلبك علينا (حد أقصى 300 ريال)',
-        icon: '🎁',
-        message: 'مبرووووك!!! طلبك علينا، استخدم الكود: FREE300',
-        weight: 5
-      }
-    ];
-    const batch = db.batch();
-    defaults.forEach(d => {
-      const ref = db.collection('wheelPrizes').doc();
-      batch.set(ref, d);
-    });
-    await batch.commit();
-  }
-}
+// Removed initializeDefaultPrizes() function to prevent duplicate prizes
+// Firebase should be pre-configured with prizes by admin
 
 // ======= Wheel Initialization & Drawing =======
 function initializeWheel() {
@@ -488,18 +442,18 @@ function drawWheel() {
     wheelCtx.textBaseline = 'middle';
 
     // 1) أيقونة أصغر وبعيدة عن النص مع هالة خفيفة
-    const iconX = outerR * 0.42;
-    const iconY = 0;
+    // const iconX = outerR * 0.42;
+    // const iconY = 0;
     wheelCtx.save();
     wheelCtx.fillStyle = 'rgba(0,0,0,0.25)';
     wheelCtx.beginPath();
-    wheelCtx.arc(iconX, iconY, 16, 0, Math.PI * 2);
+    // wheelCtx.arc(iconX, iconY, 16, 0, Math.PI * 2);
     wheelCtx.fill();
     wheelCtx.restore();
 
     wheelCtx.fillStyle = '#fff';
     wheelCtx.font      = '24px serif';
-    wheelCtx.fillText(p.icon, iconX, iconY);
+    // wheelCtx.fillText(p.icon, iconX, iconY);
 
     // 2) نص الجائزة (14px عريض) مع لف أسطر وخلفية مستديرة وحد شفاف
     wheelCtx.font = 'bold 14px Tajawal, Cairo, Arial, sans-serif';
@@ -519,11 +473,11 @@ function drawWheel() {
     const bgH = totalH + pad * 2;
     wheelCtx.save();
     roundRect(wheelCtx, bgX, bgY, bgW, bgH, 8);
-    wheelCtx.fillStyle = 'rgba(0,0,0,0.35)';
-    wheelCtx.fill();
+    // wheelCtx.fillStyle = 'rgba(0,0,0,0.35)';
+    // wheelCtx.fill();
     wheelCtx.lineWidth = 1;
-    wheelCtx.strokeStyle = 'rgba(255,255,255,0.15)';
-    wheelCtx.stroke();
+    // wheelCtx.strokeStyle = 'rgba(255,255,255,0.15)';
+    // wheelCtx.stroke();
     wheelCtx.restore();
 
     // رسم النص سطرًا بسطر مع ظل وحد بسيط لتحسين الوضوح
